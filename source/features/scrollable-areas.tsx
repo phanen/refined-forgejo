@@ -1,7 +1,7 @@
-import './scrollable-areas.css';
+import "./scrollable-areas.css";
 
-import features from '../feature-manager.js';
+import features from "../feature-manager.js";
 
 features.add(import.meta.url, {
-	init() {},
+  init() {},
 });

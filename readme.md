@@ -62,7 +62,7 @@
 ### Code
 
 - `[todo]` **linkify-code** - 代码中的 issue/PR 引用和 URL 可点击
-- `[todo]` **copy-on-y** - 增强 y 快捷键复制永久链接
+- `[done]` **copy-on-y** - 增强 y 快捷键复制永久链接
 - `[todo]` **linkify-symbolic-links** - 符号链接文件可点击
 - `[todo]` **list-prs-for-file** - 当前文件被 PR 修改时提醒
 - `[todo]` **refined-github.css** - 将 tab 缩减为 4 空格
