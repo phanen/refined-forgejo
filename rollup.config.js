@@ -72,6 +72,7 @@ const rollup = {
 		copy({
 			targets: [
 				{src: './source/manifest.json', dest: 'distribution'},
+				{src: './source/*.html', dest: 'distribution'},
 				{src: './source/*.png', dest: 'distribution/assets'},
 			],
 		}),
