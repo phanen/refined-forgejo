@@ -134,7 +134,7 @@
 		"sourceDir": "distribution",
 		"run": {
 			"startUrl": [
-				"https://codeberg.org/*"
+				"https://codeberg.org/"
 			]
 		}
 	}
