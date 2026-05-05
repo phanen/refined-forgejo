@@ -99,9 +99,9 @@
 - `[todo]` **preview-hidden-comments** - 🔥 悬停预览被折叠的评论
 - `[todo]` **highest-rated-comment** - 🔥 高亮最有用的评论
 - `[todo]` **hide-low-quality-comments** - 隐藏反应评论（「+1」「👍」等），维护者除外
-- `[todo]` **scrollable-areas** - 限制代码块和引用的高度
+- `[done]` **scrollable-areas** - 限制代码块和引用的高度
 - `[todo]` **quick-comment-hiding** - 简化隐藏评论的 UI
-- `[todo]` **open-issue-to-latest-comment** - issue 列表的评论图标链接到最后一条评论
+- `[done]` **open-issue-to-latest-comment** - issue 列表的评论图标链接到最后一条评论
 - `[todo]` **expand-all-hidden-comments** - alt 点击「N hidden items」时加载更多评论（200条）
 - `[todo]` **keyboard-navigation** - 添加 j/k 快捷键导航，x 标记已读/未读
 - `[todo]` **comment-excess** - 长 issue 头部显示隐藏评论数量，Cmd/Ctrl+F 时滚动到隐藏评论

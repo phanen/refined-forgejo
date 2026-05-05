@@ -1,0 +1,18 @@
+.comment-body,
+.markup-block,
+.comment-content {
+	blockquote,
+	pre {
+		position: relative;
+		max-height: 30.5em;
+		overflow-y: auto;
+	}
+
+	blockquote {
+		padding-bottom: 0.2em;
+	}
+
+	:is(details, blockquote) :is(blockquote, pre) {
+		max-height: none;
+	}
+}
