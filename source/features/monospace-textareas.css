@@ -1,0 +1,8 @@
+textarea[name="comment"],
+textarea[name="title"],
+textarea[name="body"],
+#commit-message-input,
+textarea[id*="commit"],
+textarea[id*="release"] {
+	font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace !important;
+}

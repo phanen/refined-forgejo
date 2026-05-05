@@ -244,7 +244,7 @@
 - `[todo]` **improve-shortcut-help** - 在帮助弹窗（?）中显示所有 Refined GitHub 快捷键
 - `[done]` **clean-footer** - 淡化页脚
 - `[todo]` **night-not-found** - 404 页面添加深色模式
-- `[todo]` **monospace-textareas** - 提交消息等字段使用等宽字体
+- `[done]` **monospace-textareas** - 提交消息等字段使用等宽字体
 
 ---
 
