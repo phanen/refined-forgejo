@@ -1,7 +1,7 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
-import {wrap} from "../helpers/dom-utils.js";
+import { wrap } from "../helpers/dom-utils.js";
 
 function init(): void {
   const element = document.querySelector(".sha, [class*='sha'], [class*='commit-sha']") as HTMLElement | null;
