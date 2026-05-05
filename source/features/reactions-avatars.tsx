@@ -60,7 +60,7 @@ async function showAvatarsOn(reactionContainer: Element): Promise<void> {
 
 	for (const {button, username, imageUrl} of flatParticipants) {
 		const avatar = (
-			<span className="rgf-reactions-avatar" style={{marginLeft: '-6px'}}>
+			<span className="rgf-reactions-avatar" style={{marginLeft: '0px'}}>
 				<img
 					src={imageUrl}
 					width={avatarSize}
