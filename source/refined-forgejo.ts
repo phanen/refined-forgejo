@@ -55,4 +55,5 @@ import "./features/click-outside-modal.js";
 import "./features/same-page-links.js";
 import "./features/clean-readme-url.js";
 import "./features/new-milestone-button.js";
+import "./features/show-user-top-repositories.js";
 import "./features/github-bugs.js";

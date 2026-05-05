@@ -1,8 +1,8 @@
 import React from "dom-chef";
-import {$} from "select-dom";
+import { $ } from "select-dom";
 
 import features from "../feature-manager.js";
-import {buildRepoUrl} from "../github-helpers/index.js";
+import { buildRepoUrl } from "../github-helpers/index.js";
 
 function init(): void {
   const container = $(".milestone");
