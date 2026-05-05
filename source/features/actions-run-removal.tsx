@@ -14,7 +14,9 @@ function addQuickButtons(kebabButton: Element): void {
   }
 
   const cancelForm = row.querySelector("form[action*='cancel']") as HTMLFormElement | null;
-  const deleteButton = row.querySelector("button[class*='delete'], button[title*='delete' i]") as HTMLButtonElement | null;
+  const deleteButton = row.querySelector("button[class*='delete'], button[title*='delete' i]") as
+    | HTMLButtonElement
+    | null;
 
   if (cancelForm && !row.querySelector(".rgf-actions-cancel-btn")) {
     const btn = document.createElement("button");
@@ -50,7 +52,7 @@ async function init(signal: AbortSignal): Promise<void> {
       "[class*='more']",
     ].join(","),
     addQuickButtons,
-    {signal},
+    { signal },
   );
 }
 

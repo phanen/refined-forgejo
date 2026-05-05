@@ -28,6 +28,7 @@ export const isIssueList = (): boolean => /\/(?:repo)?\/[^\/]+\/[^\/]+\/issues$/
 export const isPRList = (): boolean => /\/(?:repo)?\/[^\/]+\/[^\/]+\/pulls$/.test(currentPage);
 export const isWiki = (): boolean => includes("/wiki/");
 export const isAction = (): boolean => includes("/actions/");
+export const isActionRun = (): boolean => /\/(?:repo)?\/[^\/]+\/[^\/]+\/actions\/runs\/\d+/.test(currentPage);
 export const isSettings = (): boolean => includes("/settings/");
 export const isUserProfile = (): boolean => /^\/[^\/]+$/.test(currentPage);
 export const isNotifications = (): boolean => currentPage === "/notifications";
@@ -46,6 +47,7 @@ export const pageDetect = {
   isPRList,
   isWiki,
   isAction,
+  isActionRun,
   isSettings,
   isUserProfile,
   isNotifications,
