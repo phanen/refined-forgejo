@@ -18,36 +18,43 @@ async function getAvatarUrl(username: string): Promise<string | undefined> {
 	}
 }
 
-async function addAvatar(reactionButton: Element): Promise<void> {
+async function addAvatars(reactionButton: Element): Promise<void> {
 	if (reactionButton.querySelector('.rgf-reaction-avatar')) {
 		return;
 	}
 
-	const username = reactionButton.getAttribute('title')?.trim();
-	if (!username) {
+	const title = reactionButton.getAttribute('title')?.trim();
+	if (!title) {
 		return;
 	}
 
-	const avatarUrl = await getAvatarUrl(username);
-	if (!avatarUrl) {
+	const usernames = title.split(',').map(u => u.trim()).filter(Boolean);
+	if (usernames.length === 0) {
 		return;
 	}
 
-	const avatar = (
-		<img
-			className="rgf-reaction-avatar"
-			src={avatarUrl}
-			alt={username}
-			title={username}
-			style={{width: '16px', height: '16px', borderRadius: '50%', marginLeft: '4px', verticalAlign: 'middle'}}
-		/>
-	);
+	for (const username of usernames) {
+		const avatarUrl = await getAvatarUrl(username);
+		if (!avatarUrl) {
+			continue;
+		}
 
-	reactionButton.append(avatar);
+		const avatar = (
+			<img
+				className="rgf-reaction-avatar"
+				src={avatarUrl}
+				alt={username}
+				title={username}
+				style={{width: '16px', height: '16px', borderRadius: '50%', marginLeft: '4px', verticalAlign: 'middle'}}
+			/>
+		);
+
+		reactionButton.append(avatar);
+	}
 }
 
 async function init(signal: AbortSignal): Promise<void> {
-	observe('.comment-reaction-button', addAvatar, {signal});
+	observe('.comment-reaction-button', addAvatars, {signal});
 }
 
 features.add(import.meta.url, {
