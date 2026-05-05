@@ -1,0 +1,110 @@
+import {css} from 'code-tag';
+import React from 'dom-chef';
+import domLoaded from 'dom-loaded';
+
+import delay from './delay.js';
+import onetime from './onetime.js';
+
+type ObserverListener<ExpectedElement extends Element> = (element: ExpectedElement, options: {signal?: AbortSignal}) => void;
+
+type Options = {
+	stopOnDomReady?: boolean;
+	once?: boolean;
+	signal?: AbortSignal;
+	ancestor?: number;
+};
+
+const animation = 'rgh-selector-observer';
+
+const registerAnimation = onetime((): void => {
+	document.head.append(<style>{`@keyframes ${animation} {}`}</style>);
+});
+
+function getSeenMark(selector: string): string {
+	return 'rgh-seen-' + selector.replace(/[^a-z\d]/gi, '_').slice(0, 50);
+}
+
+export default function observe<
+	Selector extends string,
+	ExpectedElement extends Element,
+>(
+	selectors: Selector | readonly Selector[],
+	listener: ObserverListener<ExpectedElement>,
+	{signal, stopOnDomReady, once}: Options = {},
+): void {
+	if (signal?.aborted) {
+		return;
+	}
+
+	const selector = typeof selectors === 'string' ? selectors : selectors.join(',\n');
+	const seenMark = getSeenMark(selector);
+
+	registerAnimation();
+
+	const rule = document.createElement('style');
+	rule.textContent = css`
+		:where(${selector}):not(.${seenMark}) {
+			animation: 1ms ${animation};
+		}
+	`;
+	document.body.prepend(rule);
+
+	signal?.addEventListener('abort', () => {
+		rule.remove();
+	});
+
+	let called = false;
+
+	async function checkLogging(): Promise<void> {
+		await domLoaded;
+		await delay(1000);
+		if (!called && !signal?.aborted) {
+			console.warn('Selector not found on page:', selector);
+		}
+	}
+
+	void checkLogging();
+
+	let cleanup: (() => void) | undefined;
+
+	globalThis.addEventListener('animationstart', (event: AnimationEvent) => {
+		if (event.animationName !== animation) {
+			return;
+		}
+
+		const target = event.target as ExpectedElement;
+		if (target.classList.contains(seenMark) || !target.matches(selector)) {
+			return;
+		}
+
+		called = true;
+		target.classList.add(seenMark);
+
+		listener(target, {signal});
+
+		if (once) {
+			cleanup?.();
+		}
+	}, {signal});
+
+	if (once) {
+		const controller = new AbortController();
+		signal = controller.signal as AbortSignal;
+		cleanup = () => controller.abort();
+	}
+}
+
+export async function waitForElement<Selector extends string>(
+	selectors: Selector,
+	{signal}: Options = {},
+): Promise<Element | void> {
+	return new Promise(resolve => {
+		observe(selectors, element => {
+			resolve(element);
+		}, {signal, once: true, ancestor: 4});
+
+		signal?.addEventListener('abort', () => {
+			resolve();
+		});
+	});
+}
