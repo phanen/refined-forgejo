@@ -1,7 +1,7 @@
-import './align-issue-labels.css';
+import "./align-issue-labels.css";
 
-import features from '../feature-manager.js';
+import features from "../feature-manager.js";
 
 features.add(import.meta.url, {
-	init() {},
+  init() {},
 });

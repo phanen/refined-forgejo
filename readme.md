@@ -54,7 +54,7 @@
 - `[todo]` **repo-wide-file-finder** - 启用键盘快捷键 t 在整个仓库搜索文件
 - `[todo]` **show-associated-branch-prs-on-fork** - fork 仓库的分支上显示关联的 PR
 - `[todo]` **html-preview-link** - 预览 HTML 文件的链接
-- `[todo]` **file-age-color** - 高亮最近修改的文件
+- `[done]` **file-age-color** - 高亮最近修改的文件
 - `[todo]` **previous-version** - 一键查看文件的上一版本
 
 ---
@@ -183,7 +183,7 @@
 - `[todo]` **extend-diff-expander** - 加宽「Expand diff」按钮可点击区域
 - `[done]` **hide-diff-signs** - 隐藏 diff 符号（已有颜色编码）
 - `[todo]` **suggest-commit-title-limit** - 建议 commit/PR 标题限制在 72 字符
-- `[todo]` **tags-on-commits-list** - 提交旁显示对应标签
+- `[done]` **tags-on-commits-list** - 提交旁显示对应标签
 - `[done]` **mark-merge-commits-in-list** - 标记提交列表中的合并提交
 - `[todo]` **deep-reblame** - alt+click「Reblame」时先提取关联 PR 的提交
 - `[todo]` **new-or-deleted-file** - 图标指示 PR/commits 中文件的添加/删除状态
