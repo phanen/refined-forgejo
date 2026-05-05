@@ -44,4 +44,5 @@ import "./features/download-folder-button.js";
 import "./features/clean-rich-text-editor.js";
 import "./features/collapsible-content-button.js";
 import "./features/one-click-diff-options.js";
+import "./features/action-pr-link.js";
 import "./features/github-bugs.js";
