@@ -16,7 +16,7 @@
 ## Highlights 🔥
 
 - `[done]` **reactions-avatars** - 在评论的 reactions 旁边显示用户头像
-- `[todo]` **sort-conversations-by-update-time** - 将 issue/PR 列表默认排序改为「最近更新」
+- `[done]` **sort-conversations-by-update-time** - 将 issue/PR 列表默认排序改为「最近更新」
 - `[todo]` **tab-to-indent** - 评论框启用 Tab 缩进
 - `[todo]` **fit-textareas** - 评论框自动调整高度
 
