@@ -50,4 +50,5 @@ import "./features/rerun-workflow.js";
 import "./features/github-actions-indicators.js";
 import "./features/linkify-commit-sha.js";
 import "./features/previous-next-commit-buttons.js";
+import "./features/close-out-of-view-modals.js";
 import "./features/github-bugs.js";

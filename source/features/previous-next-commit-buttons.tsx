@@ -1,10 +1,12 @@
 import React from "dom-chef";
-import {$optional} from "select-dom";
+import { $optional } from "select-dom";
 
 import features from "../feature-manager.js";
 
 function init(): false | void {
-  const originalPreviousNext = $optional(".commit .float-right, [class*='ButtonGroup']:has(a[href*='/commits/']), [class*='commit-nav']");
+  const originalPreviousNext = $optional(
+    ".commit .float-right, [class*='ButtonGroup']:has(a[href*='/commits/']), [class*='commit-nav']",
+  );
   if (!originalPreviousNext) {
     return false;
   }
