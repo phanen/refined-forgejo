@@ -56,4 +56,5 @@ import "./features/same-page-links.js";
 import "./features/clean-readme-url.js";
 import "./features/new-milestone-button.js";
 import "./features/show-user-top-repositories.js";
+import "./features/hide-user-forks.js";
 import "./features/github-bugs.js";

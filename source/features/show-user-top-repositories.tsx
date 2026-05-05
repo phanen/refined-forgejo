@@ -19,7 +19,9 @@ function addLink(title: Element): void {
 }
 
 function init(signal: AbortSignal): void {
-  observe(".js-pinned-items-reorder-container h2, .profile-repo-button-group, [class*='pinned'] h2", addLink, {signal});
+  observe(".js-pinned-items-reorder-container h2, .profile-repo-button-group, [class*='pinned'] h2", addLink, {
+    signal,
+  });
 }
 
 features.add(import.meta.url, {
