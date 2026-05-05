@@ -1,6 +1,6 @@
-import {css} from 'code-tag';
+import { css } from "code-tag";
 
-export const repoUnderlineNavUl = '.repo-head-container';
+export const repoUnderlineNavUl = ".repo-head-container";
 
 export const commentsCountInLists = `
 	.issue-list-item a:is(
@@ -10,29 +10,29 @@ export const commentsCountInLists = `
 `;
 
 export const newCommentField = [
-	'textarea[name="comment"]',
-	'#comment_body',
-	'.comment-form textarea',
+  "textarea[name=\"comment\"]",
+  "#comment_body",
+  ".comment-form textarea",
 ];
 
-export const reactionSelector = '.comment-reactions';
+export const reactionSelector = ".comment-reactions";
 
-export const reactionAvatarList = '.comment-reactions .avatar';
+export const reactionAvatarList = ".comment-reactions .avatar";
 
 export const commitHashLinkInLists = [
-	'.commit .sha',
-	'.commit-link a',
+  ".commit .sha",
+  ".commit-link a",
 ];
 
 export const usernameLinksSelector = [
-	'.comment-author',
-	'.user-link',
-	'a[href*="/user/"]',
+  ".comment-author",
+  ".user-link",
+  "a[href*=\"/user/\"]",
 ];
 
 export const botLinksCommitSelectors = [
-	'a[href*="/apps/"]',
-	'a[href*="/actions/"]',
+  "a[href*=\"/apps/\"]",
+  "a[href*=\"/actions/\"]",
 ];
 
 export const openPrsListLink = css`

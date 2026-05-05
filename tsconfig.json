@@ -1,31 +1,31 @@
 {
-	"extends": "@sindresorhus/tsconfig",
-	"compilerOptions": {
-		"outDir": "./distribution/assets",
-		"rootDir": "./",
-		"module": "preserve",
-		"moduleResolution": "bundler",
-		"jsx": "react",
-		"declaration": false,
-		"noUncheckedIndexedAccess": false,
-		"noPropertyAccessFromIndexSignature": false,
-		"resolveJsonModule": true,
-		"verbatimModuleSyntax": true,
-		"lib": [
-			"DOM",
-			"DOM.Iterable",
-			"ESNext.Collection",
-			"ESNext.Object",
-			"ES2024"
-		],
-		"types": [
-			"chrome"
-		]
-	},
-	"include": [
-		"source",
-		"test",
-		"build",
-		"vite.config.ts"
-	]
+  "extends": "@sindresorhus/tsconfig",
+  "compilerOptions": {
+    "outDir": "./distribution/assets",
+    "rootDir": "./",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "jsx": "react",
+    "declaration": false,
+    "noUncheckedIndexedAccess": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext.Collection",
+      "ESNext.Object",
+      "ES2024"
+    ],
+    "types": [
+      "chrome"
+    ]
+  },
+  "include": [
+    "source",
+    "test",
+    "build",
+    "vite.config.ts"
+  ]
 }

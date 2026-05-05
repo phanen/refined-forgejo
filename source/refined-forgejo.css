@@ -1,26 +1,26 @@
 :root {
-	--rgf-avatars-size: 20px;
+  --rgf-avatars-size: 20px;
 }
 
 .refined-forgejo-reactions {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 4px;
-	margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px;
 }
 
 .refined-forgejo-reactions .avatar-stack {
-	display: flex;
+  display: flex;
 }
 
 .refined-forgejo-reactions img.avatar {
-	width: var(--rgf-avatars-size);
-	height: var(--rgf-avatars-size);
-	border-radius: 50%;
-	margin-left: -4px;
-	border: 1px solid var(--color-bg-primary);
+  width: var(--rgf-avatars-size);
+  height: var(--rgf-avatars-size);
+  border-radius: 50%;
+  margin-left: -4px;
+  border: 1px solid var(--color-bg-primary);
 }
 
 .refined-forgejo-reactions img.avatar:first-child {
-	margin-left: 0;
+  margin-left: 0;
 }

@@ -1,65 +1,65 @@
 {
-	"$schema": "https://json.schemastore.org/chrome-manifest",
-	"name": "Refined Forgejo",
-	"version": "0.0.0",
-	"description": "Simplifies the Forgejo interface and adds useful features",
-	"homepage_url": "https://codeberg.org/forgejo-contrib/refined-forgejo",
-	"manifest_version": 3,
-	"minimum_chrome_version": "123",
-	"browser_specific_settings": {
-		"gecko": {
-			"id": "{b6a4c2e4-5a6f-4d8e-9a7b-2c3d5e7f8a1c}",
-			"strict_min_version": "128.0"
-		}
-	},
-	"permissions": [
-		"storage",
-		"scripting",
-		"contextMenus",
-		"activeTab",
-		"alarms"
-	],
-	"host_permissions": [
-		"*://*/*"
-	],
-	"action": {
-		"default_icon": "assets/icon.png"
-	},
-	"optional_host_permissions": [
-		"*://*/*"
-	],
-	"icons": {
-		"128": "assets/icon.png"
-	},
-	"options_page": "options.html",
-	"background": {
-		"service_worker": "assets/background.js",
-		"type": "module",
-		"scripts": [
-			"assets/background.js"
-		]
-	},
-	"content_scripts": [
-		{
-			"run_at": "document_start",
-			"matches": [
-				"*://*/*"
-			],
-			"exclude_matches": [
-				"*://*/*/login/*"
-			],
-			"css": [
-				"assets/refined-forgejo.css"
-			],
-			"js": [
-				"assets/content-script.js"
-			]
-		}
-	],
-	"web_accessible_resources": [
-		{
-			"resources": [ "assets/*" ],
-			"matches": [ "https://*/*" ]
-		}
-	]
+  "$schema": "https://json.schemastore.org/chrome-manifest",
+  "name": "Refined Forgejo",
+  "version": "0.0.0",
+  "description": "Simplifies the Forgejo interface and adds useful features",
+  "homepage_url": "https://codeberg.org/forgejo-contrib/refined-forgejo",
+  "manifest_version": 3,
+  "minimum_chrome_version": "123",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{b6a4c2e4-5a6f-4d8e-9a7b-2c3d5e7f8a1c}",
+      "strict_min_version": "128.0"
+    }
+  },
+  "permissions": [
+    "storage",
+    "scripting",
+    "contextMenus",
+    "activeTab",
+    "alarms"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "action": {
+    "default_icon": "assets/icon.png"
+  },
+  "optional_host_permissions": [
+    "*://*/*"
+  ],
+  "icons": {
+    "128": "assets/icon.png"
+  },
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "assets/background.js",
+    "type": "module",
+    "scripts": [
+      "assets/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "run_at": "document_start",
+      "matches": [
+        "*://*/*"
+      ],
+      "exclude_matches": [
+        "*://*/*/login/*"
+      ],
+      "css": [
+        "assets/refined-forgejo.css"
+      ],
+      "js": [
+        "assets/content-script.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/*"],
+      "matches": ["https://*/*"]
+    }
+  ]
 }
