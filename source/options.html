@@ -7,9 +7,43 @@
 	<title>Refined Forgejo Options</title>
 </head>
 <body>
-	<h1>Refined Forgejo</h1>
-	<p>Extension is loaded and running!</p>
-	<p>Features will modify Forgejo pages when you navigate to them.</p>
-	<script type="module" src="assets/options.js"></script>
+	<header>
+		<h1>Refined Forgejo</h1>
+		<p>Browser extension that simplifies the Forgejo interface</p>
+	</header>
+
+	<main>
+		<section id="setup">
+			<h2>Getting Started</h2>
+			<ul>
+				<li id="step-permissions">
+					<span class="status"></span>
+					<span class="text">Grant permissions to Forgejo domains</span>
+				</li>
+				<li id="step-token">
+					<span class="status"></span>
+					<span class="text">
+						Generate an API token
+						<a href="https://codeberg.org/user/settings/applications" target="_blank">here</a>
+						with <code>repo</code> scope
+					</span>
+				</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>Documentation</h2>
+			<ul>
+				<li><a href="https://codeberg.org/forgejo-contrib/refine-forgejo" target="_blank">Project Page</a></li>
+				<li><a href="https://codeberg.org/forgejo-contrib/refine-forgejo/issues" target="_blank">Report Issues</a></li>
+			</ul>
+		</section>
+	</main>
+
+	<footer>
+		<p>Refined Forgejo - Making Forgejo better one feature at a time</p>
+	</footer>
+
+	<script src="assets/options.js"></script>
 </body>
 </html>

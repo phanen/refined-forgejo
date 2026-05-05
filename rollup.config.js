@@ -74,6 +74,7 @@ const rollup = {
 				{src: './source/manifest.json', dest: 'distribution'},
 				{src: './source/*.html', dest: 'distribution'},
 				{src: './source/*.png', dest: 'distribution/assets'},
+				{src: './source/options.css', dest: 'distribution/assets'},
 			],
 		}),
 		cleanup(),
