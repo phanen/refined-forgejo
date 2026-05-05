@@ -139,8 +139,14 @@ function init(): void {
 	buildFeatureList();
 	void loadOptions();
 
-	document.querySelector('form')?.addEventListener('change', () => {
-		void saveOptions();
+	document.querySelectorAll<HTMLInputElement>('[type="checkbox"]').forEach(checkbox => {
+		checkbox.addEventListener('change', () => saveOptions());
+	});
+
+	document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[name]').forEach(input => {
+		if (input instanceof HTMLInputElement && input.type !== 'checkbox') {
+			input.addEventListener('change', () => saveOptions());
+		}
 	});
 
 	document.querySelector('input#filter-features')?.addEventListener('input', featuresFilterHandler);
