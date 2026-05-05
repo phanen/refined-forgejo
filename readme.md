@@ -26,7 +26,7 @@
 
 - `[N/A]` **ci-link** - 仓库名旁显示 CI/CD 构建状态图标（需要 GraphQL API）
 - `[done]` **more-dropdown-links** - 仓库导航下拉菜单添加工具链接
-- `[todo]` **swap-branches-on-compare** - 分支对比页添加交换分支链接
+- `[done]` **swap-branches-on-compare** - 分支对比页添加交换分支链接
 - `[todo]` **repo-age** - 侧边栏显示仓库年龄
 - `[todo]` **show-open-prs-of-forks** - 在 fork 的仓库显示向原仓库的 PR 数量
 - `[todo]` **clean-repo-filelist-actions** - 压缩仓库文件列表按钮
@@ -36,7 +36,7 @@
 - `[todo]` **github-actions-indicators** - 工作流侧边栏显示手动触发和下次执行时间
 - `[todo]` **quick-repo-deletion** - 简化仓库删除，0-star repos 添加删除 fork 按钮
 - `[todo]` **archive-forks-link** - 在归档仓库中查找 forks
-- `[todo]` **clean-repo-tabs** - 将 Security/Insights 移入仓库导航下拉菜单
+- `[done]` **clean-repo-tabs** - 将 Security/Insights 移入仓库导航下拉菜单
 - `[done]` **repo-avatars** - 公共仓库头部显示头像
 - `[done]` **small-user-avatars** - issue/PR 列表中用户名旁显示小头像
 - `[todo]` **action-pr-link** - 显示运行 workflow 的 PR 链接
@@ -49,7 +49,7 @@
 
 ### File management
 
-- `[todo]` **download-folder-button** - 添加下载整个文件夹的按钮
+- `[done]` **download-folder-button** - 添加下载整个文件夹的按钮
 - `[done]` **quick-file-edit** - 仓库文件列表添加编辑按钮
 - `[todo]` **repo-wide-file-finder** - 启用键盘快捷键 t 在整个仓库搜索文件
 - `[todo]` **show-associated-branch-prs-on-fork** - fork 仓库的分支上显示关联的 PR
@@ -259,7 +259,7 @@
 ### Fixes for GitHub shortcomings
 
 - `[todo]` **github-bugs** - 应用各种 CSS 修复
-- `[todo]` **hide-navigation-hover-highlight** - 移除仓库文件浏览器的悬停效果
+- `[done]` **hide-navigation-hover-highlight** - 移除仓库文件浏览器的悬停效果
 - `[todo]` **clean-repo-sidebar** - 移除仓库侧边栏不必要的冗余信息
 - `[todo]` **linkify-branch-references** - 「Quick PR」页面中的分支引用可点击
 - `[todo]` **actionable-pr-view-file** - PR 的「View file」指向分支而非 commit

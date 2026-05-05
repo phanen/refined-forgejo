@@ -1,6 +1,6 @@
 /* clean-pinned-issues */
 .pinned-issue-list {
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }

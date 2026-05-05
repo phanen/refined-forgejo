@@ -1,4 +1,4 @@
 /* conversation-authors */
 .issue-list-item:has(.author[href*="/orgs/"]) {
-	border-left: 3px solid var(--color-accent-fg);
+  border-left: 3px solid var(--color-accent-fg);
 }

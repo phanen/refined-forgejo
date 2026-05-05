@@ -37,3 +37,7 @@ import './features/clean-pinned-issues.js';
 import './features/conversation-authors.js';
 import './features/clean-conversation-filters.js';
 import './features/extend-diff-expander.js';
+import './features/swap-branches-on-compare.js';
+import './features/clean-repo-tabs.js';
+import './features/hide-navigation-hover-highlight.js';
+import './features/download-folder-button.js';

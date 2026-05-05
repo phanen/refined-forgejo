@@ -1,0 +1,5 @@
+/* hide-navigation-hover-highlight */
+.repo-tree a:hover,
+.file-browser a:hover {
+	background: transparent;
+}
