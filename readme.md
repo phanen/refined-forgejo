@@ -211,7 +211,7 @@
 ### Profiles
 
 - `[todo]` **user-profile-follower-badge** - 显示用户是否关注你
-- `[done]` **profile-gists-link** - 用户资料页添加公开 gists 链接
+- `[N/A]` **profile-gists-link** - 用户资料页添加公开 gists 链接
 - `[todo]` **mark-private-orgs** - 在你的资料页标记私有组织
 - `[todo]` **profile-hotkey** - 添加快捷键 g m 访问自己资料页
 - `[todo]` **show-user-top-repositories** - 添加用户最多 star 的仓库链接
