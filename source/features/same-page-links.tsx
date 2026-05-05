@@ -17,7 +17,7 @@ function init(signal: AbortSignal): void {
       "a[target='_blank'][class*='reference']",
     ].join(","),
     fix,
-    {signal},
+    { signal },
   );
 }
 
