@@ -2,48 +2,89 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="color-scheme" content="light dark">
+	<base target="_blank">
 	<link rel="stylesheet" href="assets/options.css">
 	<title>Refined Forgejo Options</title>
 </head>
 <body>
 	<header>
 		<h1>Refined Forgejo</h1>
-		<p>Browser extension that simplifies the Forgejo interface</p>
+		<p>
+			Browser extension that simplifies the Forgejo interface.
+			<a href="https://codeberg.org/forgejo-contrib/refined-forgejo">Project page</a>
+		</p>
 	</header>
 
-	<main>
-		<section id="setup">
-			<h2>Getting Started</h2>
-			<ul>
-				<li id="step-permissions">
-					<span class="status"></span>
-					<span class="text">Grant permissions to Forgejo domains</span>
-				</li>
-				<li id="step-token">
-					<span class="status"></span>
-					<span class="text">
-						Generate an API token
-						<a href="https://codeberg.org/user/settings/applications" target="_blank">here</a>
-						with <code>repo</code> scope
-					</span>
-				</li>
-			</ul>
-		</section>
+	<div id="js-failed">JavaScript failed to load.</div>
 
-		<section>
-			<h2>Documentation</h2>
-			<ul>
-				<li><a href="https://codeberg.org/forgejo-contrib/refine-forgejo" target="_blank">Project Page</a></li>
-				<li><a href="https://codeberg.org/forgejo-contrib/refine-forgejo/issues" target="_blank">Report Issues</a></li>
-			</ul>
-		</section>
-	</main>
+	<form id="options-form" class="detail-view-container">
+		<button hidden>Capture Submit</button>
 
-	<footer>
-		<p>Refined Forgejo - Making Forgejo better one feature at a time</p>
-	</footer>
+		<details id="token">
+			<summary><strong>Personal Token</strong></summary>
+			<div>
+				<p>You should <a id="token-link" href="https://codeberg.org/user/settings/applications" target="_blank">generate a token</a> with <code>repo</code> scope for full functionality.</p>
+				<p>
+					<input
+						type="text"
+						name="personalToken"
+						spellcheck="false"
+						autocomplete="off"
+						autocapitalize="off"
+						size="20"
+						class="monospace-field"
+					>
+					<span id="validation"></span>
+				</p>
+			</div>
+		</details>
 
-	<script src="assets/options.js"></script>
+		<details id="features">
+			<summary><strong class="features-header">Features</strong></summary>
+			<div>
+				<p>
+					<input id="filter-features" type="text" placeholder="Find features" spellcheck="false" autocomplete="off" autocapitalize="off">
+				</p>
+				<div class="js-features"></div>
+			</div>
+		</details>
+
+		<details id="css">
+			<summary><strong>Custom CSS</strong></summary>
+			<div>
+				<p>Like a userstyle, useful to undo unwanted style changes</p>
+				<p><textarea name="customCss" rows="4" spellcheck="false" class="monospace-field"></textarea></p>
+			</div>
+		</details>
+
+		<details id="debugging">
+			<summary><strong>Debugging</strong></summary>
+			<div>
+				<p>
+					<label>
+						<input type="checkbox" name="logging">
+						Show feature logs in console
+					</label>
+				</p>
+				<p>
+					<button type="button" id="clear-cache">Clear cache</button>
+				</p>
+			</div>
+		</details>
+
+		<details id="export">
+			<summary><strong>Export/Import</strong></summary>
+			<div>
+				<p>
+					<button type="button" class="js-export">Export options</button>
+					<button type="button" class="js-import">Import options</button>
+				</p>
+			</div>
+		</details>
+	</form>
+
+	<script src="assets/options.js" type="module"></script>
 </body>
 </html>
