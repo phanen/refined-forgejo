@@ -33,3 +33,7 @@ import './features/small-user-avatars.js';
 import './features/quick-file-edit.js';
 import './features/tab-size.js';
 import './features/emphasize-draft-pr-label.js';
+import './features/clean-pinned-issues.js';
+import './features/conversation-authors.js';
+import './features/clean-conversation-filters.js';
+import './features/extend-diff-expander.js';

@@ -1,0 +1,4 @@
+/* clean-conversation-filters */
+.filter-list:empty {
+	display: none;
+}

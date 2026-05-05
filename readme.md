@@ -113,17 +113,17 @@
 - `[todo]` **open-all-conversations** - 一键打开所有可见的 issue/PR
 - `[done]` **sticky-conversation-list-toolbar** - issue/PR 列表筛选工具栏固定
 - `[done]` **sticky-comment-header** - 滚动时评论头部固定
-- `[todo]` **conversation-authors** - 高亮你或协作者开的 issue/PR
+- `[done]` **conversation-authors** - 高亮你或协作者开的 issue/PR
 - `[done]` **align-issue-labels** - issue/PR 列表中标签左对齐
 - `[todo]` **sort-conversations-by-update-time** - 🔥 默认排序改为「最近更新」
 - `[todo]` **global-conversation-list-filters** - 全局 PR 搜索添加「我的仓库」「我评论的」筛选
 - `[done]` **clean-conversation-sidebar** - 🔥 隐藏 issue/PR 侧边栏空分区
-- `[todo]` **clean-conversation-filters** - 隐藏空的 Projects 筛选
+- `[done]` **clean-conversation-filters** - 隐藏空的 Projects 筛选
 - `[todo]` **toggle-everything-with-alt** - alt+click 切换所有类似项目
 - `[todo]` **extend-conversation-status-filters** - 切换 is:open/is:closed/is:merged 筛选
 - `[todo]` **bugs-tab** - 如果有「bug」标签的 issue，添加 Bugs 标签页
 - `[todo]` **pinned-issues-update-time** - 置顶 issue 显示更新时间而非创建时间
-- `[todo]` **clean-pinned-issues** - 置顶 issue 布局从并排改为标准列表
+- `[done]` **clean-pinned-issues** - 置顶 issue 布局从并排改为标准列表
 - `[todo]` **quick-label-removal** - 一键移除 issue/PR 标签
 - `[todo]` **clean-conversation-headers** - 移除 PR 头部的重复信息
 - `[todo]` **dim-bots** - 淡化 bot 的提交和 PR
@@ -180,7 +180,7 @@
 - `[done]` **patch-diff-links** - commit 页面添加 .patch 和 .diff 文件链接
 - `[todo]` **more-file-links** - PR/commits 中添加查看 raw、blame、history 链接
 - `[todo]` **one-click-diff-options** - Compare 页面添加「Hide whitespace」按钮和快捷键 d w
-- `[todo]` **extend-diff-expander** - 加宽「Expand diff」按钮可点击区域
+- `[done]` **extend-diff-expander** - 加宽「Expand diff」按钮可点击区域
 - `[done]` **hide-diff-signs** - 隐藏 diff 符号（已有颜色编码）
 - `[done]` **suggest-commit-title-limit** - 建议 commit/PR 标题限制在 72 字符
 - `[done]` **tags-on-commits-list** - 提交旁显示对应标签
