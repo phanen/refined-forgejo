@@ -1,0 +1,8 @@
+.issue-sidebar .sidebar-section:empty,
+.issue-sidebar .sidebar-section:has(.content:empty) {
+	display: none;
+}
+
+.issue-sidebar .sidebar-section .text-muted:contains("No") {
+	display: none;
+}

@@ -24,7 +24,7 @@
 
 ### Repositories
 
-- `[todo]` **ci-link** - 仓库名旁显示 CI/CD 构建状态图标
+- `[N/A]` **ci-link** - 仓库名旁显示 CI/CD 构建状态图标（需要 GraphQL API）
 - `[todo]` **more-dropdown-links** - 仓库导航下拉菜单添加工具链接
 - `[todo]` **swap-branches-on-compare** - 分支对比页添加交换分支链接
 - `[todo]` **repo-age** - 侧边栏显示仓库年龄
@@ -117,7 +117,7 @@
 - `[todo]` **align-issue-labels** - issue/PR 列表中标签左对齐
 - `[todo]` **sort-conversations-by-update-time** - 🔥 默认排序改为「最近更新」
 - `[todo]` **global-conversation-list-filters** - 全局 PR 搜索添加「我的仓库」「我评论的」筛选
-- `[todo]` **clean-conversation-sidebar** - 🔥 隐藏 issue/PR 侧边栏空分区
+- `[done]` **clean-conversation-sidebar** - 🔥 隐藏 issue/PR 侧边栏空分区
 - `[todo]` **clean-conversation-filters** - 隐藏空的 Projects 筛选
 - `[todo]` **toggle-everything-with-alt** - alt+click 切换所有类似项目
 - `[todo]` **extend-conversation-status-filters** - 切换 is:open/is:closed/is:merged 筛选
