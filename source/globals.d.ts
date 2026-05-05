@@ -5,6 +5,8 @@ declare global {
 		interface IntrinsicElements {
 			'has-rgh': IntrinsicElements.div;
 			'has-rgh-inner': IntrinsicElements.div;
+			'has-rgf': IntrinsicElements.div;
+			'has-rgf-inner': IntrinsicElements.div;
 		}
 	}
 }

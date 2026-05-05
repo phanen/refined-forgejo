@@ -1,3 +1,3 @@
-import './features/rgh-deduplicator.js';
+import './features/rgf-deduplicator.js';
 
 import './features/reactions-avatars.js';
