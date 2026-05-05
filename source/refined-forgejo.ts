@@ -18,3 +18,6 @@ import './features/patch-diff-links.js';
 import './features/useful-not-found-page.js';
 import './features/night-not-found.js';
 import './features/suggest-commit-title-limit.js';
+import './features/new-or-deleted-file.js';
+import './features/easy-toggle-files.js';
+import './features/releases-dropdown.js';

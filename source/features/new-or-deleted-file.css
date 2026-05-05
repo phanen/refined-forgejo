@@ -1,0 +1,9 @@
+/* New or deleted file icons */
+.file-list .deleted {
+	color: var(--color-danger-fg);
+	opacity: 0.7;
+}
+
+.file-list .added {
+	color: var(--color-success-fg);
+}

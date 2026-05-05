@@ -186,8 +186,8 @@
 - `[done]` **tags-on-commits-list** - 提交旁显示对应标签
 - `[done]` **mark-merge-commits-in-list** - 标记提交列表中的合并提交
 - `[todo]` **deep-reblame** - alt+click「Reblame」时先提取关联 PR 的提交
-- `[todo]` **new-or-deleted-file** - 图标指示 PR/commits 中文件的添加/删除状态
-- `[todo]` **easy-toggle-files** - 点击文件头部切换 diff
+- `[done]` **new-or-deleted-file** - 图标指示 PR/commits 中文件的添加/删除状态
+- `[done]` **easy-toggle-files** - 点击文件头部切换 diff
 - `[todo]` **same-branch-author-commits** - 查看某作者的所有提交时保留分支和路径
 - `[todo]` **easy-toggle-commit-messages** - 点击提交框切换提交消息
 - `[todo]` **link-to-compare-diff** - 「X files changed」文本可点击跳转到 diff
@@ -199,7 +199,7 @@
 
 - `[todo]` **release-download-count** - release 资源旁显示下载计数
 - `[todo]` **releases-tab** - 添加 Releases 标签页和快捷键 g r
-- `[todo]` **releases-dropdown** - release 页面添加标签下拉搜索
+- `[done]` **releases-dropdown** - release 页面添加标签下拉搜索
 - `[todo]` **create-release-shortcut** - Releases 页面添加快捷键 c 创建新 release
 - `[todo]` **tag-changes-link** - 🔥 每个 tag/release 添加「自上次 tag 以来的变更」链接
 - `[todo]` **convert-release-to-draft** - 添加将 release 转为 draft 的按钮
