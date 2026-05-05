@@ -1,0 +1,8 @@
+.repository-sidebar,
+.issue-sidebar,
+.pr-sidebar {
+	position: sticky;
+	top: 10px;
+	max-height: calc(100vh - 20px);
+	overflow-y: auto;
+}
