@@ -1,3 +1,11 @@
+.rgf-reactions-avatar {
+	margin-left: -6px;
+}
+
 .rgf-reactions-avatar:first-child {
-	margin-left: 0 !important;
+	margin-left: 0;
+}
+
+.comment-reaction-button {
+	padding-right: 8px;
 }
