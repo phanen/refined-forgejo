@@ -1,9 +1,13 @@
 import './reactions-avatars.css';
 
 import React from 'dom-chef';
+import {flatZip} from 'flat-zip';
 
 import features from '../feature-manager.js';
 import observe from '../helpers/selector-observer.js';
+
+const avatarLimit = 20;
+const avatarSize = 16;
 
 async function getAvatarUrl(username: string): Promise<string | undefined> {
 	try {
@@ -18,43 +22,61 @@ async function getAvatarUrl(username: string): Promise<string | undefined> {
 	}
 }
 
-async function addAvatars(reactionButton: Element): Promise<void> {
-	if (reactionButton.querySelector('.rgf-reaction-avatar')) {
-		return;
-	}
+type Participant = {
+	button: Element;
+	username: string;
+	imageUrl: string;
+};
 
-	const title = reactionButton.getAttribute('title')?.trim();
+async function getParticipants(button: Element): Promise<Participant[]> {
+	const title = button.getAttribute('title')?.trim();
 	if (!title) {
-		return;
+		return [];
 	}
 
 	const usernames = title.split(',').map(u => u.trim()).filter(Boolean);
-	if (usernames.length === 0) {
-		return;
-	}
+	const participants: Participant[] = [];
 
 	for (const username of usernames) {
-		const avatarUrl = await getAvatarUrl(username);
-		if (!avatarUrl) {
-			continue;
+		const imageUrl = await getAvatarUrl(username);
+		if (imageUrl) {
+			participants.push({button, username, imageUrl});
 		}
+	}
 
+	return participants;
+}
+
+async function showAvatarsOn(reactionContainer: Element): Promise<void> {
+	const buttons = reactionContainer.querySelectorAll('.comment-reaction-button');
+	const allParticipants: Participant[][] = [];
+
+	for (const button of buttons) {
+		const participants = await getParticipants(button);
+		allParticipants.push(participants);
+	}
+
+	const flatParticipants = flatZip(allParticipants, avatarLimit);
+
+	for (const {button, username, imageUrl} of flatParticipants) {
 		const avatar = (
-			<img
-				className="rgf-reaction-avatar"
-				src={avatarUrl}
-				alt={username}
-				title={username}
-				style={{width: '16px', height: '16px', borderRadius: '50%', marginLeft: '4px', verticalAlign: 'middle'}}
-			/>
+			<span className="rgf-reactions-avatar" style={{marginLeft: '-6px'}}>
+				<img
+					src={imageUrl}
+					width={avatarSize}
+					height={avatarSize}
+					alt={username}
+					title={username}
+					style={{display: 'block', borderRadius: '50%', border: '2px solid var(--color-bg-primary)'}}
+				/>
+			</span>
 		);
-
-		reactionButton.append(avatar);
+		button.append(avatar);
 	}
 }
 
 async function init(signal: AbortSignal): Promise<void> {
-	observe('.comment-reaction-button', addAvatars, {signal});
+	observe('.reactions', showAvatarsOn, {signal});
 }
 
 features.add(import.meta.url, {
