@@ -12,7 +12,7 @@ export type RunConditions = {
 };
 
 export function isFeaturePrivate(id: string): boolean {
-	return id.startsWith('rgh-');
+	return id.startsWith('rgf-');
 }
 
 export async function shouldFeatureRun({

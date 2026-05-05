@@ -77,7 +77,7 @@ async function add(url: string, ...loaders: FeatureLoader[]): Promise<void> {
 	if (isFeatureDisabled(options, id) && !isFeaturePrivate(id)) {
 		if (loaders.length === 0) {
 			do {
-				document.documentElement.setAttribute('rgh-OFF-' + id, '');
+				document.documentElement.setAttribute('rgf-OFF-' + id, '');
 				log.info('Skipping', id);
 			} while (await oneEvent(document, 'turbo:render'));
 		} else {

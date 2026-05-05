@@ -13,14 +13,14 @@ type Options = {
 	ancestor?: number;
 };
 
-const animation = 'rgh-selector-observer';
+const animation = 'rgf-selector-observer';
 
 const registerAnimation = onetime((): void => {
 	document.head.append(<style>{`@keyframes ${animation} {}`}</style>);
 });
 
 function getSeenMark(selector: string): string {
-	return 'rgh-seen-' + selector.replace(/[^a-z\d]/gi, '_').slice(0, 50);
+	return 'rgf-seen-' + selector.replace(/[^a-z\d]/gi, '_').slice(0, 50);
 }
 
 export default function observe<Selector extends string>(
