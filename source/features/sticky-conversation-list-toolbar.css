@@ -1,0 +1,7 @@
+/* sticky-conversation-list-toolbar */
+.conversation-list-toolbar {
+	position: sticky;
+	top: 0;
+	background: var(--color-bg-primary);
+	z-index: 10;
+}

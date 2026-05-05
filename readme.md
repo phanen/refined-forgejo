@@ -111,8 +111,8 @@
 ### Conversations
 
 - `[todo]` **open-all-conversations** - 一键打开所有可见的 issue/PR
-- `[todo]` **sticky-conversation-list-toolbar** - issue/PR 列表筛选工具栏固定
-- `[todo]` **sticky-comment-header** - 滚动时评论头部固定
+- `[done]` **sticky-conversation-list-toolbar** - issue/PR 列表筛选工具栏固定
+- `[done]` **sticky-comment-header** - 滚动时评论头部固定
 - `[todo]` **conversation-authors** - 高亮你或协作者开的 issue/PR
 - `[done]` **align-issue-labels** - issue/PR 列表中标签左对齐
 - `[todo]` **sort-conversations-by-update-time** - 🔥 默认排序改为「最近更新」
@@ -198,7 +198,7 @@
 ### Tags and releases
 
 - `[todo]` **release-download-count** - release 资源旁显示下载计数
-- `[todo]` **releases-tab** - 添加 Releases 标签页和快捷键 g r
+- `[done]` **releases-tab** - 添加 Releases 标签页和快捷键 g r
 - `[done]` **releases-dropdown** - release 页面添加标签下拉搜索
 - `[todo]` **create-release-shortcut** - Releases 页面添加快捷键 c 创建新 release
 - `[todo]` **tag-changes-link** - 🔥 每个 tag/release 添加「自上次 tag 以来的变更」链接
@@ -211,7 +211,7 @@
 ### Profiles
 
 - `[todo]` **user-profile-follower-badge** - 显示用户是否关注你
-- `[todo]` **profile-gists-link** - 用户资料页添加公开 gists 链接
+- `[done]` **profile-gists-link** - 用户资料页添加公开 gists 链接
 - `[todo]` **mark-private-orgs** - 在你的资料页标记私有组织
 - `[todo]` **profile-hotkey** - 添加快捷键 g m 访问自己资料页
 - `[todo]` **show-user-top-repositories** - 添加用户最多 star 的仓库链接
