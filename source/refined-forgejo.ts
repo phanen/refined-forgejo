@@ -47,4 +47,5 @@ import "./features/one-click-diff-options.js";
 import "./features/action-pr-link.js";
 import "./features/actions-run-removal.js";
 import "./features/rerun-workflow.js";
+import "./features/github-actions-indicators.js";
 import "./features/github-bugs.js";
