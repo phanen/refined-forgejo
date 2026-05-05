@@ -1,4 +1,4 @@
-import "./download-folder-button.css";
+import "./github-bugs.css";
 
 import features from "../feature-manager.js";
 

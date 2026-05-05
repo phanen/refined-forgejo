@@ -1,4 +1,4 @@
-import "./download-folder-button.css";
+import "./collapsible-content-button.css";
 
 import features from "../feature-manager.js";
 

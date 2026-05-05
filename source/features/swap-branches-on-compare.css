@@ -1,5 +1,5 @@
 /* swap-branches-on-compare */
 .compare-wrap .branch-info {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }

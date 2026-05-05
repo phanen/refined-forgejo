@@ -1,4 +1,4 @@
-import "./download-folder-button.css";
+import "./one-click-diff-options.css";
 
 import features from "../feature-manager.js";
 

@@ -1,7 +1,7 @@
-import './clean-repo-tabs.css';
+import "./clean-repo-tabs.css";
 
-import features from '../feature-manager.js';
+import features from "../feature-manager.js";
 
 features.add(import.meta.url, {
-	init() {},
+  init() {},
 });

@@ -1,4 +1,4 @@
 /* clean-repo-tabs */
 .repo-nav .tab:nth-child(n+4) {
-	display: none;
+  display: none;
 }

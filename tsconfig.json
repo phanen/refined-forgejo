@@ -25,7 +25,6 @@
   "include": [
     "source",
     "test",
-    "build",
     "vite.config.ts"
   ]
 }

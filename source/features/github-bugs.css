@@ -1,0 +1,4 @@
+/* github-bugs - general bug fixes */
+input:invalid {
+  border-color: var(--color-danger-fg);
+}

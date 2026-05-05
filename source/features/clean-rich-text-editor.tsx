@@ -1,4 +1,4 @@
-import "./download-folder-button.css";
+import "./clean-rich-text-editor.css";
 
 import features from "../feature-manager.js";
 

@@ -1,0 +1,8 @@
+/* collapsible-content-button */
+.insert-table-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: var(--color-btn-bg);
+  border-radius: 6px;
+}

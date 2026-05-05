@@ -75,11 +75,11 @@
 ### Writing comments
 
 - `[todo]` **tab-to-indent** - 🔥 评论框启用 Tab/Shift+Tab 缩进
-- `[todo]` **collapsible-content-button** - 文本编辑器添加可折叠内容按钮
+- `[done]` **collapsible-content-button** - 文本编辑器添加可折叠内容按钮
 - `[todo]` **fit-textareas** - 🔥 评论框自动调整高度
 - `[todo]` **quick-comment-edit** - 一键编辑评论
 - `[todo]` **one-key-formatting** - 按 Markdown 符号时替换选中文本而非包裹
-- `[todo]` **clean-rich-text-editor** - 隐藏不必要的评论编辑器提示和工具栏
+- `[done]` **clean-rich-text-editor** - 隐藏不必要的评论编辑器提示和工具栏
 - `[todo]` **quick-mention** - 在 issue/PR 中添加 @mention 按钮
 - `[todo]` **table-input** - 文本编辑器添加插入表格按钮
 - `[todo]` **unfinished-comments** - 通知用户未完成的评论（在隐藏标签页中）
@@ -179,7 +179,7 @@
 
 - `[done]` **patch-diff-links** - commit 页面添加 .patch 和 .diff 文件链接
 - `[todo]` **more-file-links** - PR/commits 中添加查看 raw、blame、history 链接
-- `[todo]` **one-click-diff-options** - Compare 页面添加「Hide whitespace」按钮和快捷键 d w
+- `[done]` **one-click-diff-options** - Compare 页面添加「Hide whitespace」按钮和快捷键 d w
 - `[done]` **extend-diff-expander** - 加宽「Expand diff」按钮可点击区域
 - `[done]` **hide-diff-signs** - 隐藏 diff 符号（已有颜色编码）
 - `[done]` **suggest-commit-title-limit** - 建议 commit/PR 标题限制在 72 字符

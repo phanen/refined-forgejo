@@ -1,10 +1,6 @@
 import "./options.css";
+import { featuresMeta } from "./feature-data.js";
 import optionsStorage from "./options-storage.js";
-
-const features = [
-  { id: "reactions-avatars", description: "Show user avatars on reaction buttons" },
-  { id: "rgf-deduplicator", description: "Handle browser navigation deduplication" },
-];
 
 async function loadOptions(): Promise<void> {
   const options = await optionsStorage.getAll();
@@ -43,17 +39,25 @@ function buildFeatureList(): void {
     return;
   }
 
-  for (const feature of features) {
+  for (const feature of featuresMeta) {
     const id = `feature:${feature.id}`;
     const featureElement = document.createElement("div");
-    featureElement.className = "feature";
-    featureElement.dataset.text = `${feature.id} ${feature.description}`.toLowerCase();
+    featureElement.className = `feature status-${feature.status}`;
+    featureElement.dataset.text = `${feature.id} ${feature.status}`.toLowerCase();
+
+    const statusLabel = {
+      done: "✓ Done",
+      todo: "○ Todo",
+      "N/A": "⊘ N/A",
+    }[feature.status] ?? feature.status;
 
     featureElement.innerHTML = `
-			<input type="checkbox" name="${id}" id="${feature.id}" class="feature-checkbox">
+			<input type="checkbox" name="${id}" id="${feature.id}" class="feature-checkbox" ${
+      feature.status === "N/A" ? "disabled" : ""
+    }>
 			<div class="info">
 				<label class="feature-name" for="${feature.id}">${feature.id}</label>
-				<p class="description">${feature.description}</p>
+				<span class="feature-status">${statusLabel}</span>
 			</div>
 		`;
 

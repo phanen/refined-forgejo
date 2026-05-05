@@ -1,0 +1,5 @@
+/* clean-rich-text-editor */
+.editor-preview,
+.editor-tabs {
+  display: none;
+}

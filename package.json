@@ -6,7 +6,7 @@
   "description": "Simplifies the Forgejo interface and adds useful features",
   "scripts": {
     "vitest": "NODE_NO_WARNINGS=1 vitest --run",
-    "build": "run-p build:* --continue-on-error",
+    "build": "node build/readme-parser.ts && run-p build:* --continue-on-error",
     "build:typescript": "tsc --noEmit",
     "build:bundle": "rollup -c",
     "fix": "run-p format \"lint:biome -- --write\" \"lint:eslint -- --fix\" --continue-on-error",
