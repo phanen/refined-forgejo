@@ -29,3 +29,7 @@ import './features/more-dropdown-links.js';
 import './features/link-to-github-io.js';
 import './features/repo-avatars.js';
 import './features/repo-header-info.js';
+import './features/small-user-avatars.js';
+import './features/quick-file-edit.js';
+import './features/tab-size.js';
+import './features/emphasize-draft-pr-label.js';

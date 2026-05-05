@@ -38,7 +38,7 @@
 - `[todo]` **archive-forks-link** - 在归档仓库中查找 forks
 - `[todo]` **clean-repo-tabs** - 将 Security/Insights 移入仓库导航下拉菜单
 - `[done]` **repo-avatars** - 公共仓库头部显示头像
-- `[todo]` **small-user-avatars** - issue/PR 列表中用户名旁显示小头像
+- `[done]` **small-user-avatars** - issue/PR 列表中用户名旁显示小头像
 - `[todo]` **action-pr-link** - 显示运行 workflow 的 PR 链接
 - `[done]` **repo-header-info** - 显示 fork 状态和 star 数量
 - `[todo]` **visit-tag** - 查看特定 tag 的文件时添加跳转到 release/tag 的链接
@@ -50,7 +50,7 @@
 ### File management
 
 - `[todo]` **download-folder-button** - 添加下载整个文件夹的按钮
-- `[todo]` **quick-file-edit** - 仓库文件列表添加编辑按钮
+- `[done]` **quick-file-edit** - 仓库文件列表添加编辑按钮
 - `[todo]` **repo-wide-file-finder** - 启用键盘快捷键 t 在整个仓库搜索文件
 - `[todo]` **show-associated-branch-prs-on-fork** - fork 仓库的分支上显示关联的 PR
 - `[todo]` **html-preview-link** - 预览 HTML 文件的链接
@@ -155,7 +155,7 @@
 - `[todo]` **jump-to-change-requested-comment** - 跳转到最新的「更改已请求」评论
 - `[todo]` **view-last-pr-deployment** - PR 头部添加打开最新部署的链接
 - `[todo]` **no-unnecessary-split-diff-view** - 文件 split diff 无用时始终使用 unified diffs
-- `[todo]` **emphasize-draft-pr-label** - 更容易区分列表中的 draft PR
+- `[done]` **emphasize-draft-pr-label** - 更容易区分列表中的 draft PR
 - `[todo]` **clean-checks-list** - 优先显示失败和待定的检查，展开长的检查名称
 - `[todo]` **mobile-tabs-pr** - PR 标签页适配移动端
 
@@ -279,7 +279,7 @@
 - `[todo]` **linkify-text** - 使某些文本可点击，如 issue 标题中的引用
 - `[todo]` **new-milestone-button** - 里程碑页面添加「New Milestone」按钮
 - `[todo]` **mark-private-repos** - 私有仓库用不同颜色高亮
-- `[todo]` **tab-size** - 代码视图默认 tab 宽度从 8 减为 4
+- `[done]` **tab-size** - 代码视图默认 tab 宽度从 8 减为 4
 - `[todo]` **sticky-file-header** - 滚动时文件头部固定
 - `[todo]` **sticky-csv-header** - CSV/TSV 预览第一列横向滚动时固定
 - `[todo]` **reactions-popup** - 改进评论反应弹窗为更小尺寸
