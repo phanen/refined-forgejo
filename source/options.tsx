@@ -1,5 +1,5 @@
 import './options.css';
-import optionsStorage, {type RGHOptions} from './options-storage.js';
+import optionsStorage from './options-storage.js';
 
 const features = [
 	{id: 'reactions-avatars', description: 'Show user avatars on reaction buttons'},
@@ -7,30 +7,31 @@ const features = [
 ];
 
 async function loadOptions(): Promise<void> {
-	const form = document.querySelector('form') as HTMLFormElement;
 	const options = await optionsStorage.getAll();
 
-	for (const [key, value] of Object.entries(options)) {
-		const input = form.elements.namedItem(key);
-		if (input instanceof HTMLInputElement) {
-			if (input.type === 'checkbox') {
-				input.checked = value === true;
-			} else {
-				input.value = String(value);
-			}
+	for (const input of document.querySelectorAll<HTMLInputElement>('[name]')) {
+		const key = input.name;
+		const value = options[key];
+
+		if (input.type === 'checkbox') {
+			input.checked = value !== false;
 		} else if (input instanceof HTMLTextAreaElement) {
-			input.value = String(value);
+			input.value = String(value ?? '');
+		} else {
+			input.value = String(value ?? '');
 		}
 	}
 }
 
 async function saveOptions(): Promise<void> {
-	const form = document.querySelector('form') as HTMLFormElement;
-	const formData = new FormData(form);
-	const options: Partial<RGHOptions> = {};
+	const options: Record<string, unknown> = {};
 
-	for (const [key, value] of formData.entries()) {
-		options[key as keyof RGHOptions] = value as never;
+	for (const input of document.querySelectorAll<HTMLInputElement>('[name]')) {
+		if (input.type === 'checkbox') {
+			options[input.name] = input.checked;
+		} else {
+			options[input.name] = input.value;
+		}
 	}
 
 	await chrome.storage.sync.set(options);
