@@ -114,7 +114,7 @@
 - `[todo]` **sticky-conversation-list-toolbar** - issue/PR 列表筛选工具栏固定
 - `[todo]` **sticky-comment-header** - 滚动时评论头部固定
 - `[todo]` **conversation-authors** - 高亮你或协作者开的 issue/PR
-- `[todo]` **align-issue-labels** - issue/PR 列表中标签左对齐
+- `[done]` **align-issue-labels** - issue/PR 列表中标签左对齐
 - `[todo]` **sort-conversations-by-update-time** - 🔥 默认排序改为「最近更新」
 - `[todo]` **global-conversation-list-filters** - 全局 PR 搜索添加「我的仓库」「我评论的」筛选
 - `[done]` **clean-conversation-sidebar** - 🔥 隐藏 issue/PR 侧边栏空分区
@@ -181,10 +181,10 @@
 - `[todo]` **more-file-links** - PR/commits 中添加查看 raw、blame、history 链接
 - `[todo]` **one-click-diff-options** - Compare 页面添加「Hide whitespace」按钮和快捷键 d w
 - `[todo]` **extend-diff-expander** - 加宽「Expand diff」按钮可点击区域
-- `[todo]` **hide-diff-signs** - 隐藏 diff 符号（已有颜色编码）
+- `[done]` **hide-diff-signs** - 隐藏 diff 符号（已有颜色编码）
 - `[todo]` **suggest-commit-title-limit** - 建议 commit/PR 标题限制在 72 字符
 - `[todo]` **tags-on-commits-list** - 提交旁显示对应标签
-- `[todo]` **mark-merge-commits-in-list** - 标记提交列表中的合并提交
+- `[done]` **mark-merge-commits-in-list** - 标记提交列表中的合并提交
 - `[todo]` **deep-reblame** - alt+click「Reblame」时先提取关联 PR 的提交
 - `[todo]` **new-or-deleted-file** - 图标指示 PR/commits 中文件的添加/删除状态
 - `[todo]` **easy-toggle-files** - 点击文件头部切换 diff

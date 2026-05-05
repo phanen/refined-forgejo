@@ -1,0 +1,10 @@
+.issue-list-item .labels {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+}
+
+.issue-list-item .labels > a,
+.issue-list-item .labels > span {
+	margin: 0;
+}
