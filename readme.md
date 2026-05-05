@@ -177,7 +177,7 @@
 
 ### Commits
 
-- `[todo]` **patch-diff-links** - commit 页面添加 .patch 和 .diff 文件链接
+- `[done]` **patch-diff-links** - commit 页面添加 .patch 和 .diff 文件链接
 - `[todo]` **more-file-links** - PR/commits 中添加查看 raw、blame、history 链接
 - `[todo]` **one-click-diff-options** - Compare 页面添加「Hide whitespace」按钮和快捷键 d w
 - `[todo]` **extend-diff-expander** - 加宽「Expand diff」按钮可点击区域

@@ -14,3 +14,4 @@ import './features/hide-diff-signs.js';
 import './features/mark-merge-commits-in-list.js';
 import './features/tags-on-commits-list.js';
 import './features/file-age-color.js';
+import './features/patch-diff-links.js';

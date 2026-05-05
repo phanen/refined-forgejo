@@ -1,8 +1,8 @@
 /* File age color - highlight recently modified files */
 .file-list-item:has(.modified-date) .file-name {
-	font-weight: bold;
+  font-weight: bold;
 }
 
 .file-list-item:has(.modified-date):nth-child(-n+5) .file-name {
-	color: var(--color-accent-fg);
+  color: var(--color-accent-fg);
 }
