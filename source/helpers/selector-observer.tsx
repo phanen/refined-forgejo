@@ -8,7 +8,6 @@ import onetime from './onetime.js';
 type ObserverListener<ExpectedElement extends Element> = (element: ExpectedElement, options: {signal?: AbortSignal}) => void;
 
 type Options = {
-	stopOnDomReady?: boolean;
 	once?: boolean;
 	signal?: AbortSignal;
 	ancestor?: number;
@@ -24,13 +23,10 @@ function getSeenMark(selector: string): string {
 	return 'rgh-seen-' + selector.replace(/[^a-z\d]/gi, '_').slice(0, 50);
 }
 
-export default function observe<
-	Selector extends string,
-	ExpectedElement extends Element,
->(
+export default function observe<Selector extends string>(
 	selectors: Selector | readonly Selector[],
-	listener: ObserverListener<ExpectedElement>,
-	{signal, stopOnDomReady, once}: Options = {},
+	listener: ObserverListener<Element>,
+	{signal}: Options = {},
 ): void {
 	if (signal?.aborted) {
 		return;
@@ -65,14 +61,12 @@ export default function observe<
 
 	void checkLogging();
 
-	let cleanup: (() => void) | undefined;
-
 	globalThis.addEventListener('animationstart', (event: AnimationEvent) => {
 		if (event.animationName !== animation) {
 			return;
 		}
 
-		const target = event.target as ExpectedElement;
+		const target = event.target as Element;
 		if (target.classList.contains(seenMark) || !target.matches(selector)) {
 			return;
 		}
@@ -81,17 +75,7 @@ export default function observe<
 		target.classList.add(seenMark);
 
 		listener(target, {signal});
-
-		if (once) {
-			cleanup?.();
-		}
 	}, {signal});
-
-	if (once) {
-		const controller = new AbortController();
-		signal = controller.signal as AbortSignal;
-		cleanup = () => controller.abort();
-	}
 }
 
 export async function waitForElement<Selector extends string>(
@@ -101,7 +85,7 @@ export async function waitForElement<Selector extends string>(
 	return new Promise(resolve => {
 		observe(selectors, element => {
 			resolve(element);
-		}, {signal, once: true, ancestor: 4});
+		}, {signal});
 
 		signal?.addEventListener('abort', () => {
 			resolve();

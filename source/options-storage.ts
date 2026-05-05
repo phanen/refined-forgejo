@@ -14,7 +14,7 @@ const defaults: RGHOptions = {
 };
 
 export async function getToken(): Promise<string> {
-	const result = await chrome.storage.sync.get('personalToken');
+	const result = await chrome.storage.sync.get('personalToken') as {personalToken?: string};
 	return result.personalToken || '';
 }
 
@@ -24,7 +24,7 @@ export function isFeatureDisabled(options: RGHOptions, id: string): boolean {
 
 const optionsStorage = {
 	async getAll(): Promise<RGHOptions> {
-		const stored = await chrome.storage.sync.get();
+		const stored = await chrome.storage.sync.get() as RGHOptions;
 		return {...defaults, ...stored};
 	},
 };

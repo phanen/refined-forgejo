@@ -3,10 +3,8 @@ import React from 'dom-chef';
 import domLoaded from 'dom-loaded';
 import oneEvent from 'one-event';
 import {elementExists} from 'select-dom';
-import stripIndent from 'strip-indent';
 import type {Promisable} from 'type-fest';
 import {isWebPage} from 'webext-detect';
-import {messageRuntime} from 'webext-msg';
 
 import asyncForEach from './helpers/async-for-each.js';
 import {catchErrors, disableErrorLogging} from './helpers/errors.js';
@@ -15,7 +13,9 @@ import {isFeaturePrivate, type RunConditions, shouldFeatureRun} from './helpers/
 import {getLocalHotfixesAsOptions} from './helpers/hotfix.js';
 import ArrayMap from './helpers/map-of-arrays.js';
 import waitFor from './helpers/wait-for.js';
-import optionsStorage, {isFeatureDisabled, type RghOptions} from './options-storage.js';
+import optionsStorage, {isFeatureDisabled, type RGHOptions} from './options-storage.js';
+
+type Arrayable<T> = T | T[];
 
 type FeatureInitResult = void | false;
 type FeatureInit = (signal: AbortSignal) => Promisable<FeatureInitResult>;
@@ -29,7 +29,7 @@ type FeatureLoader = RunConditions & {
 
 const currentFeatureControllers = new ArrayMap<string, AbortController>();
 
-const globalReady = new Promise<RghOptions>(async resolve => {
+const globalReady = new Promise<RGHOptions>(async resolve => {
 	if (!isWebPage()) {
 		throw new Error('This script should only be run on web pages');
 	}
@@ -66,7 +66,7 @@ const globalReady = new Promise<RghOptions>(async resolve => {
 	resolve(options);
 });
 
-function castArray<Item>(value: Arrayable<Item>): Item[] {
+function castArray<T>(value: Arrayable<T>): T[] {
 	return Array.isArray(value) ? value : [value];
 }
 
@@ -124,7 +124,7 @@ async function add(url: string, ...loaders: FeatureLoader[]): Promise<void> {
 			const featureController = new AbortController();
 			currentFeatureControllers.append(id, featureController);
 
-			void asyncForEach(castArray(init), async init => {
+			void asyncForEach(castArray(init), async (init) => {
 				const result = await init(featureController.signal);
 				if (result !== false && !isFeaturePrivate(id)) {
 					log.info('Running', id);

@@ -1,6 +1,4 @@
-import {messageBg} from 'webext-msg';
-
-chrome.action.onClicked.addListener(async tab => {
+chrome.action.onClicked.addListener(async () => {
 	await chrome.runtime.openOptionsPage();
 });
 

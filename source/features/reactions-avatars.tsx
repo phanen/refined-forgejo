@@ -1,7 +1,6 @@
 import './reactions-avatars.css';
 
 import React from 'dom-chef';
-import {$} from 'select-dom';
 
 import features from '../feature-manager.js';
 import api from '../forgejo-helpers/api.js';

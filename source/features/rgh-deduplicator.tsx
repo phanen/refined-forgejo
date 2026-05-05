@@ -1,3 +1,4 @@
+import React from 'dom-chef';
 import {$optional} from 'select-dom';
 
 import features from '../feature-manager.js';
