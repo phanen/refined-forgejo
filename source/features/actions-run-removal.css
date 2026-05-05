@@ -1,0 +1,9 @@
+.rgf-actions-cancel-btn,
+.rgf-actions-delete-btn {
+  color: var(--color-fg-muted);
+}
+
+.rgf-actions-cancel-btn:is(:hover, :focus),
+.rgf-actions-delete-btn:is(:hover, :focus) {
+  color: var(--color-fg-danger, #fuchsia) !important;
+}
