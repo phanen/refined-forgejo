@@ -33,7 +33,7 @@ async function init(signal: AbortSignal): Promise<void> {
   observe(
     "a[href*='/actions/workflows/']",
     addIndicator,
-    {signal},
+    { signal },
   );
 }
 
