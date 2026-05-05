@@ -15,3 +15,6 @@ import './features/mark-merge-commits-in-list.js';
 import './features/tags-on-commits-list.js';
 import './features/file-age-color.js';
 import './features/patch-diff-links.js';
+import './features/useful-not-found-page.js';
+import './features/night-not-found.js';
+import './features/suggest-commit-title-limit.js';

@@ -1,0 +1,7 @@
+/* Suggest commit title limit */
+.commit-message .message {
+	max-width: 72ch;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

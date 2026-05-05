@@ -182,7 +182,7 @@
 - `[todo]` **one-click-diff-options** - Compare 页面添加「Hide whitespace」按钮和快捷键 d w
 - `[todo]` **extend-diff-expander** - 加宽「Expand diff」按钮可点击区域
 - `[done]` **hide-diff-signs** - 隐藏 diff 符号（已有颜色编码）
-- `[todo]` **suggest-commit-title-limit** - 建议 commit/PR 标题限制在 72 字符
+- `[done]` **suggest-commit-title-limit** - 建议 commit/PR 标题限制在 72 字符
 - `[done]` **tags-on-commits-list** - 提交旁显示对应标签
 - `[done]` **mark-merge-commits-in-list** - 标记提交列表中的合并提交
 - `[todo]` **deep-reblame** - alt+click「Reblame」时先提取关联 PR 的提交
@@ -236,14 +236,14 @@
 
 ### Global
 
-- `[todo]` **useful-not-found-page** - 🔥 404 页面添加可能的相关页面和替代选项
+- `[done]` **useful-not-found-page** - 🔥 404 页面添加可能的相关页面和替代选项
 - `[todo]` **selection-in-new-tab** - j/k 导航时 shift+o 在新标签页打开选中文本
 - `[todo]` **close-out-of-view-modals** - 下拉菜单不可见时自动关闭
 - `[todo]` **parse-backticks** - GitHub 忘记添加可点击的 backtick 文本
 - `[todo]` **action-used-by-link** - 查看当前 Action 的使用者
 - `[todo]` **improve-shortcut-help** - 在帮助弹窗（?）中显示所有 Refined GitHub 快捷键
 - `[done]` **clean-footer** - 淡化页脚
-- `[todo]` **night-not-found** - 404 页面添加深色模式
+- `[done]` **night-not-found** - 404 页面添加深色模式
 - `[done]` **monospace-textareas** - 提交消息等字段使用等宽字体
 
 ---

@@ -1,6 +1,6 @@
 /* Patch diff links */
 a[href$=".patch"],
 a[href$=".diff"] {
-	font-family: monospace;
-	font-size: 0.85em;
+  font-family: monospace;
+  font-size: 0.85em;
 }
