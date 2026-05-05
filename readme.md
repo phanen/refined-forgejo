@@ -242,7 +242,7 @@
 - `[todo]` **parse-backticks** - GitHub 忘记添加可点击的 backtick 文本
 - `[todo]` **action-used-by-link** - 查看当前 Action 的使用者
 - `[todo]` **improve-shortcut-help** - 在帮助弹窗（?）中显示所有 Refined GitHub 快捷键
-- `[todo]` **clean-footer** - 淡化页脚
+- `[done]` **clean-footer** - 淡化页脚
 - `[todo]` **night-not-found** - 404 页面添加深色模式
 - `[todo]` **monospace-textareas** - 提交消息等字段使用等宽字体
 
