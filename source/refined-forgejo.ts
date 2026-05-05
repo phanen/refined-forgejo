@@ -25,3 +25,7 @@ import './features/releases-tab.js';
 import './features/profile-gists-link.js';
 import './features/sticky-conversation-list-toolbar.js';
 import './features/sticky-comment-header.js';
+import './features/more-dropdown-links.js';
+import './features/link-to-github-io.js';
+import './features/repo-avatars.js';
+import './features/repo-header-info.js';

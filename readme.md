@@ -25,22 +25,22 @@
 ### Repositories
 
 - `[N/A]` **ci-link** - 仓库名旁显示 CI/CD 构建状态图标（需要 GraphQL API）
-- `[todo]` **more-dropdown-links** - 仓库导航下拉菜单添加工具链接
+- `[done]` **more-dropdown-links** - 仓库导航下拉菜单添加工具链接
 - `[todo]` **swap-branches-on-compare** - 分支对比页添加交换分支链接
 - `[todo]` **repo-age** - 侧边栏显示仓库年龄
 - `[todo]` **show-open-prs-of-forks** - 在 fork 的仓库显示向原仓库的 PR 数量
 - `[todo]` **clean-repo-filelist-actions** - 压缩仓库文件列表按钮
 - `[todo]` **new-repo-disable-projects-and-wikis** - 创建仓库时自动禁用 projects 和 wikis
 - `[done]` **sticky-sidebar** - 侧边栏滚动时固定
-- `[todo]` **link-to-github-io** - 从仓库跳转到用户的 github.io 页面
+- `[done]` **link-to-github-io** - 从仓库跳转到用户的 github.io 页面
 - `[todo]` **github-actions-indicators** - 工作流侧边栏显示手动触发和下次执行时间
 - `[todo]` **quick-repo-deletion** - 简化仓库删除，0-star repos 添加删除 fork 按钮
 - `[todo]` **archive-forks-link** - 在归档仓库中查找 forks
 - `[todo]` **clean-repo-tabs** - 将 Security/Insights 移入仓库导航下拉菜单
-- `[todo]` **repo-avatars** - 公共仓库头部显示头像
+- `[done]` **repo-avatars** - 公共仓库头部显示头像
 - `[todo]` **small-user-avatars** - issue/PR 列表中用户名旁显示小头像
 - `[todo]` **action-pr-link** - 显示运行 workflow 的 PR 链接
-- `[todo]` **repo-header-info** - 显示 fork 状态和 star 数量
+- `[done]` **repo-header-info** - 显示 fork 状态和 star 数量
 - `[todo]` **visit-tag** - 查看特定 tag 的文件时添加跳转到 release/tag 的链接
 - `[todo]` **actions-run-removal** - 更快地取消/删除 workflow runs
 - `[todo]` **rerun-workflow** - 展开单独的重跑按钮，添加键盘快捷键 r f

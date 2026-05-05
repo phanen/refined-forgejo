@@ -1,7 +1,7 @@
 /* sticky-comment-header */
 .comment-header {
-	position: sticky;
-	top: 0;
-	background: var(--color-bg-primary);
-	z-index: 10;
+  position: sticky;
+  top: 0;
+  background: var(--color-bg-primary);
+  z-index: 10;
 }

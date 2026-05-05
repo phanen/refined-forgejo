@@ -1,0 +1,13 @@
+/* more-dropdown-links */
+.repo-nav-dropdown ul {
+	list-style: none;
+	padding: 0;
+}
+
+.repo-nav-dropdown li {
+	padding: 4px 8px;
+}
+
+.repo-nav-dropdown li a {
+	display: block;
+}
