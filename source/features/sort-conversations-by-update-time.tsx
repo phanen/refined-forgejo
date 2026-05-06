@@ -13,7 +13,7 @@ function addSortToLink(link: HTMLAnchorElement): void {
     return;
   }
 
-  url.searchParams.set("sort", "latest_updated");
+  url.searchParams.set("sort", "recentupdate");
   link.href = url.toString();
 }
 
