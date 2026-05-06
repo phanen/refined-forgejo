@@ -16,7 +16,7 @@
 ### Repositories
 
 - `[N/A]` **ci-link** - 仓库名旁显示 CI/CD 构建状态图标（需要 GraphQL API）
-- `[done]` **more-dropdown-links** - 仓库导航下拉菜单添加工具链接
+- `[N/A]` **more-dropdown-links** - 仓库导航下拉菜单添加工具链接
 - `[done]` **swap-branches-on-compare** - 分支对比页添加交换分支链接
 - `[todo]` **repo-age** - 侧边栏显示仓库年龄
 - `[todo]` **show-open-prs-of-forks** - 在 fork 的仓库显示向原仓库的 PR 数量
