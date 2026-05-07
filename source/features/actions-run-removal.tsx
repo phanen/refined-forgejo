@@ -6,6 +6,7 @@ import TrashIcon from "octicons-plain-react/Trash";
 
 import features from "../feature-manager.js";
 import observe from "../helpers/selector-observer.js";
+import { isForgejo } from "../helpers/page-detect.js";
 
 function addQuickButtons(kebabButton: Element): void {
   const row = kebabButton.closest(".job, .run, .box-row, [class*='run'], tr");
@@ -57,6 +58,7 @@ async function init(signal: AbortSignal): Promise<void> {
 }
 
 features.add(import.meta.url, {
+  asLongAs: [isForgejo],
   include: [() => location.pathname.includes("/actions/")],
   init,
 });

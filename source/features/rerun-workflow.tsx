@@ -3,6 +3,7 @@ import { $ } from "select-dom";
 import features from "../feature-manager.js";
 import { registerHotkey } from "../github-helpers/hotkey.js";
 import observe from "../helpers/selector-observer.js";
+import { isForgejo } from "../helpers/page-detect.js";
 
 function rerunAllJobs(): void {
   const rerunButton = $("button[class*='rerun'], button[title*='rerun' i], a[href*='rerun']") as
@@ -62,6 +63,7 @@ features.add(import.meta.url, {
     "r f": "Re-run failed jobs",
     "r a": "Re-run all jobs",
   },
+  asLongAs: [isForgejo],
   include: [() => location.pathname.includes("/actions/runs/")],
   init,
 });

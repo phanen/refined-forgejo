@@ -33,6 +33,14 @@ export const isSettings = (): boolean => includes("/settings/");
 export const isUserProfile = (): boolean => /^\/[^\/]+$/.test(currentPage);
 export const isNotifications = (): boolean => currentPage === "/notifications";
 
+// Check if the page belongs to a Forgejo instance by looking for
+// distinctive DOM markers (htmx attributes) or known hostnames.
+export const isForgejo = (): boolean =>
+  location.hostname === "codeberg.org"
+  || location.hostname.endsWith(".codeberg.org")
+  || location.hostname.includes("forgejo")
+  || !!document.querySelector('body[hx-swap="outerHTML"]');
+
 export const pageDetect = {
   get,
   includes,
@@ -51,6 +59,7 @@ export const pageDetect = {
   isSettings,
   isUserProfile,
   isNotifications,
+  isForgejo,
 };
 
 export default pageDetect;

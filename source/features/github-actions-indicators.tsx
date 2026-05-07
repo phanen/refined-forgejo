@@ -3,6 +3,7 @@ import PlayIcon from "octicons-plain-react/Play";
 
 import features from "../feature-manager.js";
 import observe from "../helpers/selector-observer.js";
+import { isForgejo } from "../helpers/page-detect.js";
 
 function addIndicator(workflowLink: Element): void {
   const link = workflowLink as HTMLAnchorElement;
@@ -38,6 +39,7 @@ async function init(signal: AbortSignal): Promise<void> {
 }
 
 features.add(import.meta.url, {
+  asLongAs: [isForgejo],
   include: [() => location.pathname.includes("/actions/")],
   init,
 });

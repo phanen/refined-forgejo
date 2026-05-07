@@ -1,5 +1,6 @@
 import features from "../feature-manager.js";
 import observe from "../helpers/selector-observer.js";
+import { isForgejo } from "../helpers/page-detect.js";
 
 function getConversationNumber(): number | undefined {
   const parts = location.pathname.split("/");
@@ -53,11 +54,13 @@ async function initForPrPage(signal: AbortSignal): Promise<void> {
 }
 
 features.add(import.meta.url, {
+  asLongAs: [isForgejo],
   include: [() => location.pathname.includes("/actions/")],
   init: initForRepositoryActionsPage,
 });
 
 features.add(import.meta.url, {
+  asLongAs: [isForgejo],
   include: [() => /\/pull\/\d+/.test(location.pathname)],
   init: initForPrPage,
 });
