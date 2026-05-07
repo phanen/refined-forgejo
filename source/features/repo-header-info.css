@@ -1,5 +1,16 @@
-/* repo-header-info */
-.repo-header .fork-flag {
+.rgf-repo-info {
+  margin-left: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+}
+
+.rgf-repo-info svg {
+  color: var(--color-text-secondary, #666);
+}
+
+.rgf-star-count {
   font-size: 0.85em;
-  opacity: 0.8;
+  color: var(--color-text-secondary, #666);
 }
