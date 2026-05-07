@@ -48,13 +48,18 @@ function buildFeatureList(): void {
     const statusLabel = {
       done: "✓ Done",
       todo: "○ Todo",
+      native: "◎ Built-in",
       "N/A": "⊘ N/A",
     }[feature.status] ?? feature.status;
 
+    const s = feature.status as string;
+    const isDisabled = s === "N/A" || s === "native";
+    const isChecked = s === "done" || s === "native";
+
     featureElement.innerHTML = `
 			<input type="checkbox" name="${id}" id="${feature.id}" class="feature-checkbox" ${
-      feature.status === "N/A" ? "disabled" : ""
-    }>
+      isDisabled ? "disabled" : ""
+    } ${isChecked ? "checked" : ""}>
 			<div class="info">
 				<label class="feature-name" for="${feature.id}">${feature.id}</label>
 				<span class="feature-status">${statusLabel}</span>
