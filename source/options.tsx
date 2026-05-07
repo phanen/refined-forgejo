@@ -57,9 +57,9 @@ function buildFeatureList(): void {
     const isChecked = s === "done" || s === "native";
 
     featureElement.innerHTML = `
-			<input type="checkbox" name="${id}" id="${feature.id}" class="feature-checkbox" ${
-      isDisabled ? "disabled" : ""
-    } ${isChecked ? "checked" : ""}>
+			<input type="checkbox" name="${id}" id="${feature.id}" class="feature-checkbox" ${isDisabled ? "disabled" : ""} ${
+      isChecked ? "checked" : ""
+    }>
 			<div class="info">
 				<label class="feature-name" for="${feature.id}">${feature.id}</label>
 				<span class="feature-status">${statusLabel}</span>
