@@ -2,13 +2,22 @@ import { readFileSync, writeFileSync } from "node:fs";
 
 const readmeContent = readFileSync("readme.md", "utf8");
 
-const featureRegex = /^-\s+\`\[(done|N\/A|todo)\]\`\s+\*\*([a-z0-9-]+)\*\*\s+-\s+(.+)$/gm;
+const featureRegex = /^-\s+(`\[N\/A\]`|\[x\]|\[ \])\s+\*\*([a-z0-9-]+)\*\*\s+-\s+(.+)$/gm;
+
+const statusMap: Record<string, string> = {
+  "[x]": "done",
+  "[ ]": "todo",
+  "`[N/A]`": "N/A",
+};
 
 const features: { id: string; status: string; description: string }[] = [];
 const seen = new Set<string>();
 
 for (const match of readmeContent.matchAll(featureRegex)) {
-  const [, status, id, description] = match;
+  const rawStatus = match[1];
+  const status = statusMap[rawStatus] ?? rawStatus;
+  const id = match[2];
+  const description = match[3];
   if (!seen.has(id)) {
     seen.add(id);
     features.push({ id, status, description });
