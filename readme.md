@@ -8,14 +8,14 @@
 
 - [x] 已完成
 - [ ] 待移植
-- `[N/A]` 不适用于 Forgejo（如 GitHub 特有功能）
+- [N/A] 不适用于 Forgejo（如 GitHub 特有功能）
 
 ---
 
 ### Repositories
 
-- `[N/A]` **ci-link** - 仓库名旁显示 CI/CD 构建状态图标（需要 GraphQL API）
-- `[N/A]` **more-dropdown-links** - 仓库导航下拉菜单添加工具链接
+- [N/A] **ci-link** - 仓库名旁显示 CI/CD 构建状态图标（需要 GraphQL API）
+- [N/A] **more-dropdown-links** - 仓库导航下拉菜单添加工具链接
 - [x] **swap-branches-on-compare** - 分支对比页添加交换分支链接
 - [ ] **repo-age** - 侧边栏显示仓库年龄
 - [ ] **show-open-prs-of-forks** - 在 fork 的仓库显示向原仓库的 PR 数量
@@ -29,7 +29,7 @@
 - [x] **clean-repo-tabs** - 将 Security/Insights 移入仓库导航下拉菜单
 - [x] **repo-avatars** - 公共仓库头部显示头像
 - [x] **small-user-avatars** - issue/PR 列表中用户名旁显示小头像
-- [ ] **action-pr-link** - 显示运行 workflow 的 PR 链接
+- [N/A] **action-pr-link** - 显示运行 workflow 的 PR 链接
 - [x] **repo-header-info** - 显示 fork 状态和 star 数量
 - [ ] **visit-tag** - 查看特定 tag 的文件时添加跳转到 release/tag 的链接
 - [ ] **actions-run-removal** - 更快地取消/删除 workflow runs
@@ -201,7 +201,7 @@
 ### Profiles
 
 - [ ] **user-profile-follower-badge** - 显示用户是否关注你
-- `[N/A]` **profile-gists-link** - 用户资料页添加公开 gists 链接
+- [N/A] **profile-gists-link** - 用户资料页添加公开 gists 链接
 - [ ] **mark-private-orgs** - 在你的资料页标记私有组织
 - [ ] **profile-hotkey** - 添加快捷键 g m 访问自己资料页
 - [ ] **show-user-top-repositories** - 添加用户最多 star 的仓库链接
