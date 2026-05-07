@@ -23,6 +23,8 @@ export const isRepoHome = (): boolean => /\/(?:repo)?\/[^\/]+\/[^\/]+$/.test(cur
 export const isRepoTree = (): boolean => isRepoHome() && includes("/src/");
 export const isIssue = (): boolean => /\/(?:repo)?\/[^\/]+\/[^\/]+\/issues\/\d+/.test(currentPage);
 export const isPR = (): boolean => /\/(?:repo)?\/[^\/]+\/[^\/]+\/pull\/\d+/.test(currentPage);
+export const isIssueOrPR = (): boolean => isIssue() || isPR();
+export const isPRCommits = (): boolean => /\/(?:repo)?\/[^\/]+\/[^\/]+\/pull\/\d+\/commits/.test(currentPage);
 export const isIssueOrPRList = (): boolean => /\/(?:repo)?\/[^\/]+\/[^\/]+\/(issues|pulls)$/.test(currentPage);
 export const isIssueList = (): boolean => /\/(?:repo)?\/[^\/]+\/[^\/]+\/issues$/.test(currentPage);
 export const isPRList = (): boolean => /\/(?:repo)?\/[^\/]+\/[^\/]+\/pulls$/.test(currentPage);
@@ -42,6 +44,8 @@ export const pageDetect = {
   isRepoTree,
   isIssue,
   isPR,
+  isIssueOrPR,
+  isPRCommits,
   isIssueOrPRList,
   isIssueList,
   isPRList,

@@ -2,6 +2,7 @@ import React from "dom-chef";
 
 import features from "../feature-manager.js";
 import { wrap } from "../helpers/dom-utils.js";
+import { isPRCommits } from "../helpers/page-detect.js";
 
 function init(): void {
   const element = document.querySelector(".sha, [class*='sha'], [class*='commit-sha']") as HTMLElement | null;
@@ -12,7 +13,7 @@ function init(): void {
 }
 
 features.add(import.meta.url, {
-  include: [() => /\/pull\/\d+\/commits/.test(location.pathname)],
+  include: [isPRCommits],
   awaitDomReady: true,
   init,
 });

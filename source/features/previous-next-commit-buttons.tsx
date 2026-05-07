@@ -2,6 +2,7 @@ import React from "dom-chef";
 import { $optional } from "select-dom";
 
 import features from "../feature-manager.js";
+import { isPRCommits } from "../helpers/page-detect.js";
 
 function init(): false | void {
   const originalPreviousNext = $optional(
@@ -27,7 +28,7 @@ function init(): false | void {
 }
 
 features.add(import.meta.url, {
-  include: [() => /\/pull\/\d+\/commits/.test(location.pathname)],
+  include: [isPRCommits],
   deduplicate: "has-rgh-prev-next",
   awaitDomReady: true,
   init,

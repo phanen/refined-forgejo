@@ -5,6 +5,7 @@ import debounce from "debounce-fn";
 
 import features from "../feature-manager.js";
 import observe from "../helpers/selector-observer.js";
+import { isIssueOrPR } from "../helpers/page-detect.js";
 
 const minimumViewportWidthForSidebar = 768;
 
@@ -57,7 +58,7 @@ function init(signal: AbortSignal): void {
 
 features.add(import.meta.url, {
   include: [
-    () => /\/(?:issues|pulls)\/\d+/.test(location.pathname),
+    isIssueOrPR,
   ],
   exclude: [
     () => screen.availWidth < minimumViewportWidthForSidebar,
