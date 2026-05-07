@@ -34,6 +34,12 @@ async function addAvatar(authorLink: Element): Promise<void> {
     return;
   }
 
+  // Skip non-user single-segment paths (e.g. /explore, /notifications)
+  const segments = link.pathname.split("/").filter(Boolean);
+  if (segments.length !== 1) {
+    return;
+  }
+
   const avatarUrl = await getAvatarUrl(username);
   if (!avatarUrl) {
     return;
@@ -54,8 +60,8 @@ async function addAvatar(authorLink: Element): Promise<void> {
 function init(signal: AbortSignal): void {
   observe(
     [
-      "a.author", // Comment author links
-      "a[href*='/user/']:not(.ui.assignee):not(.rgf-has-small-avatar)", // Other user links
+      "a.author", // Comment author links (shared/user/authorlink.tmpl)
+      ".issue-meta span > a[href^='/']:not([href*='register'], [href*='login'], [href*='password'], [href*='sign_up'])", // Issue list: single-segment user links
     ],
     addAvatar,
     { signal },
