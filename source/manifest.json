@@ -20,14 +20,15 @@
     "alarms"
   ],
   "host_permissions": [
+    "*://codeberg.org/*",
+    "*://*.codeberg.org/*"
+  ],
+  "optional_host_permissions": [
     "*://*/*"
   ],
   "action": {
     "default_icon": "assets/icon.png"
   },
-  "optional_host_permissions": [
-    "*://*/*"
-  ],
   "icons": {
     "128": "assets/icon.png"
   },
@@ -43,10 +44,8 @@
     {
       "run_at": "document_start",
       "matches": [
-        "*://*/*"
-      ],
-      "exclude_matches": [
-        "*://*/*/login/*"
+        "*://codeberg.org/*",
+        "*://*.codeberg.org/*"
       ],
       "css": [
         "assets/refined-forgejo.css"
@@ -59,7 +58,7 @@
   "web_accessible_resources": [
     {
       "resources": ["assets/*"],
-      "matches": ["https://*/*"]
+      "matches": ["https://codeberg.org/*", "https://*.codeberg.org/*"]
     }
   ]
 }
