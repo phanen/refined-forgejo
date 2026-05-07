@@ -4,8 +4,8 @@ import { onAbort } from "abort-utils";
 import debounce from "debounce-fn";
 
 import features from "../feature-manager.js";
-import observe from "../helpers/selector-observer.js";
 import { isIssueOrPR } from "../helpers/page-detect.js";
+import observe from "../helpers/selector-observer.js";
 
 const minimumViewportWidthForSidebar = 768;
 

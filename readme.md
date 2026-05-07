@@ -23,11 +23,11 @@
 - [ ] **clean-repo-filelist-actions** - 压缩仓库文件列表按钮
 - [ ] **new-repo-disable-projects-and-wikis** - 创建仓库时自动禁用 projects 和 wikis
 - [x] **sticky-sidebar** - 侧边栏滚动时固定
-- [x] **link-to-github-io** - 从仓库跳转到用户的 github.io 页面
+- [-] **link-to-github-io** - 从仓库跳转到用户的 github.io 页面
 - [+] **github-actions-indicators** - 工作流侧边栏显示手动触发和下次执行时间
 - [ ] **quick-repo-deletion** - 简化仓库删除，0-star repos 添加删除 fork 按钮
 - [ ] **archive-forks-link** - 在归档仓库中查找 forks
-- [x] **clean-repo-tabs** - 将 Security/Insights 移入仓库导航下拉菜单
+- [-] **clean-repo-tabs** - 将 Security/Insights 移入仓库导航下拉菜单
 - [x] **repo-avatars** - 公共仓库头部显示头像
 - [x] **small-user-avatars** - issue/PR 列表中用户名旁显示小头像
 - [+] **action-pr-link** - 显示运行 workflow 的 PR 链接

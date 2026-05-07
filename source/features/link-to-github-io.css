@@ -1,6 +1,0 @@
-/* link-to-github-io */
-a[href*=".github.io"]::after {
-  content: " ↗";
-  font-size: 0.75em;
-  opacity: 0.5;
-}
