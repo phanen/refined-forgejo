@@ -26,3 +26,9 @@ function initOnce(): void {
 features.add(import.meta.url, {
   init: onetime(initOnce),
 });
+
+/*
+Test URLs:
+
+- https://codeberg.org/ziglang
+*/

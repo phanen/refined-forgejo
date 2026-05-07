@@ -16,3 +16,9 @@ features.add(import.meta.url, {
   awaitDomReady: true,
   init,
 });
+
+/*
+Test URLs:
+
+- https://codeberg.org/ziglang/zig/pulls/1/commits
+*/

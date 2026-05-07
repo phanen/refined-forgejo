@@ -26,3 +26,9 @@ features.add(import.meta.url, {
   include: [() => location.pathname.includes("/milestones/")],
   init,
 });
+
+/*
+Test URLs:
+
+- https://codeberg.org/ziglang/zig/milestones
+*/

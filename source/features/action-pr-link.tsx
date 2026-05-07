@@ -61,3 +61,10 @@ features.add(import.meta.url, {
   include: [() => /\/pull\/\d+/.test(location.pathname)],
   init: initForPrPage,
 });
+
+/*
+Test URLs:
+
+- https://codeberg.org/ziglang/zig/actions
+- https://codeberg.org/ziglang/zig/pulls/1
+*/

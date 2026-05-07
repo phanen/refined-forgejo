@@ -87,3 +87,9 @@ async function init(signal: AbortSignal): Promise<void> {
 features.add(import.meta.url, {
   init,
 });
+
+/*
+Test URLs:
+
+- https://codeberg.org/ziglang/zig/issues/1
+*/

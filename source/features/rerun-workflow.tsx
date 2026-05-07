@@ -65,3 +65,9 @@ features.add(import.meta.url, {
   include: [() => location.pathname.includes("/actions/runs/")],
   init,
 });
+
+/*
+Test URLs:
+
+- https://codeberg.org/ziglang/zig/actions
+*/
