@@ -1,7 +1,15 @@
-.rgf-own-conversation {
-  font-weight: 600;
+.rgf-collaborator {
+  border: 1px solid var(--color-border, fuchsia);
+  border-radius: 2em;
+  padding: 2px 5px;
 }
 
-.rgf-collaborator {
-  color: #d73a49 !important;
+a.rgf-own-conversation,
+a.rgf-own-conversation:hover {
+  color: var(--color-primary, fuchsia) !important;
+  background-color: var(--color-attention-bg, transparent);
+}
+
+a.rgf-own-conversation:hover {
+  text-decoration: underline !important;
 }
