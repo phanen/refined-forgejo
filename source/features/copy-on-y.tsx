@@ -1,10 +1,35 @@
 import features from "../feature-manager.js";
 
-async function handler(event: KeyboardEvent): Promise<void> {
-  if (event.key === "y" && !(event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement)) {
-    const url = location.href;
-    await navigator.clipboard.writeText(url);
+async function copyUrl(text: string): Promise<void> {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    // Fallback: document.execCommand('copy')
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.append(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    textarea.remove();
   }
+}
+
+function handler({ key, target }: KeyboardEvent): void {
+  if (key !== "y") {
+    return;
+  }
+
+  if (
+    target instanceof HTMLTextAreaElement
+    || target instanceof HTMLInputElement
+    || (target instanceof HTMLElement && target.isContentEditable)
+  ) {
+    return;
+  }
+
+  void copyUrl(location.href);
 }
 
 function init(signal: AbortSignal): void {
@@ -14,9 +39,3 @@ function init(signal: AbortSignal): void {
 features.add(import.meta.url, {
   init,
 });
-
-/*
-Test URLs:
-
-- https://codeberg.org/ziglang/zig/issues/1
-*/
