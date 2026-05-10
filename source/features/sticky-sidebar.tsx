@@ -42,11 +42,9 @@ function updateStickiness(): void {
     return;
   }
 
-  const offset = 20;
   sidebar.classList.toggle(
     "rgf-sticky-sidebar",
-    window.innerWidth >= minimumViewportWidthForSidebar
-      && sidebar.offsetHeight + offset <= window.innerHeight,
+    window.innerWidth >= minimumViewportWidthForSidebar,
   );
 }
 
