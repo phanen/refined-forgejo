@@ -4,32 +4,12 @@ import React from "dom-chef";
 import { flatZip } from "flat-zip";
 
 import features from "../feature-manager.js";
-import observe from "../helpers/selector-observer.js";
+import getAvatarUrl from "../forgejo-helpers/get-avatar-url.js";
 import { isIssueOrPR } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 const avatarLimit = 20;
 const avatarSize = 16;
-
-const avatarCache = new Map<string, string>();
-
-async function getAvatarUrl(username: string): Promise<string | undefined> {
-  if (avatarCache.has(username)) {
-    return avatarCache.get(username);
-  }
-
-  try {
-    const response = await fetch(`/api/v1/users/${username}`);
-    if (!response.ok) {
-      return undefined;
-    }
-    const data = await response.json();
-    avatarCache.set(username, data.avatar_url);
-    return data.avatar_url;
-  } catch {
-    return undefined;
-  }
-}
 
 type Participant = {
   button: Element;
