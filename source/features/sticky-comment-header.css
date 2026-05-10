@@ -1,6 +1,10 @@
+.timeline-item.comment .timeline-avatar,
 .timeline-item.comment .comment-header {
   position: sticky;
   top: 0;
   z-index: 3;
-  /* background: var(--color-bg-primary, var(--color-body-bg)); */
+}
+
+.timeline-item.comment .timeline-avatar {
+  display: block;
 }
