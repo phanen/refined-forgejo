@@ -4,6 +4,7 @@ import features from "../feature-manager.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import { isIssueOrPRList } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
+import { getToken } from "../options-storage.js";
 
 function getLoggedInUser(): string | undefined {
   const el = document.querySelector<HTMLElement>(".navbar-right .dropdown .header strong");
@@ -16,13 +17,15 @@ async function init(signal: AbortSignal): Promise<void> {
     return;
   }
 
-  // Try to fetch collaborators (may fail without auth)
+  // Fetch collaborators using stored token
   let collaborators: string[] = [];
   const repo = getRepo();
-  if (repo) {
+  const token = await getToken();
+  if (repo && token) {
     try {
       const data = await fetch(
         `${location.origin}/api/v1/repos/${repo.owner}/${repo.name}/collaborators`,
+        { headers: { Authorization: `token ${token}` } },
       ).then(r => r.ok ? r.json() : []);
       collaborators = (data as Array<{ login: string }>).map(u => u.login);
     } catch {
