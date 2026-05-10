@@ -19,7 +19,7 @@ async function getAvatarUrl(username: string): Promise<string | undefined> {
   }
 
   try {
-    const response = await fetch(`https://codeberg.org/api/v1/users/${username}`);
+    const response = await fetch(`/api/v1/users/${username}`);
     if (!response.ok) {
       return undefined;
     }

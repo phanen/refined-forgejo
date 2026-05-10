@@ -130,6 +130,7 @@ async function validateToken(): Promise<void> {
   }
 
   try {
+    // TODO: base url customizable codeberg.org
     const response = await fetch("https://codeberg.org/api/v1/user", {
       headers: { Authorization: `token ${token}` },
     });
