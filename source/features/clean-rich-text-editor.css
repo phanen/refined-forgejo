@@ -1,5 +1,1 @@
-/* clean-rich-text-editor */
-.editor-preview,
-.editor-tabs {
-  display: none;
-}
+/* Editor chrome to hide — selectors TBD for Forgejo */
