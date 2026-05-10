@@ -40,7 +40,7 @@
 
 ### File management
 
-- [x] **download-folder-button** - 添加下载整个文件夹的按钮
+- [+] **download-folder-button** - 添加下载整个文件夹的按钮
 - [x] **quick-file-edit** - 仓库文件列表添加编辑按钮
 - [ ] **repo-wide-file-finder** - 启用键盘快捷键 t 在整个仓库搜索文件
 - [ ] **show-associated-branch-prs-on-fork** - fork 仓库的分支上显示关联的 PR
