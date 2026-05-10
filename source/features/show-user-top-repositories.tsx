@@ -5,7 +5,7 @@ import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 function addLink(title: Element): void {
-  if (title.querySelector(".rgh-top-repos-link")) {
+  if (title.querySelector(".rgf-top-repos-link")) {
     return;
   }
 
@@ -15,7 +15,7 @@ function addLink(title: Element): void {
     sort: "stars",
   }).toString();
 
-  title.firstChild!.after(" / ", <a className="rgh-top-repos-link" href={url.href}>Top repositories</a>);
+  title.firstChild!.after(" / ", <a className="rgf-top-repos-link" href={url.href}>Top repositories</a>);
 }
 
 function init(signal: AbortSignal): void {

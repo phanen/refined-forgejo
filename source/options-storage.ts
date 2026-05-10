@@ -1,4 +1,4 @@
-export type RGHOptions = {
+export type RGFOptions = {
   actionUrl: string;
   customCss: string;
   personalToken: string;
@@ -6,7 +6,7 @@ export type RGHOptions = {
   [x: string]: unknown;
 };
 
-const defaults: RGHOptions = {
+const defaults: RGFOptions = {
   actionUrl: location.origin,
   customCss: "",
   personalToken: "",
@@ -20,13 +20,13 @@ export async function getToken(): Promise<string> {
   return result.personalToken || "";
 }
 
-export function isFeatureDisabled(options: RGHOptions, id: string): boolean {
+export function isFeatureDisabled(options: RGFOptions, id: string): boolean {
   return options[`feature:${id}`] === false;
 }
 
 const optionsStorage = {
-  async getAll(): Promise<RGHOptions> {
-    const stored = (await chrome.storage.sync.get()) as RGHOptions;
+  async getAll(): Promise<RGFOptions> {
+    const stored = (await chrome.storage.sync.get()) as RGFOptions;
     return { ...defaults, ...stored };
   },
 };

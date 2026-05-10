@@ -1,5 +1,5 @@
-import type { RGHOptions } from "../options-storage.js";
+import type { RGFOptions } from "../options-storage.js";
 
-export async function getLocalHotfixesAsOptions(): Promise<Partial<RGHOptions>> {
+export async function getLocalHotfixesAsOptions(): Promise<Partial<RGFOptions>> {
   return {};
 }

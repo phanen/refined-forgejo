@@ -7,11 +7,11 @@ function watchTextarea(textarea: Element): void {
   if (!(textarea instanceof HTMLTextAreaElement)) {
     return;
   }
-  if (textarea.classList.contains("rgh-fit-textareas")) {
+  if (textarea.classList.contains("rgf-fit-textareas")) {
     return;
   }
 
-  textarea.classList.add("rgh-fit-textareas");
+  textarea.classList.add("rgf-fit-textareas");
   textarea.removeAttribute("rows");
 }
 

@@ -3,7 +3,7 @@ import type JSX from "react";
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      "has-rgh": IntrinsicElements.div;
+      "has-rgf": IntrinsicElements.div;
       "has-rgf-inner": IntrinsicElements.div;
     }
   }

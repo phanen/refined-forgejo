@@ -19,7 +19,7 @@ function init(): false | void {
 
   const clone = originalPreviousNext.cloneNode(true) as HTMLElement;
   const wrapper = (
-    <div className="rgh-prev-next-commit-buttons d-flex flex-justify-end mb-3">
+    <div className="rgf-prev-next-commit-buttons d-flex flex-justify-end mb-3">
       {clone}
     </div>
   );
@@ -29,7 +29,7 @@ function init(): false | void {
 
 features.add(import.meta.url, {
   include: [isPRCommits],
-  deduplicate: "has-rgh-prev-next",
+  deduplicate: "has-rgf-prev-next",
   awaitDomReady: true,
   init,
 });

@@ -13,7 +13,7 @@ import { isFeaturePrivate, type RunConditions, shouldFeatureRun } from "./helper
 import { getLocalHotfixesAsOptions } from "./helpers/hotfix.js";
 import ArrayMap from "./helpers/map-of-arrays.js";
 import waitFor from "./helpers/wait-for.js";
-import optionsStorage, { isFeatureDisabled, type RGHOptions } from "./options-storage.js";
+import optionsStorage, { isFeatureDisabled, type RGFOptions } from "./options-storage.js";
 
 type Arrayable<T> = T | T[];
 
@@ -29,7 +29,7 @@ type FeatureLoader = RunConditions & {
 
 const currentFeatureControllers = new ArrayMap<string, AbortController>();
 
-const globalReady = new Promise<RGHOptions>(async resolve => {
+const globalReady = new Promise<RGFOptions>(async resolve => {
   if (!isWebPage()) {
     throw new Error("This script should only be run on web pages");
   }
