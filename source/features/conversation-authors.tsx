@@ -1,13 +1,56 @@
 import "./conversation-authors.css";
 
 import features from "../feature-manager.js";
+import { getRepo } from "../forgejo-helpers/index.js";
+import { isIssueOrPRList } from "../helpers/page-detect.js";
+import observe from "../helpers/selector-observer.js";
+
+function getLoggedInUser(): string | undefined {
+  const el = document.querySelector<HTMLElement>(".navbar-right .dropdown .header strong");
+  return el?.textContent?.trim() || undefined;
+}
+
+async function init(signal: AbortSignal): Promise<void> {
+  const username = getLoggedInUser();
+  if (!username) {
+    return;
+  }
+
+  // Try to fetch collaborators (may fail without auth)
+  let collaborators: string[] = [];
+  const repo = getRepo();
+  if (repo) {
+    try {
+      const data = await fetch(
+        `${location.origin}/api/v1/repos/${repo.owner}/${repo.name}/collaborators`,
+      ).then(r => r.ok ? r.json() : []);
+      collaborators = (data as Array<{ login: string }>).map(u => u.login);
+    } catch {
+      // Collaborators fetch failed
+    }
+  }
+
+  const collaboratorSet = new Set(collaborators);
+
+  observe(
+    ".issue-meta a[href^='/']:not([href*='/']):not([href='/'])",
+    author => {
+      const name = author.textContent?.trim();
+      if (!name) {
+        return;
+      }
+
+      if (name === username) {
+        author.classList.add("rgf-own-conversation");
+      } else if (collaboratorSet.has(name)) {
+        author.classList.add("rgf-collaborator");
+      }
+    },
+    { signal },
+  );
+}
 
 features.add(import.meta.url, {
-  init() {},
+  include: [isIssueOrPRList],
+  init,
 });
-
-/*
-Test URLs:
-
-- https://codeberg.org/ziglang/zig/issues
-*/

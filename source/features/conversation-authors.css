@@ -1,4 +1,7 @@
-/* conversation-authors */
-.issue-list-item:has(.author[href*="/orgs/"]) {
-  border-left: 3px solid var(--color-accent-fg);
+.rgf-own-conversation {
+  font-weight: 600;
+}
+
+.rgf-collaborator {
+  color: var(--color-primary, var(--color-accent-fg)) !important;
 }
