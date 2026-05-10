@@ -4,6 +4,8 @@ import React from "dom-chef";
 import PencilIcon from "octicons-plain-react/Pencil";
 
 import features from "../feature-manager.js";
+import { isArchivedRepoAsync, isPermalink } from "../github-helpers/index.js";
+import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 function addEditLink(fileLink: Element): void {
@@ -50,6 +52,14 @@ function init(signal: AbortSignal): void {
 
 features.add(import.meta.url, {
   init,
+  include: [
+    pageDetect.isRepoTree,
+  ],
+  exclude: [
+    pageDetect.isRepoFile404,
+    isArchivedRepoAsync,
+    isPermalink,
+  ],
 });
 
 /*

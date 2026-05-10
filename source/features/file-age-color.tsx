@@ -1,6 +1,7 @@
 import "./file-age-color.css";
 
 import features from "../feature-manager.js";
+import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 const month = 30 * 24 * 60 * 60 * 1000;
@@ -55,6 +56,8 @@ function init(signal: AbortSignal): void {
 
 features.add(import.meta.url, {
   init,
+  include: [pageDetect.isRepoTree],
+  exclude: [pageDetect.isRepoFile404],
 });
 
 /*
