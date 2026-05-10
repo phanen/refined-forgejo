@@ -56,7 +56,7 @@ function append(group: Element): void {
 
 function init(signal: AbortSignal): void {
   observe(
-    ".combo-markdown-editor markdown-toolbar .markdown-toolbar-group:last-child",
+    ".combo-markdown-editor markdown-toolbar .markdown-toolbar-group:nth-last-child(2)",
     append,
     { signal },
   );
