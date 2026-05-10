@@ -1,20 +1,30 @@
 import features from "../feature-manager.js";
 import { isIssueOrPRList } from "../helpers/page-detect.js";
+import observe from "../helpers/selector-observer.js";
 
-function init(): void {
-  const links = document.querySelectorAll<HTMLAnchorElement>(
-    ".issue-list-item a[href*=\"/issues/\"], .issue-list-item a[href*=\"/pulls/\"]",
-  );
-  for (const link of links) {
-    link.hash = "#issue-comment-box";
+function addHash(link: Element): void {
+  const anchor = link as HTMLAnchorElement;
+
+  // Only target links that have a comment count (contain the discussion icon)
+  if (!anchor.querySelector(".octicon-comment-discussion")) {
+    return;
   }
+
+  anchor.hash = "#comment-form";
+}
+
+function init(signal: AbortSignal): void {
+  observe(
+    ".flex-item-trailing .text.grey a",
+    addHash,
+    { signal },
+  );
 }
 
 features.add(import.meta.url, {
   include: [
     isIssueOrPRList,
   ],
-  awaitDomReady: true,
   init,
 });
 
@@ -22,4 +32,5 @@ features.add(import.meta.url, {
 Test URLs:
 
 - https://codeberg.org/ziglang/zig/issues
+- https://codeberg.org/ziglang/zig/pulls
 */

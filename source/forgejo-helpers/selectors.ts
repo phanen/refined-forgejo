@@ -2,12 +2,7 @@ import { css } from "code-tag";
 
 export const repoUnderlineNavUl = ".repo-head-container";
 
-export const commentsCountInLists = `
-	.issue-list-item a:is(
-		[href*="/issues/"],
-		[href*="/pulls/"]
-	)
-`;
+export const commentsCountInLists = ".flex-item-trailing .text.grey a:has(.octicon-comment-discussion)";
 
 export const newCommentField = [
   "textarea[name=\"comment\"]",
@@ -36,5 +31,5 @@ export const botLinksCommitSelectors = [
 ];
 
 export const openPrsListLink = css`
-	.issue-list-item:has(.octicon-git-pull-request) a
+	.flex-item:has(.octicon-git-pull-request) a.issue-title
 `;
