@@ -5,6 +5,8 @@ import { flatZip } from "flat-zip";
 
 import features from "../feature-manager.js";
 import observe from "../helpers/selector-observer.js";
+import { isIssueOrPR } from "../helpers/page-detect.js";
+import observe from "../helpers/selector-observer.js";
 
 const avatarLimit = 20;
 const avatarSize = 16;
@@ -85,6 +87,7 @@ async function init(signal: AbortSignal): Promise<void> {
 }
 
 features.add(import.meta.url, {
+  include: [isIssueOrPR],
   init,
 });
 

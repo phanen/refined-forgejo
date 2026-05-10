@@ -6,6 +6,7 @@ import FoldDownIcon from "octicons-plain-react/FoldDown";
 import { insertTextIntoField } from "text-field-edit";
 
 import features from "../feature-manager.js";
+import { isIssueOrPR } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 function addContent({ delegateTarget }: DelegateEvent<MouseEvent, HTMLButtonElement>): void {
@@ -64,5 +65,10 @@ function init(signal: AbortSignal): void {
 }
 
 features.add(import.meta.url, {
+  include: [
+    isIssueOrPR,
+    () => /\/issues\/new/.test(location.pathname),
+    () => /\/compare\//.test(location.pathname),
+  ],
   init,
 });

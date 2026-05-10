@@ -1,5 +1,6 @@
 import features from "../feature-manager.js";
 import onetime from "../helpers/onetime.js";
+import { isUserProfile } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 function addSourceTypeToLink(link: Element): void {
@@ -24,6 +25,7 @@ function initOnce(): void {
 }
 
 features.add(import.meta.url, {
+  include: [isUserProfile],
   init: onetime(initOnce),
 });
 
