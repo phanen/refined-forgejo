@@ -33,7 +33,7 @@ async function init(signal: AbortSignal): Promise<void> {
   const collaboratorSet = new Set(collaborators);
 
   observe(
-    ".issue-meta a[href^='/']:not([href*='/']):not([href='/'])",
+    ".issue-meta span > a[href^='/']:not(.index)",
     author => {
       const name = author.textContent?.trim();
       if (!name) {
