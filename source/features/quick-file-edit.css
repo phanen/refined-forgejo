@@ -1,8 +1,10 @@
-/* quick-file-edit */
-.file-actions .edit-button {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 8px;
-  background: var(--color-btn-bg);
-  border-radius: 6px;
+.rgf-quick-file-edit {
+  display: none !important;
+  margin-left: 4px;
+  vertical-align: middle;
+  color: var(--color-primary, #2a7de1);
+}
+
+tr.entry:hover .rgf-quick-file-edit {
+  display: inline-block !important;
 }
