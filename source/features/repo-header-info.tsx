@@ -16,15 +16,48 @@ type RepoInfo = {
   stars_count: number;
   forks_count: number;
   parent?: { full_name: string; html_url: string };
+  owner: { login: string; avatar_url: string };
 };
 
-async function addInfo(titleArea: Element): Promise<void> {
+async function addInfo(leading: Element): Promise<void> {
   const repo = getRepo();
-  if (!repo || titleArea.querySelector(".rgf-repo-info")) {
+  if (!repo || leading.classList.contains("rgf-processed")) {
     return;
   }
 
+  leading.classList.add("rgf-processed");
   const data = await api.v3(`repos/${repo.owner}/${repo.name}`) as RepoInfo;
+
+  // Replace leading SVG (mirror/fork/repo icon) with owner's avatar
+  const svg = leading.querySelector("svg");
+  if (svg) {
+    // Move the SVG to trailing area (if it's not the repo-avatar img already)
+    const trailing = leading.closest(".flex-item")?.querySelector(".flex-item-trailing");
+    if (trailing) {
+      const clonedSvg = svg.cloneNode(true) as HTMLElement;
+      clonedSvg.classList.add("rgf-moved-icon");
+      trailing.prepend(clonedSvg);
+    }
+
+    // Replace with owner avatar
+    leading.innerHTML = "";
+    const avatar = (
+      <img
+        className="ui avatar tw-align-middle"
+        src={data.owner.avatar_url}
+        width={24}
+        height={24}
+        alt={`@${data.owner.login}`}
+      />
+    );
+    leading.append(avatar);
+  }
+
+  // Add indicators (star, fork, private) near the repo title
+  const titleArea = leading.closest(".flex-item")?.querySelector(".flex-item-title");
+  if (!titleArea || titleArea.querySelector(".rgf-repo-info")) {
+    return;
+  }
 
   const container = (
     <span className="rgf-repo-info rgf-repo-info-icons">
@@ -39,7 +72,6 @@ async function addInfo(titleArea: Element): Promise<void> {
     </span>
   );
 
-  // Append after the repo name (second <a> in flex-item-title)
   const repoLink = titleArea.querySelector("a.muted.tw-font-semibold");
   if (repoLink) {
     repoLink.after(container);
@@ -48,7 +80,7 @@ async function addInfo(titleArea: Element): Promise<void> {
 
 function init(signal: AbortSignal): void {
   observe(
-    ".repo-header .flex-item-title",
+    ".repo-header .flex-item-leading",
     addInfo,
     { signal },
   );

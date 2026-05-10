@@ -14,3 +14,8 @@
   font-size: 0.85em;
   color: var(--color-text-secondary, #666);
 }
+
+.rgf-moved-icon {
+  margin-right: 4px;
+  vertical-align: middle;
+}
