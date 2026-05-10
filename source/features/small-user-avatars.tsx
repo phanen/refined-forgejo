@@ -10,7 +10,7 @@ const avatarSize = 14;
 
 async function addAvatar(authorLink: Element): Promise<void> {
   const link = authorLink as HTMLAnchorElement;
-  const username = link.textContent?.trim();
+  const username = link.textContent?.trim().replace(/^@/, "");
   if (!username || link.querySelector(".rgf-small-user-avatar")) {
     return;
   }
