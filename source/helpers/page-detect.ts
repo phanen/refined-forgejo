@@ -28,6 +28,8 @@ export const isPRCommits = (): boolean => /(?:\/repo)?\/[^\/]+\/[^\/]+\/pull\/\d
 export const isIssueOrPRList = (): boolean => /(?:\/repo)?\/[^\/]+\/[^\/]+\/(issues|pulls)$/.test(currentPage);
 export const isIssueList = (): boolean => /(?:\/repo)?\/[^\/]+\/[^\/]+\/issues$/.test(currentPage);
 export const isPRList = (): boolean => /(?:\/repo)?\/[^\/]+\/[^\/]+\/pulls$/.test(currentPage);
+export const isWiki = (): boolean => includes("/wiki/");
+export const isAction = (): boolean => includes("/actions/");
 export const isActionRun = (): boolean => /(?:\/repo)?\/[^\/]+\/[^\/]+\/actions\/runs\/\d+/.test(currentPage);
 export const isSettings = (): boolean => includes("/settings/");
 export const isUserProfile = (): boolean => /^\/[^\/]+$/.test(currentPage);
