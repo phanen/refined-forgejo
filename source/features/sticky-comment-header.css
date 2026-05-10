@@ -3,11 +3,3 @@
   top: 0;
   z-index: 3;
 }
-
-.timeline-item.comment .timeline-avatar {
-  position: sticky !important;
-  left: auto !important;
-  top: 0;
-  z-index: 3;
-  display: block;
-}
