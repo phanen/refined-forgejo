@@ -1,1 +1,11 @@
-/* Editor chrome to hide — selectors TBD for Forgejo */
+@media (hover: hover) and (pointer: fine) {
+  html:not([rgf-OFF-clean-rich-text-editor])
+    :is([data-md-button="mention"], [data-md-button="ref"], md-header, md-bold, md-italic):not(:focus) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
