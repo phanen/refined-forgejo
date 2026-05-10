@@ -28,15 +28,17 @@ async function addInfo(leading: Element): Promise<void> {
   leading.classList.add("rgf-processed");
   const data = await api.v3(`repos/${repo.owner}/${repo.name}`) as RepoInfo;
 
-  // Replace leading SVG (mirror/fork/repo icon) with owner's avatar
+  // Replace leading SVG (mirror/repo icon) with owner's avatar
   const svg = leading.querySelector("svg");
   if (svg) {
-    // Move the SVG to trailing area (if it's not the repo-avatar img already)
-    const trailing = leading.closest(".flex-item")?.querySelector(".flex-item-trailing");
-    if (trailing) {
-      const clonedSvg = svg.cloneNode(true) as HTMLElement;
-      clonedSvg.classList.add("rgf-moved-icon");
-      trailing.prepend(clonedSvg);
+    // Skip the fork icon: trailing already shows fork info natively
+    if (!svg.classList.contains("octicon-repo-forked")) {
+      const trailing = leading.closest(".flex-item")?.querySelector(".flex-item-trailing");
+      if (trailing) {
+        const clonedSvg = svg.cloneNode(true) as HTMLElement;
+        clonedSvg.classList.add("rgf-moved-icon");
+        trailing.prepend(clonedSvg);
+      }
     }
 
     // Replace with owner avatar
