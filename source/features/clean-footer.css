@@ -1,8 +1,8 @@
-.footer {
+.page-footer {
   opacity: 0.5;
   transition: opacity 0.2s ease;
 }
 
-.footer:hover {
+.page-footer:hover {
   opacity: 1;
 }
