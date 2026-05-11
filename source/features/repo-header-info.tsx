@@ -8,6 +8,7 @@ import features from "../feature-manager.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import observe from "../helpers/selector-observer.js";
+import { getToken } from "../options-storage.js";
 
 type RepoInfo = {
   private: boolean;
@@ -24,7 +25,13 @@ async function addInfo(leading: Element): Promise<void> {
   }
 
   leading.classList.add("rgf-processed");
-  const data = await api.v3(`repos/${repo.owner}/${repo.name}`) as RepoInfo;
+  const token = await getToken();
+  const headers: Record<string, string> = {};
+  if (token) {
+    headers.Authorization = `token ${token}`;
+  }
+
+  const data = await api.v3(`repos/${repo.owner}/${repo.name}`, { headers }) as RepoInfo;
 
   const svg = leading.querySelector("svg");
   if (svg) {
