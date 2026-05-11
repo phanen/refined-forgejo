@@ -25,7 +25,7 @@ async function addAvatar(authorLink: Element): Promise<void> {
     return;
   }
 
-  const avatarUrl = await getAvatarUrl(username, avatarSize);
+  const avatarUrl = await getAvatarUrl(username);
   if (!avatarUrl) {
     return;
   }

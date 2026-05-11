@@ -18,7 +18,7 @@ async function addAvatar(header: Element, { signal }: { signal?: AbortSignal }):
     return;
   }
 
-  const avatarUrl = await getAvatarUrl(username, 14);
+  const avatarUrl = await getAvatarUrl(username);
   if (!avatarUrl) {
     return;
   }
