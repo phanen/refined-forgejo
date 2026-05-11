@@ -7,7 +7,7 @@ import getAvatarUrl from "../forgejo-helpers/get-avatar-url.js";
 import { isIssueOrPR } from "../helpers/page-detect";
 import observe from "../helpers/selector-observer.js";
 
-async function addAvatar(header: Element): Promise<void> {
+async function addAvatar(header: Element, { signal }: { signal?: AbortSignal }): Promise<void> {
   const authorLink = header.querySelector<HTMLAnchorElement>("a.author");
   if (!authorLink || authorLink.querySelector(".rgf-sticky-avatar")) {
     return;
@@ -33,6 +33,17 @@ async function addAvatar(header: Element): Promise<void> {
     />
   );
   authorLink.prepend(avatar);
+
+  // Detect sticky state via IntersectionObserver:
+  // with top: -1px, the element's intersectionRatio < 1 when pinned
+  const stickyObserver = new IntersectionObserver(
+    ([entry]) => {
+      avatar.classList.toggle("rgf-sticky-avatar-visible", entry.intersectionRatio < 1);
+    },
+    { threshold: [1] },
+  );
+  stickyObserver.observe(header);
+  signal?.addEventListener("abort", () => stickyObserver.disconnect());
 }
 
 function init(signal: AbortSignal): void {
