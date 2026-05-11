@@ -36,10 +36,10 @@ describe("page-detect", async () => {
   });
 
   describe("isRepoTree", () => {
+    testTrue(pageDetect.isRepoTree, "/ziglang/zig");
     testTrue(pageDetect.isRepoTree, "/ziglang/zig/src/branch/main");
     testTrue(pageDetect.isRepoTree, "/ziglang/zig/src/branch/main/src");
     testFalse(pageDetect.isRepoTree, "/ziglang/zig/issues");
-    testFalse(pageDetect.isRepoTree, "/ziglang/zig");
   });
 
   describe("isIssue", () => {

@@ -22,7 +22,9 @@ function getRepoPath(segment: string): boolean {
 
 export const isDashboard = (): boolean => location.pathname === "/" || location.pathname === "/dashboard";
 export const isRepoHome = (): boolean => /^\/[^/]+\/[^/]+\/?$/.test(location.pathname);
-export const isRepoTree = (): boolean => /\/[^/]+\/[^/]+\/src\/(?:branch|tag)\//.test(location.pathname);
+export const isRepoTree = (): boolean =>
+  isRepoHome()
+  || /\/[^/]+\/[^/]+\/src\/(?:branch|tag)\//.test(location.pathname);
 export const isIssue = (): boolean => getRepoPath("issues/\\d+");
 export const isPR = (): boolean => getRepoPath("pull/\\d+");
 export const isIssueOrPR = (): boolean => isIssue() || isPR();
