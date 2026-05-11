@@ -1,4 +1,4 @@
-/* Useful not found page */
-.not-found-page h1 {
-  font-size: 4em;
+.page-content .ui.container .ui.header.center.aligned a {
+  text-decoration: underline;
+  color: var(--color-primary, var(--color-text-link));
 }
