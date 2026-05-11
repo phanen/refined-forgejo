@@ -15,6 +15,11 @@ async function addAvatar(authorLink: Element): Promise<void> {
     return;
   }
 
+  // Skip author links inside the comment header (avatar handled by sticky-comment-header)
+  if (link.closest(".comment-header-left")) {
+    return;
+  }
+
   const segments = link.pathname.split("/").filter(Boolean);
   if (segments.length !== 1) {
     return;
@@ -40,9 +45,9 @@ async function addAvatar(authorLink: Element): Promise<void> {
 function init(signal: AbortSignal): void {
   observe(
     [
+      "a.author",
       "a.mention",
-      "a.author", // Comment author links (shared/user/authorlink.tmpl)
-      ".issue-meta span > a[href^='/']:not([href*='register'], [href*='login'], [href*='password'], [href*='sign_up'])", // Issue list: single-segment user links
+      ".issue-meta span > a[href^='/']:not([href*='register'], [href*='login'], [href*='password'], [href*='sign_up'])",
     ],
     addAvatar,
     { signal },
