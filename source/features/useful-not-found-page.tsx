@@ -7,8 +7,23 @@ function getCleanPathname(): string {
   return location.pathname.replace(/\/\/+/g, "/").replace(/\/$/, "").replace(/^\//, "");
 }
 
+async function isUrlReachable(url: string): Promise<boolean> {
+  try {
+    const response = await fetch(url, { method: "HEAD" });
+    return response.ok;
+  } catch {
+    return false;
+  }
+}
+
 function getStrikeThrough(text: string): HTMLElement {
   return <del style={{ opacity: 0.6 }}>{text}</del>;
+}
+
+async function crossIfNonExistent(anchor: HTMLElement): Promise<void> {
+  if (anchor instanceof HTMLAnchorElement && !(await isUrlReachable(anchor.href))) {
+    anchor.replaceWith(getStrikeThrough(anchor.textContent ?? ""));
+  }
 }
 
 async function showMissingPartOnce(): Promise<void> {
@@ -19,19 +34,18 @@ async function showMissingPartOnce(): Promise<void> {
 
   const breadcrumbs = pathParts
     .map((part, index) => {
-      // Last part is always the 404
       if (index === pathParts.length - 1) {
         return getStrikeThrough(part);
       }
 
-      // Routing segments (src/blob/edit) never exist as standalone pages
       if (index >= 2 && ["src", "blob", "edit", "tree"].includes(part)) {
         return getStrikeThrough(part);
       }
 
-      // Every other segment is likely valid — make it clickable
       const pathname = "/" + pathParts.slice(0, index + 1).join("/");
-      return <a href={pathname}>{part}</a>;
+      const link = <a href={pathname}>{part}</a>;
+      void crossIfNonExistent(link);
+      return link;
     })
     .flatMap((link, index) => [index > 0 && " / ", link]);
 
