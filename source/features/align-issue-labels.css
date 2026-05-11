@@ -1,10 +1,27 @@
-.issue-list-item .labels {
+/* Move labels below the issue title in issue/PR lists */
+.flex-item-title {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  align-items: baseline;
+  gap: 2px 0;
 }
 
-.issue-list-item .labels > a,
-.issue-list-item .labels > span {
+.flex-item-title > .issue-title,
+.flex-item-title > a:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.flex-item-title > .labels-list {
+  flex: 0 0 100%;
+  order: 1;
+  margin-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.flex-item-title > .labels-list .ui.label {
+  font-size: 11px;
   margin: 0;
 }
