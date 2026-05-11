@@ -25,6 +25,7 @@ features.add(import.meta.url, {
   include: [
     pageDetect.isIssueList,
     pageDetect.isIssue,
+    pageDetect.isBranches,
   ],
   init,
 });
