@@ -37,7 +37,7 @@ async function apiFetch(
   throw new Error(data.message || `API error: ${response.status}`);
 }
 
-const v3 = mem(apiFetch);
+const v1 = mem(apiFetch);
 
 async function apiFetchWithToken(path: string): Promise<unknown> {
   const token = await getToken();
@@ -46,9 +46,9 @@ async function apiFetchWithToken(path: string): Promise<unknown> {
 }
 
 const api = {
-  v3,
-  v3uncached: apiFetch,
-  v3WithToken: mem(apiFetchWithToken),
+  v1,
+  v1uncached: apiFetch,
+  v1WithToken: mem(apiFetchWithToken),
 };
 
 export default api;

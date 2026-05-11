@@ -21,7 +21,7 @@ async function init(signal: AbortSignal): Promise<void> {
   const repo = getRepo();
   if (repo) {
     try {
-      const data = await api.v3WithToken(
+      const data = await api.v1WithToken(
         `repos/${repo.owner}/${repo.name}/collaborators`,
       ) as Array<{ login: string }>;
       collaborators = data.map(u => u.login);
