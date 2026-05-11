@@ -9,17 +9,14 @@
 }
 
 .rgf-sticky-avatar {
-  visibility: hidden;
-  opacity: 0;
+  display: none;
   width: 14px;
   height: 14px;
   border-radius: 50%;
   margin-right: 4px;
   vertical-align: middle;
-  transition: opacity 0.15s;
 }
 
 .rgf-sticky-avatar.rgf-sticky-avatar-visible {
-  visibility: visible;
-  opacity: 1;
+  display: inline-block;
 }
