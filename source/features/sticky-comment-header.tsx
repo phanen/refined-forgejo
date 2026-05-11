@@ -7,16 +7,6 @@ import getAvatarUrl from "../forgejo-helpers/get-avatar-url.js";
 import { isIssueOrPR } from "../helpers/page-detect";
 import observe from "../helpers/selector-observer.js";
 
-function updateAvatarVisibility(header: Element): void {
-  const avatar = header.querySelector<HTMLElement>(".rgf-sticky-avatar");
-  if (avatar) {
-    avatar.classList.toggle(
-      "rgf-sticky-avatar-visible",
-      header.getBoundingClientRect().top <= 0,
-    );
-  }
-}
-
 async function addAvatar(header: Element): Promise<void> {
   const authorLink = header.querySelector<HTMLAnchorElement>("a.author");
   if (!authorLink || authorLink.querySelector(".rgf-sticky-avatar")) {
@@ -43,20 +33,10 @@ async function addAvatar(header: Element): Promise<void> {
     />
   );
   authorLink.prepend(avatar);
-
-  // Check immediately for initial state
-  updateAvatarVisibility(header);
 }
 
 function init(signal: AbortSignal): void {
   observe(".comment-header", addAvatar, { signal });
-
-  // Update all avatars on scroll
-  globalThis.addEventListener("scroll", () => {
-    for (const header of document.querySelectorAll(".comment-header")) {
-      updateAvatarVisibility(header);
-    }
-  }, { signal, passive: true });
 }
 
 features.add(import.meta.url, {

@@ -8,15 +8,39 @@
   z-index: 4;
 }
 
+/* Scroll-driven animation: show .rgf-sticky-avatar only when
+   .timeline-item.comment starts exiting the viewport (header is stuck) */
+@keyframes avatar-for-sticky {
+  from {
+    visibility: hidden;
+    opacity: 0;
+  }
+  0.01%, to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.timeline-item.comment {
+  view-timeline-name: --comment;
+  view-timeline-axis: block;
+}
+
 .rgf-sticky-avatar {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
   width: 14px;
   height: 14px;
   border-radius: 50%;
   margin-right: 4px;
   vertical-align: middle;
+  animation: avatar-for-sticky linear;
+  animation-timeline: --comment;
+  animation-range: exit 0px exit 1px;
 }
 
+/* Scroll-driven animation is used when supported; keep this as fallback */
 .rgf-sticky-avatar-visible {
-  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
