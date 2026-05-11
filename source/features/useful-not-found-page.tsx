@@ -19,11 +19,17 @@ async function showMissingPartOnce(): Promise<void> {
 
   const breadcrumbs = pathParts
     .map((part, index) => {
-      // Stríke through everything after owner/repo (all suspect in a 404)
-      if (index >= 2) {
+      // Last part is always the 404
+      if (index === pathParts.length - 1) {
         return getStrikeThrough(part);
       }
 
+      // Routing segments (src/blob/edit) never exist as standalone pages
+      if (index >= 2 && ["src", "blob", "edit", "tree"].includes(part)) {
+        return getStrikeThrough(part);
+      }
+
+      // Every other segment is likely valid — make it clickable
       const pathname = "/" + pathParts.slice(0, index + 1).join("/");
       return <a href={pathname}>{part}</a>;
     })
