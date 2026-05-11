@@ -26,10 +26,10 @@ export const isRepoTree = (): boolean =>
   isRepoHome()
   || /\/[^/]+\/[^/]+\/src\/(?:branch|tag)\//.test(location.pathname);
 export const isIssue = (): boolean => getRepoPath("issues/\\d+");
-export const isPR = (): boolean => getRepoPath("pull/\\d+");
+export const isPR = (): boolean => getRepoPath("pulls/\\d+");
 export const isIssueOrPR = (): boolean => isIssue() || isPR();
 export const isConversation = (): boolean => isIssueOrPR();
-export const isPRCommits = (): boolean => getRepoPath("pull/\\d+/commits");
+export const isPRCommits = (): boolean => getRepoPath("pulls/\\d+/commits");
 export const isIssueOrPRList = (): boolean => /\/[^/]+\/[^/]+\/(issues|pulls)$/.test(location.pathname);
 export const isIssueList = (): boolean => /\/[^/]+\/[^/]+\/issues$/.test(location.pathname);
 export const isPRList = (): boolean => /\/[^/]+\/[^/]+\/pulls$/.test(location.pathname);

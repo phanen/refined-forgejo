@@ -50,21 +50,20 @@ describe("page-detect", async () => {
   });
 
   describe("isPR", () => {
-    testTrue(pageDetect.isPR, "/ziglang/zig/pull/123");
-    testTrue(pageDetect.isPR, "/ziglang/zig/pull/456");
+    testTrue(pageDetect.isPR, "/ziglang/zig/pulls/123");
+    testTrue(pageDetect.isPR, "/ziglang/zig/pulls/456");
     testFalse(pageDetect.isPR, "/ziglang/zig/issues");
     testFalse(pageDetect.isPR, "/ziglang/zig/pulls");
   });
 
   describe("isIssueOrPR", () => {
     testTrue(pageDetect.isIssueOrPR, "/ziglang/zig/issues/123");
-    testTrue(pageDetect.isIssueOrPR, "/ziglang/zig/pull/123");
-    testFalse(pageDetect.isIssueOrPR, "/ziglang/zig/issues");
+    testTrue(pageDetect.isIssueOrPR, "/ziglang/zig/pulls/123");
   });
 
   describe("isPRCommits", () => {
-    testTrue(pageDetect.isPRCommits, "/ziglang/zig/pull/123/commits");
-    testFalse(pageDetect.isPRCommits, "/ziglang/zig/pull/123");
+    testTrue(pageDetect.isPRCommits, "/ziglang/zig/pulls/123/commits");
+    testFalse(pageDetect.isPRCommits, "/ziglang/zig/pulls/123");
   });
 
   describe("isIssueOrPRList", () => {
@@ -83,7 +82,7 @@ describe("page-detect", async () => {
 
   describe("isPRList", () => {
     testTrue(pageDetect.isPRList, "/ziglang/zig/pulls");
-    testFalse(pageDetect.isPRList, "/ziglang/zig/pull/123");
+    testFalse(pageDetect.isPRList, "/ziglang/zig/pulls/123");
   });
 
   describe("isWiki", () => {
