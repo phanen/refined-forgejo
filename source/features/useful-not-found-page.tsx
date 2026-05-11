@@ -7,6 +7,10 @@ function getCleanPathname(): string {
   return location.pathname.replace(/\/\/+/g, "/").replace(/\/$/, "").replace(/^\//, "");
 }
 
+function getStrikeThrough(text: string): HTMLElement {
+  return <del style={{ opacity: 0.6 }}>{text}</del>;
+}
+
 async function showMissingPartOnce(): Promise<void> {
   const pathParts = getCleanPathname().split("/");
   if (pathParts.length <= 1) {
@@ -15,6 +19,14 @@ async function showMissingPartOnce(): Promise<void> {
 
   const breadcrumbs = pathParts
     .map((part, index) => {
+      // Stríke through the last segment (the 404 itself) and routing parts
+      if (
+        index === pathParts.length - 1
+        || (index === 2 && ["src", "blob", "edit", "new", "delete"].includes(part))
+      ) {
+        return getStrikeThrough(part);
+      }
+
       const pathname = "/" + pathParts.slice(0, index + 1).join("/");
       return <a href={pathname}>{part}</a>;
     })
@@ -41,5 +53,5 @@ features.add(import.meta.url, {
 Test URLs:
 
 - https://codeberg.org/ziglang/zig/nonexistent
-- https://codeberg.org/ziglang/zig/nonexistent/path
+- https://codeberg.org/ziglang/zig/src/branch/main/nonexistent
 */
