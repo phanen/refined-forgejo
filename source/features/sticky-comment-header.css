@@ -9,10 +9,14 @@
 }
 
 .rgf-sticky-avatar {
-  display: inline-block;
+  display: none;
   width: 14px;
   height: 14px;
   border-radius: 50%;
   margin-right: 4px;
   vertical-align: middle;
+}
+
+.rgf-sticky-avatar-visible {
+  display: inline-block !important;
 }
