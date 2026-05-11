@@ -4,7 +4,10 @@
   align-items: center;
   gap: 4px;
   vertical-align: middle;
-  color: inherit;
+}
+
+.rgf-repo-info svg {
+  fill: currentColor;
 }
 
 .rgf-star-count {
