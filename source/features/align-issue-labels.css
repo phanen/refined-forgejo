@@ -1,4 +1,8 @@
 /* Move labels below the issue title in issue/PR lists */
+#issue-list .flex-item + .flex-item {
+  border-top: 1px solid var(--color-secondary, #ddd);
+}
+
 .flex-item-title {
   display: flex;
   flex-wrap: wrap;
