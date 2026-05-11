@@ -1,9 +1,8 @@
-textarea[name="comment"],
-textarea[name="title"],
-textarea[name="body"],
-#commit-message-input,
-textarea[id*="commit"],
-textarea[id*="release"] {
+/* https://codeberg.org/phanium/test-rgf-priv/_edit/main/README.md */
+/* builtin "enable_monospace_font" button will remember user's preference */
+/* https://codeberg.org/phanium/test-rgf-priv/releases/new */
+input[name*="commit_summary"],
+textarea[name*="commit_message"] {
   font-family:
     ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
     monospace !important;

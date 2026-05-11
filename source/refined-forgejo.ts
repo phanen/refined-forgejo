@@ -8,7 +8,6 @@ import "./features/scrollable-areas.js";
 import "./features/open-issue-to-latest-comment.js";
 import "./features/copy-on-y.js";
 import "./features/clean-footer.js";
-import "./features/monospace-textareas.js";
 import "./features/align-issue-labels.js";
 import "./features/hide-diff-signs.js";
 import "./features/mark-merge-commits-in-list.js";
