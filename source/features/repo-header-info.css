@@ -4,15 +4,11 @@
   align-items: center;
   gap: 4px;
   vertical-align: middle;
-}
-
-.rgf-repo-info svg {
-  color: var(--color-text-secondary, #666);
+  color: inherit;
 }
 
 .rgf-star-count {
   font-size: 0.85em;
-  color: var(--color-text-secondary, #666);
 }
 
 .rgf-moved-icon {
