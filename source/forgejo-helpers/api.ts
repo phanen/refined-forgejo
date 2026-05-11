@@ -38,9 +38,14 @@ async function apiFetch(
 
 const v3 = mem(apiFetch);
 
+async function apiFetchWithToken(path: string, token: string): Promise<unknown> {
+  return apiFetch(path, { headers: { Authorization: `token ${token}` } });
+}
+
 const api = {
   v3,
   v3uncached: apiFetch,
+  v3WithToken: mem(apiFetchWithToken),
 };
 
 export default api;

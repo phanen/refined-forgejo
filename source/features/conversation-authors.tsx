@@ -1,6 +1,7 @@
 import "./conversation-authors.css";
 
 import features from "../feature-manager.js";
+import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import { isIssueOrPRList } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
@@ -17,17 +18,16 @@ async function init(signal: AbortSignal): Promise<void> {
     return;
   }
 
-  // Fetch collaborators using stored token
   let collaborators: string[] = [];
   const repo = getRepo();
   const token = await getToken();
   if (repo && token) {
     try {
-      const data = await fetch(
-        `${location.origin}/api/v1/repos/${repo.owner}/${repo.name}/collaborators`,
-        { headers: { Authorization: `token ${token}` } },
-      ).then(r => r.ok ? r.json() : []);
-      collaborators = (data as Array<{ login: string }>).map(u => u.login);
+      const data = await api.v3WithToken(
+        `repos/${repo.owner}/${repo.name}/collaborators`,
+        token,
+      ) as Array<{ login: string }>;
+      collaborators = data.map(u => u.login);
     } catch {
       // Collaborators fetch failed
     }

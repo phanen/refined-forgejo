@@ -26,12 +26,9 @@ async function addInfo(leading: Element): Promise<void> {
 
   leading.classList.add("rgf-processed");
   const token = await getToken();
-  const headers: Record<string, string> = {};
-  if (token) {
-    headers.Authorization = `token ${token}`;
-  }
-
-  const data = await api.v3(`repos/${repo.owner}/${repo.name}`, { headers }) as RepoInfo;
+  const data = token
+    ? await api.v3WithToken(`repos/${repo.owner}/${repo.name}`, token) as RepoInfo
+    : await api.v3(`repos/${repo.owner}/${repo.name}`) as RepoInfo;
 
   const svg = leading.querySelector("svg");
   if (svg) {
