@@ -4,14 +4,6 @@
   z-index: 3;
 }
 
-.timeline-item.comment .timeline-avatar {
-  position: sticky !important;
-  top: 0;
-  z-index: 3;
-  width: 0 !important;
-  overflow: visible;
-}
-
 .timeline-item.comment .comment-header:has(.dropdown.active.visible) {
   z-index: 4;
 }
