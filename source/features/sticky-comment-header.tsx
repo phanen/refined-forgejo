@@ -17,7 +17,7 @@ function updateAvatarVisibility(header: Element): void {
   }
 }
 
-async function addAvatar(header: Element, { signal }: { signal?: AbortSignal }): Promise<void> {
+async function addAvatar(header: Element): Promise<void> {
   const authorLink = header.querySelector<HTMLAnchorElement>("a.author");
   if (!authorLink || authorLink.querySelector(".rgf-sticky-avatar")) {
     return;
@@ -57,20 +57,6 @@ function init(signal: AbortSignal): void {
       updateAvatarVisibility(header);
     }
   }, { signal, passive: true });
-}
-
-features.add(import.meta.url, {
-  init,
-});
-
-/*
-Test URLs:
-
-- https://codeberg.org/ziglang/zig/issues/1
-*/
-
-function init(signal: AbortSignal): void {
-  observe(".comment-header", addAvatar, { signal });
 }
 
 features.add(import.meta.url, {
