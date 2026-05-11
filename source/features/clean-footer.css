@@ -1,8 +1,9 @@
 .page-footer {
-  opacity: 0.1;
-  transition: opacity 0.3s ease;
+  max-height: 4px;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
 }
 
 .page-footer:hover {
-  opacity: 1;
+  max-height: 500px;
 }
