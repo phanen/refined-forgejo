@@ -19,11 +19,8 @@ async function showMissingPartOnce(): Promise<void> {
 
   const breadcrumbs = pathParts
     .map((part, index) => {
-      // Stríke through the last segment (the 404 itself) and routing parts
-      if (
-        index === pathParts.length - 1
-        || (index === 2 && ["src", "blob", "edit", "new", "delete"].includes(part))
-      ) {
+      // Stríke through everything after owner/repo (all suspect in a 404)
+      if (index >= 2) {
         return getStrikeThrough(part);
       }
 
