@@ -1,7 +1,12 @@
-.rgf-collaborator {
+.rgf-collaborator,
+.rgf-org-member {
   border: 1px solid var(--color-border, fuchsia);
   border-radius: 2em;
   padding: 2px 5px;
+}
+
+.rgf-owner {
+  font-weight: 700;
 }
 
 a.rgf-own-conversation,

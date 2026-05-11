@@ -17,20 +17,50 @@ async function init(signal: AbortSignal): Promise<void> {
     return;
   }
 
-  let collaborators: string[] = [];
   const repo = getRepo();
-  if (repo) {
+  if (!repo) {
+    return;
+  }
+
+  // Fetch repo info to get owner and org status
+  let owner = "";
+  let isOrg = false;
+  try {
+    const repoInfo = await api.v1WithToken(
+      `repos/${repo.owner}/${repo.name}`,
+    ) as { owner: { login: string; type: string } };
+    owner = repoInfo.owner.login;
+    isOrg = repoInfo.owner.type === "Organization";
+  } catch {
+    return;
+  }
+
+  // Fetch collaborators
+  let collaborators: string[] = [];
+  try {
+    const data = await api.v1WithToken(
+      `repos/${repo.owner}/${repo.name}/collaborators`,
+    ) as Array<{ login: string }>;
+    collaborators = data.map(u => u.login);
+  } catch {
+    // Collaborators fetch failed
+  }
+
+  // Fetch org members if applicable
+  let orgMembers: string[] = [];
+  if (isOrg) {
     try {
       const data = await api.v1WithToken(
-        `repos/${repo.owner}/${repo.name}/collaborators`,
+        `orgs/${repo.owner}/members`,
       ) as Array<{ login: string }>;
-      collaborators = data.map(u => u.login);
+      orgMembers = data.map(u => u.login);
     } catch {
-      // Collaborators fetch failed
+      // Org members fetch failed
     }
   }
 
   const collaboratorSet = new Set(collaborators);
+  const orgMemberSet = new Set(orgMembers);
 
   observe(
     ".issue-meta span > a[href^='/']:not(.index)",
@@ -42,8 +72,21 @@ async function init(signal: AbortSignal): Promise<void> {
 
       if (name === username) {
         author.classList.add("rgf-own-conversation");
-      } else if (collaboratorSet.has(name)) {
+        return;
+      }
+
+      if (name === owner) {
+        author.classList.add("rgf-owner");
+        return;
+      }
+
+      if (collaboratorSet.has(name)) {
         author.classList.add("rgf-collaborator");
+        return;
+      }
+
+      if (orgMemberSet.has(name)) {
+        author.classList.add("rgf-org-member");
       }
     },
     { signal },
