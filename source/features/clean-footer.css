@@ -1,11 +1,17 @@
 .page-footer {
-  max-height: 24px;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
   cursor: pointer;
 }
 
-.page-footer.rgf-footer-expanded {
-  max-height: 500px;
-  cursor: auto;
+.rgf-footer-details summary {
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.6;
+}
+
+.rgf-footer-details summary:hover {
+  opacity: 1;
+}
+
+.rgf-footer-details[open] summary {
+  opacity: 1;
 }
