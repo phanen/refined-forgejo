@@ -20,14 +20,12 @@ async function showMissingPartOnce(): Promise<void> {
     })
     .flatMap((link, index) => [index > 0 && " / ", link]);
 
-  const container = document.querySelector<HTMLElement>(
-    ".page-content .ui.container, main .container",
-  );
-  if (!container) {
+  const heading = document.querySelector<HTMLElement>("h1.error-code");
+  if (!heading) {
     return;
   }
 
-  container.prepend(
+  heading.after(
     <h2 className="ui header center aligned" style={{ marginTop: "1em" }}>
       {breadcrumbs}
     </h2>,
