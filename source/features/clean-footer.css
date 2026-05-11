@@ -1,9 +1,11 @@
 .page-footer {
-  max-height: 4px;
+  max-height: 24px;
   overflow: hidden;
   transition: max-height 0.3s ease;
+  cursor: pointer;
 }
 
-.page-footer:hover {
+.page-footer.rgf-footer-expanded {
   max-height: 500px;
+  cursor: auto;
 }
