@@ -13,12 +13,15 @@ const defaults: RGFOptions = {
   logging: false,
 };
 
-export async function getToken(): Promise<string> {
+async function getTokenImpl(): Promise<string> {
   const result = (await chrome.storage.sync.get("personalToken")) as {
     personalToken?: string;
   };
   return result.personalToken || "";
 }
+
+import mem from "memoize";
+export const getToken = mem(getTokenImpl);
 
 export function isFeatureDisabled(options: RGFOptions, id: string): boolean {
   return options[`feature:${id}`] === false;
