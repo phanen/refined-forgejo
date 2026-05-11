@@ -15,6 +15,11 @@ async function addAvatar(authorLink: Element): Promise<void> {
     return;
   }
 
+  // Skip if the parent timeline item already shows an avatar (events, etc.)
+  if (link.closest(".timeline-item")?.querySelector("a.avatar")) {
+    return;
+  }
+
   // Skip author links inside the comment header (avatar handled by sticky-comment-header)
   if (link.closest(".comment-header-left")) {
     return;
