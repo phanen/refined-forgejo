@@ -1,4 +1,5 @@
 import mem from "memoize";
+import { getToken } from "../options-storage.js";
 
 const apiUrl = () => `${location.origin}/api/v1/`;
 
@@ -38,8 +39,10 @@ async function apiFetch(
 
 const v3 = mem(apiFetch);
 
-async function apiFetchWithToken(path: string, token: string): Promise<unknown> {
-  return apiFetch(path, { headers: { Authorization: `token ${token}` } });
+async function apiFetchWithToken(path: string): Promise<unknown> {
+  const token = await getToken();
+  const headers: HeadersInit = token ? { Authorization: `token ${token}` } : {};
+  return apiFetch(path, { headers });
 }
 
 const api = {

@@ -5,7 +5,6 @@ import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import { isIssueOrPRList } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
-import { getToken } from "../options-storage.js";
 
 function getLoggedInUser(): string | undefined {
   const el = document.querySelector<HTMLElement>(".navbar-right .dropdown .header strong");
@@ -20,12 +19,10 @@ async function init(signal: AbortSignal): Promise<void> {
 
   let collaborators: string[] = [];
   const repo = getRepo();
-  const token = await getToken();
-  if (repo && token) {
+  if (repo) {
     try {
       const data = await api.v3WithToken(
         `repos/${repo.owner}/${repo.name}/collaborators`,
-        token,
       ) as Array<{ login: string }>;
       collaborators = data.map(u => u.login);
     } catch {
