@@ -1,6 +1,0 @@
-/* Night not found page */
-@media (prefers-color-scheme: dark) {
-  .page-404 {
-    filter: brightness(0.8);
-  }
-}
