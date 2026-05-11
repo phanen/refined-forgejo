@@ -64,6 +64,7 @@ export const isRepoForksList = (): boolean => getRepoPath("network/members");
 export const isRepoNetworkGraph = (): boolean => getRepoPath("network$");
 export const isFileFinder = (): boolean => getRepoPath("find/");
 export const isRepoSearch = (): boolean => getRepoPath("search$");
+export const is404 = (): boolean => !!document.querySelector("h1.error-code");
 export const isRepoFile404 = (): boolean =>
   (isSingleFile() || isRepoTree()) && document.title.startsWith("File not found");
 export const hasRepoHeader = (): boolean => !isRepoSearch() && /\/[^/]+\/[^/]+/.test(location.pathname);
@@ -116,6 +117,7 @@ export const pageDetect = {
   isWiki,
   isAction,
   isActionRun,
+  is404,
 };
 
 export default pageDetect;

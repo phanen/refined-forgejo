@@ -2,6 +2,7 @@ import React from "dom-chef";
 
 import features from "../feature-manager.js";
 import onetime from "../helpers/onetime.js";
+import { is404 } from "../helpers/page-detect.js";
 
 function getCleanPathname(): string {
   return location.pathname.replace(/\/\/+/g, "/").replace(/\/$/, "").replace(/^\//, "");
@@ -62,6 +63,10 @@ async function showMissingPartOnce(): Promise<void> {
 }
 
 features.add(import.meta.url, {
+  asLongAs: [
+    is404,
+    () => getCleanPathname().split("/").length > 1,
+  ],
   awaitDomReady: true,
   init: onetime(showMissingPartOnce),
 });
