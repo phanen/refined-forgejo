@@ -6,16 +6,18 @@ import features from "../feature-manager.js";
 
 function toggleScroll(event: DelegateEvent<MouseEvent, HTMLElement>): void {
   const area = event.delegateTarget;
+
+  if (area.classList.contains("rgf-scrollable-expanded")) {
+    area.classList.remove("rgf-scrollable-expanded");
+    return;
+  }
+
   if (area.scrollHeight <= area.clientHeight) {
     return;
   }
 
-  if (area.classList.contains("rgf-scrollable-expanded")) {
-    area.classList.remove("rgf-scrollable-expanded");
-  } else {
-    window.scrollBy(0, area.scrollTop);
-    area.classList.add("rgf-scrollable-expanded");
-  }
+  window.scrollBy(0, area.scrollTop);
+  area.classList.add("rgf-scrollable-expanded");
 }
 
 function init(signal: AbortSignal): void {
