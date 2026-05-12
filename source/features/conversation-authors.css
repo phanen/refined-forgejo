@@ -1,18 +1,26 @@
-.rgf-collaborator,
-.rgf-org-member {
-  border: 1px solid var(--color-border, fuchsia);
+.rgf-owner {
+  border: 1px solid #d4a72c;
   border-radius: 2em;
-  padding: 2px 5px;
+  padding: 2px 6px;
 }
 
-.rgf-owner {
-  font-weight: 700;
+.rgf-collaborator {
+  border: 1px solid #4078c0;
+  border-radius: 2em;
+  padding: 2px 6px;
+}
+
+.rgf-org-member {
+  border: 1px solid #50a050;
+  border-radius: 2em;
+  padding: 2px 6px;
 }
 
 a.rgf-own-conversation,
 a.rgf-own-conversation:hover {
-  color: var(--color-primary, fuchsia) !important;
-  background-color: var(--color-attention-bg, transparent);
+  border: 1px solid var(--color-primary, fuchsia);
+  border-radius: 2em;
+  padding: 2px 6px;
 }
 
 a.rgf-own-conversation:hover {
