@@ -28,25 +28,14 @@ async function init(signal: AbortSignal): Promise<void> {
   // Fetch username in background — don't block other role detection
   const usernamePromise = getLoggedInUser();
 
-  let collaborators: string[] = [];
-  try {
-    const data = await api.v1WithToken(
-      `repos/${repo.owner}/${repo.name}/collaborators`,
-    ) as Array<{ login: string }>;
-    collaborators = data.map(u => u.login);
-  } catch {
-    // Collaborators fetch failed
-  }
+  // Fetch collaborators and org members concurrently
+  const [collaboratorsData, orgMembersData] = await Promise.all([
+    api.v1WithToken(`repos/${repo.owner}/${repo.name}/collaborators`).catch(() => []),
+    api.v1WithToken(`orgs/${repo.owner}/members`).catch(() => []),
+  ]);
 
-  let orgMembers: string[] = [];
-  try {
-    const data = await api.v1WithToken(
-      `orgs/${repo.owner}/members`,
-    ) as Array<{ login: string }>;
-    orgMembers = data.map(u => u.login);
-  } catch {
-    // Owner is not an org, or no permission
-  }
+  const collaborators = (collaboratorsData as Array<{ login: string }>).map(u => u.login);
+  const orgMembers = (orgMembersData as Array<{ login: string }>).map(u => u.login);
 
   const collaboratorSet = new Set(collaborators);
   const orgMemberSet = new Set(orgMembers);
