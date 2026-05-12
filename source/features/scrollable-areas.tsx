@@ -8,18 +8,41 @@ function toggleScroll(event: DelegateEvent<MouseEvent, HTMLElement>): void {
   const area = event.delegateTarget;
 
   if (area.classList.contains("rgf-scrollable-expanded")) {
-    const saved = Number(area.dataset.rgfScrollTop || 0);
-    area.classList.remove("rgf-scrollable-expanded");
-    area.scrollTop = Math.min(saved, area.scrollHeight - area.clientHeight);
+    const rect = area.getBoundingClientRect();
+    const beforeScrollY = window.scrollY;
+
+    const hiddenAbove = Math.max(0, -rect.top);
+    const firstLineContent = area.scrollTop + hiddenAbove;
+    const firstLineScreen = Math.max(0, rect.top);
+
+    console.log("collapse — content offset:", firstLineContent, "screen offset:", firstLineScreen);
+
+    // 第一步：调整外部滚动
+    if (firstLineScreen === 0) {
+      const blockPageTop = beforeScrollY + rect.top;
+      area.classList.remove("rgf-scrollable-expanded");
+      window.scrollTo(0, blockPageTop);
+    } else {
+      area.classList.remove("rgf-scrollable-expanded");
+    }
+
+    // 第二步：调整内部滚动，保持折叠前的第一行在同一屏幕位置
+    area.scrollTop = Math.min(firstLineContent, area.scrollHeight - area.clientHeight);
     return;
   }
 
-  if (area.scrollHeight <= area.clientHeight) {
-    return;
-  }
+  const rect = area.getBoundingClientRect();
+  const beforeScrollY = window.scrollY;
 
-  area.dataset.rgfScrollTop = String(area.scrollTop);
+  const hiddenAbove = Math.max(0, -rect.top);
+  const firstLineContent = area.scrollTop + hiddenAbove;
+  const firstLineScreen = Math.max(0, rect.top);
+
+  const blockPageTop = beforeScrollY + rect.top;
+  const targetScrollY = blockPageTop + firstLineContent - firstLineScreen;
+
   area.classList.add("rgf-scrollable-expanded");
+  window.scrollTo(0, targetScrollY);
 }
 
 function init(signal: AbortSignal): void {
