@@ -8,7 +8,10 @@ function toggleScroll(event: DelegateEvent<MouseEvent, HTMLElement>): void {
   const area = event.delegateTarget;
 
   if (area.classList.contains("rgf-scrollable-expanded")) {
+    const saved = Number(area.dataset.rgfScrollTop || 0);
     area.classList.remove("rgf-scrollable-expanded");
+    area.scrollTop = saved;
+    window.scrollBy(0, -saved);
     return;
   }
 
@@ -16,6 +19,7 @@ function toggleScroll(event: DelegateEvent<MouseEvent, HTMLElement>): void {
     return;
   }
 
+  area.dataset.rgfScrollTop = String(area.scrollTop);
   window.scrollBy(0, area.scrollTop);
   area.classList.add("rgf-scrollable-expanded");
 }
