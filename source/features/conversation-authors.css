@@ -1,24 +1,24 @@
 .rgf-owner {
-  border: 1px solid #d4a72c;
+  border: 1px solid var(--color-orange);
   border-radius: 2em;
   padding: 2px 6px;
 }
 
 .rgf-collaborator {
-  border: 1px solid #4078c0;
+  border: 1px solid var(--color-blue);
   border-radius: 2em;
   padding: 2px 6px;
 }
 
 .rgf-org-member {
-  border: 1px solid #50a050;
+  border: 1px solid var(--color-purple);
   border-radius: 2em;
   padding: 2px 6px;
 }
 
 a.rgf-own-conversation,
 a.rgf-own-conversation:hover {
-  border: 1px solid var(--color-primary, fuchsia);
+  border: 1px solid var(--color-pink);
   border-radius: 2em;
   padding: 2px 6px;
 }
