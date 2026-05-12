@@ -49,35 +49,40 @@ async function init(signal: AbortSignal): Promise<void> {
   const collaboratorSet = new Set(collaborators);
   const orgMemberSet = new Set(orgMembers);
 
-  observe(
-    ".issue-meta span > a[href^='/']:not(.index)",
-    author => {
-      const name = author.textContent?.trim();
-      if (!name) {
-        return;
-      }
+  const selector = ".issue-meta span > a[href^='/']:not(.index)";
 
-      if (name === username) {
-        author.classList.add("rgf-own-conversation");
-        return;
-      }
+  function addRole(author: Element): void {
+    const name = author.textContent?.trim();
+    if (!name) {
+      return;
+    }
 
-      if (name === owner) {
-        author.classList.add("rgf-owner");
-        return;
-      }
+    if (name === username) {
+      author.classList.add("rgf-own-conversation");
+      return;
+    }
 
-      if (collaboratorSet.has(name)) {
-        author.classList.add("rgf-collaborator");
-        return;
-      }
+    if (name === owner) {
+      author.classList.add("rgf-owner");
+      return;
+    }
 
-      if (orgMemberSet.has(name)) {
-        author.classList.add("rgf-org-member");
-      }
-    },
-    { signal },
-  );
+    if (collaboratorSet.has(name)) {
+      author.classList.add("rgf-collaborator");
+      return;
+    }
+
+    if (orgMemberSet.has(name)) {
+      author.classList.add("rgf-org-member");
+    }
+  }
+
+  observe(selector, addRole, { signal });
+
+  // Fallback for elements already in DOM before observe was set up
+  for (const el of document.querySelectorAll(selector)) {
+    addRole(el);
+  }
 }
 
 features.add(import.meta.url, {
