@@ -8,10 +8,18 @@ function toggleScroll(event: DelegateEvent<MouseEvent, HTMLElement>): void {
   const area = event.delegateTarget;
 
   if (area.classList.contains("rgf-scrollable-expanded")) {
-    const saved = Number(area.dataset.rgfScrollTop || 0);
+    const blockOffset = area.getBoundingClientRect().top;
+    if (blockOffset >= 0) {
+      const prevHeight = area.scrollHeight;
+      area.classList.remove("rgf-scrollable-expanded");
+      window.scrollBy(0, area.scrollHeight - prevHeight);
+      return;
+    }
+
+    // Block is above viewport: keep page scroll, map viewport position to scrollTop
+    const contentPos = Math.max(0, -area.getBoundingClientRect().top);
     area.classList.remove("rgf-scrollable-expanded");
-    area.scrollTop = saved;
-    window.scrollBy(0, -saved);
+    area.scrollTop = Math.min(contentPos, area.scrollHeight - area.clientHeight);
     return;
   }
 
@@ -19,8 +27,17 @@ function toggleScroll(event: DelegateEvent<MouseEvent, HTMLElement>): void {
     return;
   }
 
+  const blockOffset = area.getBoundingClientRect().top;
+  if (blockOffset >= 0) {
+    const prevHeight = area.scrollHeight;
+    area.classList.add("rgf-scrollable-expanded");
+    area.dataset.rgfFullHeight = String(area.scrollHeight);
+    window.scrollBy(0, area.scrollHeight - prevHeight);
+    return;
+  }
+
+  // Block is above viewport: save scrollTop, expand without page scroll change
   area.dataset.rgfScrollTop = String(area.scrollTop);
-  window.scrollBy(0, area.scrollTop);
   area.classList.add("rgf-scrollable-expanded");
 }
 
