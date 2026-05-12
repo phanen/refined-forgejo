@@ -4,6 +4,7 @@
   pre {
     max-height: 30.5em;
     overflow-y: auto;
+    overflow-anchor: none;
   }
 
   :is(details, blockquote) :is(blockquote, pre) {

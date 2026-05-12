@@ -7,38 +7,27 @@ import features from "../feature-manager.js";
 function toggleScroll(event: DelegateEvent<MouseEvent, HTMLElement>): void {
   const area = event.delegateTarget;
 
+  // Save block's screen position before toggle
+  const savedBlockOffset = area.getBoundingClientRect().top;
+
   if (area.classList.contains("rgf-scrollable-expanded")) {
-    const blockOffset = area.getBoundingClientRect().top;
-    if (blockOffset >= 0) {
-      const prevHeight = area.scrollHeight;
-      area.classList.remove("rgf-scrollable-expanded");
-      window.scrollBy(0, area.scrollHeight - prevHeight);
+    // Collapse: save internal scroll position, remove class
+    const savedScrollTop = Number(area.dataset.rgfScrollTop || 0);
+    area.classList.remove("rgf-scrollable-expanded");
+    area.scrollTop = Math.min(savedScrollTop, area.scrollHeight - area.clientHeight);
+  } else {
+    if (area.scrollHeight <= area.clientHeight) {
       return;
     }
 
-    // Block is above viewport: keep page scroll, map viewport position to scrollTop
-    const contentPos = Math.max(0, -area.getBoundingClientRect().top);
-    area.classList.remove("rgf-scrollable-expanded");
-    area.scrollTop = Math.min(contentPos, area.scrollHeight - area.clientHeight);
-    return;
-  }
-
-  if (area.scrollHeight <= area.clientHeight) {
-    return;
-  }
-
-  const blockOffset = area.getBoundingClientRect().top;
-  if (blockOffset >= 0) {
-    const prevHeight = area.scrollHeight;
+    // Expand: save internal scroll position, add class
+    area.dataset.rgfScrollTop = String(area.scrollTop);
     area.classList.add("rgf-scrollable-expanded");
-    area.dataset.rgfFullHeight = String(area.scrollHeight);
-    window.scrollBy(0, area.scrollHeight - prevHeight);
-    return;
   }
 
-  // Block is above viewport: save scrollTop, expand without page scroll change
-  area.dataset.rgfScrollTop = String(area.scrollTop);
-  area.classList.add("rgf-scrollable-expanded");
+  // Restore block's screen position to where it was before toggle
+  const newBlockOffset = area.getBoundingClientRect().top;
+  window.scrollBy(0, newBlockOffset - savedBlockOffset);
 }
 
 function init(signal: AbortSignal): void {
