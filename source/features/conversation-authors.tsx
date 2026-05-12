@@ -5,15 +5,22 @@ import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import { isIssueOrPRList } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
+import waitFor from "../helpers/wait-for.js";
 
-function getLoggedInUser(): string | undefined {
-  // Pick the last ".header strong" in navbar dropdowns (user is the last dropdown)
-  const headers = document.querySelectorAll<HTMLElement>(".navbar-right .dropdown .header strong");
-  return headers[headers.length - 1]?.textContent?.trim() || undefined;
+async function getLoggedInUser(): Promise<string | undefined> {
+  // Forgejo renders the login name in the second navbar dropdown's header.
+  // Wait for it since the dropdown might not be immediately available.
+  let username: string | undefined;
+  await waitFor(() => {
+    const headers = document.querySelectorAll<HTMLElement>(".navbar-right .dropdown .header strong");
+    username = headers[headers.length - 1]?.textContent?.trim() || undefined;
+    return !!username;
+  }).catch(() => {/* timeout — user may not be logged in */});
+  return username;
 }
 
 async function init(signal: AbortSignal): Promise<void> {
-  const username = getLoggedInUser();
+  const username = await getLoggedInUser();
 
   const repo = getRepo();
   if (!repo) {
