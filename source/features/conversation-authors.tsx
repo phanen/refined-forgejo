@@ -22,16 +22,7 @@ async function init(signal: AbortSignal): Promise<void> {
     return;
   }
 
-  // Fetch repo info to get owner
-  let owner = "";
-  try {
-    const repoInfo = await api.v1WithToken(
-      `repos/${repo.owner}/${repo.name}`,
-    ) as { owner: { login: string } };
-    owner = repoInfo.owner.login;
-  } catch {
-    return;
-  }
+  const owner = repo.owner;
 
   // Fetch collaborators
   let collaborators: string[] = [];
