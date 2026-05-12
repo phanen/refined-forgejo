@@ -2,7 +2,7 @@
   visibility: hidden;
   margin-left: 4px;
   vertical-align: middle;
-  color: var(--color-primary, #2a7de1);
+  color: var(--color-primary);
 }
 
 tr.entry:hover .rgf-quick-file-edit {

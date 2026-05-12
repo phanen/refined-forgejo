@@ -1,6 +1,6 @@
 /* Move labels below the issue title in issue/PR lists */
 #issue-list .flex-item + .flex-item {
-  border-top: 1px solid var(--color-secondary, #ddd);
+  border-top: 1px solid var(--color-secondary);
 }
 
 .flex-item-title {
