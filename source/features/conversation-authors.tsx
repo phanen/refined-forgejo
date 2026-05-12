@@ -22,15 +22,13 @@ async function init(signal: AbortSignal): Promise<void> {
     return;
   }
 
-  // Fetch repo info to get owner and org status
+  // Fetch repo info to get owner
   let owner = "";
-  let isOrg = false;
   try {
     const repoInfo = await api.v1WithToken(
       `repos/${repo.owner}/${repo.name}`,
-    ) as { owner: { login: string; type: string } };
+    ) as { owner: { login: string } };
     owner = repoInfo.owner.login;
-    isOrg = repoInfo.owner.type === "Organization";
   } catch {
     return;
   }
@@ -46,17 +44,15 @@ async function init(signal: AbortSignal): Promise<void> {
     // Collaborators fetch failed
   }
 
-  // Fetch org members if applicable
+  // Fetch org members (silent fail if owner is not an org)
   let orgMembers: string[] = [];
-  if (isOrg) {
-    try {
-      const data = await api.v1WithToken(
-        `orgs/${repo.owner}/members`,
-      ) as Array<{ login: string }>;
-      orgMembers = data.map(u => u.login);
-    } catch {
-      // Org members fetch failed
-    }
+  try {
+    const data = await api.v1WithToken(
+      `orgs/${repo.owner}/members`,
+    ) as Array<{ login: string }>;
+    orgMembers = data.map(u => u.login);
+  } catch {
+    // Owner is not an org, or no permission
   }
 
   const collaboratorSet = new Set(collaborators);
