@@ -8,20 +8,16 @@ import observe from "../helpers/selector-observer.js";
 import waitFor from "../helpers/wait-for.js";
 
 async function getLoggedInUser(): Promise<string | undefined> {
-  // Forgejo renders the login name in the second navbar dropdown's header.
-  // Wait for it since the dropdown might not be immediately available.
   let username: string | undefined;
   await waitFor(() => {
     const headers = document.querySelectorAll<HTMLElement>(".navbar-right .dropdown .header strong");
     username = headers[headers.length - 1]?.textContent?.trim() || undefined;
     return !!username;
-  }).catch(() => {/* timeout — user may not be logged in */});
+  }).catch(() => {/* not logged in */});
   return username;
 }
 
 async function init(signal: AbortSignal): Promise<void> {
-  const username = await getLoggedInUser();
-
   const repo = getRepo();
   if (!repo) {
     return;
@@ -29,7 +25,9 @@ async function init(signal: AbortSignal): Promise<void> {
 
   const owner = repo.owner;
 
-  // Fetch collaborators
+  // Fetch username in background — don't block other role detection
+  const usernamePromise = getLoggedInUser();
+
   let collaborators: string[] = [];
   try {
     const data = await api.v1WithToken(
@@ -40,7 +38,6 @@ async function init(signal: AbortSignal): Promise<void> {
     // Collaborators fetch failed
   }
 
-  // Fetch org members (silent fail if owner is not an org)
   let orgMembers: string[] = [];
   try {
     const data = await api.v1WithToken(
@@ -54,16 +51,9 @@ async function init(signal: AbortSignal): Promise<void> {
   const collaboratorSet = new Set(collaborators);
   const orgMemberSet = new Set(orgMembers);
 
-  const selector = ".issue-meta span > a[href^='/']:not(.index)";
-
   function addRole(author: Element): void {
     const name = author.textContent?.trim();
     if (!name) {
-      return;
-    }
-
-    if (name === username) {
-      author.classList.add("rgf-own-conversation");
       return;
     }
 
@@ -79,15 +69,18 @@ async function init(signal: AbortSignal): Promise<void> {
 
     if (orgMemberSet.has(name)) {
       author.classList.add("rgf-org-member");
+      return;
     }
+
+    // Own-conversation check last — doesn't block other role detection
+    void usernamePromise.then(username => {
+      if (name === username) {
+        author.classList.add("rgf-own-conversation");
+      }
+    });
   }
 
-  observe(selector, addRole, { signal });
-
-  // Fallback for elements already in DOM before observe was set up
-  for (const el of document.querySelectorAll(selector)) {
-    addRole(el);
-  }
+  observe(".issue-meta span > a[href^='/']:not(.index)", addRole, { signal });
 }
 
 features.add(import.meta.url, {
