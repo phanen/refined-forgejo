@@ -7,15 +7,13 @@ import { isIssueOrPRList } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 function getLoggedInUser(): string | undefined {
-  const el = document.querySelector<HTMLElement>(".navbar-right .dropdown .header strong");
-  return el?.textContent?.trim() || undefined;
+  // Pick the last ".header strong" in navbar dropdowns (user is the last dropdown)
+  const headers = document.querySelectorAll<HTMLElement>(".navbar-right .dropdown .header strong");
+  return headers[headers.length - 1]?.textContent?.trim() || undefined;
 }
 
 async function init(signal: AbortSignal): Promise<void> {
   const username = getLoggedInUser();
-  if (!username) {
-    return;
-  }
 
   const repo = getRepo();
   if (!repo) {
