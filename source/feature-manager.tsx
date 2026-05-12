@@ -62,8 +62,7 @@ const globalReady = new Promise<RGFOptions>(async resolve => {
     catchErrors();
   }
 
-  document.addEventListener("turbo:visit", unloadAll);
-  document.addEventListener("turbo:before-fetch-request", unloadAll);
+  document.addEventListener("htmx:beforeSwap", unloadAll);
 
   resolve(options);
 });
@@ -81,7 +80,7 @@ async function add(url: string, ...loaders: FeatureLoader[]): Promise<void> {
       do {
         document.documentElement.setAttribute("rgf-OFF-" + id, "");
         log.info("Skipping", id);
-      } while (await oneEvent(document, "turbo:render"));
+      } while (await oneEvent(document, "htmx:afterSettle"));
     } else {
       log.info("Skipping", id);
     }
@@ -135,7 +134,7 @@ async function add(url: string, ...loaders: FeatureLoader[]): Promise<void> {
           }
         }
       });
-    } while (await oneEvent(document, "turbo:render"));
+    } while (await oneEvent(document, "htmx:afterSettle"));
   });
 }
 

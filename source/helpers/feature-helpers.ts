@@ -20,7 +20,7 @@ export const log = {
 };
 
 export function listenToAjaxedLoad(): void {
-  document.addEventListener("turbo:load", () => {
+  document.addEventListener("htmx:afterSettle", () => {
     timer.clear();
   });
 }
