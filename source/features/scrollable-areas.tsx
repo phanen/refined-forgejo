@@ -31,20 +31,6 @@ function toggleScroll(event: DelegateEvent<MouseEvent, HTMLElement>): void {
 }
 
 function init(signal: AbortSignal): void {
-  // Collapse all expanded blocks before page unload
-  globalThis.addEventListener("beforeunload", () => {
-    for (
-      const area of document.querySelectorAll<HTMLElement>(
-        ".comment-body pre, .comment-body blockquote, .markup pre, .markup blockquote",
-      )
-    ) {
-      if (area.classList.contains("rgf-scrollable-expanded")) {
-        area.classList.remove("rgf-scrollable-expanded");
-        area.scrollTop = 0;
-      }
-    }
-  }, { signal });
-
   delegate(
     ".comment-body blockquote, .comment-body pre, .markup blockquote, .markup pre",
     "click",
