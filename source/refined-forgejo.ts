@@ -44,6 +44,7 @@ import "./features/linkify-commit-sha.js";
 import "./features/previous-next-commit-buttons.js";
 import "./features/close-out-of-view-modals.js";
 import "./features/click-outside-modal.js";
+import "./features/esc-to-cancel.js";
 import "./features/same-page-links.js";
 import "./features/clean-readme-url.js";
 import "./features/new-milestone-button.js";

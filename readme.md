@@ -118,7 +118,7 @@
 - [ ] **quick-label-removal** - 一键移除 issue/PR 标签
 - [ ] **clean-conversation-headers** - 移除 PR 头部的重复信息
 - [ ] **dim-bots** - 淡化 bot 的提交和 PR
-- [ ] **esc-to-cancel** - esc 取消编辑 PR 标题
+- [x] **esc-to-cancel** - esc 取消编辑 PR 标题
 - [ ] **no-duplicate-list-update-time** - 隐藏与开/关/合并时间相同的更新时间
 - [ ] **linkify-user-labels** - 将「Contributor」「Member」等标签链接到作者提交
 - [ ] **jump-to-conversation-close-event** - 跳转到 issue/PR 的最后关闭事件
