@@ -79,7 +79,9 @@ async function addAge(menu: Element, { signal }: { signal?: AbortSignal }): Prom
   menu.append(
     <span className="item rgf-repo-age-item">
       {clockSvg.cloneNode(true)}
-      <span className="rgf-age-text">{compactRelativeTime(data.created_at)}</span>
+      <span className="rgf-age-text" title={new Date(data.created_at).toLocaleString()}>
+        {compactRelativeTime(data.created_at)}
+      </span>
     </span>,
   );
 }
