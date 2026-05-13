@@ -16,6 +16,21 @@ const clockSvg = (() => {
   return doc.documentElement;
 })();
 
+function compactRelativeTime(iso: string): string {
+  const ms = Date.now() - new Date(iso).getTime();
+  const minutes = Math.floor(ms / 60000);
+  if (minutes < 1) return "now";
+  const hours = Math.floor(minutes / 60);
+  if (hours < 1) return `${minutes}m`;
+  const days = Math.floor(hours / 24);
+  if (days < 1) return `${hours}h`;
+  const months = Math.floor(days / 30);
+  if (months < 1) return `${days}d`;
+  const years = Math.floor(days / 365);
+  if (years < 1) return `${months}mo`;
+  return `${years}y`;
+}
+
 const gridStyle = document.createElement("style");
 gridStyle.textContent = `
 @media (min-width: 768px) {
@@ -64,7 +79,7 @@ async function addAge(menu: Element, { signal }: { signal?: AbortSignal }): Prom
   menu.append(
     <span className="item rgf-repo-age-item">
       {clockSvg.cloneNode(true)}
-      <relative-time format="duration" datetime={data.created_at} />
+      <span className="rgf-age-text">{compactRelativeTime(data.created_at)}</span>
     </span>,
   );
 }
