@@ -9,7 +9,6 @@ import { svg } from "../forgejo-helpers/svg.js";
 import { pRace } from "../helpers/p-utils.js";
 import { hasRepoHeader } from "../helpers/page-detect.js";
 import observe, { waitForElement } from "../helpers/selector-observer.js";
-import { getToken } from "../options-storage.js";
 
 type RunStatus = "success" | "failure" | "cancelled" | "running" | "waiting";
 
@@ -78,11 +77,9 @@ async function statusFromAPI(repo: { owner: string; name: string }, signal?: Abo
   } | undefined
 > {
   try {
-    const token = await getToken();
-    const headers: HeadersInit = token ? { Authorization: `token ${token}` } : {};
-    const data = await api.v1uncached(
+    const data = await api.v1(
       `repos/${repo.owner}/${repo.name}/actions/runs?limit=1`,
-      { headers, signal },
+      { signal },
     ) as { workflow_runs?: Array<{ status: string; html_url: string }> };
 
     const run = data?.workflow_runs?.[0];

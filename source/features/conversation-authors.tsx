@@ -30,8 +30,8 @@ async function init(signal: AbortSignal): Promise<void> {
 
   // Fetch collaborators and org members concurrently
   const [collaboratorsData, orgMembersData] = await Promise.all([
-    api.v1WithToken(`repos/${repo.owner}/${repo.name}/collaborators`).catch(() => []),
-    api.v1WithToken(`orgs/${repo.owner}/members`).catch(() => []),
+    api.v1(`repos/${repo.owner}/${repo.name}/collaborators`).catch(() => []),
+    api.v1(`orgs/${repo.owner}/members`).catch(() => []),
   ]);
 
   const collaborators = (collaboratorsData as Array<{ login: string }>).map(u => u.login);

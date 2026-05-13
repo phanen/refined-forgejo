@@ -62,7 +62,7 @@ async function addAge(menu: Element, { signal }: { signal?: AbortSignal }): Prom
 
   let data: RepoInfo;
   try {
-    data = await api.v1WithToken(`repos/${repo.owner}/${repo.name}`) as RepoInfo;
+    data = await api.v1(`repos/${repo.owner}/${repo.name}`) as RepoInfo;
   } catch {
     return;
   }

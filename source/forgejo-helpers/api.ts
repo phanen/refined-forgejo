@@ -3,7 +3,7 @@ import { getToken } from "../options-storage.js";
 
 const apiUrl = () => `${location.origin}/api/v1/`;
 
-type ApiOptions = {
+export type ApiOptions = {
   ignoreHttpStatus?: boolean;
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
@@ -17,6 +17,9 @@ async function apiFetch(
 ): Promise<unknown> {
   const { ignoreHttpStatus = false, method = "GET", body, headers = {}, signal } = options;
 
+  const token = await getToken();
+  const authHeaders: HeadersInit = token ? { Authorization: `token ${token}` } : {};
+
   const url = new URL(path, apiUrl());
   const response = await fetch(url.href, {
     method,
@@ -24,6 +27,7 @@ async function apiFetch(
     headers: {
       "Content-Type": "application/json",
       accept: "application/json",
+      ...authHeaders,
       ...headers,
     },
     signal,
@@ -41,16 +45,9 @@ async function apiFetch(
 
 const v1 = mem(apiFetch);
 
-async function apiFetchWithToken(path: string, signal?: AbortSignal): Promise<unknown> {
-  const token = await getToken();
-  const headers: HeadersInit = token ? { Authorization: `token ${token}` } : {};
-  return apiFetch(path, { headers, signal });
-}
-
 const api = {
   v1,
-  v1uncached: apiFetch,
-  v1WithToken: mem(apiFetchWithToken),
+  fetch: apiFetch,
 };
 
 export default api;
