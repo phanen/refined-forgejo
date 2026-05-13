@@ -19,17 +19,21 @@ const apiStatusMap: Record<string, string> = {
   waiting: "rgf-ci-pending",
 };
 
-function forgejoIcon(statusClass: string): HTMLElement {
-  const name = statusClass === "rgf-ci-success"
-    ? "octicon-check"
-    : statusClass === "rgf-ci-failure"
-    ? "octicon-x"
-    : "octicon-dot-fill";
+const statusConfig: Record<string, { icon: string; color: string }> = {
+  "rgf-ci-success": { icon: "octicon-check", color: "green" },
+  "rgf-ci-failure": { icon: "octicon-x", color: "red" },
+  "rgf-ci-cancelled": { icon: "octicon-dot-fill", color: "yellow" },
+  "rgf-ci-pending": { icon: "octicon-dot-fill", color: "yellow" },
+};
 
-  const html = svg(name, 14);
+function forgejoIcon(statusClass: string): HTMLElement {
+  const cfg = statusConfig[statusClass] ?? statusConfig["rgf-ci-pending"];
+  const html = svg(cfg.icon, 14);
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "image/svg+xml");
-  return doc.documentElement;
+  const el = doc.documentElement;
+  el.classList.add("rgf-ci-svg", "text", cfg.color);
+  return el;
 }
 
 async function statusFromDOM(repo: { owner: string; name: string }): Promise<
@@ -91,29 +95,6 @@ async function statusFromAPI(repo: { owner: string; name: string }): Promise<
   }
 }
 
-function firstValid<T>(...promises: Promise<T | undefined>[]): Promise<T> {
-  for (const p of promises) {
-    p.catch(() => {});
-  }
-
-  return new Promise((resolve, reject) => {
-    let settled = 0;
-    for (const p of promises) {
-      void p.then(r => {
-        if (r !== undefined) {
-          resolve(r);
-        } else if (++settled === promises.length) {
-          reject(new Error("no valid result"));
-        }
-      }).catch(() => {
-        if (++settled === promises.length) {
-          reject(new Error("no valid result"));
-        }
-      });
-    }
-  });
-}
-
 async function addLink(titleArea: Element): Promise<void> {
   if (titleArea.querySelector(".rgf-ci-link")) {
     return;
@@ -124,10 +105,14 @@ async function addLink(titleArea: Element): Promise<void> {
     return;
   }
 
-  let result: { statusClass: string; href: string; icon?: HTMLElement };
+  let result: { statusClass: string; href: string; icon?: HTMLElement } | undefined;
   try {
-    result = await firstValid(statusFromDOM(repo), statusFromAPI(repo));
+    result = await Promise.race([statusFromDOM(repo), statusFromAPI(repo)]);
   } catch {
+    return;
+  }
+
+  if (!result) {
     return;
   }
 
