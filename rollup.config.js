@@ -89,6 +89,9 @@ const rollup = {
       ],
     }),
     cleanup(),
+    string({
+      include: "**/*.svg",
+    }),
   ],
 };
 
