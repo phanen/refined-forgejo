@@ -25,8 +25,12 @@ gridStyle.textContent = `
 }
 @media (max-width: 767.98px) {
   .repository .repository-summary .repository-menu.rgf-5col {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .repository .repository-summary .repository-menu.rgf-5col > .item {
+    flex: 0 0 33.333%;
   }
 }
 `;
