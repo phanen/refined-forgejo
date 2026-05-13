@@ -1,7 +1,25 @@
-/* Hide empty sidebar sections */
+/* ── Hide empty content displays ── */
 
-/* Labels — hide when "no label" text is visible */
-.issue-content-right .ui.labels.list:has(.no-select:not(.tw-hidden)) {
+.issue-content-right .ui.labels.list:has(.no-select:not(.tw-hidden)),
+.issue-content-right .ui.select-milestone.list:has(.no-select:not(.tw-hidden)),
+.issue-content-right .ui.select-project.list:has(.no-select:not(.tw-hidden)),
+.issue-content-right .ui.assignees.list:has(.no-select:not(.tw-hidden)) {
+  display: none;
+}
+
+.issue-content-right .ui.list.tw-flex.tw-flex-wrap:empty,
+.issue-content-right .ui.watching:has(button.disabled),
+.issue-content-right
+  .ui.timetrack:not(:has(.issue-start-time, .issue-add-time)),
+.issue-content-right #deadline-loader:not(:has(.due-date)),
+.issue-content-right .ui.depending:not(:has(.dependency)),
+.issue-content-right .ui.reference {
+  display: none;
+}
+
+/* ── Hide dividers before hidden sections ── */
+
+.divider:has(+ :is(.ui.labels.list:has(.no-select:not(.tw-hidden)), .ui.select-milestone.list:has(.no-select:not(.tw-hidden)), .ui.select-project.list:has(.no-select:not(.tw-hidden)), .ui.assignees.list:has(.no-select:not(.tw-hidden)), .ui.watching:has(button.disabled), .ui.timetrack:not(:has(.issue-start-time)), #deadline-loader:not(:has(.due-date)), .ui.depending:not(:has(.dependency)), .ui.reference)) {
   display: none;
 }
 
