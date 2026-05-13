@@ -1,4 +1,4 @@
-/* clean-conversation-filters */
-.filter-list:empty {
+/* Hide project filter when no projects exist */
+.list-header-project.disabled {
   display: none;
 }
