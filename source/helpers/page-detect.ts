@@ -42,15 +42,7 @@ export const isPR = (): boolean => getRepo()?.path.startsWith("pulls/") ?? false
 export const isIssueOrPR = (): boolean => isIssue() || isPR();
 export const isConversation = (): boolean => isIssueOrPR();
 export const isPRCommits = (): boolean => repoPathStartsWith("pulls/") && location.pathname.endsWith("/commits");
-export const isRepoIssueList = (): boolean => {
-  const path = getRepo()?.path;
-  if (!path) {
-    return false;
-  }
-
-  // Match: issues (but not issues/\d+ or issues/new or issues/templates)
-  return /^issues(?!\/(\d+|new|templates)($|\/))/.test(path);
-};
+export const isRepoIssueList = (): boolean => /^issues(?!\/(\d+|new|templates)($|\/))/.test(getRepo()?.path ?? "");
 export const isRepoPRList = (): boolean => getRepo()?.path === "pulls";
 export const isGlobalIssueList = (): boolean => /^issues(\/|$)/.test(location.pathname.replace(/^\//, ""));
 export const isGlobalPRList = (): boolean => /^pulls(\/|$)/.test(location.pathname.replace(/^\//, ""));
