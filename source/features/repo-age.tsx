@@ -18,14 +18,6 @@ const clockSvg = (() => {
   return doc.documentElement;
 })();
 
-const ageStyle = document.createElement("style");
-ageStyle.textContent = `
-.repository .repository-summary .item.rgf-has-age {
-  justify-content: space-between;
-  gap: 0;
-}
-`;
-
 async function addAge(menu: Element): Promise<void> {
   const sizeItem = menu.querySelector(".item svg.octicon-database")?.closest(".item") as HTMLElement | null;
   if (!sizeItem || sizeItem.querySelector("relative-time")) {
@@ -47,7 +39,12 @@ async function addAge(menu: Element): Promise<void> {
   const dbSvg = sizeItem.querySelector("svg.octicon-database");
   const dbText = sizeItem.textContent?.trim();
 
-  sizeItem.classList.add("rgf-has-age");
+  // Inline styles are used instead of CSS rules because content script CSS
+  // (injected via manifest.json content_scripts → css) doesn't reliably
+  // trigger layout recalculation for class changes on existing elements
+  // in Firefox. Inline style targets the element directly, avoiding this.
+  sizeItem.style.justifyContent = "space-around";
+  sizeItem.style.gap = "0";
   sizeItem.innerHTML = "";
 
   sizeItem.append(
@@ -63,8 +60,6 @@ async function addAge(menu: Element): Promise<void> {
 }
 
 function init(signal: AbortSignal): void {
-  document.head.append(ageStyle);
-  signal.addEventListener("abort", () => ageStyle.remove());
   observe(".repository-menu", addAge, { signal });
 }
 
