@@ -1,8 +1,9 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
-// Mock location before importing page-detect (module evaluates at import time)
+// Mock location and document before importing page-detect (module evaluates at import time)
 beforeAll(() => {
   vi.stubGlobal("location", { pathname: "/" });
+  vi.stubGlobal("document", { title: "" });
 });
 
 // Dynamic import so the mock is set before module evaluation
@@ -21,6 +22,19 @@ function testFalse(fn: () => boolean, pathname: string): void {
   it(`${fn.name} → false ${pathname}`, () => {
     vi.stubGlobal("location", { pathname });
     expect(fn()).toBe(false);
+  });
+}
+
+function testWithTitle(
+  fn: () => boolean,
+  pathname: string,
+  title: string,
+  expected: boolean,
+): void {
+  it(`${fn.name} → ${expected ? "true " : "false"} ${pathname} [title: ${title}]`, () => {
+    vi.stubGlobal("location", { pathname });
+    vi.stubGlobal("document", { title });
+    expect(fn()).toBe(expected);
   });
 }
 
@@ -257,5 +271,63 @@ describe("page-detect", async () => {
   describe("isRepoSearch", () => {
     testTrue(pageDetect.isRepoSearch, "/ziglang/zig/search");
     testFalse(pageDetect.isRepoSearch, "/ziglang/zig");
+  });
+
+  describe("is404", () => {
+    testWithTitle(pageDetect.is404, "/any/page", "Page not found — Forgejo", true);
+    testWithTitle(pageDetect.is404, "/any/page", "Dashboard", false);
+  });
+
+  describe("isCommit", () => {
+    testTrue(pageDetect.isCommit, "/ziglang/zig/commit/a1b2c3d4e5f6");
+    testTrue(pageDetect.isCommit, "/ziglang/zig/commit/a1b2c");
+    testFalse(pageDetect.isCommit, "/ziglang/zig/commits/main");
+  });
+
+  describe("isConversation", () => {
+    testTrue(pageDetect.isConversation, "/ziglang/zig/issues/123");
+    testTrue(pageDetect.isConversation, "/ziglang/zig/pulls/123");
+    testFalse(pageDetect.isConversation, "/ziglang/zig/issues");
+  });
+
+  describe("isNewFile", () => {
+    testTrue(pageDetect.isNewFile, "/ziglang/zig/new/main/test.zig");
+    testFalse(pageDetect.isNewFile, "/ziglang/zig");
+  });
+
+  describe("isEditingFile", () => {
+    testTrue(pageDetect.isEditingFile, "/ziglang/zig/_edit/main/README.md");
+    testTrue(pageDetect.isEditingFile, "/ziglang/zig/edit/main/README.md");
+    testFalse(pageDetect.isEditingFile, "/ziglang/zig/blob/main/README.md");
+  });
+
+  describe("isDeletingFile", () => {
+    testTrue(pageDetect.isDeletingFile, "/ziglang/zig/delete/main/test.zig");
+    testFalse(pageDetect.isDeletingFile, "/ziglang/zig");
+  });
+
+  describe("hasFileEditor", () => {
+    testTrue(pageDetect.hasFileEditor, "/ziglang/zig/new/main/test.zig");
+    testTrue(pageDetect.hasFileEditor, "/ziglang/zig/_edit/main/README.md");
+    testTrue(pageDetect.hasFileEditor, "/ziglang/zig/delete/main/test.zig");
+    testFalse(pageDetect.hasFileEditor, "/ziglang/zig");
+  });
+
+  describe("isReleasesOrTags", () => {
+    testTrue(pageDetect.isReleasesOrTags, "/ziglang/zig/releases");
+    testTrue(pageDetect.isReleasesOrTags, "/ziglang/zig/tags");
+    testFalse(pageDetect.isReleasesOrTags, "/ziglang/zig/issues");
+  });
+
+  describe("isRepoFile404", () => {
+    testWithTitle(pageDetect.isRepoFile404, "/ziglang/zig/blob/main/nonexistent.ts", "File not found", true);
+    testWithTitle(pageDetect.isRepoFile404, "/ziglang/zig/blob/main/README.md", "README.md", false);
+  });
+
+  describe("hasRepoHeader", () => {
+    testTrue(pageDetect.hasRepoHeader, "/ziglang/zig");
+    testTrue(pageDetect.hasRepoHeader, "/ziglang/zig/issues");
+    testFalse(pageDetect.hasRepoHeader, "/");
+    testFalse(pageDetect.hasRepoHeader, "/issues");
   });
 });
