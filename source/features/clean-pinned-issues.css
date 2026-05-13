@@ -1,6 +1,108 @@
-/* clean-pinned-issues */
-.pinned-issue-list {
+#issue-pins {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  margin-bottom: 16px;
+  gap: 0;
 }
+
+#issue-pins .issue-card {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 12px;
+  border-radius: 0;
+  border-bottom: none;
+  padding: 8px 16px;
+  background: var(--color-card);
+}
+
+#issue-pins .issue-card:first-child {
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
+}
+
+#issue-pins .issue-card:last-child {
+  border-bottom: 1px solid var(--color-secondary);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+#issue-pins .issue-card .content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Flatten the title container */
+#issue-pins .issue-card .content > div:first-child {
+  display: contents !important;
+}
+
+#issue-pins .issue-card .issue-card-title {
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 1 auto;
+  color: var(--color-text);
+}
+
+#issue-pins .issue-card .issue-card-title:hover {
+  color: var(--color-primary);
+}
+
+#issue-pins .issue-card .meta {
+  font-size: 12px;
+  color: var(--color-text-light-2);
+  white-space: nowrap;
+  margin: 0 !important;
+}
+
+#issue-pins .issue-card .issue-card-bottom {
+  display: flex;
+  width: auto !important;
+  margin-left: auto;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+#issue-pins .issue-card .labels-list {
+  display: flex;
+  gap: 4px;
+  flex-wrap: nowrap;
+}
+
+#issue-pins .issue-card .ui.label {
+  padding: 2px 6px !important;
+  font-size: 11px !important;
+  margin: 0 !important;
+  border-radius: 10px !important;
+}
+
+#issue-pins .issue-card .issue-card-assignees {
+  margin: 0;
+}
+
+#issue-pins .issue-card .issue-card-icon {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+#issue-pins .issue-card .issue-card-unpin {
+  margin: 0;
+  order: 100;
+  padding: 4px;
+  opacity: 0.6;
+}
+
+#issue-pins .issue-card .issue-card-unpin:hover {
+  opacity: 1;
+  color: var(--color-red);
+}
+
+/* Hide some less important meta on small screens if needed, but for now keep it simple */
