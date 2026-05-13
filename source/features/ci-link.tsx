@@ -6,8 +6,10 @@ import features from "../feature-manager.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import { svg } from "../forgejo-helpers/svg.js";
+import { pRace } from "../helpers/p-utils.js";
 import { hasRepoHeader } from "../helpers/page-detect.js";
 import observe, { waitForElement } from "../helpers/selector-observer.js";
+import { getToken } from "../options-storage.js";
 
 type RunStatus = "success" | "failure" | "cancelled" | "running" | "waiting";
 
@@ -69,15 +71,18 @@ async function statusFromDOM(repo: { owner: string; name: string }, signal?: Abo
   return { statusClass, href, icon: cloned };
 }
 
-async function statusFromAPI(repo: { owner: string; name: string }): Promise<
+async function statusFromAPI(repo: { owner: string; name: string }, signal?: AbortSignal): Promise<
   {
     statusClass: string;
     href: string;
   } | undefined
 > {
   try {
-    const data = await api.v1WithToken(
+    const token = await getToken();
+    const headers: HeadersInit = token ? { Authorization: `token ${token}` } : {};
+    const data = await api.v1uncached(
       `repos/${repo.owner}/${repo.name}/actions/runs?limit=1`,
+      { headers, signal },
     ) as { workflow_runs?: Array<{ status: string; html_url: string }> };
 
     const run = data?.workflow_runs?.[0];
@@ -102,14 +107,16 @@ async function addLink(titleArea: Element, { signal }: { signal?: AbortSignal })
     return;
   }
 
-  let result: { statusClass: string; href: string; icon?: HTMLElement } | undefined;
+  let result: { statusClass: string; href: string; icon?: HTMLElement };
   try {
-    result = await Promise.race([statusFromDOM(repo, signal), statusFromAPI(repo)]);
+    result = await pRace(
+      [
+        s => statusFromDOM(repo, s),
+        s => statusFromAPI(repo, s),
+      ],
+      signal,
+    );
   } catch {
-    return;
-  }
-
-  if (!result) {
     return;
   }
 

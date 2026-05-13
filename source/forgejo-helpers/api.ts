@@ -8,13 +8,14 @@ type ApiOptions = {
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
   headers?: HeadersInit;
+  signal?: AbortSignal;
 };
 
 async function apiFetch(
   path: string,
   options: ApiOptions = {},
 ): Promise<unknown> {
-  const { ignoreHttpStatus = false, method = "GET", body, headers = {} } = options;
+  const { ignoreHttpStatus = false, method = "GET", body, headers = {}, signal } = options;
 
   const url = new URL(path, apiUrl());
   const response = await fetch(url.href, {
@@ -25,6 +26,7 @@ async function apiFetch(
       accept: "application/json",
       ...headers,
     },
+    signal,
   });
 
   const text = await response.text();
@@ -39,10 +41,10 @@ async function apiFetch(
 
 const v1 = mem(apiFetch);
 
-async function apiFetchWithToken(path: string): Promise<unknown> {
+async function apiFetchWithToken(path: string, signal?: AbortSignal): Promise<unknown> {
   const token = await getToken();
   const headers: HeadersInit = token ? { Authorization: `token ${token}` } : {};
-  return apiFetch(path, { headers });
+  return apiFetch(path, { headers, signal });
 }
 
 const api = {
