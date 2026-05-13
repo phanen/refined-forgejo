@@ -15,7 +15,7 @@
 
 ### Repositories
 
-- [-] **ci-link** - 仓库名旁显示 CI/CD 构建状态图标（需要 GraphQL API）
+- [x] **ci-link** - 仓库名旁显示 CI/CD 构建状态图标
 - [x] **more-dropdown-links** - 仓库导航下拉菜单添加工具链接
 - [+] **swap-branches-on-compare** - 分支对比页添加交换分支链接
 - [ ] **repo-age** - 侧边栏显示仓库年龄

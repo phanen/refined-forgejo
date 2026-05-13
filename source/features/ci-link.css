@@ -1,0 +1,32 @@
+.rgf-ci-link {
+  margin-left: 4px;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.rgf-ci-link:hover {
+  color: var(--color-primary);
+}
+
+.rgf-ci-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+.rgf-ci-success {
+  color: var(--color-green) !important;
+}
+
+.rgf-ci-failure {
+  color: var(--color-red) !important;
+}
+
+.rgf-ci-cancelled {
+  color: var(--color-grey, #888) !important;
+}
+
+.rgf-ci-running,
+.rgf-ci-waiting {
+  color: var(--color-yellow) !important;
+}

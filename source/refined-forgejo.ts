@@ -23,6 +23,7 @@ import "./features/releases-tab.js";
 import "./features/profile-gists-link.js";
 import "./features/sticky-conversation-list-toolbar.js";
 import "./features/sticky-comment-header.js";
+import "./features/ci-link.js";
 import "./features/repo-header-info.js";
 import "./features/small-user-avatars.js";
 import "./features/quick-file-edit.js";
