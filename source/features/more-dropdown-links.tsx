@@ -42,7 +42,7 @@ function addLinks(overflowMenu: Element): void {
 
     itemsContainer.append(
       <a className="item rgf-more-link" href={href}>
-        <Icon />
+        <Icon className="svg" />
         {label}
       </a>,
     );
