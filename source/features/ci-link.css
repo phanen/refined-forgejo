@@ -3,13 +3,20 @@
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
+  text-decoration: none;
 }
 
 .rgf-ci-link:hover {
-  color: var(--color-primary);
+  opacity: 0.8;
 }
 
-.rgf-ci-link svg {
+.rgf-ci-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.rgf-ci-icon svg,
+.rgf-ci-link > svg {
   width: 14px;
   height: 14px;
 }
@@ -26,7 +33,6 @@
   color: var(--color-grey, #888) !important;
 }
 
-.rgf-ci-running,
-.rgf-ci-waiting {
+.rgf-ci-pending {
   color: var(--color-yellow) !important;
 }
