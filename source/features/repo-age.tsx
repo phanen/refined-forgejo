@@ -23,6 +23,12 @@ gridStyle.textContent = `
     grid-template-columns: repeat(5, 1fr);
   }
 }
+@media (max-width: 767.98px) {
+  .repository .repository-summary .repository-menu.rgf-5col {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: none;
+  }
+}
 `;
 
 async function addAge(menu: Element, { signal }: { signal?: AbortSignal }): Promise<void> {
