@@ -85,6 +85,28 @@ describe("page-detect", async () => {
     testFalse(pageDetect.isPRList, "/ziglang/zig/pulls/123");
   });
 
+  describe("isRepoIssueList", () => {
+    testTrue(pageDetect.isRepoIssueList, "/ziglang/zig/issues");
+    testFalse(pageDetect.isRepoIssueList, "/ziglang/zig/issues/123");
+    testFalse(pageDetect.isRepoIssueList, "/ziglang/zig/labels");
+    testFalse(pageDetect.isRepoIssueList, "/ziglang/zig/pulls");
+  });
+
+  describe("isRepoPRList", () => {
+    testTrue(pageDetect.isRepoPRList, "/ziglang/zig/pulls");
+    testFalse(pageDetect.isRepoPRList, "/ziglang/zig/pulls/123");
+    testFalse(pageDetect.isRepoPRList, "/ziglang/zig/issues");
+  });
+
+  describe("isRepoIssueOrPRList", () => {
+    testTrue(pageDetect.isRepoIssueOrPRList, "/ziglang/zig/issues");
+    testTrue(pageDetect.isRepoIssueOrPRList, "/ziglang/zig/pulls");
+    testFalse(pageDetect.isRepoIssueOrPRList, "/ziglang/zig/issues/123");
+    testFalse(pageDetect.isRepoIssueOrPRList, "/ziglang/zig/pulls/123");
+    testFalse(pageDetect.isRepoIssueOrPRList, "/ziglang/zig/labels");
+    testFalse(pageDetect.isRepoIssueOrPRList, "/ziglang/zig");
+  });
+
   describe("isWiki", () => {
     testTrue(pageDetect.isWiki, "/ziglang/zig/wiki");
     testTrue(pageDetect.isWiki, "/ziglang/zig/wiki/Home");

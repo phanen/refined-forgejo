@@ -33,8 +33,9 @@ export const isPRCommits = (): boolean => getRepoPath("pulls/\\d+/commits");
 export const isIssueOrPRList = (): boolean => /\/[^/]+\/[^/]+\/(issues|pulls)$/.test(location.pathname);
 export const isIssueList = (): boolean => /\/[^/]+\/[^/]+\/issues$/.test(location.pathname);
 export const isPRList = (): boolean => /\/[^/]+\/[^/]+\/pulls$/.test(location.pathname);
-export const isRepoIssueList = isIssueList;
-export const isRepoPRList = isPRList;
+export const isRepoIssueList = (): boolean => isIssueList();
+export const isRepoPRList = (): boolean => isPRList();
+export const isRepoIssueOrPRList = (): boolean => isIssueOrPRList();
 export const isWiki = (): boolean => /\/[^/]+\/[^/]+\/wiki/.test(location.pathname);
 export const isAction = (): boolean => /\/[^/]+\/[^/]+\/actions/.test(location.pathname);
 export const isActionRun = (): boolean => /\/[^/]+\/[^/]+\/actions\/runs\/\d+/.test(location.pathname);
@@ -104,6 +105,7 @@ export const pageDetect = {
   isRepoIssueList,
   isRepoNetworkGraph,
   isRepoPRList,
+  isRepoIssueOrPRList,
   isRepoFile404,
   isRepoSearch,
   isRepoSettings,
