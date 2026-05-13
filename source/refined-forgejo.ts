@@ -32,7 +32,6 @@ import "./features/clean-pinned-issues.js";
 import "./features/conversation-authors.js";
 import "./features/clean-conversation-filters.js";
 import "./features/extend-diff-expander.js";
-import "./features/swap-branches-on-compare.js";
 import "./features/hide-navigation-hover-highlight.js";
 import "./features/clean-rich-text-editor.js";
 import "./features/collapsible-content-button.js";
