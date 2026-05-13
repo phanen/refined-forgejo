@@ -1,4 +1,12 @@
-export function getRepo(): { nameWithOwner: string; owner: string; name: string; path: string; pathParts: string[] } | undefined {
+export type RepositoryInfo = {
+  nameWithOwner: string;
+  owner: string;
+  name: string;
+  path: string;
+  pathParts: string[];
+};
+
+export function getRepo(): RepositoryInfo | undefined {
   const match = location.pathname.match(/^\/(?:repo\/)?([^/]+)\/([^/]+)/);
   if (!match) {
     return undefined;

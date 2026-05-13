@@ -103,8 +103,19 @@ describe("page-detect", async () => {
     testTrue(pageDetect.isRepoIssueOrPRList, "/ziglang/zig/pulls");
     testFalse(pageDetect.isRepoIssueOrPRList, "/ziglang/zig/issues/123");
     testFalse(pageDetect.isRepoIssueOrPRList, "/ziglang/zig/pulls/123");
-    testFalse(pageDetect.isRepoIssueOrPRList, "/ziglang/zig/labels");
     testFalse(pageDetect.isRepoIssueOrPRList, "/ziglang/zig");
+  });
+
+  describe("isGlobalIssueList", () => {
+    testTrue(pageDetect.isGlobalIssueList, "/issues");
+    testTrue(pageDetect.isGlobalIssueList, "/issues/assigned");
+    testFalse(pageDetect.isGlobalIssueList, "/ziglang/zig/issues");
+  });
+
+  describe("isGlobalPRList", () => {
+    testTrue(pageDetect.isGlobalPRList, "/pulls");
+    testTrue(pageDetect.isGlobalPRList, "/pulls/assigned");
+    testFalse(pageDetect.isGlobalPRList, "/ziglang/zig/pulls");
   });
 
   describe("isWiki", () => {

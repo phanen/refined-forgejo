@@ -42,12 +42,22 @@ export const isPR = (): boolean => getRepo()?.path.startsWith("pulls/") ?? false
 export const isIssueOrPR = (): boolean => isIssue() || isPR();
 export const isConversation = (): boolean => isIssueOrPR();
 export const isPRCommits = (): boolean => repoPathStartsWith("pulls/") && location.pathname.endsWith("/commits");
-export const isIssueOrPRList = (): boolean => getRepo()?.path === "issues" || getRepo()?.path === "pulls";
-export const isIssueList = (): boolean => getRepo()?.path === "issues";
-export const isPRList = (): boolean => getRepo()?.path === "pulls";
-export const isRepoIssueList = isIssueList;
-export const isRepoPRList = isPRList;
-export const isRepoIssueOrPRList = (): boolean => isIssueOrPRList();
+export const isRepoIssueList = (): boolean => {
+  const path = getRepo()?.path;
+  if (!path) {
+    return false;
+  }
+
+  // Match: issues (but not issues/\d+ or issues/new or issues/templates)
+  return /^issues(?!\/(\d+|new|templates)($|\/))/.test(path);
+};
+export const isRepoPRList = (): boolean => getRepo()?.path === "pulls";
+export const isGlobalIssueList = (): boolean => /^issues(\/|$)/.test(location.pathname.replace(/^\//, ""));
+export const isGlobalPRList = (): boolean => /^pulls(\/|$)/.test(location.pathname.replace(/^\//, ""));
+export const isIssueList = (): boolean => isRepoIssueList() || isGlobalIssueList();
+export const isPRList = (): boolean => isRepoPRList() || isGlobalPRList();
+export const isIssueOrPRList = (): boolean => isIssueList() || isPRList();
+export const isRepoIssueOrPRList = (): boolean => isRepoIssueList() || isRepoPRList();
 export const isWiki = (): boolean => /\/[^/]+\/[^/]+\/wiki/.test(location.pathname);
 export const isAction = (): boolean => /\/[^/]+\/[^/]+\/actions/.test(location.pathname);
 export const isActionRun = (): boolean => /\/[^/]+\/[^/]+\/actions\/runs\/\d+/.test(location.pathname);
@@ -96,6 +106,8 @@ export const pageDetect = {
   isEditingFile,
   hasFileEditor,
   isFileFinder,
+  isGlobalIssueList,
+  isGlobalPRList,
   isIssue,
   isIssueList,
   isIssueOrPR,
