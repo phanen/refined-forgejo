@@ -1,9 +1,73 @@
-/* ── Hide empty content displays ── */
+/* ── Hide empty/disabled sections ──
+   Sections remain visible when the user has edit permission
+   (indicated by .octicon-gear in the dropdown).              */
 
-.issue-content-right .ui.labels.list:has(.no-select:not(.tw-hidden)),
-.issue-content-right .ui.select-milestone.list:has(.no-select:not(.tw-hidden)),
-.issue-content-right .ui.select-project.list:has(.no-select:not(.tw-hidden)),
-.issue-content-right .ui.assignees.list:has(.no-select:not(.tw-hidden)) {
+/* Milestones: has wrapper div */
+#milestone-section:has(> .select-milestone.dropdown:not(:has(.octicon-gear))):has(> #selected-milestone.ui.select-milestone.list:has(.no-select:not(.tw-hidden))) {
+  display: none;
+}
+
+/* Sections without wrappers: hide dropdown when no gear + content empty */
+.select-label.dropdown:not(:has(.octicon-gear)):has(~ .ui.labels.list:has(.no-select:not(.tw-hidden))),
+.select-project.dropdown:not(:has(.octicon-gear)):has(~ .ui.select-project.list:has(.no-select:not(.tw-hidden))),
+.select-assignees-modify.dropdown:not(:has(.octicon-gear)):has(~ .ui.assignees.list:has(.no-select:not(.tw-hidden))) {
+  display: none;
+}
+
+/* Always hide empty content displays (redundant "No X" text) */
+.ui.labels.list:has(.no-select:not(.tw-hidden)),
+.ui.select-milestone.list:has(.no-select:not(.tw-hidden)),
+.ui.select-project.list:has(.no-select:not(.tw-hidden)),
+.ui.assignees.list:has(.no-select:not(.tw-hidden)) {
+  display: none;
+}
+
+/* Informational sections: hide when empty/disabled */
+.issue-content-right .ui.list.tw-flex.tw-flex-wrap:empty,
+.issue-content-right .ui.watching:has(button.disabled),
+.issue-content-right
+  .ui.timetrack:not(:has(.issue-start-time, .issue-add-time)),
+.issue-content-right #deadline-loader:not(:has(.due-date)),
+.issue-content-right .ui.depending:not(:has(.dependency)),
+.issue-content-right .ui.reference {
+  display: none;
+}
+
+/* ── Hide dividers before hidden sections ── */
+
+.divider:has(+ :is(#milestone-section:has(> .select-milestone.dropdown:not(:has(.octicon-gear))):has(> #selected-milestone.ui.select-milestone.list:has(.no-select:not(.tw-hidden))), .select-label.dropdown:not(:has(.octicon-gear)):has(~ .ui.labels.list:has(.no-select:not(.tw-hidden))), .select-project.dropdown:not(:has(.octicon-gear)):has(~ .ui.select-project.list:has(.no-select:not(.tw-hidden))), .select-assignees-modify.dropdown:not(:has(.octicon-gear)):has(~ .ui.assignees.list:has(.no-select:not(.tw-hidden))), .ui.watching:has(button.disabled), .ui.timetrack:not(:has(.issue-start-time)), #deadline-loader:not(:has(.due-date)), .ui.depending:not(:has(.dependency)), .ui.reference)) {
+  display: none;
+}
+
+/* Sections without wrappers: hide dropdown + content separately.
+   Dropdown hidden when: no gear icon AND a following empty content list exists.
+   Content list hidden when: empty (regardless of gear, the "No X" text is redundant). */
+.select-label.dropdown:not(:has(.octicon-gear)):has(~ .ui.labels.list:has(.no-select:not(.tw-hidden))),
+.select-assignees-modify.dropdown:not(:has(.octicon-gear)):has(~ .ui.assignees.list:has(.no-select:not(.tw-hidden))) {
+  display: none;
+}
+
+.ui.labels.list:has(.no-select:not(.tw-hidden)),
+.ui.select-milestone.list:has(.no-select:not(.tw-hidden)),
+.ui.select-project.list:has(.no-select:not(.tw-hidden)),
+.ui.assignees.list:has(.no-select:not(.tw-hidden)) {
+  display: none;
+}
+
+/* Informational sections: hide when empty/disabled (no "edit" concept here) */
+.issue-content-right .ui.list.tw-flex.tw-flex-wrap:empty,
+.issue-content-right .ui.watching:has(button.disabled),
+.issue-content-right
+  .ui.timetrack:not(:has(.issue-start-time, .issue-add-time)),
+.issue-content-right #deadline-loader:not(:has(.due-date)),
+.issue-content-right .ui.depending:not(:has(.dependency)),
+.issue-content-right .ui.reference {
+  display: none;
+}
+
+/* ── Hide dividers before hidden sections ── */
+
+.divider:has(+ :is(#milestone-section:has(> .select-milestone.dropdown:not(:has(.octicon-gear))):has(> #selected-milestone.ui.select-milestone.list:has(.no-select:not(.tw-hidden))), #project-section:has(> .select-project.dropdown:not(:has(.octicon-gear))):has(> .ui.select-project.list:has(.no-select:not(.tw-hidden))), .select-label.dropdown:not(:has(.octicon-gear)):has(~ .ui.labels.list:has(.no-select:not(.tw-hidden))), .select-assignees-modify.dropdown:not(:has(.octicon-gear)):has(~ .ui.assignees.list:has(.no-select:not(.tw-hidden))), .ui.watching:has(button.disabled), .ui.timetrack:not(:has(.issue-start-time)), #deadline-loader:not(:has(.due-date)), .ui.depending:not(:has(.dependency)), .ui.reference)) {
   display: none;
 }
 
