@@ -18,30 +18,16 @@ function startsWith(path: string): boolean {
 
 import { getRepo } from "../forgejo-helpers/index.js";
 
-function repoPathStartsWith(segment: string): boolean {
-  const repo = getRepo();
-  return repo?.path.startsWith(segment) ?? false;
-}
-
-function repoPathMatch(pattern: string): boolean {
-  const repo = getRepo();
-  if (!repo) {
-    return false;
-  }
-
-  return new RegExp(`^${pattern}$`).test(repo.path);
-}
-
 export const isDashboard = (): boolean => location.pathname === "/" || location.pathname === "/dashboard";
 export const isRepoHome = (): boolean => /^\/[^/]+\/[^/]+\/?$/.test(location.pathname);
 export const isRepoTree = (): boolean =>
   isRepoHome()
   || /\/[^/]+\/[^/]+\/src\/(?:branch|tag)\//.test(location.pathname);
-export const isIssue = (): boolean => getRepo()?.path.startsWith("issues/") ?? false;
-export const isPR = (): boolean => getRepo()?.path.startsWith("pulls/") ?? false;
+export const isIssue = (): boolean => /^issues\/\d+/.test(getRepo()?.path ?? "");
+export const isPR = (): boolean => /^pulls\/\d+/.test(getRepo()?.path ?? "");
 export const isIssueOrPR = (): boolean => isIssue() || isPR();
 export const isConversation = (): boolean => isIssueOrPR();
-export const isPRCommits = (): boolean => repoPathStartsWith("pulls/") && location.pathname.endsWith("/commits");
+export const isPRCommits = (): boolean => /^pulls\/\d+\/commits/.test(getRepo()?.path ?? "");
 export const isRepoIssueList = (): boolean => /^issues(?!\/(\d+|new|templates)($|\/))/.test(getRepo()?.path ?? "");
 export const isRepoPRList = (): boolean => getRepo()?.path === "pulls";
 export const isGlobalIssueList = (): boolean => /^issues(\/|$)/.test(location.pathname.replace(/^\//, ""));
@@ -54,31 +40,31 @@ export const isWiki = (): boolean => /\/[^/]+\/[^/]+\/wiki/.test(location.pathna
 export const isAction = (): boolean => /\/[^/]+\/[^/]+\/actions/.test(location.pathname);
 export const isActionRun = (): boolean => /\/[^/]+\/[^/]+\/actions\/runs\/\d+/.test(location.pathname);
 export const isSettings = (): boolean => /\/[^/]+\/[^/]+\/settings/.test(location.pathname);
-export const isRepoSettings = (): boolean => repoPathStartsWith("settings");
+export const isRepoSettings = (): boolean => /^settings/.test(getRepo()?.path ?? "");
 export const isUserProfile = (): boolean => /^\/[^/]+$/.test(location.pathname);
 export const isNotifications = (): boolean => location.pathname === "/notifications";
-export const isSingleFile = (): boolean => repoPathStartsWith("blob/") || repoPathStartsWith("src/");
-export const isBlame = (): boolean => repoPathStartsWith("blame/");
-export const isSingleCommit = (): boolean => repoPathMatch("commit/[\\da-f]{5,40}");
+export const isSingleFile = (): boolean => /^(blob|src)\//.test(getRepo()?.path ?? "");
+export const isBlame = (): boolean => /^blame\//.test(getRepo()?.path ?? "");
+export const isSingleCommit = (): boolean => /^commit\/[\da-f]{5,40}$/.test(getRepo()?.path ?? "");
 export const isCommit = (): boolean => isSingleCommit();
-export const isCompare = (): boolean => repoPathStartsWith("compare");
-export const isReleases = (): boolean => repoPathMatch("releases");
-export const isTags = (): boolean => repoPathMatch("tags");
-export const isSingleReleaseOrTag = (): boolean => repoPathStartsWith("releases/tag/");
+export const isCompare = (): boolean => /^compare/.test(getRepo()?.path ?? "");
+export const isReleases = (): boolean => /^releases$/.test(getRepo()?.path ?? "");
+export const isTags = (): boolean => /^tags$/.test(getRepo()?.path ?? "");
+export const isSingleReleaseOrTag = (): boolean => /^releases\/tag\//.test(getRepo()?.path ?? "");
 export const isReleasesOrTags = (): boolean => isReleases() || isTags();
-export const isMilestone = (): boolean => repoPathMatch("milestone/\\d+");
-export const isMilestoneList = (): boolean => repoPathMatch("milestones");
-export const isLabelList = (): boolean => repoPathMatch("labels");
-export const isNewIssue = (): boolean => repoPathMatch("issues/new");
-export const isNewFile = (): boolean => repoPathStartsWith("new/");
-export const isEditingFile = (): boolean => repoPathStartsWith("_edit/") || repoPathStartsWith("edit/");
-export const isDeletingFile = (): boolean => repoPathStartsWith("delete/");
+export const isMilestone = (): boolean => /^milestone\/\d+/.test(getRepo()?.path ?? "");
+export const isMilestoneList = (): boolean => /^milestones$/.test(getRepo()?.path ?? "");
+export const isLabelList = (): boolean => /^labels$/.test(getRepo()?.path ?? "");
+export const isNewIssue = (): boolean => /^issues\/new$/.test(getRepo()?.path ?? "");
+export const isNewFile = (): boolean => /^new\//.test(getRepo()?.path ?? "");
+export const isEditingFile = (): boolean => /^(_)?edit\//.test(getRepo()?.path ?? "");
+export const isDeletingFile = (): boolean => /^delete\//.test(getRepo()?.path ?? "");
 export const hasFileEditor = (): boolean => isNewFile() || isEditingFile() || isDeletingFile();
-export const isBranches = (): boolean => repoPathMatch("branches");
-export const isRepoForksList = (): boolean => repoPathMatch("network/members");
-export const isRepoNetworkGraph = (): boolean => repoPathMatch("network");
-export const isFileFinder = (): boolean => repoPathStartsWith("find/");
-export const isRepoSearch = (): boolean => repoPathMatch("search");
+export const isBranches = (): boolean => /^branches$/.test(getRepo()?.path ?? "");
+export const isRepoForksList = (): boolean => /^network\/members$/.test(getRepo()?.path ?? "");
+export const isRepoNetworkGraph = (): boolean => /^network$/.test(getRepo()?.path ?? "");
+export const isFileFinder = (): boolean => /^find\//.test(getRepo()?.path ?? "");
+export const isRepoSearch = (): boolean => /^search$/.test(getRepo()?.path ?? "");
 export const hasRepoHeader = (): boolean => !!getRepo();
 export const is404 = (): boolean => document.title.startsWith("Page not found");
 export const isRepoFile404 = (): boolean =>
