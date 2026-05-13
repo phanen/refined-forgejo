@@ -2,12 +2,11 @@ import "./hide-diff-signs.css";
 
 import features from "../feature-manager.js";
 
-features.add(import.meta.url, {
-  init() {},
-});
+void features.addCssFeature(import.meta.url);
 
 /*
 Test URLs:
 
-- https://codeberg.org/ziglang/zig/pulls/1/files
+- https://codeberg.org/forgejo/forgejo/pulls/5234/files
+- https://codeberg.org/forgejo/forgejo/commit/abc123 (any commit)
 */
