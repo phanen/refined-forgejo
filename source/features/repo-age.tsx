@@ -1,11 +1,9 @@
-import "./repo-age.css";
-
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
 import api from "../forgejo-helpers/api.js";
-import { getRepo } from "../forgejo-helpers/index.js";
 import { svg } from "../forgejo-helpers/svg.js";
+import { getRepo } from "../forgejo-helpers/index.js";
 import observe from "../helpers/selector-observer.js";
 
 type RepoInfo = {
@@ -19,8 +17,7 @@ const clockSvg = (() => {
 })();
 
 async function addAge(menu: Element): Promise<void> {
-  const sizeItem = menu.querySelector(".item svg.octicon-database")?.closest(".item") as HTMLElement | null;
-  if (!sizeItem || sizeItem.querySelector("relative-time")) {
+  if (menu.querySelector(".rgf-repo-age-item")) {
     return;
   }
 
@@ -36,23 +33,10 @@ async function addAge(menu: Element): Promise<void> {
     return;
   }
 
-  const dbSvg = sizeItem.querySelector("svg.octicon-database");
-  const dbText = sizeItem.textContent?.trim();
+  (menu as HTMLElement).style.gridTemplateColumns = "repeat(5, 1fr)";
 
-  // Inline styles are used instead of CSS rules because content script CSS
-  // (injected via manifest.json content_scripts → css) doesn't reliably
-  // trigger layout recalculation for class changes on existing elements
-  // in Firefox. Inline style targets the element directly, avoiding this.
-  sizeItem.style.justifyContent = "space-around";
-  sizeItem.style.gap = "0";
-  sizeItem.innerHTML = "";
-
-  sizeItem.append(
-    <span className="rgf-age-left">
-      {dbSvg}
-      <span>{dbText}</span>
-    </span>,
-    <span className="rgf-age-right">
+  menu.append(
+    <span className="item rgf-repo-age-item">
       {clockSvg.cloneNode(true)}
       <relative-time datetime={data.created_at} />
     </span>,
