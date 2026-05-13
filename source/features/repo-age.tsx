@@ -16,7 +16,16 @@ const clockSvg = (() => {
   return doc.documentElement;
 })();
 
-async function addAge(menu: Element): Promise<void> {
+const gridStyle = document.createElement("style");
+gridStyle.textContent = `
+@media (min-width: 768px) {
+  .repository .repository-summary .repository-menu.rgf-5col {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+`;
+
+async function addAge(menu: Element, { signal }: { signal?: AbortSignal }): Promise<void> {
   if (menu.querySelector(".rgf-repo-age-item")) {
     return;
   }
@@ -33,7 +42,14 @@ async function addAge(menu: Element): Promise<void> {
     return;
   }
 
-  (menu as HTMLElement).style.gridTemplateColumns = "repeat(5, 1fr)";
+  // Inject page-level <style> (not content script CSS) so the media query
+  // properly interacts with Forgejo's own @media rules.  Inline style
+  // would override the responsive breakpoint because of higher priority.
+  if (!gridStyle.isConnected) {
+    document.head.append(gridStyle);
+  }
+  signal?.addEventListener("abort", () => gridStyle.remove(), { once: true });
+  menu.classList.add("rgf-5col");
 
   menu.append(
     <span className="item rgf-repo-age-item">
