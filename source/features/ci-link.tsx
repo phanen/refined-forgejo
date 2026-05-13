@@ -36,17 +36,14 @@ function forgejoIcon(statusClass: string): HTMLElement {
   return el;
 }
 
-async function statusFromDOM(repo: { owner: string; name: string }): Promise<
+async function statusFromDOM(repo: { owner: string; name: string }, signal?: AbortSignal): Promise<
   {
     statusClass: string;
     href: string;
     icon: HTMLElement;
   } | undefined
 > {
-  const el = await Promise.race([
-    waitForElement("#repo-files-table .commit-status.icon"),
-    new Promise<undefined>(resolve => setTimeout(() => resolve(undefined), 3000)),
-  ]);
+  const el = await waitForElement("#repo-files-table .commit-status.icon", { signal });
 
   if (!el) {
     return undefined;
@@ -95,7 +92,7 @@ async function statusFromAPI(repo: { owner: string; name: string }): Promise<
   }
 }
 
-async function addLink(titleArea: Element): Promise<void> {
+async function addLink(titleArea: Element, { signal }: { signal?: AbortSignal }): Promise<void> {
   if (titleArea.querySelector(".rgf-ci-link")) {
     return;
   }
@@ -105,19 +102,14 @@ async function addLink(titleArea: Element): Promise<void> {
     return;
   }
 
-  let result: { statusClass: string; href: string; icon?: HTMLElement };
+  let result: { statusClass: string; href: string; icon?: HTMLElement } | undefined;
   try {
-    result = await Promise.any([
-      statusFromDOM(repo).then(r => {
-        if (!r) throw new Error();
-        return r;
-      }),
-      statusFromAPI(repo).then(r => {
-        if (!r) throw new Error();
-        return r;
-      }),
-    ]);
+    result = await Promise.race([statusFromDOM(repo, signal), statusFromAPI(repo)]);
   } catch {
+    return;
+  }
+
+  if (!result) {
     return;
   }
 
