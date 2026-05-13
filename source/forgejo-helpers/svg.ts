@@ -7,6 +7,9 @@ const icons: Record<string, string> = {
 
   "octicon-x":
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="svg octicon-x" width="16" height="16" aria-hidden="true"><path d="M3.72 3.72a.751.751 0 0 1 1.042.018L8 6.94l3.22-3.22a.75.75 0 1 1 1.06 1.06L9.06 8l3.22 3.22a.75.75 0 1 1-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 0 1-1.042-.018.75.75 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06"/></svg>`,
+
+  "octicon-clock":
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="svg octicon-clock" width="16" height="16" aria-hidden="true"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0m7-3.25v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.75.75 0 0 1 7 8.25v-3.5a.75.75 0 0 1 1.5 0"/></svg>`,
 };
 
 export function svg(name: string, size = 16): string {
