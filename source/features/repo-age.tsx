@@ -2,8 +2,8 @@ import React from "dom-chef";
 
 import features from "../feature-manager.js";
 import api from "../forgejo-helpers/api.js";
-import { svg } from "../forgejo-helpers/svg.js";
 import { getRepo } from "../forgejo-helpers/index.js";
+import { svg } from "../forgejo-helpers/svg.js";
 import observe from "../helpers/selector-observer.js";
 
 type RepoInfo = {
@@ -38,7 +38,7 @@ async function addAge(menu: Element): Promise<void> {
   menu.append(
     <span className="item rgf-repo-age-item">
       {clockSvg.cloneNode(true)}
-      <relative-time datetime={data.created_at} />
+      <relative-time format="duration" datetime={data.created_at} />
     </span>,
   );
 }
