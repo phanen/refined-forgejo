@@ -105,14 +105,19 @@ async function addLink(titleArea: Element): Promise<void> {
     return;
   }
 
-  let result: { statusClass: string; href: string; icon?: HTMLElement } | undefined;
+  let result: { statusClass: string; href: string; icon?: HTMLElement };
   try {
-    result = await Promise.race([statusFromDOM(repo), statusFromAPI(repo)]);
+    result = await Promise.any([
+      statusFromDOM(repo).then(r => {
+        if (!r) throw new Error();
+        return r;
+      }),
+      statusFromAPI(repo).then(r => {
+        if (!r) throw new Error();
+        return r;
+      }),
+    ]);
   } catch {
-    return;
-  }
-
-  if (!result) {
     return;
   }
 
