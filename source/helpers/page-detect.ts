@@ -46,7 +46,8 @@ export const isNotifications = (): boolean => location.pathname === "/notificati
 export const isSingleFile = (): boolean => /^(blob|src)\//.test(getRepo()?.path ?? "");
 export const isBlame = (): boolean => /^blame\//.test(getRepo()?.path ?? "");
 export const isSingleCommit = (): boolean => /^commit\/[\da-f]{5,40}$/.test(getRepo()?.path ?? "");
-export const isCommit = (): boolean => isSingleCommit();
+export const isPRCommit = (): boolean => /^pulls\/\d+\/commits\/[\da-f]{7,40}$/.test(getRepo()?.path ?? "");
+export const isCommit = (): boolean => isSingleCommit() || isPRCommit();
 export const isCompare = (): boolean => /^compare/.test(getRepo()?.path ?? "");
 export const isReleases = (): boolean => /^releases$/.test(getRepo()?.path ?? "");
 export const isTags = (): boolean => /^tags$/.test(getRepo()?.path ?? "");
@@ -98,6 +99,7 @@ export const pageDetect = {
   isNotifications,
   isPR,
   isPRCommits,
+  isPRCommit,
   isPRList,
   isReleases,
   isReleasesOrTags,

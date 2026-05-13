@@ -281,7 +281,16 @@ describe("page-detect", async () => {
   describe("isCommit", () => {
     testTrue(pageDetect.isCommit, "/ziglang/zig/commit/a1b2c3d4e5f6");
     testTrue(pageDetect.isCommit, "/ziglang/zig/commit/a1b2c");
+    testTrue(pageDetect.isCommit, "/ziglang/zig/pulls/123/commits/a1b2c3d4e5f6");
+    testTrue(pageDetect.isCommit, "/ziglang/zig/pulls/123/commits/a1b2c3d");
     testFalse(pageDetect.isCommit, "/ziglang/zig/commits/main");
+  });
+
+  describe("isPRCommit", () => {
+    testTrue(pageDetect.isPRCommit, "/ziglang/zig/pulls/123/commits/a1b2c3d4e5f6");
+    testTrue(pageDetect.isPRCommit, "/ziglang/zig/pulls/123/commits/a1b2c3d");
+    testFalse(pageDetect.isPRCommit, "/ziglang/zig/pulls/123/commits");
+    testFalse(pageDetect.isPRCommit, "/ziglang/zig/commit/a1b2c3d4e5f6");
   });
 
   describe("isConversation", () => {
