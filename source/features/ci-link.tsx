@@ -44,7 +44,7 @@ async function statusFromDOM(repo: { owner: string; name: string }): Promise<
   } | undefined
 > {
   const el = await Promise.race([
-    waitForElement(".commit-status.icon"),
+    waitForElement("#repo-files-table .commit-status.icon"),
     new Promise<undefined>(resolve => setTimeout(() => resolve(undefined), 3000)),
   ]);
 
