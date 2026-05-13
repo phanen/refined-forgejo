@@ -1,4 +1,4 @@
 /* Hide project filter when no projects exist */
-.list-header-project.disabled {
+.list-header-project.ui.dropdown.disabled {
   display: none;
 }
