@@ -4,7 +4,6 @@ import React from "dom-chef";
 import GitBranchIcon from "octicons-plain-react/GitBranch";
 import GitCommitIcon from "octicons-plain-react/GitCommit";
 import GitCompareIcon from "octicons-plain-react/GitCompare";
-import TelescopeIcon from "octicons-plain-react/Telescope";
 
 import features from "../feature-manager.js";
 import { buildRepoUrl } from "../forgejo-helpers/index.js";
@@ -31,7 +30,6 @@ function addLinks(overflowMenu: Element): void {
     { label: "Compare", href: buildRepoUrl("compare"), icon: GitCompareIcon },
     { label: "Branches", href: buildRepoUrl("branches"), icon: GitBranchIcon },
     { label: "Tags", href: buildRepoUrl("tags"), icon: GitCommitIcon },
-    { label: "Activity", href: buildRepoUrl("activity"), icon: TelescopeIcon },
   ];
 
   let isFirst = true;
