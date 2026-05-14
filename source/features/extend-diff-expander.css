@@ -5,10 +5,12 @@
 
 /* 
   Highlight all buttons when the row is hovered, 
-  BUT only if the user is not hovering over a specific button.
+  BUT only if the user is not interacting with a specific button.
   This prevents ambiguity when multiple buttons are present.
 */
-.rgf-extend-diff-expander tr.tag-code:hover:not(:has(.code-expander-button:hover)) .code-expander-button {
+.rgf-extend-diff-expander
+  tr.tag-code:hover:not(:has(.code-expander-button:hover)):not(:has(.code-expander-button:active)):not(:has(.code-expander-button.is-loading))
+  .code-expander-button {
   background: var(--color-primary);
   color: var(--color-primary-contrast);
 }
