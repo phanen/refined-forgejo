@@ -188,7 +188,7 @@
 
 ### Tags and releases
 
-- [ ] **release-download-count** - release 资源旁显示下载计数
+- [+] **release-download-count** - release 资源旁显示下载计数
 - [x] **releases-tab** - 添加 Releases 标签页和快捷键 g r
 - [x] **releases-dropdown** - release 页面添加标签下拉搜索
 - [x] **create-release-shortcut** - Releases 页面添加快捷键 c 创建新 release
