@@ -27,13 +27,19 @@ function formatPrCommitTitle(title: string, prNumber?: number): string {
 }
 
 function validateCommitTitle(field: HTMLInputElement | HTMLTextAreaElement): void {
-  field.classList.toggle("rgf-title-over-limit", field.value.length > limit);
+  const isOverLimit = field.value.length > limit;
+  field.classList.toggle("rgf-title-over-limit", isOverLimit);
+  field.style.outline = isOverLimit ? "2px solid #db2828" : "";
+  field.style.outlineOffset = isOverLimit ? "-2px" : "";
 }
 
 function validatePrTitle(field: HTMLInputElement): void {
   const prNumber = getPrNumber();
   const prTitle = formatPrCommitTitle(field.value, prNumber);
-  field.classList.toggle("rgf-title-over-limit", prTitle.length > limit);
+  const isOverLimit = prTitle.length > limit;
+  field.classList.toggle("rgf-title-over-limit", isOverLimit);
+  field.style.outline = isOverLimit ? "2px solid #db2828" : "";
+  field.style.outlineOffset = isOverLimit ? "-2px" : "";
 }
 
 const commitTitleSelectors = [
