@@ -44,6 +44,7 @@ const commitTitleSelectors = [
 const prTitleSelectors = [
   "input#issue_title",
   "#issue-title-editor input",
+  ".js-quick-submit[data-old-title]",
 ];
 
 async function init(signal: AbortSignal): Promise<void> {
