@@ -287,6 +287,12 @@ describe("page-detect", async () => {
     testFalse(pageDetect.isCommit, "/ziglang/zig/commits/main");
   });
 
+  describe("isPRFiles", () => {
+    testTrue(pageDetect.isPRFiles, "/ziglang/zig/pulls/123/files");
+    testFalse(pageDetect.isPRFiles, "/ziglang/zig/pulls/123");
+    testFalse(pageDetect.isPRFiles, "/ziglang/zig/pulls/123/commits");
+  });
+
   describe("isPRCommit", () => {
     testTrue(pageDetect.isPRCommit, "/ziglang/zig/pulls/123/commits/a1b2c3d4e5f6");
     testTrue(pageDetect.isPRCommit, "/ziglang/zig/pulls/123/commits/a1b2c3d");
