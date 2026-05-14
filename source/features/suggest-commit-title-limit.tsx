@@ -73,6 +73,7 @@ void features.add(import.meta.url, {
   include: [
     pageDetect.isCommit,
     pageDetect.isPR,
+    pageDetect.isIssue,
     pageDetect.isCompare,
     pageDetect.isEditingFile,
     pageDetect.isNewFile,
