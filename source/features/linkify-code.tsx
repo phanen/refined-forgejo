@@ -5,7 +5,7 @@ import { linkifyUrlsToDom } from "linkify-urls";
 
 import features from "../feature-manager.js";
 import { getRepo } from "../forgejo-helpers/index.js";
-import { isCommit, isCompare, isPRCommit, isPRCommits, isSingleFile } from "../helpers/page-detect.js";
+import { isCommit, isCompare, isPRCommit, isPRCommits, isRepoSearch, isSingleFile } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 function linkify(element: Element): void {
@@ -65,6 +65,18 @@ function init(signal: AbortSignal): void {
 }
 
 features.add(import.meta.url, {
-  include: [isSingleFile, isCommit, isPRCommit, isPRCommits, isCompare],
+  include: [isSingleFile, isCommit, isPRCommit, isPRCommits, isCompare, isRepoSearch],
   init,
 });
+
+/*
+
+## Test URLs
+
+- URLs/Issue in PR files: https://codeberg.org/phanium/test-rgf-priv/pulls/4/files
+- URLs/Issue in regular files: https://codeberg.org/phanium/test-rgf-priv/src/commit/64df02ba4b211d2c14fd7d42cc1f176abdc06f68/link
+- Code Search: https://codeberg.org/phanium/test-rgf-priv/search/branch/main?path=&q=code&mode=exact
+- * no global search
+- * no large repo search: https://codeberg.org/Codeberg/Community/issues/379#issuecomment-2155382
+
+*/
