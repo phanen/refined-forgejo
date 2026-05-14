@@ -17,7 +17,8 @@ function addLinks(overflowMenu: Element): void {
   }
 
   const branchOrTag = getCurrentBranch();
-  const refSuffix = branchOrTag ? branchOrTag : "branch/main";
+  // Commits link is already built-in in Forgejo, and constructing a robust URL for all edge cases (branch/tag/commit) is complex.
+  // We omit it here to avoid redundancy and broken links.
 
   const itemsContainer = overflowMenu.querySelector(".overflow-menu-items");
   if (!itemsContainer) {
@@ -26,7 +27,6 @@ function addLinks(overflowMenu: Element): void {
 
   const items = [
     { label: "Compare", href: buildRepoUrl("compare"), icon: GitCompareIcon },
-    { label: "Commits", href: buildRepoUrl("commits", refSuffix), icon: GitCommitIcon },
     { label: "Branches", href: buildRepoUrl("branches"), icon: GitBranchIcon },
     { label: "Tags", href: buildRepoUrl("tags"), icon: GitCommitIcon },
     { label: "Activity", href: buildRepoUrl("activity"), icon: TelescopeIcon },
