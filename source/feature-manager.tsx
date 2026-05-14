@@ -8,7 +8,7 @@ import { isWebPage } from "webext-detect";
 
 import asyncForEach from "./helpers/async-for-each.js";
 import { catchErrors, disableErrorLogging } from "./helpers/errors.js";
-import { getFeatureId, listenToAjaxedLoad, log, shortcutMap } from "./helpers/feature-helpers.js";
+import { clearShortcuts, getFeatureId, listenToAjaxedLoad, log, shortcutMap } from "./helpers/feature-helpers.js";
 import { isFeaturePrivate, type RunConditions, shouldFeatureRun } from "./helpers/feature-utils.js";
 import { getLocalHotfixesAsOptions } from "./helpers/hotfix.js";
 import ArrayMap from "./helpers/map-of-arrays.js";
@@ -150,6 +150,7 @@ function unload(featureUrl: string): void {
 }
 
 function unloadAll(): void {
+  clearShortcuts();
   for (const feature of currentFeatureControllers.values()) {
     for (const controller of feature) {
       controller.abort();

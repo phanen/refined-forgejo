@@ -2,6 +2,10 @@ const shortcutMap = new Map<string, string>();
 
 export { shortcutMap };
 
+export function clearShortcuts(): void {
+  shortcutMap.clear();
+}
+
 export function getFeatureId(url: string): string {
   const lastSlash = url.lastIndexOf("/");
   const featureId = url.slice(lastSlash + 1, url.lastIndexOf("."));

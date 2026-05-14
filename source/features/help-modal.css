@@ -1,0 +1,93 @@
+.rgf-help-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.rgf-help-modal {
+  background: var(--color-body);
+  border: 1px solid var(--color-secondary);
+  border-radius: 6px;
+  width: 500px;
+  max-width: 90%;
+  max-height: 80%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.rgf-help-modal-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--color-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rgf-help-modal-header h3 {
+  margin: 0;
+}
+
+.rgf-help-modal-header button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--color-text);
+}
+
+.rgf-help-modal-content {
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.rgf-shortcut-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rgf-shortcut-table td {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-secondary);
+}
+
+.rgf-shortcut-key {
+  white-space: nowrap;
+  padding-right: 16px !important;
+  width: 1%;
+}
+
+.rgf-shortcut-key kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font:
+    11px ui-monospace,
+    SFMono-Regular,
+    SF Mono,
+    Menlo,
+    Consolas,
+    Liberation Mono,
+    monospace;
+  line-height: 10px;
+  color: var(--color-text);
+  vertical-align: middle;
+  background-color: var(--color-hover);
+  border: solid 1px var(--color-secondary);
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 var(--color-secondary);
+}
+
+.rgf-shortcut-description {
+  color: var(--color-text);
+}
+
+body.rgf-modal-open {
+  overflow: hidden;
+}

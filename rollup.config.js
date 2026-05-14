@@ -75,6 +75,8 @@ const rollup = {
     }),
     sucrase({
       transforms: ["typescript", "jsx"],
+      // jsxPragma: "h",
+      // jsxFragmentPragma: "Fragment",
       disableESTransforms: true,
       production: true,
     }),

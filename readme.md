@@ -189,7 +189,7 @@
 ### Tags and releases
 
 - [+] **release-download-count** - release 资源旁显示下载计数
-- [x] **releases-tab** - 添加 Releases 标签页和快捷键 g r
+- [x] **releases-tab** - 添加 Releases 标签页和快捷键 g r (implemented in **navigation-hotkeys**)
 - [+] **releases-dropdown** - release 页面添加标签下拉搜索
 - [x] **create-release-shortcut** - Releases 页面添加快捷键 c 创建新 release
 - [x] **tag-changes-link** - 🔥 每个 tag/release 添加「自上次 tag 以来的变更」链接
@@ -276,6 +276,13 @@
 - [ ] **reactions-popup** - 改进评论反应弹窗为更小尺寸
 - [ ] **readable-title-change-events** - 将标题变更事件的新旧标题堆叠显示
 - [ ] **cmd-enter** - 修复关闭 PR 上提交评论的 cmd+enter
+
+---
+
+### Extra
+
+- [x] **navigation-hotkeys** - 为 Forgejo 添加常用的 GitHub 导航快捷键 (`g h`, `g i`, `s` 等)
+- [x] **help-modal** - 按 `?` 显示快捷键帮助菜单
 
 ---
 
