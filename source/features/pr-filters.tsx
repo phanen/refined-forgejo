@@ -51,13 +51,8 @@ function addDraftFilter(filterMenu: Element): void {
     </div>
   );
 
-  // Insert before the Sort dropdown, which is usually the last one or second to last
-  const sortDropdown = filterMenu.querySelector(".ui.dropdown[data-get-sort]");
-  if (sortDropdown) {
-    sortDropdown.before(dropdown);
-  } else {
-    filterMenu.append(dropdown);
-  }
+  // Insert at the beginning of the filter menu
+  filterMenu.prepend(dropdown);
 }
 
 function init(signal: AbortSignal): void {
