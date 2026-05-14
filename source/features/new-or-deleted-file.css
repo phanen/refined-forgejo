@@ -1,9 +1,20 @@
-/* New or deleted file icons */
-.file-list .deleted {
-  color: var(--color-danger-fg);
+/* New or deleted file icons in diff file tree */
+#diff-file-tree .item-file:has(.octicon-diff-added) .gt-ellipsis {
+  color: var(--color-green);
+}
+
+#diff-file-tree .item-file:has(.octicon-diff-removed) .gt-ellipsis {
+  color: var(--color-red);
+  opacity: 0.7;
+}
+
+/* Also support the older file list if it exists */
+.file-list .deleted,
+.file-list .removed {
+  color: var(--color-red);
   opacity: 0.7;
 }
 
 .file-list .added {
-  color: var(--color-success-fg);
+  color: var(--color-green);
 }
