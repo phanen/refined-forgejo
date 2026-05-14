@@ -32,6 +32,12 @@
   color: white !important;
 }
 
+.rgf-file-status.rgf-renamed,
+.rgf-file-status.rgf-copied {
+  background-color: var(--color-teal) !important;
+  color: white !important;
+}
+
 /* Compatibility with older file list if it exists */
 .file-list .deleted,
 .file-list .removed {

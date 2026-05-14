@@ -5,9 +5,14 @@ export default async function waitFor(
   return new Promise((resolve, reject) => {
     const startTime = Date.now();
 
-    const check = (): void => {
-      if (condition()) {
-        resolve();
+    const check = async (): Promise<void> => {
+      try {
+        if (await condition()) {
+          resolve();
+          return;
+        }
+      } catch (error) {
+        reject(error);
         return;
       }
 
@@ -16,9 +21,11 @@ export default async function waitFor(
         return;
       }
 
-      requestAnimationFrame(check);
+      requestAnimationFrame(() => {
+        void check();
+      });
     };
 
-    check();
+    void check();
   });
 }
