@@ -68,7 +68,7 @@
 - [+] **tab-to-indent** - 🔥 评论框启用 Tab/Shift+Tab 缩进
 - [x] **collapsible-content-button** - 文本编辑器添加可折叠内容按钮
 - [x] **fit-textareas** - 🔥 评论框自动调整高度
-- [ ] **quick-comment-edit** - 一键编辑评论
+- [x] **quick-comment-edit** - 一键编辑评论
 - [ ] **one-key-formatting** - 按 Markdown 符号时替换选中文本而非包裹
 - [x] **clean-rich-text-editor** - 隐藏不必要的评论编辑器提示和工具栏
 - [ ] **quick-mention** - 在 issue/PR 中添加 @mention 按钮
