@@ -1,5 +1,3 @@
-import "./suggest-commit-title-limit.css";
-
 import delegate from "delegate-it";
 
 import features from "../feature-manager.js";
@@ -28,7 +26,6 @@ function formatPrCommitTitle(title: string, prNumber?: number): string {
 
 function validateCommitTitle(field: HTMLInputElement | HTMLTextAreaElement): void {
   const isOverLimit = field.value.length > limit;
-  field.classList.toggle("rgf-title-over-limit", isOverLimit);
   field.style.outline = isOverLimit ? "2px solid var(--color-red, #db2828)" : "";
   field.style.outlineOffset = isOverLimit ? "-2px" : "";
 }
@@ -37,7 +34,6 @@ function validatePrTitle(field: HTMLInputElement): void {
   const prNumber = getPrNumber();
   const prTitle = formatPrCommitTitle(field.value, prNumber);
   const isOverLimit = prTitle.length > limit;
-  field.classList.toggle("rgf-title-over-limit", isOverLimit);
   field.style.outline = isOverLimit ? "2px solid var(--color-red, #db2828)" : "";
   field.style.outlineOffset = isOverLimit ? "-2px" : "";
 }
