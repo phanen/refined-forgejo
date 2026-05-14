@@ -1,5 +1,4 @@
 import features from "../feature-manager.js";
-import { isConversation } from "../helpers/page-detect.js";
 
 const cancelSelectors = [
   {
@@ -23,6 +22,12 @@ function handler(event: KeyboardEvent): void {
 
   const target = event.target as Element;
 
+  // Handle search input blur
+  if (target instanceof HTMLInputElement && (target.name === "q" || target.closest(".navbar-search, .repo-search"))) {
+    target.blur();
+    return;
+  }
+
   // Climb up from target to find the nearest cancelable container
   for (const { container, cancelButton } of cancelSelectors) {
     const match = target.closest(container) as HTMLElement | null;
@@ -42,7 +47,6 @@ function init(signal: AbortSignal): void {
 }
 
 features.add(import.meta.url, {
-  include: [isConversation],
   init,
 });
 
