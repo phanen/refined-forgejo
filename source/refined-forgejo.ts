@@ -53,3 +53,4 @@ import "./features/convert-release-to-draft.js";
 import "./features/pr-filters.js";
 import "./features/linkify-code.js";
 import "./features/quick-comment-edit.js";
+import "./features/one-click-diff-options.js";
