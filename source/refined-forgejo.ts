@@ -36,7 +36,6 @@ import "./features/collapsible-content-button.js";
 import "./features/actions-run-removal.js";
 import "./features/repo-age.js";
 import "./features/rerun-workflow.js";
-import "./features/previous-next-commit-buttons.js";
 import "./features/close-out-of-view-modals.js";
 import "./features/click-outside-modal.js";
 import "./features/esc-to-cancel.js";
