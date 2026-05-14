@@ -18,13 +18,9 @@ function addLinks(overflowMenu: Element): void {
   // Commits link is already built-in in Forgejo, and constructing a robust URL for all edge cases (branch/tag/commit) is complex.
   // We omit it here to avoid redundancy and broken links.
 
-  const itemsContainer = overflowMenu.querySelector(".overflow-menu-items");
-  if (!itemsContainer) {
-    return;
-  }
-
-  // Find the Settings tab to insert before it, ensuring it also stays on the right
-  const settingsTab = itemsContainer.querySelector("a.item[href$='/settings']");
+  // Find the Settings tab or the overflow dropdown to insert before them
+  const settingsTab = overflowMenu.querySelector("a.item[href$='/settings']");
+  const overflowDropdown = overflowMenu.querySelector(".ui.dropdown");
 
   const items = [
     { label: "Compare", href: buildRepoUrl("compare"), icon: GitCompareIcon },
@@ -35,7 +31,7 @@ function addLinks(overflowMenu: Element): void {
   let isFirst = true;
   for (const { label, href, icon: Icon } of items) {
     // Don't add if a matching link already exists in the nav
-    if (document.querySelector(`overflow-menu a[href$="${href}"]`)) {
+    if (overflowMenu.querySelector(`a[href$="${href}"]`)) {
       continue;
     }
 
@@ -48,8 +44,10 @@ function addLinks(overflowMenu: Element): void {
 
     if (settingsTab) {
       settingsTab.before(newLink);
+    } else if (overflowDropdown) {
+      overflowDropdown.before(newLink);
     } else {
-      itemsContainer.append(newLink);
+      overflowMenu.append(newLink);
     }
 
     isFirst = false;
