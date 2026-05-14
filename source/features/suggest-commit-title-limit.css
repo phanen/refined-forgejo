@@ -1,7 +1,4 @@
-/* Suggest commit title limit */
-.commit-message .message {
-  max-width: 72ch;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.rgf-title-over-limit {
+  outline: 2px auto var(--color-red) !important;
+  outline-offset: -2px;
 }
