@@ -1,4 +1,4 @@
 .rgf-title-over-limit {
-  outline: 2px auto var(--color-red) !important;
+  outline: 2px solid #db2828 !important;
   outline-offset: -2px;
 }
