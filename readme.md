@@ -65,9 +65,9 @@
 
 ### Writing comments
 
-- [ ] **tab-to-indent** - 🔥 评论框启用 Tab/Shift+Tab 缩进
+- [x] **tab-to-indent** - 🔥 评论框启用 Tab/Shift+Tab 缩进
 - [x] **collapsible-content-button** - 文本编辑器添加可折叠内容按钮
-- [ ] **fit-textareas** - 🔥 评论框自动调整高度
+- [x] **fit-textareas** - 🔥 评论框自动调整高度
 - [ ] **quick-comment-edit** - 一键编辑评论
 - [ ] **one-key-formatting** - 按 Markdown 符号时替换选中文本而非包裹
 - [x] **clean-rich-text-editor** - 隐藏不必要的评论编辑器提示和工具栏
@@ -129,13 +129,13 @@
 
 ### Viewing pull requests
 
-- [ ] **linkify-commit-sha** - PR commit 页面添加非 PR commit 链接
+- [x] **linkify-commit-sha** - PR commit 页面添加非 PR commit 链接
 - [ ] **pr-filters** - PR 列表添加 Checks 和 Draft PR 下拉筛选
 - [ ] **unclip-checks** - 展开 checks 面板时自动显示所有检查
 - [ ] **pr-approvals-count** - PR 列表显示颜色编码的审核计数
 - [ ] **highlight-non-default-base-branch** - 非默认分支作为 base 时高亮显示
 - [ ] **hide-inactive-deployments** - 隐藏 PR 中不活跃的部署
-- [ ] **previous-next-commit-buttons** - Commits 标签页底部添加导航按钮
+- [x] **previous-next-commit-buttons** - Commits 标签页底部添加导航按钮
 - [ ] **hidden-review-comments-indicator** - PR review 中有隐藏评论时显示指示器
 - [ ] **conflict-marker** - PR 列表中显示有冲突的 PR
 - [ ] **pr-commit-lines-changed** - PR commits 添加差异统计
@@ -191,11 +191,11 @@
 - [ ] **release-download-count** - release 资源旁显示下载计数
 - [x] **releases-tab** - 添加 Releases 标签页和快捷键 g r
 - [x] **releases-dropdown** - release 页面添加标签下拉搜索
-- [ ] **create-release-shortcut** - Releases 页面添加快捷键 c 创建新 release
-- [ ] **tag-changes-link** - 🔥 每个 tag/release 添加「自上次 tag 以来的变更」链接
-- [ ] **convert-release-to-draft** - 添加将 release 转为 draft 的按钮
-- [ ] **confirm-release** - 发布 release 时添加确认对话框
-- [ ] **link-to-changelog-file** - Releases 页面添加查看 changelog 文件按钮
+- [x] **create-release-shortcut** - Releases 页面添加快捷键 c 创建新 release
+- [x] **tag-changes-link** - 🔥 每个 tag/release 添加「自上次 tag 以来的变更」链接
+- [x] **convert-release-to-draft** - 添加将 release 转为 draft 的按钮
+- [x] **confirm-release** - 发布 release 时添加确认对话框
+- [x] **link-to-changelog-file** - Releases 页面添加查看 changelog 文件按钮
 
 ---
 
@@ -229,7 +229,7 @@
 
 - [x] **useful-not-found-page** - 🔥 404 页面添加可能的相关页面和替代选项
 - [ ] **selection-in-new-tab** - j/k 导航时 shift+o 在新标签页打开选中文本
-- [ ] **close-out-of-view-modals** - 下拉菜单不可见时自动关闭
+- [x] **close-out-of-view-modals** - 下拉菜单不可见时自动关闭
 - [ ] **parse-backticks** - GitHub 忘记添加可点击的 backtick 文本
 - [ ] **action-used-by-link** - 查看当前 Action 的使用者
 - [ ] **improve-shortcut-help** - 在帮助弹窗（?）中显示所有 Refined GitHub 快捷键
@@ -262,7 +262,7 @@
 - [ ] **prevent-comment-loss** - 编辑评论时 preview 链接在新标签页打开
 - [ ] **fix-no-pr-search** - 搜索不包含 is:pr 时重定向到仓库 issue 列表
 - [ ] **clean-readme-url** - 移除 repo URL 中冗余的 readme-ov-file 参数
-- [ ] **click-outside-modal** - 点击模态框外部关闭
+- [x] **click-outside-modal** - 点击模态框外部关闭
 - [ ] **linkify-line-numbers** - GitHub 忘记添加行号链接的地方
 - [ ] **sidebar-focus-file** - 滚动文件树到当前文件
 - [ ] **no-modals** - 禁用降低用户体验的模态框
