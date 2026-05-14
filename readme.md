@@ -65,7 +65,7 @@
 
 ### Writing comments
 
-- [x] **tab-to-indent** - 🔥 评论框启用 Tab/Shift+Tab 缩进
+- [+] **tab-to-indent** - 🔥 评论框启用 Tab/Shift+Tab 缩进
 - [x] **collapsible-content-button** - 文本编辑器添加可折叠内容按钮
 - [x] **fit-textareas** - 🔥 评论框自动调整高度
 - [ ] **quick-comment-edit** - 一键编辑评论
