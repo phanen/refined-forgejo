@@ -15,13 +15,31 @@ function getTagName(element: Element | null, isTagsPage: boolean): string | unde
 }
 
 function addCompareLink(element: Element): void {
+  const isTagsPage = pageDetect.isTags();
+  const selector = isTagsPage ? "tr" : "li";
+
+  // 1. Try to add compare link to the current element (comparing with older/next sibling)
+  renderCompareLink(element, isTagsPage);
+
+  // 2. If this element just appeared, it might be the "next" sibling that a previous element was waiting for.
+  // So we try to render the previous sibling as well.
+  let previousElement = element.previousElementSibling;
+  while (previousElement && !previousElement.matches(selector)) {
+    previousElement = previousElement.previousElementSibling;
+  }
+  if (previousElement) {
+    renderCompareLink(previousElement, isTagsPage);
+  }
+}
+
+function renderCompareLink(element: Element, isTagsPage: boolean): void {
   if (element.querySelector(".rgf-tag-changes-link")) {
     return;
   }
 
-  const isTagsPage = pageDetect.isTags();
   let nextElement = element.nextElementSibling;
-  while (nextElement && !nextElement.matches(isTagsPage ? "tr" : "li")) {
+  const selector = isTagsPage ? "tr" : "li";
+  while (nextElement && !nextElement.matches(selector)) {
     nextElement = nextElement.nextElementSibling;
   }
 
@@ -52,10 +70,7 @@ function addCompareLink(element: Element): void {
       // On releases page
       const detail = element.querySelector(".detail p.text.grey");
       if (detail) {
-        detail.append(
-          " | ",
-          link,
-        );
+        detail.append(" | ", link);
       }
     }
   }
