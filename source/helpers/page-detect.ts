@@ -50,6 +50,8 @@ export const isPRCommit = (): boolean => /^pulls\/\d+\/commits\/[\da-f]{7,40}$/.
 export const isCommit = (): boolean => isSingleCommit() || isPRCommit();
 export const isCompare = (): boolean => /^compare/.test(getRepo()?.path ?? "");
 export const isReleases = (): boolean => /^releases$/.test(getRepo()?.path ?? "");
+export const isNewRelease = (): boolean => /^releases\/new$/.test(getRepo()?.path ?? "");
+export const isEditingRelease = (): boolean => /^releases\/edit\//.test(getRepo()?.path ?? "");
 export const isTags = (): boolean => /^tags$/.test(getRepo()?.path ?? "");
 export const isSingleReleaseOrTag = (): boolean => /^releases\/tag\//.test(getRepo()?.path ?? "");
 export const isReleasesOrTags = (): boolean => isReleases() || isTags();
@@ -102,6 +104,8 @@ export const pageDetect = {
   isPRCommit,
   isPRList,
   isReleases,
+  isNewRelease,
+  isEditingRelease,
   isReleasesOrTags,
   isRepoForksList,
   isRepoHome,
