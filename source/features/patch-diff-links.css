@@ -1,6 +1,34 @@
 /* Patch diff links */
-a[href$=".patch"],
-a[href$=".diff"] {
-  font-family: monospace;
+.rgf-patch-diff-links.item {
+  margin-right: 1em !important;
+}
+
+.rgf-patch-diff-link {
+  font-family: var(--fonts-monospace);
   font-size: 0.85em;
+  color: var(--color-text-light-2);
+}
+
+.rgf-patch-diff-link:hover {
+  text-decoration: underline;
+  color: var(--color-primary);
+}
+
+.rgf-patch-diff-links-sidebar .divider {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.rgf-patch-diff-links-sidebar strong {
+  display: block;
+  margin-bottom: 0.2em;
+}
+
+.rgf-patch-diff-links-sidebar .description {
+  font-family: var(--fonts-monospace);
+  font-size: 0.9em;
+}
+
+.rgf-patch-diff-links-sidebar .rgf-patch-diff-link {
+  color: var(--color-text);
 }
