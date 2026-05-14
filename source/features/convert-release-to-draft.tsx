@@ -6,8 +6,8 @@ import { getRepo } from "../forgejo-helpers/index.js";
 import { pageDetect } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-async function convertToDraft(event: React.MouseEvent<HTMLButtonElement>): Promise<void> {
-  const button = event.currentTarget;
+async function convertToDraft(event: React.MouseEvent): Promise<void> {
+  const button = event.currentTarget as HTMLButtonElement;
   if (!confirm("Are you sure you want to convert this release to a draft?")) {
     return;
   }
@@ -49,7 +49,7 @@ function addConvertButton(element: Element): void {
 
   const button = (
     <button
-      className="ui basic button rgf-convert-to-draft tw-ml-2"
+      className="ui basic button rgf-convert-to-draft tw-mr-2"
       type="button"
       onClick={convertToDraft}
     >
@@ -57,7 +57,7 @@ function addConvertButton(element: Element): void {
     </button>
   );
 
-  editButton.after(button);
+  editButton.before(button);
 }
 
 function init(signal: AbortSignal): void {
