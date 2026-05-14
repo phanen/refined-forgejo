@@ -1,0 +1,13 @@
+.rgf-pr-status-filter:hover .menu {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Adjustments for filter menu items */
+.list-header .ui.secondary.filter.menu .rgf-pr-status-filter.ui.dropdown {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+}

@@ -130,7 +130,7 @@
 ### Viewing pull requests
 
 - [+] **linkify-commit-sha** - PR commit 页面添加非 PR commit 链接
-- [ ] **pr-filters** - PR 列表添加 Checks 和 Draft PR 下拉筛选
+- [x] **pr-filters** - PR 列表添加 Checks 和 Draft PR 下拉筛选
 - [ ] **unclip-checks** - 展开 checks 面板时自动显示所有检查
 - [ ] **pr-approvals-count** - PR 列表显示颜色编码的审核计数
 - [ ] **highlight-non-default-base-branch** - 非默认分支作为 base 时高亮显示
