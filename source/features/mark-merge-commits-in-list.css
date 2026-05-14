@@ -1,4 +1,0 @@
-.commits-list-item:has(.merge-commit-indicator) {
-  font-weight: bold;
-  opacity: 0.7;
-}
