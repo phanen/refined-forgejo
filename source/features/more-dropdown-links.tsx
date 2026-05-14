@@ -7,7 +7,7 @@ import GitCompareIcon from "octicons-plain-react/GitCompare";
 import TelescopeIcon from "octicons-plain-react/Telescope";
 
 import features from "../feature-manager.js";
-import { buildRepoUrl, getCurrentBranch, getRepo } from "../forgejo-helpers/index.js";
+import { buildRepoUrl, getCurrentBranch } from "../forgejo-helpers/index.js";
 import { hasRepoHeader } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
@@ -16,13 +16,8 @@ function addLinks(overflowMenu: Element): void {
     return;
   }
 
-  const repo = getRepo();
-  if (!repo) {
-    return;
-  }
-
-  const branch = getCurrentBranch();
-  const branchSuffix = branch ? `branch/${branch}` : "branch/main";
+  const branchOrTag = getCurrentBranch();
+  const refSuffix = branchOrTag ? branchOrTag : "branch/main";
 
   const itemsContainer = overflowMenu.querySelector(".overflow-menu-items");
   if (!itemsContainer) {
@@ -31,7 +26,7 @@ function addLinks(overflowMenu: Element): void {
 
   const items = [
     { label: "Compare", href: buildRepoUrl("compare"), icon: GitCompareIcon },
-    { label: "Commits", href: buildRepoUrl("commits", branchSuffix), icon: GitCommitIcon },
+    { label: "Commits", href: buildRepoUrl("commits", refSuffix), icon: GitCommitIcon },
     { label: "Branches", href: buildRepoUrl("branches"), icon: GitBranchIcon },
     { label: "Tags", href: buildRepoUrl("tags"), icon: GitCommitIcon },
     { label: "Activity", href: buildRepoUrl("activity"), icon: TelescopeIcon },

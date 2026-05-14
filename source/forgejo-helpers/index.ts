@@ -43,19 +43,19 @@ export function getCurrentBranch(): string | undefined {
     return undefined;
   }
 
-  // 1. Try to get branch from URL
+  // 1. Try to get branch or tag from URL
   if (
     ["src", "commits", "blame", "raw"].includes(repo.pathParts[0])
-    && repo.pathParts[1] === "branch"
+    && ["branch", "tag"].includes(repo.pathParts[1])
   ) {
-    return repo.pathParts[2];
+    return `${repo.pathParts[1]}/${repo.pathParts[2]}`;
   }
 
   // 2. Try to find branch from the branch selector in the UI
-  // Forgejo uses .branch-dropdown-button strong
   const branchSelector = document.querySelector(".branch-dropdown-button strong");
   if (branchSelector) {
-    return branchSelector.textContent?.trim();
+    const isTag = !!branchSelector.closest(".js-branch-tag-selector")?.querySelector(".octicon-tag");
+    return `${isTag ? "tag" : "branch"}/${branchSelector.textContent?.trim()}`;
   }
 
   return undefined;
