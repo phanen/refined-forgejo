@@ -7,7 +7,7 @@ import GitCompareIcon from "octicons-plain-react/GitCompare";
 import TelescopeIcon from "octicons-plain-react/Telescope";
 
 import features from "../feature-manager.js";
-import { buildRepoUrl, getCurrentBranch } from "../forgejo-helpers/index.js";
+import { buildRepoUrl } from "../forgejo-helpers/index.js";
 import { hasRepoHeader } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
@@ -16,7 +16,6 @@ function addLinks(overflowMenu: Element): void {
     return;
   }
 
-  const branchOrTag = getCurrentBranch();
   // Commits link is already built-in in Forgejo, and constructing a robust URL for all edge cases (branch/tag/commit) is complex.
   // We omit it here to avoid redundancy and broken links.
 
@@ -32,6 +31,7 @@ function addLinks(overflowMenu: Element): void {
     { label: "Activity", href: buildRepoUrl("activity"), icon: TelescopeIcon },
   ];
 
+  let isFirst = true;
   for (const { label, href, icon: Icon } of items) {
     // Don't add if a matching link already exists in the nav
     if (document.querySelector(`overflow-menu a[href$="${href}"]`)) {
@@ -39,11 +39,12 @@ function addLinks(overflowMenu: Element): void {
     }
 
     itemsContainer.append(
-      <a className="item rgf-more-link" href={href}>
+      <a className={`item rgf-more-link ${isFirst ? "rgf-more-link-first" : ""}`} href={href}>
         <Icon className="svg" />
         {label}
       </a>,
     );
+    isFirst = false;
   }
 
   // Trigger overflow-menu to re-measure and include new items
