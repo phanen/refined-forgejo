@@ -24,6 +24,9 @@ function addLinks(overflowMenu: Element): void {
     return;
   }
 
+  // Find the Settings tab to insert before it, ensuring it also stays on the right
+  const settingsTab = itemsContainer.querySelector("a.item[href$='/settings']");
+
   const items = [
     { label: "Compare", href: buildRepoUrl("compare"), icon: GitCompareIcon },
     { label: "Branches", href: buildRepoUrl("branches"), icon: GitBranchIcon },
@@ -38,12 +41,19 @@ function addLinks(overflowMenu: Element): void {
       continue;
     }
 
-    itemsContainer.append(
+    const newLink = (
       <a className={`item rgf-more-link ${isFirst ? "rgf-more-link-first" : ""}`} href={href}>
         <Icon className="svg" />
         {label}
-      </a>,
+      </a>
     );
+
+    if (settingsTab) {
+      settingsTab.before(newLink);
+    } else {
+      itemsContainer.append(newLink);
+    }
+
     isFirst = false;
   }
 
