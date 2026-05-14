@@ -5,32 +5,47 @@ import features from "../feature-manager.js";
 import { isPRList } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
+function getFilterUrl(queryModifier: (q: string) => string): string {
+  const url = new URL(location.href);
+  const q = url.searchParams.get("q") ?? "";
+  const newQ = queryModifier(q).trim();
+
+  if (newQ) {
+    url.searchParams.set("q", newQ);
+  } else {
+    url.searchParams.delete("q");
+  }
+
+  return url.pathname + url.search;
+}
+
 function addDraftFilter(filterMenu: Element): void {
   if (filterMenu.querySelector(".rgf-pr-status-filter")) {
     return;
   }
 
   const url = new URL(location.href);
-  const currentDraft = url.searchParams.get("draft");
+  const q = url.searchParams.get("q") ?? "";
+  const isWIP = q.includes("WIP");
 
   const dropdown = (
     <div className="ui dropdown type rgf-pr-status-filter">
       <div className="text">
-        {currentDraft === "true" ? "Draft" : currentDraft === "false" ? "Ready for review" : "Status"}
+        {isWIP ? "WIP" : "Status"}
         <i className="dropdown icon"></i>
       </div>
       <div className="menu transition hidden">
-        <a className={`item ${!currentDraft ? "active selected" : ""}`} href={getFilterUrl("draft", null)}>
+        <a
+          className={`item ${!isWIP ? "active selected" : ""}`}
+          href={getFilterUrl(q => q.replace(/\+?WIP/g, ""))}
+        >
           All
         </a>
         <a
-          className={`item ${currentDraft === "false" ? "active selected" : ""}`}
-          href={getFilterUrl("draft", "false")}
+          className={`item ${isWIP ? "active selected" : ""}`}
+          href={getFilterUrl(q => q.includes("WIP") ? q : (q ? `${q}+WIP` : "WIP"))}
         >
-          Ready for review
-        </a>
-        <a className={`item ${currentDraft === "true" ? "active selected" : ""}`} href={getFilterUrl("draft", "true")}>
-          Draft
+          WIP
         </a>
       </div>
     </div>
@@ -43,16 +58,6 @@ function addDraftFilter(filterMenu: Element): void {
   } else {
     filterMenu.append(dropdown);
   }
-}
-
-function getFilterUrl(key: string, value: string | null): string {
-  const url = new URL(location.href);
-  if (value === null) {
-    url.searchParams.delete(key);
-  } else {
-    url.searchParams.set(key, value);
-  }
-  return url.pathname + url.search;
 }
 
 function init(signal: AbortSignal): void {
