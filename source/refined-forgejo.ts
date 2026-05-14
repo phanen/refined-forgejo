@@ -53,3 +53,4 @@ import "./features/create-release-shortcut.js";
 import "./features/tag-changes-link.js";
 import "./features/convert-release-to-draft.js";
 import "./features/pr-filters.js";
+import "./features/linkify-code.js";

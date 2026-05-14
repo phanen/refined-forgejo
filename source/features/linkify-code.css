@@ -1,0 +1,8 @@
+.rgf-linkified-code {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.rgf-linkified-code:hover {
+  text-decoration: underline;
+}
