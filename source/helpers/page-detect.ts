@@ -67,7 +67,7 @@ export const isBranches = (): boolean => /^branches$/.test(getRepo()?.path ?? ""
 export const isRepoForksList = (): boolean => /^network\/members$/.test(getRepo()?.path ?? "");
 export const isRepoNetworkGraph = (): boolean => /^network$/.test(getRepo()?.path ?? "");
 export const isFileFinder = (): boolean => /^find\//.test(getRepo()?.path ?? "");
-export const isRepoSearch = (): boolean => /^search$/.test(getRepo()?.path ?? "");
+export const isRepoSearch = (): boolean => /^search(\/|$)/.test(getRepo()?.path ?? "");
 export const hasRepoHeader = (): boolean => !!getRepo();
 export const is404 = (): boolean => document.title.startsWith("Page not found");
 export const isRepoFile404 = (): boolean =>

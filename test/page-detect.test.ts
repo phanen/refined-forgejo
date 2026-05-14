@@ -270,6 +270,7 @@ describe("page-detect", async () => {
 
   describe("isRepoSearch", () => {
     testTrue(pageDetect.isRepoSearch, "/ziglang/zig/search");
+    testTrue(pageDetect.isRepoSearch, "/ziglang/zig/search/branch/main");
     testFalse(pageDetect.isRepoSearch, "/ziglang/zig");
   });
 
