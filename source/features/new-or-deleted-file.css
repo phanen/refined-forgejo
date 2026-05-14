@@ -8,7 +8,31 @@
   opacity: 0.7;
 }
 
-/* Also support the older file list if it exists */
+#diff-file-tree .item-file:has(.octicon-diff-renamed) .gt-ellipsis {
+  color: var(--color-teal);
+}
+
+/* Status labels in diff file header */
+.rgf-file-status {
+  margin-left: 0.5em !important;
+  font-size: 0.7em !important;
+  padding: 1px 4px !important;
+  font-weight: bold !important;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+
+.rgf-file-status.rgf-new {
+  background-color: var(--color-green) !important;
+  color: white !important;
+}
+
+.rgf-file-status.rgf-deleted {
+  background-color: var(--color-red) !important;
+  color: white !important;
+}
+
+/* Compatibility with older file list if it exists */
 .file-list .deleted,
 .file-list .removed {
   color: var(--color-red);
