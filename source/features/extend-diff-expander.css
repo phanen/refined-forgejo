@@ -1,5 +1,24 @@
 /* extend-diff-expander */
-.diff-expander {
-  padding: 4px 8px;
+.rgf-extend-diff-expander tr.tag-code:hover {
   cursor: pointer;
+}
+
+.rgf-extend-diff-expander tr.tag-code:hover .code-expander-button {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+
+.rgf-extend-diff-expander
+  tr.tag-code:has(.code-expander-button:only-child):hover
+  .code-expander-button {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+.rgf-extend-diff-expander
+  tr[data-line-type="tag-code"]:hover
+  .code-expander-button {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
 }
