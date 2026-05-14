@@ -174,7 +174,7 @@
 - [x] **extend-diff-expander** - 加宽「Expand diff」按钮可点击区域
 - [x] **hide-diff-signs** - 隐藏 diff 符号（已有颜色编码）
 - [x] **suggest-commit-title-limit** - 建议 commit/PR 标题限制在 72 字符
-- [x] **tags-on-commits-list** - 提交旁显示对应标签
+- [+] **tags-on-commits-list** - 提交旁显示对应标签
 - [x] **mark-merge-commits-in-list** - 标记提交列表中的合并提交
 - [ ] **deep-reblame** - alt+click「Reblame」时先提取关联 PR 的提交
 - [x] **new-or-deleted-file** - 图标指示 PR/commits 中文件的添加/删除状态
