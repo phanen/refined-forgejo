@@ -20,6 +20,12 @@ async function addAvatar(authorLink: Element): Promise<void> {
     return;
   }
 
+  // Skip if there's an existing avatar in the same container (releases page, etc.)
+  // We don't want to duplicate it or change its size by adding our class
+  if (link.parentElement?.querySelector("img.avatar")) {
+    return;
+  }
+
   // Skip author links inside the comment header (avatar handled by sticky-comment-header)
   if (link.closest(".comment-header-left")) {
     return;
