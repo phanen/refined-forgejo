@@ -6,15 +6,12 @@ import { buildRepoUrl } from "../forgejo-helpers/index.js";
 import { pageDetect } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-function getTagName(element: Element, isTagsPage: boolean): string | undefined {
-  if (isTagsPage) {
-    return element.querySelector(".release-tag-name a")?.textContent?.trim();
+function getTagName(element: Element | null, isTagsPage: boolean): string | undefined {
+  if (!element) {
+    return undefined;
   }
-  // On releases page
-  return (
-    element.querySelector(".release-list-title a")?.textContent?.trim()
-    || element.querySelector(".release-tag-info a:first-child")?.textContent?.trim()
-  );
+  const selector = isTagsPage ? ".release-tag-name a" : ".meta a.muted";
+  return element.querySelector(selector)?.textContent?.trim();
 }
 
 function addCompareLink(element: Element): void {
@@ -23,9 +20,9 @@ function addCompareLink(element: Element): void {
   }
 
   const isTagsPage = pageDetect.isTags();
-  const nextElement = element.nextElementSibling;
-  if (!nextElement) {
-    return;
+  let nextElement = element.nextElementSibling;
+  while (nextElement && !nextElement.matches(isTagsPage ? "tr" : "li")) {
+    nextElement = nextElement.nextElementSibling;
   }
 
   const currentTag = getTagName(element, isTagsPage);
@@ -52,10 +49,13 @@ function addCompareLink(element: Element): void {
         }
       }
     } else {
-      // On releases page, we can add it to the buttons container
-      const buttonsContainer = element.querySelector(".release-list-buttons");
-      if (buttonsContainer) {
-        buttonsContainer.prepend(link);
+      // On releases page
+      const detail = element.querySelector(".detail p.text.grey");
+      if (detail) {
+        detail.append(
+          " | ",
+          link,
+        );
       }
     }
   }
