@@ -23,35 +23,34 @@ function linkify(element: Element): void {
     },
   } as const;
 
-  for (const node of [...element.childNodes]) {
-    if (node.nodeType === Node.TEXT_NODE && node.textContent?.trim()) {
-      const issuesFragment = linkifyIssuesToDom(node.textContent, options);
+  // Forgejo search highlights wrap parts of the URL in spans (e.g., https://<span class="search-highlight">c</span>odeberg...).
+  // We normalize the content to a string to detect the full URL, then replace the element's content.
+  const content = element.textContent;
+  if (!content) {
+    return;
+  }
 
-      // Now we have a fragment that might contain A tags and TEXT nodes.
-      // We should also linkify URLs in the remaining TEXT nodes.
-      for (const subNode of [...issuesFragment.childNodes]) {
-        if (subNode.nodeType === Node.TEXT_NODE && subNode.textContent?.trim()) {
-          const urlsFragment = linkifyUrlsToDom(subNode.textContent, {
-            attributes: {
-              class: "rgf-linkified-code",
-            },
-          });
-          if (
-            urlsFragment.childNodes.length > 1 || (urlsFragment.firstChild && urlsFragment.firstChild.nodeName === "A")
-          ) {
-            subNode.replaceWith(urlsFragment);
-          }
-        }
-      }
+  const issuesFragment = linkifyIssuesToDom(content, options);
 
+  for (const subNode of [...issuesFragment.childNodes]) {
+    if (subNode.nodeType === Node.TEXT_NODE && subNode.textContent?.trim()) {
+      const urlsFragment = linkifyUrlsToDom(subNode.textContent, {
+        attributes: {
+          class: "rgf-linkified-code",
+        },
+      });
       if (
-        issuesFragment.childNodes.length > 1
-        || (issuesFragment.firstChild
-          && (issuesFragment.firstChild.nodeName === "A" || issuesFragment.firstChild.nodeType === Node.ELEMENT_NODE))
+        urlsFragment.childNodes.length > 1 || (urlsFragment.firstChild && urlsFragment.firstChild.nodeName === "A")
       ) {
-        node.replaceWith(issuesFragment);
+        subNode.replaceWith(urlsFragment);
       }
     }
+  }
+
+  // Only replace if we actually found something to linkify
+  if (issuesFragment.querySelector("a")) {
+    element.textContent = "";
+    element.append(issuesFragment);
   }
 }
 
