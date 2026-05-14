@@ -40,10 +40,10 @@ function addCompareLink(element: Element): void {
     if (isTagsPage) {
       const downloadDiv = element.querySelector(".download");
       if (downloadDiv) {
-        // Insert before "Release details" if it exists, otherwise append
+        // Insert after "Release details" if it exists, otherwise append
         const detailsLink = downloadDiv.querySelector("a[href*='/releases/tag/']");
         if (detailsLink) {
-          detailsLink.before(link);
+          detailsLink.after(link);
         } else {
           downloadDiv.append(link);
         }
