@@ -49,3 +49,8 @@ import "./features/show-user-top-repositories.js";
 import "./features/hide-user-forks.js";
 import "./features/github-bugs.js";
 import "./features/more-dropdown-links.js";
+import "./features/confirm-release.js";
+import "./features/link-to-changelog-file.js";
+import "./features/create-release-shortcut.js";
+import "./features/tag-changes-link.js";
+import "./features/convert-release-to-draft.js";
