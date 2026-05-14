@@ -190,7 +190,7 @@
 
 - [+] **release-download-count** - release 资源旁显示下载计数
 - [x] **releases-tab** - 添加 Releases 标签页和快捷键 g r
-- [x] **releases-dropdown** - release 页面添加标签下拉搜索
+- [+] **releases-dropdown** - release 页面添加标签下拉搜索
 - [x] **create-release-shortcut** - Releases 页面添加快捷键 c 创建新 release
 - [x] **tag-changes-link** - 🔥 每个 tag/release 添加「自上次 tag 以来的变更」链接
 - [x] **convert-release-to-draft** - 添加将 release 转为 draft 的按钮

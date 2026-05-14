@@ -16,7 +16,6 @@ import "./features/useful-not-found-page.js";
 import "./features/suggest-commit-title-limit.js";
 import "./features/new-or-deleted-file.js";
 import "./features/easy-toggle-files.js";
-import "./features/releases-dropdown.js";
 import "./features/releases-tab.js";
 import "./features/profile-gists-link.js";
 import "./features/sticky-conversation-list-toolbar.js";
