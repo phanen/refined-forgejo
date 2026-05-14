@@ -1,0 +1,10 @@
+.rgf-more-file-links {
+  display: flex;
+  gap: 0.25em;
+  margin-left: 0.25em;
+}
+
+.rgf-more-file-links a {
+  padding: 4px 8px !important;
+  font-weight: normal !important;
+}

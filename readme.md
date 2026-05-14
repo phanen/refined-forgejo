@@ -169,7 +169,7 @@
 ### Commits
 
 - [x] **patch-diff-links** - commit 页面添加 .patch 和 .diff 文件链接
-- [ ] **more-file-links** - PR/commits 中添加查看 raw、blame、history 链接
+- [x] **more-file-links** - PR/commits 中添加查看 raw、blame、history 链接
 - [+] **one-click-diff-options** - Compare 页面添加「Hide whitespace」按钮和快捷键 d w
 - [x] **extend-diff-expander** - 加宽「Expand diff」按钮可点击区域
 - [x] **hide-diff-signs** - 隐藏 diff 符号（已有颜色编码）
