@@ -27,7 +27,7 @@ function toggleFile(event: DelegateEvent<MouseEvent, HTMLElement>): void {
 }
 
 function init(signal: AbortSignal): void {
-  delegate(".file-header", "click", toggleFile, { signal });
+  delegate(".diff-file-header", "click", toggleFile, { signal });
 }
 
 void features.add(import.meta.url, {
