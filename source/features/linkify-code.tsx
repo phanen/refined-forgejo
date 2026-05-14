@@ -5,10 +5,22 @@ import { linkifyUrlsToDom } from "linkify-urls";
 
 import features from "../feature-manager.js";
 import { getRepo } from "../forgejo-helpers/index.js";
-import { isCommit, isCompare, isPRCommit, isPRCommits, isRepoSearch, isSingleFile } from "../helpers/page-detect.js";
+import {
+  isCommit,
+  isCompare,
+  isPRCommit,
+  isPRCommits,
+  isPRFiles,
+  isRepoSearch,
+  isSingleFile,
+} from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 function linkify(element: Element): void {
+  // Don't linkify if already linkified
+  if (element.querySelector(".rgf-linkified-code")) {
+    return;
+  }
   const repo = getRepo();
   if (!repo) {
     return;
@@ -64,7 +76,7 @@ function init(signal: AbortSignal): void {
 }
 
 features.add(import.meta.url, {
-  include: [isSingleFile, isCommit, isPRCommit, isPRCommits, isCompare, isRepoSearch],
+  include: [isSingleFile, isCommit, isPRCommit, isPRCommits, isCompare, isRepoSearch, isPRFiles],
   init,
 });
 
