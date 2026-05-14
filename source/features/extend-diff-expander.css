@@ -3,22 +3,12 @@
   cursor: pointer;
 }
 
-.rgf-extend-diff-expander tr.tag-code:hover .code-expander-button {
-  background: var(--color-primary);
-  color: var(--color-primary-contrast);
-}
-
-
-.rgf-extend-diff-expander
-  tr.tag-code:has(.code-expander-button:only-child):hover
-  .code-expander-button {
-  background: var(--color-primary);
-  color: var(--color-primary-contrast);
-}
-
-.rgf-extend-diff-expander
-  tr[data-line-type="tag-code"]:hover
-  .code-expander-button {
+/* 
+  Highlight all buttons when the row is hovered, 
+  BUT only if the user is not hovering over a specific button.
+  This prevents ambiguity when multiple buttons are present.
+*/
+.rgf-extend-diff-expander tr.tag-code:hover:not(:has(.code-expander-button:hover)) .code-expander-button {
   background: var(--color-primary);
   color: var(--color-primary-contrast);
 }
