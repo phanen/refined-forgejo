@@ -6,6 +6,7 @@ import { elementExists } from "select-dom";
 import type { Promisable } from "type-fest";
 import { isWebPage } from "webext-detect";
 
+// import { resetAvatarCache } from "./forgejo-helpers/get-avatar-url.js";
 import asyncForEach from "./helpers/async-for-each.js";
 import { catchErrors, disableErrorLogging } from "./helpers/errors.js";
 import { clearShortcuts, getFeatureId, listenToAjaxedLoad, log, shortcutMap } from "./helpers/feature-helpers.js";
@@ -151,6 +152,7 @@ function unload(featureUrl: string): void {
 
 function unloadAll(): void {
   clearShortcuts();
+  // resetAvatarCache();
   for (const feature of currentFeatureControllers.values()) {
     for (const controller of feature) {
       controller.abort();
