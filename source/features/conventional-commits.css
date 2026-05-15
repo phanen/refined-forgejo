@@ -1,0 +1,61 @@
+.rgf-conventional-commit {
+  font-size: 0.8em !important;
+  padding: 0.2em 0.5em !important;
+  margin-right: 0.4em !important;
+  line-height: 1.5;
+  border: none !important;
+  color: #fff !important;
+}
+
+/* feat -> Green (Feature/Success) */
+[rgf-conventional-commits="feat"] {
+  background-color: var(--color-green) !important;
+}
+
+/* fix -> Red (Fix/Danger) */
+[rgf-conventional-commits="fix"] {
+  background-color: var(--color-red) !important;
+}
+
+/* docs -> Blue (Docs/Info) */
+[rgf-conventional-commits="docs"] {
+  background-color: var(--color-blue) !important;
+}
+
+/* build -> Orange (Build/Warning) */
+[rgf-conventional-commits="build"] {
+  background-color: var(--color-orange) !important;
+}
+
+/* refactor -> Teal (Refactor) */
+[rgf-conventional-commits="refactor"] {
+  background-color: var(--color-teal) !important;
+}
+
+/* test -> Yellow (Test/Attention) - needs dark text */
+[rgf-conventional-commits="test"] {
+  background-color: var(--color-yellow) !important;
+  color: #000 !important;
+}
+
+/* ci -> Violet (CI) */
+[rgf-conventional-commits="ci"] {
+  background-color: var(--color-violet) !important;
+}
+
+/* perf -> Purple (Performance) */
+[rgf-conventional-commits="perf"] {
+  background-color: var(--color-purple) !important;
+}
+
+/* revert -> Pink (Revert) */
+[rgf-conventional-commits="revert"] {
+  background-color: var(--color-pink) !important;
+}
+
+/* style & chore -> Secondary (Neutral) */
+[rgf-conventional-commits="style"],
+[rgf-conventional-commits="chore"] {
+  background-color: var(--color-secondary) !important;
+  color: inherit !important;
+}

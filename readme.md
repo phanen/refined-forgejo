@@ -182,7 +182,7 @@
 - [-] **same-branch-author-commits** - 查看某作者的所有提交时保留分支和路径
 - [+] **easy-toggle-commit-messages** - 点击提交框切换提交消息
 - [-] **link-to-compare-diff** - 「X files changed」文本可点击跳转到 diff
-- [ ] **conventional-commits** - 在提交消息前显示 conventional commit 类型标签
+- [x] **conventional-commits** - 在提交消息前显示 conventional commit 类型标签
 
 ---
 
