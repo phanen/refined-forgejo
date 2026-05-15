@@ -4,14 +4,6 @@ import features from "../feature-manager.js";
 import { pageDetect } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-function updateButtonText(): void {
-  const btn = document.querySelector<HTMLButtonElement>(".rgf-open-all-conversations");
-  if (!btn) return;
-
-  const hasSelected = document.querySelector(".flex-item input.issue-checkbox:checked");
-  btn.textContent = hasSelected ? "Open selected" : "Open all";
-}
-
 function openConversations(): void {
   const selectedLinks = [
     ...document.querySelectorAll<HTMLAnchorElement>(".flex-item:has(input.issue-checkbox:checked) .issue-title"),
@@ -37,12 +29,15 @@ function addOpenAllButton(toolbar: Element): void {
     return;
   }
 
+  const hasSelected = document.querySelector(".issue-checkbox:checked");
+  const text = hasSelected ? "Open selected" : "Open all";
+
   switchEl.after(
     <button
       type="button"
       className="ui basic small button rgf-open-all-conversations tw-ml-2"
     >
-      Open all
+      {text}
     </button>,
   );
 }
@@ -50,7 +45,6 @@ function addOpenAllButton(toolbar: Element): void {
 function init(signal: AbortSignal): void {
   observe(".issue-list-toolbar-left", addOpenAllButton, { signal });
   delegate("button.rgf-open-all-conversations", "click", openConversations, { signal });
-  delegate(".issue-checkbox, .issue-checkbox-all", "change", updateButtonText, { signal });
 }
 
 void features.add(import.meta.url, {
