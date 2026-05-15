@@ -55,3 +55,5 @@ import "./features/quick-comment-edit.js";
 import "./features/one-click-diff-options.js";
 import "./features/help-modal.js";
 import "./features/navigation-hotkeys.js";
+import "./features/dim-bots.js";
+import "./features/open-all-conversations.js";

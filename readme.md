@@ -93,7 +93,7 @@
 - [x] **scrollable-areas** - 限制代码块和引用的高度
 - [ ] **quick-comment-hiding** - 简化隐藏评论的 UI
 - [x] **open-issue-to-latest-comment** - issue 列表的评论图标链接到最后一条评论
-- [ ] **expand-all-hidden-comments** - alt 点击「N hidden items」时加载更多评论（200条）
+- [-] **expand-all-hidden-comments** - alt 点击「N hidden items」时加载更多评论（200条）
 - [ ] **keyboard-navigation** - 添加 j/k 快捷键导航，x 标记已读/未读
 - [ ] **comment-excess** - 长 issue 头部显示隐藏评论数量，Cmd/Ctrl+F 时滚动到隐藏评论
 
@@ -101,7 +101,7 @@
 
 ### Conversations
 
-- [ ] **open-all-conversations** - 一键打开所有可见的 issue/PR
+- [x] **open-all-conversations** - 一键打开所有可见的 issue/PR
 - [x] **sticky-conversation-list-toolbar** - issue/PR 列表筛选工具栏固定
 - [x] **sticky-comment-header** - 滚动时评论头部固定
 - [x] **conversation-authors** - 高亮你或协作者开的 issue/PR
@@ -110,14 +110,14 @@
 - [ ] **global-conversation-list-filters** - 全局 PR 搜索添加「我的仓库」「我评论的」筛选
 - [x] **clean-conversation-sidebar** - 🔥 隐藏 issue/PR 侧边栏空分区
 - [x] **clean-conversation-filters** - 隐藏空的 Projects 筛选
-- [ ] **toggle-everything-with-alt** - alt+click 切换所有类似项目
+- [-] **toggle-everything-with-alt** - alt+click 切换所有类似项目
 - [ ] **extend-conversation-status-filters** - 切换 is:open/is:closed/is:merged 筛选
 - [ ] **bugs-tab** - 如果有「bug」标签的 issue，添加 Bugs 标签页
 - [ ] **pinned-issues-update-time** - 置顶 issue 显示更新时间而非创建时间
 - [x] **clean-pinned-issues** - 置顶 issue 布局从并排改为标准列表
 - [ ] **quick-label-removal** - 一键移除 issue/PR 标签
 - [ ] **clean-conversation-headers** - 移除 PR 头部的重复信息
-- [ ] **dim-bots** - 淡化 bot 的提交和 PR
+- [x] **dim-bots** - 淡化 bot 的提交和 PR
 - [x] **esc-to-cancel** - esc 取消编辑 PR 标题
 - [ ] **no-duplicate-list-update-time** - 隐藏与开/关/合并时间相同的更新时间
 - [ ] **linkify-user-labels** - 将「Contributor」「Member」等标签链接到作者提交

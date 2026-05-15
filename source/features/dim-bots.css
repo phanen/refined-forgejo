@@ -1,0 +1,7 @@
+.rgf-dim-bots:not(:hover) {
+  opacity: 0.2;
+}
+
+.rgf-dim-bots {
+  transition: opacity 0.2s ease-in-out;
+}

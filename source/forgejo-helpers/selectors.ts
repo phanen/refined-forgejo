@@ -28,6 +28,12 @@ export const usernameLinksSelector = [
 export const botLinksCommitSelectors = [
   "a[href*=\"/apps/\"]",
   "a[href*=\"/actions/\"]",
+  "a[href$=\"-bot\"]",
+  "a[href*=\"/bot-\"]",
+  "a[href*=\"-bot/\"]",
+  "img[title*=\"bot\"]",
+  "img[title*=\"Bot\"]",
+  "span.bot",
 ];
 
 export const openPrsListLink = css`
