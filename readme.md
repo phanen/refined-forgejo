@@ -107,7 +107,7 @@
 - [x] **conversation-authors** - 高亮你或协作者开的 issue/PR
 - [x] **align-issue-labels** - issue/PR 列表中标签左对齐
 - [x] **sort-conversations-by-update-time** - 🔥 默认排序改为「最近更新」
-- [ ] **global-conversation-list-filters** - 全局 PR 搜索添加「我的仓库」「我评论的」筛选
+- [-] **global-conversation-list-filters** - 全局 PR 搜索添加「我的仓库」「我评论的」筛选
 - [x] **clean-conversation-sidebar** - 🔥 隐藏 issue/PR 侧边栏空分区
 - [x] **clean-conversation-filters** - 隐藏空的 Projects 筛选
 - [-] **toggle-everything-with-alt** - alt+click 切换所有类似项目
