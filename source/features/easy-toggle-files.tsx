@@ -17,9 +17,19 @@ function toggleFile(event: DelegateEvent<MouseEvent, HTMLElement>): void {
   }
 
   if (event.altKey) {
+    const header = event.delegateTarget;
+    const currentBox = header.closest(".diff-file-box") as HTMLElement | null;
+    if (!currentBox) {
+      return;
+    }
+
+    const currentFolded = currentBox.dataset.folded;
     const allButtons = document.querySelectorAll<HTMLElement>(".fold-file");
     for (const button of allButtons) {
-      button.click();
+      const box = button.closest(".diff-file-box") as HTMLElement | null;
+      if (box && box.dataset.folded === currentFolded) {
+        button.click();
+      }
     }
   } else {
     toggleButton.click();
