@@ -1,7 +1,7 @@
 import features from "../feature-manager.js";
 import { buildRepoUrl } from "../forgejo-helpers/index.js";
 import { registerHotkey } from "../github-helpers/hotkey.js";
-import { hasRepoHeader } from "../helpers/page-detect.js";
+import { hasRepoHeader, isGlobalIssueList, isGlobalPRList } from "../helpers/page-detect.js";
 
 function getProfileUrl(): string | undefined {
   const userLink = document.querySelector<HTMLAnchorElement>(
@@ -39,7 +39,11 @@ function init(signal: AbortSignal): void {
 }
 
 void features.add(import.meta.url, {
-  include: [hasRepoHeader],
+  include: [
+    hasRepoHeader,
+    isGlobalIssueList,
+    isGlobalPRList,
+  ],
   shortcuts: {
     "g h": "Go to Code",
     "g c": "Go to Commits",
