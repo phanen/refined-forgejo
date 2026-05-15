@@ -40,7 +40,7 @@ function addMoreLinks(container: Element): void {
 }
 
 async function init(signal: AbortSignal): Promise<void> {
-  observe(".diff-file-header-actions", addMoreLinks, { signal });
+  observe(".diff-file-header-actions, details.repo-search-result", addMoreLinks, { signal });
 }
 
 void features.add(import.meta.url, {
@@ -48,6 +48,7 @@ void features.add(import.meta.url, {
     pageDetect.isCommit,
     pageDetect.isPR,
     pageDetect.isCompare,
+    pageDetect.isRepoSearch,
   ],
   init,
 });
