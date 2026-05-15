@@ -9,7 +9,7 @@ import {
   isCommit,
   isCompare,
   isPRCommit,
-  isPRCommits,
+  isPRCommitList,
   isPRFiles,
   isRepoSearch,
   isSingleFile,
@@ -76,7 +76,7 @@ function init(signal: AbortSignal): void {
 }
 
 features.add(import.meta.url, {
-  include: [isSingleFile, isCommit, isPRCommit, isPRCommits, isCompare, isRepoSearch, isPRFiles],
+  include: [isSingleFile, isCommit, isPRCommit, isPRCommitList, isCompare, isRepoSearch, isPRFiles],
   init,
 });
 

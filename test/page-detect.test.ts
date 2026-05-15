@@ -75,9 +75,21 @@ describe("page-detect", async () => {
     testTrue(pageDetect.isIssueOrPR, "/ziglang/zig/pulls/123");
   });
 
-  describe("isPRCommits", () => {
-    testTrue(pageDetect.isPRCommits, "/ziglang/zig/pulls/123/commits");
-    testFalse(pageDetect.isPRCommits, "/ziglang/zig/pulls/123");
+  describe("isPRCommitList", () => {
+    testTrue(pageDetect.isPRCommitList, "/ziglang/zig/pulls/123/commits");
+    testFalse(pageDetect.isPRCommitList, "/ziglang/zig/pulls/123");
+  });
+
+  describe("isRepoCommitList", () => {
+    testTrue(pageDetect.isRepoCommitList, "/ziglang/zig/commits/branch/main");
+    testTrue(pageDetect.isRepoCommitList, "/ziglang/zig/commits/tag/v1.0.0");
+    testFalse(pageDetect.isRepoCommitList, "/ziglang/zig/commit/a1b2c");
+  });
+
+  describe("isCommitList", () => {
+    testTrue(pageDetect.isCommitList, "/ziglang/zig/commits/branch/main");
+    testTrue(pageDetect.isCommitList, "/ziglang/zig/pulls/123/commits");
+    testFalse(pageDetect.isCommitList, "/ziglang/zig/commit/a1b2c");
   });
 
   describe("isIssueOrPRList", () => {

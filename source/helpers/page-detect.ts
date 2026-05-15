@@ -27,7 +27,6 @@ export const isIssue = (): boolean => /^issues\/\d+/.test(getRepo()?.path ?? "")
 export const isPR = (): boolean => /^pulls\/\d+/.test(getRepo()?.path ?? "");
 export const isIssueOrPR = (): boolean => isIssue() || isPR();
 export const isConversation = (): boolean => isIssueOrPR();
-export const isPRCommits = (): boolean => /^pulls\/\d+\/commits/.test(getRepo()?.path ?? "");
 export const isRepoIssueList = (): boolean => /^issues(?!\/(\d+|new|templates)($|\/))/.test(getRepo()?.path ?? "");
 export const isRepoPRList = (): boolean => getRepo()?.path === "pulls";
 export const isGlobalIssueList = (): boolean => /^issues(\/|$)/.test(location.pathname.replace(/^\//, ""));
@@ -47,6 +46,9 @@ export const isSingleFile = (): boolean => /^(blob|src)\//.test(getRepo()?.path 
 export const isBlame = (): boolean => /^blame\//.test(getRepo()?.path ?? "");
 export const isSingleCommit = (): boolean => /^commit\/[\da-f]{5,40}$/.test(getRepo()?.path ?? "");
 export const isPRFiles = (): boolean => /^pulls\/\d+\/files/.test(getRepo()?.path ?? "");
+export const isPRCommitList = (): boolean => /^pulls\/\d+\/commits/.test(getRepo()?.path ?? "");
+export const isRepoCommitList = (): boolean => /^commits\//.test(getRepo()?.path ?? "");
+export const isCommitList = (): boolean => isRepoCommitList() || isPRCommitList();
 export const isPRCommit = (): boolean => /^pulls\/\d+\/commits\/[\da-f]{7,40}$/.test(getRepo()?.path ?? "");
 export const isCommit = (): boolean => isSingleCommit() || isPRCommit();
 export const isCompare = (): boolean => /^compare/.test(getRepo()?.path ?? "");
@@ -81,6 +83,9 @@ export const pageDetect = {
   isBranches,
   isBlame,
   isCommit,
+  isCommitList,
+  isRepoCommitList,
+  isPRCommitList,
   isCompare,
   isConversation,
   isDashboard,
@@ -101,7 +106,6 @@ export const pageDetect = {
   isNewIssue,
   isNotifications,
   isPR,
-  isPRCommits,
   isPRCommit,
   isPRFiles,
   isPRList,
