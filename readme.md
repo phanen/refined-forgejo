@@ -54,7 +54,7 @@
 
 - [x] **linkify-code** - 代码中的 issue/PR 引用和 URL 可点击
 - [x] **copy-on-y** - 增强 y 快捷键复制永久链接
-- [ ] **linkify-symbolic-links** - 符号链接文件可点击
+- [x] **linkify-symbolic-links** - 符号链接文件可点击
 - [ ] **list-prs-for-file** - 当前文件被 PR 修改时提醒
 - [ ] **refined-github.css** - 将 tab 缩减为 4 空格
 - [ ] **esc-to-deselect-line** - 添加 esc 快捷键取消选择行
