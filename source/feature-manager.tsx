@@ -72,6 +72,52 @@ function castArray<T>(value: Arrayable<T>): T[] {
   return Array.isArray(value) ? value : [value];
 }
 
+async function runLoader(id: string, loader: FeatureLoader): Promise<void> {
+  const {
+    shortcuts = {},
+    asLongAs,
+    include,
+    exclude,
+    init,
+    awaitDomReady = false,
+    deduplicate = false,
+  } = loader;
+
+  if (include?.length === 0) {
+    throw new Error(`${id}: \`include\` cannot be an empty array`);
+  }
+
+  let firstLoop = true;
+  do {
+    if (awaitDomReady) {
+      await domLoaded;
+    }
+
+    if (firstLoop) {
+      firstLoop = false;
+    } else if (deduplicate && elementExists(deduplicate)) {
+      continue;
+    }
+
+    if (!await shouldFeatureRun({ asLongAs, include, exclude })) {
+      continue;
+    }
+
+    const featureController = new AbortController();
+    currentFeatureControllers.append(id, featureController);
+
+    void asyncForEach(castArray(init), async (init) => {
+      const result = await init(featureController.signal);
+      if (result !== false && !isFeaturePrivate(id)) {
+        log.info("Running", id);
+        for (const [hotkey, description] of Object.entries(shortcuts)) {
+          shortcutMap.set(hotkey, description);
+        }
+      }
+    });
+  } while (await oneEvent(document, "htmx:afterSettle"));
+}
+
 async function add(url: string, ...loaders: FeatureLoader[]): Promise<void> {
   const id = getFeatureId(url);
   const options = await globalReady;
@@ -92,51 +138,9 @@ async function add(url: string, ...loaders: FeatureLoader[]): Promise<void> {
     return;
   }
 
-  void asyncForEach(loaders, async loader => {
-    const {
-      shortcuts = {},
-      asLongAs,
-      include,
-      exclude,
-      init,
-      awaitDomReady = false,
-      deduplicate = false,
-    } = loader;
-
-    if (include?.length === 0) {
-      throw new Error(`${id}: \`include\` cannot be an empty array`);
-    }
-
-    let firstLoop = true;
-    do {
-      if (awaitDomReady) {
-        await domLoaded;
-      }
-
-      if (firstLoop) {
-        firstLoop = false;
-      } else if (deduplicate && elementExists(deduplicate)) {
-        continue;
-      }
-
-      if (!await shouldFeatureRun({ asLongAs, include, exclude })) {
-        continue;
-      }
-
-      const featureController = new AbortController();
-      currentFeatureControllers.append(id, featureController);
-
-      void asyncForEach(castArray(init), async (init) => {
-        const result = await init(featureController.signal);
-        if (result !== false && !isFeaturePrivate(id)) {
-          log.info("Running", id);
-          for (const [hotkey, description] of Object.entries(shortcuts)) {
-            shortcutMap.set(hotkey, description);
-          }
-        }
-      });
-    } while (await oneEvent(document, "htmx:afterSettle"));
-  });
+  for (const loader of loaders) {
+    void runLoader(id, loader);
+  }
 }
 
 async function addCssFeature(url: string): Promise<void> {

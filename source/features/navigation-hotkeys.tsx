@@ -1,13 +1,19 @@
 import features from "../feature-manager.js";
 import { buildRepoUrl } from "../forgejo-helpers/index.js";
 import { registerHotkey } from "../github-helpers/hotkey.js";
-import { hasRepoHeader, isGlobalIssueList, isGlobalPRList } from "../helpers/page-detect.js";
+import { hasRepoHeader, isDashboard, isGlobalIssueList, isGlobalPRList } from "../helpers/page-detect.js";
 
 function getProfileUrl(): string | undefined {
-  const userLink = document.querySelector<HTMLAnchorElement>(
-    ".navbar-right details.dropdown .content a[href]:has(.octicon-person)",
+  const userMenu = document.querySelector(".navbar-right details.dropdown:last-of-type");
+  const profileLink = userMenu?.querySelector<HTMLAnchorElement>(
+    ".content ul > li > a[href]:not(.link-action)",
   );
-  return userLink?.href;
+  if (profileLink) {
+    return profileLink.href;
+  }
+
+  const username = userMenu?.querySelector<HTMLElement>(".content .header strong")?.textContent?.trim();
+  return username ? `${location.origin}/${encodeURIComponent(username)}` : undefined;
 }
 
 function focusSearch(): void {
@@ -17,8 +23,17 @@ function focusSearch(): void {
   searchInput?.focus();
 }
 
+function registerSharedHotkeys(signal: AbortSignal): void {
+  const profileUrl = getProfileUrl();
+  if (profileUrl) {
+    registerHotkey("g m", profileUrl, { signal });
+  }
+
+  registerHotkey("s", focusSearch, { signal });
+}
+
 // TODO(upstream): https://codeberg.org/forgejo/forgejo/pulls/12409
-function init(signal: AbortSignal): void {
+function initRepoNavigation(signal: AbortSignal): void {
   registerHotkey("g h", buildRepoUrl(""), { signal });
   registerHotkey("g c", buildRepoUrl("commits"), { signal });
   registerHotkey("g i", buildRepoUrl("issues"), { signal });
@@ -30,19 +45,18 @@ function init(signal: AbortSignal): void {
   registerHotkey("g w", buildRepoUrl("wiki"), { signal });
   registerHotkey("g s", buildRepoUrl("settings"), { signal });
 
-  const profileUrl = getProfileUrl();
-  if (profileUrl) {
-    registerHotkey("g m", profileUrl, { signal });
-  }
+  registerSharedHotkeys(signal);
+}
 
-  registerHotkey("s", focusSearch, { signal });
+function initGlobalNavigation(signal: AbortSignal): void {
+  registerHotkey("g i", `${location.origin}/issues`, { signal });
+  registerHotkey("g p", `${location.origin}/pulls`, { signal });
+  registerSharedHotkeys(signal);
 }
 
 void features.add(import.meta.url, {
   include: [
     hasRepoHeader,
-    isGlobalIssueList,
-    isGlobalPRList,
   ],
   shortcuts: {
     "g h": "Go to Code",
@@ -58,5 +72,18 @@ void features.add(import.meta.url, {
     "g m": "Go to Profile",
     "s": "Focus search",
   },
-  init,
+  init: initRepoNavigation,
+}, {
+  include: [
+    isDashboard,
+    isGlobalIssueList,
+    isGlobalPRList,
+  ],
+  shortcuts: {
+    "g i": "Go to Issues",
+    "g p": "Go to Pull requests",
+    "g m": "Go to Profile",
+    "s": "Focus search",
+  },
+  init: initGlobalNavigation,
 });
