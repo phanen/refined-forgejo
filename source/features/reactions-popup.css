@@ -1,0 +1,6 @@
+.repository .segment.reactions.dropdown .menu,
+.repository .select-reaction.dropdown .menu {
+  inset-inline: auto !important;
+  inset-inline-start: 50% !important;
+  transform: translateX(-50%);
+}

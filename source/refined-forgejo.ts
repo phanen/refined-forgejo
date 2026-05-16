@@ -1,4 +1,5 @@
 import "./features/reactions-avatars.js";
+import "./features/reactions-popup.js";
 import "./features/sort-conversations-by-update-time.js";
 import "./features/fit-textareas.js";
 import "./features/sticky-sidebar.js";
