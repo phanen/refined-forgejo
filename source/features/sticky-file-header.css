@@ -1,0 +1,6 @@
+.repository .file-header:not(.diff-file-header) {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  background: var(--color-box-header);
+}

@@ -18,6 +18,7 @@ import "./features/new-or-deleted-file.js";
 import "./features/easy-toggle-files.js";
 import "./features/profile-gists-link.js";
 import "./features/sticky-conversation-list-toolbar.js";
+import "./features/sticky-file-header.js";
 import "./features/sticky-comment-header.js";
 import "./features/ci-link.js";
 import "./features/repo-header-info.js";
