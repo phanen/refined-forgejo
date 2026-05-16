@@ -42,7 +42,7 @@
 
 - [+] **download-folder-button** - 添加下载整个文件夹的按钮
 - [x] **quick-file-edit** - 仓库文件列表添加编辑按钮
-- [ ] **repo-wide-file-finder** - 启用键盘快捷键 t 在整个仓库搜索文件
+- [x] **repo-wide-file-finder** - 启用键盘快捷键 t 在整个仓库搜索文件
 - [ ] **show-associated-branch-prs-on-fork** - fork 仓库的分支上显示关联的 PR
 - [ ] **html-preview-link** - 预览 HTML 文件的链接
 - [x] **file-age-color** - 高亮最近修改的文件
@@ -94,7 +94,7 @@
 - [ ] **quick-comment-hiding** - 简化隐藏评论的 UI
 - [x] **open-issue-to-latest-comment** - issue 列表的评论图标链接到最后一条评论
 - [-] **expand-all-hidden-comments** - alt 点击「N hidden items」时加载更多评论（200条）
-- [ ] **keyboard-navigation** - 添加 j/k 快捷键导航，x 标记已读/未读
+- [x] **keyboard-navigation** - 添加 j/k 快捷键导航，x 标记已读/未读
 - [ ] **comment-excess** - 长 issue 头部显示隐藏评论数量，Cmd/Ctrl+F 时滚动到隐藏评论
 
 ---
@@ -157,7 +157,7 @@
 - [ ] **sync-pr-commit-title** - 🔥 用 PR 标题作为 squash commit 标题，并同步更新
 - [ ] **update-pr-from-base-branch** - 每个 PR 添加「Update branch | Rebase」按钮
 - [ ] **one-click-review-submission** - 一键审核（Approve/Reject）
-- [ ] **pull-request-hotkeys** - 添加快捷键循环切换 PR 标签页
+- [x] **pull-request-hotkeys** - 添加快捷键循环切换 PR 标签页
 - [ ] **pr-branch-auto-delete** - 合并 PR 后自动删除分支
 - [ ] **one-click-pr-or-gist** - 一键创建 draft PR 或 public gist
 - [ ] **clear-pr-merge-commit-message** - 清理 PR 合并消息中的冗余信息
@@ -189,7 +189,7 @@
 ### Tags and releases
 
 - [+] **release-download-count** - release 资源旁显示下载计数
-- [x] **releases-tab** - 添加 Releases 标签页和快捷键 g r (implemented in **navigation-hotkeys**)
+- [x] **releases-tab** - 添加 Releases 标签页和快捷键 g r (in **navigation-hotkeys**)
 - [+] **releases-dropdown** - release 页面添加标签下拉搜索
 - [x] **create-release-shortcut** - Releases 页面添加快捷键 c 创建新 release
 - [x] **tag-changes-link** - 🔥 每个 tag/release 添加「自上次 tag 以来的变更」链接
@@ -204,7 +204,7 @@
 - [ ] **user-profile-follower-badge** - 显示用户是否关注你
 - [-] **profile-gists-link** - 用户资料页添加公开 gists 链接
 - [ ] **mark-private-orgs** - 在你的资料页标记私有组织
-- [ ] **profile-hotkey** - 添加快捷键 g m 访问自己资料页
+- [x] **profile-hotkey** - 添加快捷键 g m 访问自己资料页 (in **navigation-hotkeys**)
 - [ ] **show-user-top-repositories** - 添加用户最多 star 的仓库链接
 - [ ] **hide-user-forks** - 默认隐藏 fork 和归档的仓库
 - [ ] **linkify-user-location** - hovercard 和资料页的用户位置可点击
@@ -228,11 +228,11 @@
 ### Global
 
 - [x] **useful-not-found-page** - 🔥 404 页面添加可能的相关页面和替代选项
-- [ ] **selection-in-new-tab** - j/k 导航时 shift+o 在新标签页打开选中文本
+- [x] **selection-in-new-tab** - j/k 导航时 shift+o 在新标签页打开选中文本
 - [-] **close-out-of-view-modals** - 下拉菜单不可见时自动关闭
 - [ ] **parse-backticks** - GitHub 忘记添加可点击的 backtick 文本
 - [ ] **action-used-by-link** - 查看当前 Action 的使用者
-- [ ] **improve-shortcut-help** - 在帮助弹窗（?）中显示所有 Refined GitHub 快捷键
+- [x] **improve-shortcut-help** - 在帮助弹窗（?）中显示所有 Refined GitHub 快捷键 (in **help-modal**)
 - [x] **clean-footer** - 淡化页脚
 - [+] **night-not-found** - 404 页面添加深色模式
 - [x] **monospace-textareas** - 提交消息等字段使用等宽字体
