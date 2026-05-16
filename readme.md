@@ -214,7 +214,7 @@
 
 ### Notifications
 
-- [ ] **open-all-notifications** - 通知页面添加一键打开所有未读通知
+- [x] **open-all-notifications** - 通知页面添加一键打开所有未读通知
 - [ ] **unread-anywhere** - 🔥 全局 header 添加按钮在任何页面打开未读通知
 - [-] **select-all-notifications-shortcut** - 快捷键 a 全选通知
 - [ ] **stop-redirecting-in-notification-bar** - 按住 alt 时阻止从通知栏重定向

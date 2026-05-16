@@ -10,6 +10,7 @@ import "./features/sticky-sidebar.js";
 import "./features/clean-conversation-sidebar.js";
 import "./features/scrollable-areas.js";
 import "./features/open-issue-to-latest-comment.js";
+import "./features/open-all-notifications.js";
 import "./features/copy-on-y.js";
 import "./features/clean-footer.js";
 import "./features/align-issue-labels.js";
