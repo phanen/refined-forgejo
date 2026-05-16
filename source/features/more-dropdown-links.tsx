@@ -1,5 +1,3 @@
-import "./more-dropdown-links.css";
-
 import React from "dom-chef";
 import GitBranchIcon from "octicons-plain-react/GitBranch";
 import GitCommitIcon from "octicons-plain-react/GitCommit";
@@ -10,8 +8,21 @@ import { buildRepoUrl } from "../forgejo-helpers/index.js";
 import { hasRepoHeader } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-function addLinks(overflowMenu: Element): void {
+type OverflowMenuElement = Element & {
+  updateItems?: () => void;
+};
+
+function wrapLabel(text: string): JSX.Element {
+  return <span className="resize-for-semibold" data-text={text}>{text}</span>;
+}
+
+function addLinks(overflowMenu: OverflowMenuElement): void {
   if (overflowMenu.querySelector(".rgf-more-link")) {
+    return;
+  }
+
+  const menuItemsEl = overflowMenu.querySelector(".overflow-menu-items");
+  if (!menuItemsEl) {
     return;
   }
 
@@ -19,8 +30,7 @@ function addLinks(overflowMenu: Element): void {
   // We omit it here to avoid redundancy and broken links.
 
   // Find the Settings tab or the overflow dropdown to insert before them
-  const settingsTab = overflowMenu.querySelector("a.item[href$='/settings']");
-  const overflowDropdown = overflowMenu.querySelector(".ui.dropdown");
+  const settingsTab = menuItemsEl.querySelector("a.item[href$='/settings']");
 
   const items = [
     { label: "Compare", href: buildRepoUrl("compare"), icon: GitCompareIcon },
@@ -28,33 +38,26 @@ function addLinks(overflowMenu: Element): void {
     { label: "Tags", href: buildRepoUrl("tags"), icon: GitCommitIcon },
   ];
 
-  let isFirst = true;
   for (const { label, href, icon: Icon } of items) {
     // Don't add if a matching link already exists in the nav
-    if (overflowMenu.querySelector(`a[href$="${href}"]`)) {
+    if (menuItemsEl.querySelector(`a[href$="${href}"]`)) {
       continue;
     }
 
     const newLink = (
-      <a className={`item rgf-more-link ${isFirst ? "rgf-more-link-first" : ""}`} href={href}>
-        <Icon className="svg" />
-        {label}
+      <a className="item rgf-more-link" href={href}>
+        <Icon className="svg" /> {wrapLabel(label)}
       </a>
     );
 
     if (settingsTab) {
       settingsTab.before(newLink);
-    } else if (overflowDropdown) {
-      overflowDropdown.before(newLink);
     } else {
-      overflowMenu.append(newLink);
+      menuItemsEl.append(newLink);
     }
-
-    isFirst = false;
   }
 
-  // Trigger overflow-menu to re-measure and include new items
-  window.dispatchEvent(new Event("resize"));
+  overflowMenu.updateItems?.();
 }
 
 function init(signal: AbortSignal): void {
