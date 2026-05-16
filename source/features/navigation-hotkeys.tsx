@@ -1,12 +1,26 @@
 import features from "../feature-manager.js";
 import { buildRepoUrl } from "../forgejo-helpers/index.js";
 import { registerHotkey } from "../github-helpers/hotkey.js";
-import { hasRepoHeader, isDashboard, isGlobalIssueList, isGlobalPRList } from "../helpers/page-detect.js";
+import {
+  hasRepoHeader,
+  isDashboard,
+  isGlobalIssueList,
+  isGlobalPRList,
+  isUserProfile,
+} from "../helpers/page-detect.js";
 
 function getProfileUrl(): string | undefined {
-  const userMenu = document.querySelector(".navbar-right details.dropdown:last-of-type");
+  const menus = document.querySelectorAll<HTMLElement>(".navbar-right details.dropdown");
+  let userMenu: HTMLElement | undefined;
+  for (const menu of [...menus].reverse()) {
+    if (menu.querySelector(".content .header strong")) {
+      userMenu = menu;
+      break;
+    }
+  }
+
   const profileLink = userMenu?.querySelector<HTMLAnchorElement>(
-    ".content ul > li > a[href]:not(.link-action)",
+    ".content ul > li > a[href^='/']:not(.link-action)",
   );
   if (profileLink) {
     return profileLink.href;
@@ -78,6 +92,7 @@ void features.add(import.meta.url, {
     isDashboard,
     isGlobalIssueList,
     isGlobalPRList,
+    isUserProfile,
   ],
   shortcuts: {
     "g i": "Go to Issues",
