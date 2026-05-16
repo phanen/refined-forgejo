@@ -253,7 +253,7 @@
 - [x] **hide-navigation-hover-highlight** - 移除仓库文件浏览器的悬停效果
 - [-] **clean-repo-sidebar** - 移除仓库侧边栏不必要的冗余信息 (TODO(revisit?): https://codeberg.org/forgejo/forgejo/issues/11914)
 - [-] **linkify-branch-references** - 「Quick PR」页面中的分支引用可点击
-- [ ] **actionable-pr-view-file** - PR 的「View file」指向分支而非 commit
+- [x] **actionable-pr-view-file** - PR 的「View file」指向分支而非 commit
 - [ ] **reload-failed-proxied-images** - 重试失败的图片下载
 - [-] **unwrap-unnecessary-dropdowns** - 将 2 步下拉菜单改为 1 步
 - [-] **prevent-link-loss** - 建议修复被 GitHub 错误缩短的链接

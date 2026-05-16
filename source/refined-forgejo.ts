@@ -1,5 +1,6 @@
 import "./features/reactions-avatars.js";
 import "./features/reactions-popup.js";
+import "./features/actionable-pr-view-file.js";
 import "./features/readable-title-change-events.js";
 import "./features/sort-conversations-by-update-time.js";
 import "./features/fit-textareas.js";
