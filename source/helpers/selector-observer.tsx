@@ -17,13 +17,15 @@ type Options = {
 };
 
 const animation = "rgf-selector-observer";
+let observerId = 0;
 
 const registerAnimation = onetime((): void => {
   document.head.append(<style>{`@keyframes ${animation} {}`}</style>);
 });
 
 function getSeenMark(selector: string): string {
-  return "rgf-seen-" + selector.replace(/[^a-z\d]/gi, "_").slice(0, 50);
+  observerId += 1;
+  return `rgf-seen-${observerId}-` + selector.replace(/[^a-z\d]/gi, "_").slice(0, 50);
 }
 
 export default function observe<Selector extends string>(
