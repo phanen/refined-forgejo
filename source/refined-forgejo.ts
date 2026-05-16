@@ -2,6 +2,7 @@ import "./features/reactions-avatars.js";
 import "./features/reactions-popup.js";
 import "./features/reload-failed-proxied-images.js";
 import "./features/actionable-pr-view-file.js";
+import "./features/prevent-comment-loss.js";
 import "./features/readable-title-change-events.js";
 import "./features/sort-conversations-by-update-time.js";
 import "./features/fit-textareas.js";

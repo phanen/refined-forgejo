@@ -259,7 +259,7 @@
 - [-] **prevent-link-loss** - 建议修复被 GitHub 错误缩短的链接
 - [-] **prevent-duplicate-pr-submission** - 防止重复创建 PR
 - [-] **command-palette-navigation-shortcuts** - ctrl+n/p 选择命令面板项目
-- [ ] **prevent-comment-loss** - 编辑评论时 preview 链接在新标签页打开
+- [x] **prevent-comment-loss** - 编辑评论时 preview 链接在新标签页打开
 - [-] **fix-no-pr-search** - 搜索不包含 is:pr 时重定向到仓库 issue 列表
 - [-] **clean-readme-url** - 移除 repo URL 中冗余的 readme-ov-file 参数
 - [-] **click-outside-modal** - 点击模态框外部关闭
