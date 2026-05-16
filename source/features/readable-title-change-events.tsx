@@ -24,9 +24,9 @@ function enhanceTitleChange(eventText: Element): void {
   eventText.textContent = "";
   eventText.append(
     <span className="rgf-title-change-summary">
-      {author}
-      {" changed title "}
-      {timestamp}
+      <span className="rgf-title-change-author">{author}</span>
+      <span className="rgf-title-change-verb">changed title</span>
+      <span className="rgf-title-change-time">{timestamp}</span>
     </span>,
     <span className="rgf-title-change-titles">
       {oldTitle}
