@@ -229,7 +229,7 @@
 
 - [x] **useful-not-found-page** - 🔥 404 页面添加可能的相关页面和替代选项
 - [ ] **selection-in-new-tab** - j/k 导航时 shift+o 在新标签页打开选中文本
-- [x] **close-out-of-view-modals** - 下拉菜单不可见时自动关闭
+- [-] **close-out-of-view-modals** - 下拉菜单不可见时自动关闭
 - [ ] **parse-backticks** - GitHub 忘记添加可点击的 backtick 文本
 - [ ] **action-used-by-link** - 查看当前 Action 的使用者
 - [ ] **improve-shortcut-help** - 在帮助弹窗（?）中显示所有 Refined GitHub 快捷键
@@ -249,23 +249,23 @@
 
 ### Fixes for GitHub shortcomings
 
-- [ ] **github-bugs** - 应用各种 CSS 修复
+- [-] **github-bugs** - 应用各种 CSS 修复
 - [x] **hide-navigation-hover-highlight** - 移除仓库文件浏览器的悬停效果
-- [ ] **clean-repo-sidebar** - 移除仓库侧边栏不必要的冗余信息
-- [ ] **linkify-branch-references** - 「Quick PR」页面中的分支引用可点击
+- [-] **clean-repo-sidebar** - 移除仓库侧边栏不必要的冗余信息 (TODO(revisit?): https://codeberg.org/forgejo/forgejo/issues/11914)
+- [-] **linkify-branch-references** - 「Quick PR」页面中的分支引用可点击
 - [ ] **actionable-pr-view-file** - PR 的「View file」指向分支而非 commit
 - [ ] **reload-failed-proxied-images** - 重试失败的图片下载
-- [ ] **unwrap-unnecessary-dropdowns** - 将 2 步下拉菜单改为 1 步
-- [ ] **prevent-link-loss** - 建议修复被 GitHub 错误缩短的链接
-- [ ] **prevent-duplicate-pr-submission** - 防止重复创建 PR
+- [-] **unwrap-unnecessary-dropdowns** - 将 2 步下拉菜单改为 1 步
+- [-] **prevent-link-loss** - 建议修复被 GitHub 错误缩短的链接
+- [-] **prevent-duplicate-pr-submission** - 防止重复创建 PR
 - [ ] **command-palette-navigation-shortcuts** - ctrl+n/p 选择命令面板项目
 - [ ] **prevent-comment-loss** - 编辑评论时 preview 链接在新标签页打开
-- [ ] **fix-no-pr-search** - 搜索不包含 is:pr 时重定向到仓库 issue 列表
-- [ ] **clean-readme-url** - 移除 repo URL 中冗余的 readme-ov-file 参数
-- [x] **click-outside-modal** - 点击模态框外部关闭
+- [-] **fix-no-pr-search** - 搜索不包含 is:pr 时重定向到仓库 issue 列表
+- [-] **clean-readme-url** - 移除 repo URL 中冗余的 readme-ov-file 参数
+- [-] **click-outside-modal** - 点击模态框外部关闭
 - [ ] **linkify-line-numbers** - GitHub 忘记添加行号链接的地方
 - [ ] **sidebar-focus-file** - 滚动文件树到当前文件
-- [ ] **no-modals** - 禁用降低用户体验的模态框
+- [-] **no-modals** - 禁用降低用户体验的模态框
 - [x] **same-page-links** - 不应该在 新标签页打开的链接
 - [ ] **linkify-text** - 使某些文本可点击，如 issue 标题中的引用
 - [ ] **new-milestone-button** - 里程碑页面添加「New Milestone」按钮
@@ -275,7 +275,7 @@
 - [x] **sticky-csv-header** - CSV/TSV 预览第一列横向滚动时固定
 - [x] **reactions-popup** - 改进评论反应弹窗为更小尺寸
 - [x] **readable-title-change-events** - 将标题变更事件的新旧标题堆叠显示
-- [ ] **cmd-enter** - 修复关闭 PR 上提交评论的 cmd+enter
+- [-] **cmd-enter** - 修复关闭 PR 上提交评论的 cmd+enter
 
 ---
 
