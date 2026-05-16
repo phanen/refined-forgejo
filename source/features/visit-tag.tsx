@@ -1,10 +1,16 @@
 import React from "dom-chef";
-import ArrowUpRightIcon from "octicons-plain-react/ArrowUpRight";
 
 import features from "../feature-manager.js";
 import { buildRepoUrl } from "../forgejo-helpers/index.js";
+import { svg } from "../forgejo-helpers/svg.js";
 import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
+
+const visitTagSvg = (() => {
+  const html = svg("octicon-arrow-up-right", 16);
+  const doc = new DOMParser().parseFromString(html, "image/svg+xml");
+  return doc.documentElement;
+})();
 
 function addVisitTagLink(branchSelector: Element): void {
   const container = branchSelector.closest(".js-branch-tag-selector");
@@ -26,7 +32,7 @@ function addVisitTagLink(branchSelector: Element): void {
       data-tooltip-content="Visit tag"
       aria-label="Visit tag"
     >
-      <ArrowUpRightIcon width={16} height={16} />
+      {visitTagSvg.cloneNode(true)}
     </a>
   );
 
