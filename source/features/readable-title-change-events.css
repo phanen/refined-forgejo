@@ -1,0 +1,18 @@
+.rgf-title-change-event {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.rgf-title-change-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.35rem;
+}
+
+.rgf-title-change-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  overflow-wrap: anywhere;
+}

@@ -274,7 +274,7 @@
 - [x] **sticky-file-header** - 滚动时文件头部固定
 - [x] **sticky-csv-header** - CSV/TSV 预览第一列横向滚动时固定
 - [x] **reactions-popup** - 改进评论反应弹窗为更小尺寸
-- [ ] **readable-title-change-events** - 将标题变更事件的新旧标题堆叠显示
+- [x] **readable-title-change-events** - 将标题变更事件的新旧标题堆叠显示
 - [ ] **cmd-enter** - 修复关闭 PR 上提交评论的 cmd+enter
 
 ---
