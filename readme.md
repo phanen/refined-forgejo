@@ -56,7 +56,7 @@
 - [x] **copy-on-y** - 增强 y 快捷键复制永久链接
 - [x] **linkify-symbolic-links** - 符号链接文件可点击
 - [-] **list-prs-for-file** - 当前文件被 PR 修改时提醒
-- [ ] **refined-github.css** - 将 tab 缩减为 4 空格
+- [+] **refined-github.css** - 将 tab 缩减为 4 空格
 - [ ] **esc-to-deselect-line** - 添加 esc 快捷键取消选择行
 - [ ] **vertical-front-matter** - 将 Markdown front matter 显示为垂直表格
 - [ ] **list-prs-for-branch** - 分支提交列表显示关联的 PR
@@ -270,7 +270,7 @@
 - [ ] **linkify-text** - 使某些文本可点击，如 issue 标题中的引用
 - [ ] **new-milestone-button** - 里程碑页面添加「New Milestone」按钮
 - [ ] **mark-private-repos** - 私有仓库用不同颜色高亮
-- [x] **tab-size** - 代码视图默认 tab 宽度从 8 减为 4
+- [+] **tab-size** - 代码视图默认 tab 宽度从 8 减为 4
 - [ ] **sticky-file-header** - 滚动时文件头部固定
 - [ ] **sticky-csv-header** - CSV/TSV 预览第一列横向滚动时固定
 - [ ] **reactions-popup** - 改进评论反应弹窗为更小尺寸
