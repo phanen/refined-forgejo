@@ -267,7 +267,7 @@
 - [-] **sidebar-focus-file** - 滚动文件树到当前文件
 - [-] **no-modals** - 禁用降低用户体验的模态框
 - [x] **same-page-links** - 不应该在 新标签页打开的链接
-- [ ] **linkify-text** - 使某些文本可点击，如 issue 标题中的引用
+- [+] **linkify-text** - 使某些文本可点击，如 issue 标题中的引用
 - [ ] **new-milestone-button** - 里程碑页面添加「New Milestone」按钮
 - [ ] **mark-private-repos** - 私有仓库用不同颜色高亮
 - [+] **tab-size** - 代码视图默认 tab 宽度从 8 减为 4
