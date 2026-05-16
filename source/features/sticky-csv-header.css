@@ -1,0 +1,19 @@
+.rgf-sticky-csv-header {
+  display: none;
+  overflow: hidden;
+  position: sticky;
+  z-index: 5;
+}
+
+.rgf-sticky-csv-header.rgf-sticky-csv-header-visible {
+  display: block;
+}
+
+.rgf-sticky-csv-header .data-table {
+  margin: 0;
+}
+
+.rgf-sticky-csv-header th {
+  background: var(--color-box-header);
+  background-clip: padding-box;
+}
