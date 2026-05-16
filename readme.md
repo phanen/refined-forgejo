@@ -269,7 +269,7 @@
 - [x] **same-page-links** - 不应该在 新标签页打开的链接
 - [+] **linkify-text** - 使某些文本可点击，如 issue 标题中的引用
 - [+] **new-milestone-button** - 里程碑页面添加「New Milestone」按钮
-- [ ] **mark-private-repos** - 私有仓库用不同颜色高亮
+- [-] **mark-private-repos** - 私有仓库用不同颜色高亮
 - [+] **tab-size** - 代码视图默认 tab 宽度从 8 减为 4
 - [x] **sticky-file-header** - 滚动时文件头部固定
 - [x] **sticky-csv-header** - CSV/TSV 预览第一列横向滚动时固定
