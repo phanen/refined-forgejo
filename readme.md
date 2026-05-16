@@ -263,7 +263,7 @@
 - [-] **fix-no-pr-search** - 搜索不包含 is:pr 时重定向到仓库 issue 列表
 - [-] **clean-readme-url** - 移除 repo URL 中冗余的 readme-ov-file 参数
 - [-] **click-outside-modal** - 点击模态框外部关闭
-- [ ] **linkify-line-numbers** - GitHub 忘记添加行号链接的地方
+- [-] **linkify-line-numbers** - GitHub 忘记添加行号链接的地方
 - [ ] **sidebar-focus-file** - 滚动文件树到当前文件
 - [-] **no-modals** - 禁用降低用户体验的模态框
 - [x] **same-page-links** - 不应该在 新标签页打开的链接
