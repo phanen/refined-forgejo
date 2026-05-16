@@ -47,6 +47,7 @@ import "./features/more-dropdown-links.js";
 import "./features/confirm-release.js";
 import "./features/link-to-changelog-file.js";
 import "./features/create-release-shortcut.js";
+import "./features/visit-tag.js";
 import "./features/tag-changes-link.js";
 import "./features/convert-release-to-draft.js";
 import "./features/pr-filters.js";
