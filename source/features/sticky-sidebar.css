@@ -3,4 +3,7 @@
   top: 20px;
   max-height: calc(100vh - 20px);
   overflow-y: auto;
+  overflow-x: clip;
+  min-width: 0;
+  max-width: 100%;
 }

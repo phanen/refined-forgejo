@@ -26,7 +26,6 @@ function toggleHoverState(event: MouseEvent): void {
 
 function trackSidebar(signal: AbortSignal, found: Element): void {
   sidebar = found as HTMLElement;
-  sidebar.style.height = "min-content";
 
   sidebarObserver.observe(sidebar);
   onAbort(signal, sidebarObserver, () => {
