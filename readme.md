@@ -86,7 +86,7 @@
 - [-] **embed-gist-inline** - 链接到单独行的短 gist 时内嵌显示
 - [ ] **comments-time-machine-links** - 添加浏览仓库和文件的历史版本链接
 - [x] **show-names** - 用户名旁显示真实姓名
-- [ ] **shorten-links** - 缩短 URL 为可读引用
+- [x] **shorten-links** - 缩短 URL 为可读引用
 - [ ] **preview-hidden-comments** - 🔥 悬停预览被折叠的评论
 - [ ] **highest-rated-comment** - 🔥 高亮最有用的评论
 - [ ] **hide-low-quality-comments** - 隐藏反应评论（「+1」「👍」等），维护者除外
