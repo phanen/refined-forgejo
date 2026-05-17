@@ -242,7 +242,7 @@
 ### Netiquette
 
 - [x] **netiquette** - 添加不显眼的网络礼仪提醒
-- [ ] **warn-pr-from-master** - 从默认分支创建 PR 时警告
+- [x] **warn-pr-from-master** - 从默认分支创建 PR 时警告
 - [ ] **warning-for-disallow-edits** - 取消「Allow edits from maintainers」时警告
 
 ---
