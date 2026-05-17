@@ -1,0 +1,13 @@
+.repository.view.issue.pull
+  .timeline-item.event:has(> .badge
+    .octicon-git-branch):has(> .text.grey.muted-links > b:only-of-type)
+  > .text.grey.muted-links
+  > b,
+.repository.view.issue.pull
+  .timeline-item.event:has(> .badge
+    .octicon-git-branch):has(> .text.grey.muted-links > b:only-of-type)
+  > .text.grey.muted-links
+  > b * {
+  text-decoration: line-through !important;
+  opacity: 0.65;
+}

@@ -41,6 +41,7 @@ import "./features/unclip-checks.js";
 import "./features/pr-approvals-count.js";
 import "./features/conflict-marker.js";
 import "./features/highlight-non-default-base-branch.js";
+import "./features/cross-deleted-pr-branches.js";
 import "./features/clean-pinned-issues.js";
 import "./features/conversation-authors.js";
 import "./features/clean-conversation-filters.js";
