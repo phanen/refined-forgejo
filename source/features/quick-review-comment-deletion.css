@@ -1,0 +1,16 @@
+.rgf-review-comment-delete-button {
+  background: var(--color-red) !important;
+  color: var(--color-text-focus) !important;
+  opacity: 1;
+}
+
+.rgf-review-comment-delete-button svg,
+.rgf-review-comment-delete-button .svg {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+.rgf-review-comment-delete-button:is(:hover, :focus) {
+  background: var(--color-red-dark-1) !important;
+  color: var(--color-text-focus) !important;
+}

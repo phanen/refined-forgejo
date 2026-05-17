@@ -70,6 +70,7 @@ import "./features/pr-filters.js";
 import "./features/linkify-code.js";
 import "./features/linkify-symbolic-links.js";
 import "./features/quick-comment-edit.js";
+import "./features/quick-review-comment-deletion.js";
 import "./features/one-click-diff-options.js";
 import "./features/pull-request-hotkeys.js";
 import "./features/keyboard-navigation.js";
