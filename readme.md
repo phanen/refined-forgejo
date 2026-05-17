@@ -230,8 +230,8 @@
 - [x] **useful-not-found-page** - 🔥 404 页面添加可能的相关页面和替代选项
 - [x] **selection-in-new-tab** - j/k 导航时 shift+o 在新标签页打开选中文本
 - [-] **close-out-of-view-modals** - 下拉菜单不可见时自动关闭
-- [ ] **parse-backticks** - GitHub 忘记添加可点击的 backtick 文本
-- [ ] **action-used-by-link** - 查看当前 Action 的使用者
+- [+] **parse-backticks** - GitHub 忘记添加可点击的 backtick 文本
+- [-] **action-used-by-link** - 查看当前 Action 的使用者
 - [x] **improve-shortcut-help** - 在帮助弹窗（?）中显示所有 Refined GitHub 快捷键 (in **help-modal**)
 - [x] **clean-footer** - 淡化页脚
 - [+] **night-not-found** - 404 页面添加深色模式
