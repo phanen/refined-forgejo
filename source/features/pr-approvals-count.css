@@ -1,0 +1,24 @@
+#issue-list .approvals,
+#issue-list .rejects,
+#issue-list .waiting,
+#issue-list .conflicting {
+  border-radius: 999px;
+  padding: 0 0.5rem;
+  font-weight: var(--font-weight-semibold);
+}
+
+#issue-list .approvals {
+  background: var(--color-green-alpha-20);
+  color: var(--color-green);
+}
+
+#issue-list .rejects,
+#issue-list .conflicting {
+  background: var(--color-red-alpha-20);
+  color: var(--color-red);
+}
+
+#issue-list .waiting {
+  background: var(--color-yellow-alpha-20);
+  color: var(--color-yellow);
+}
