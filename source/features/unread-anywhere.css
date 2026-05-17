@@ -1,0 +1,25 @@
+#navbar .rgf-unread-anywhere {
+  margin-inline-start: -4px;
+  margin-inline-end: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--color-nav-bg);
+  box-shadow: 0 0 0 1px var(--color-nav-bg);
+  color: var(--color-nav-foreground);
+  align-self: center;
+  z-index: 2;
+}
+
+#navbar .rgf-unread-anywhere:hover,
+#navbar .rgf-unread-anywhere:focus {
+  background: var(--color-nav-hover-bg);
+  box-shadow: 0 0 0 2px var(--color-nav-hover-bg);
+}
+
+#navbar .rgf-unread-anywhere .svg {
+  margin: 0;
+}

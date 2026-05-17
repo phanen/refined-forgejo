@@ -1,28 +1,29 @@
 import React from "dom-chef";
 
+import "./unread-anywhere.css";
+
 import features from "../feature-manager.js";
 import { pageDetect } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 function addButton(bell: Element): void {
-  const button = bell.parentElement?.querySelector(".rgf-unread-anywhere");
-  if (button) {
+  const parent = bell.parentElement;
+  if (!parent || parent.querySelector(".rgf-unread-anywhere")) {
     return;
   }
 
   bell.insertAdjacentElement(
     "afterend",
     <a
-      className="item not-mobile tw-mx-0 rgf-unread-anywhere"
+      className="rgf-unread-anywhere"
       href={`${location.origin}/notifications?q=unread`}
       data-tooltip-content="Open unread notifications"
       aria-label="Open unread notifications"
     >
-      <div className="notification-icon-relative">
-        <svg className="svg octicon-bell-fill" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-          <path d="M8 0a5 5 0 0 0-5 5v1.5c0 .7-.2 1.4-.6 2L1 11.5A1.5 1.5 0 0 0 2.3 14h11.4A1.5 1.5 0 0 0 15 11.5L13.6 8.5a4 4 0 0 1-.6-2V5a5 5 0 0 0-5-5Zm0 16a2 2 0 0 0 1.9-1.4H6.1A2 2 0 0 0 8 16Z" />
-        </svg>
-      </div>
+      <svg className="svg octicon-arrow-up-right" viewBox="0 0 16 16" width="10" height="10" aria-hidden="true">
+        <path d="M10.75 1.5a.75.75 0 0 0 0 1.5h1.69L7.22 8.22a.75.75 0 1 0 1.06 1.06L13.5 4.06v1.69a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5Z" />
+        <path d="M3.75 3.5A2.25 2.25 0 0 0 1.5 5.75v6.5a2.25 2.25 0 0 0 2.25 2.25h6.5a2.25 2.25 0 0 0 2.25-2.25v-3.5a.75.75 0 0 0-1.5 0v3.5c0 .414-.336.75-.75.75h-6.5a.75.75 0 0 1-.75-.75v-6.5c0-.414.336-.75.75-.75h3.5a.75.75 0 0 0 0-1.5h-3.5Z" />
+      </svg>
     </a>,
   );
 }
