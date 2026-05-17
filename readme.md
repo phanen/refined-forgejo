@@ -137,7 +137,7 @@
 - [ ] **hide-inactive-deployments** - 隐藏 PR 中不活跃的部署
 - [+] **previous-next-commit-buttons** - Commits 标签页底部添加导航按钮
 - [ ] **hidden-review-comments-indicator** - PR review 中有隐藏评论时显示指示器
-- [ ] **conflict-marker** - PR 列表中显示有冲突的 PR
+- [x] **conflict-marker** - PR 列表中显示有冲突的 PR
 - [ ] **pr-commit-lines-changed** - PR commits 添加差异统计
 - [ ] **cross-deleted-pr-branches** - 删除的分支添加删除线
 - [ ] **batch-mark-files-as-viewed** - PR Files 标签页批量标记已查看
