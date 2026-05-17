@@ -1,6 +1,7 @@
 import features from "../feature-manager.js";
 import { buildRepoUrl } from "../forgejo-helpers/index.js";
 import { registerHotkey } from "../github-helpers/hotkey.js";
+import getLoggedInUser from "../helpers/get-logged-in-user.js";
 import {
   hasRepoHeader,
   isDashboard,
@@ -9,27 +10,6 @@ import {
   isUserProfile,
 } from "../helpers/page-detect.js";
 
-function getProfileUrl(): string | undefined {
-  const menus = document.querySelectorAll<HTMLElement>(".navbar-right details.dropdown");
-  let userMenu: HTMLElement | undefined;
-  for (const menu of [...menus].reverse()) {
-    if (menu.querySelector(".content .header strong")) {
-      userMenu = menu;
-      break;
-    }
-  }
-
-  const profileLink = userMenu?.querySelector<HTMLAnchorElement>(
-    ".content ul > li > a[href^='/']:not(.link-action)",
-  );
-  if (profileLink) {
-    return profileLink.href;
-  }
-
-  const username = userMenu?.querySelector<HTMLElement>(".content .header strong")?.textContent?.trim();
-  return username ? `${location.origin}/${encodeURIComponent(username)}` : undefined;
-}
-
 function focusSearch(): void {
   const searchInput = document.querySelector<HTMLInputElement>(
     "input[name=\"q\"], .navbar-search input, .repo-search input",
@@ -37,8 +17,9 @@ function focusSearch(): void {
   searchInput?.focus();
 }
 
-function registerSharedHotkeys(signal: AbortSignal): void {
-  const profileUrl = getProfileUrl();
+async function registerSharedHotkeys(signal: AbortSignal): Promise<void> {
+  const username = await getLoggedInUser();
+  const profileUrl = username ? `${location.origin}/${encodeURIComponent(username)}` : undefined;
   if (profileUrl) {
     registerHotkey("g m", profileUrl, { signal });
   }
@@ -47,7 +28,7 @@ function registerSharedHotkeys(signal: AbortSignal): void {
 }
 
 // TODO(upstream): https://codeberg.org/forgejo/forgejo/pulls/12409
-function initRepoNavigation(signal: AbortSignal): void {
+async function initRepoNavigation(signal: AbortSignal): Promise<void> {
   registerHotkey("g h", buildRepoUrl(""), { signal });
   registerHotkey("g c", buildRepoUrl("commits"), { signal });
   registerHotkey("g i", buildRepoUrl("issues"), { signal });
@@ -59,13 +40,13 @@ function initRepoNavigation(signal: AbortSignal): void {
   registerHotkey("g w", buildRepoUrl("wiki"), { signal });
   registerHotkey("g s", buildRepoUrl("settings"), { signal });
 
-  registerSharedHotkeys(signal);
+  await registerSharedHotkeys(signal);
 }
 
-function initGlobalNavigation(signal: AbortSignal): void {
+async function initGlobalNavigation(signal: AbortSignal): Promise<void> {
   registerHotkey("g i", `${location.origin}/issues`, { signal });
   registerHotkey("g p", `${location.origin}/pulls`, { signal });
-  registerSharedHotkeys(signal);
+  await registerSharedHotkeys(signal);
 }
 
 void features.add(import.meta.url, {
