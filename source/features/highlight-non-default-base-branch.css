@@ -9,7 +9,8 @@
   color: var(--color-yellow-dark-1) !important;
 }
 
-#issue-list .issue-meta-branch .branch.rgf-deleted-pr-branch a {
-  text-decoration: line-through;
+#issue-list .issue-meta-branch .branch.rgf-deleted-pr-branch,
+#issue-list .issue-meta-branch .branch.rgf-deleted-pr-branch * {
+  text-decoration: line-through !important;
   opacity: 0.7;
 }
