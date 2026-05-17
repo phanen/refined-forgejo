@@ -14,13 +14,8 @@ function addConversationLinks(starLink: HTMLAnchorElement): void {
     return;
   }
 
-  const repoLink = item.querySelector<HTMLAnchorElement>(".flex-item-title > a.name[href]");
-  if (!repoLink) {
-    return;
-  }
-
-  const baseUrl = new URL(repoLink.href);
-  const repoBase = baseUrl.pathname.replace(/\/$/, "");
+  const baseUrl = new URL(starLink.href);
+  const repoBase = baseUrl.pathname.replace(/\/(stars|forks)$/, "");
   const issuesUrl = `${baseUrl.origin}${repoBase}/issues`;
   const pullsUrl = `${baseUrl.origin}${repoBase}/pulls`;
 
