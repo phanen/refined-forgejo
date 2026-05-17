@@ -72,6 +72,8 @@ import "./features/linkify-symbolic-links.js";
 import "./features/quick-comment-edit.js";
 import "./features/quick-review-comment-deletion.js";
 import "./features/one-click-diff-options.js";
+import "./features/avoid-accidental-submissions.js";
+import "./features/no-self-reference.js";
 import "./features/pull-request-hotkeys.js";
 import "./features/keyboard-navigation.js";
 import "./features/selection-in-new-tab.js";

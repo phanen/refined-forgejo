@@ -75,8 +75,8 @@
 - [+] **table-input** - 文本编辑器添加插入表格按钮
 - [x] **unfinished-comments** - 通知用户未完成的评论（在隐藏标签页中）
 - [x] **quick-review-comment-deletion** - 一键删除编辑中的 review 评论
-- [ ] **avoid-accidental-submissions** - 禁用 enter 提交（commit/PR/issue 标题），改用 ctrl+enter
-- [ ] **no-self-reference** - 警告自我引用链接
+- [x] **avoid-accidental-submissions** - 禁用 enter 提交（commit/PR/issue 标题），改用 ctrl+enter
+- [x] **no-self-reference** - 警告自我引用链接
 
 ---
 
