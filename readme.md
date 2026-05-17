@@ -20,7 +20,7 @@
 - [+] **swap-branches-on-compare** - 分支对比页添加交换分支链接
 - [x] **repo-age** - 侧边栏显示仓库年龄
 - [-] **show-open-prs-of-forks** - 在 fork 的仓库显示向原仓库的 PR 数量
-- [ ] **clean-repo-filelist-actions** - 压缩仓库文件列表按钮
+- [-] **clean-repo-filelist-actions** - 压缩仓库文件列表按钮
 - [+] **new-repo-disable-projects-and-wikis** - 创建仓库时自动禁用 projects 和 wikis
 - [x] **sticky-sidebar** - 侧边栏滚动时固定
 - [-] **link-to-github-io** - 从仓库跳转到用户的 github.io 页面
