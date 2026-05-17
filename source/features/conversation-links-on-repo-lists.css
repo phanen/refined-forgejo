@@ -1,0 +1,20 @@
+.rgf-repo-list-conversation-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-inline-start: 0.25rem;
+}
+
+.rgf-repo-list-conversation-links a {
+  color: var(--color-text) !important;
+  fill: currentColor !important;
+}
+
+.rgf-repo-list-conversation-links-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.rgf-repo-list-conversation-links a:hover {
+  color: var(--color-primary) !important;
+}
