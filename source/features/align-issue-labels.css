@@ -3,29 +3,35 @@
   border-top: 1px solid var(--color-secondary);
 }
 
-.flex-item-title {
+#issue-list .flex-item-title {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
   gap: 2px 0;
+  justify-content: flex-start;
 }
 
-.flex-item-title > .issue-title,
-.flex-item-title > a:first-child {
-  flex: 1 1 auto;
+#issue-list .flex-item-title > .issue-title,
+#issue-list .flex-item-title > a:first-child {
+  flex: 0 1 auto;
   min-width: 0;
 }
 
-.flex-item-title > .labels-list {
+#issue-list .flex-item-title > [data-tippy="commit-statuses"] {
+  flex: 0 0 auto;
+  margin-left: 4px;
+}
+
+#issue-list .flex-item-title > .labels-list {
   flex: 0 0 100%;
-  order: 1;
+  order: 2;
   margin-left: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 2px;
 }
 
-.flex-item-title > .labels-list .ui.label {
+#issue-list .flex-item-title > .labels-list .ui.label {
   font-size: 11px;
   margin: 0;
 }
