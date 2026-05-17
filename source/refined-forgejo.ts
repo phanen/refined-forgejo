@@ -58,6 +58,7 @@ import "./features/confirm-release.js";
 import "./features/link-to-changelog-file.js";
 import "./features/create-release-shortcut.js";
 import "./features/visit-tag.js";
+import "./features/quick-repo-deletion.js";
 import "./features/repo-wide-file-finder.js";
 import "./features/tag-changes-link.js";
 import "./features/convert-release-to-draft.js";
