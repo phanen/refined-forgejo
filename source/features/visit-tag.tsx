@@ -12,35 +12,33 @@ const visitTagSvg = (() => {
   return doc.documentElement;
 })();
 
-function addVisitTagLink(branchSelector: Element): void {
-  const container = branchSelector.closest(".js-branch-tag-selector");
+function addVisitTagLink(button: Element): void {
+  const container = button.closest(".button-sequence, .file-header-right, .repo-button-row");
   if (!container || container.querySelector(".rgf-visit-tag")) {
     return;
   }
 
-  const tag = branchSelector.querySelector("strong")?.textContent?.trim();
+  const tag = document.querySelector<HTMLElement>(".branch-dropdown-button strong")?.textContent?.trim();
   if (!tag) {
     return;
   }
 
-  container.classList.add("tw-flex", "tw-items-center");
-
-  const link = (
+  container.append(
     <a
-      className="rgf-visit-tag ui basic small compact button tw-flex tw-items-center tw-m-0 tw-ml-1"
+      className="rgf-visit-tag ui basic compact button"
       href={buildRepoUrl("releases", "tag", encodeURIComponent(tag))}
       data-tooltip-content="Visit tag"
       aria-label="Visit tag"
     >
       {visitTagSvg.cloneNode(true)}
-    </a>
+    </a>,
   );
-
-  container.append(link);
 }
 
 function init(signal: AbortSignal): void {
-  observe(".branch-dropdown-button:has(.octicon-tag)", addVisitTagLink, { signal });
+  observe(".branch-dropdown-button:has(.octicon-tag), .file-header-right .button-sequence", addVisitTagLink, {
+    signal,
+  });
 }
 
 void features.add(import.meta.url, {
