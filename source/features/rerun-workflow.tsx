@@ -1,73 +1,63 @@
-import { $ } from "select-dom";
+import React from "dom-chef";
 
 import features from "../feature-manager.js";
 import { registerHotkey } from "../github-helpers/hotkey.js";
+import { pageDetect } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 function rerunAllJobs(): void {
-  const rerunButton = $("button[class*='rerun'], button[title*='rerun' i], a[href*='rerun']") as
-    | HTMLButtonElement
-    | null;
-  if (rerunButton) {
-    rerunButton.click();
-  }
+  const rerunAllButton = document.querySelector<HTMLButtonElement>(
+    ".action-info-summary-actions .link-action[data-url$='/rerun']",
+  );
+  rerunAllButton?.click();
 }
 
 function rerunFailedJobs(): void {
-  const failedButton = $("button[class*='failed'], button[title*='failed' i]") as HTMLButtonElement | null;
-  if (failedButton) {
-    failedButton.click();
+  const failedRerunButtons = document.querySelectorAll<HTMLElement>(
+    ".job-brief-item .octicon-x-circle-fill",
+  );
+
+  for (const icon of failedRerunButtons) {
+    icon.closest(".job-brief-item")?.querySelector<HTMLElement>(".job-brief-rerun")?.click();
   }
 }
 
-function replaceRerunDropdown(menu: Element, { signal }: { signal?: AbortSignal }): void {
-  const menuButton = menu.querySelector("button, a");
-  if (!menuButton?.textContent?.trim().toLowerCase().includes("rerun")) {
+function addRerunFailedButton(container: Element): void {
+  if (container.querySelector(".rgf-rerun-failed-btn")) {
     return;
   }
 
+  const rerunAllButton = container.querySelector<HTMLButtonElement>(".link-action[data-url$='/rerun']");
+  if (!rerunAllButton) {
+    return;
+  }
+
+  const rerunFailedBtn = (
+    <button
+      type="button"
+      className="ui basic small compact button rgf-rerun-failed-btn"
+      onClick={rerunFailedJobs}
+    >
+      Rerun failed
+    </button>
+  );
+
+  rerunAllButton.before(rerunFailedBtn);
+}
+
+function init(signal: AbortSignal): void {
+  observe(".action-info-summary-actions", addRerunFailedButton, { signal });
   registerHotkey("r f", rerunFailedJobs, { signal });
   registerHotkey("r a", rerunAllJobs, { signal });
-
-  const container = menu.parentElement;
-  if (!container) {
-    return;
-  }
-
-  const rerunAllBtn = document.createElement("button");
-  rerunAllBtn.className = "btn btn-sm rgf-rerun-btn";
-  rerunAllBtn.textContent = "Rerun all";
-  rerunAllBtn.addEventListener("click", rerunAllJobs);
-
-  const rerunFailedBtn = document.createElement("button");
-  rerunFailedBtn.className = "btn btn-sm btn-secondary rgf-rerun-failed-btn";
-  rerunFailedBtn.textContent = "Rerun failed";
-  rerunFailedBtn.addEventListener("click", rerunFailedJobs);
-
-  container.append(rerunAllBtn);
-  container.append(rerunFailedBtn);
-  menu.classList.add("d-none");
 }
 
-async function init(signal: AbortSignal): Promise<void> {
-  observe(
-    "[class*='dropdown'], [class*='menu'], action-menu, details[class*='menu']",
-    replaceRerunDropdown,
-    { signal },
-  );
-}
-
-features.add(import.meta.url, {
+void features.add(import.meta.url, {
   shortcuts: {
     "r f": "Re-run failed jobs",
     "r a": "Re-run all jobs",
   },
-  include: [() => location.pathname.includes("/actions/runs/")],
+  include: [
+    pageDetect.isActionRun,
+  ],
   init,
 });
-
-/*
-Test URLs:
-
-- https://codeberg.org/ziglang/zig/actions
-*/
