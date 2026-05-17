@@ -30,6 +30,7 @@ import "./features/sticky-conversation-list-toolbar.js";
 import "./features/sticky-file-header.js";
 import "./features/sticky-csv-header.js";
 import "./features/sticky-comment-header.js";
+import "./features/one-key-formatting.js";
 import "./features/ci-link.js";
 import "./features/repo-header-info.js";
 import "./features/small-user-avatars.js";
