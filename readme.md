@@ -215,13 +215,13 @@
 ### Notifications
 
 - [x] **open-all-notifications** - 通知页面添加一键打开所有未读通知
-- [ ] **unread-anywhere** - 🔥 全局 header 添加按钮在任何页面打开未读通知
+- [x] **unread-anywhere** - 🔥 全局 header 添加按钮在任何页面打开未读通知
 - [-] **select-all-notifications-shortcut** - 快捷键 a 全选通知
 - [-] **stop-redirecting-in-notification-bar** - 按住 alt 时阻止从通知栏重定向
 - [-] **last-notification-page-button** - 添加到通知最后一页的链接
-- [ ] **pr-notification-link** - PR 通知指向 Conversation 标签而非 commits 页面
-- [ ] **sticky-notifications-actions** - 通知操作栏固定
-- [ ] **clean-notifications** - 按仓库分组时通知列表更紧凑
+- [x] **pr-notification-link** - PR 通知指向 Conversation 标签而非 commits 页面
+- [x] **sticky-notifications-actions** - 通知操作栏固定
+- [-] **clean-notifications** - 按仓库分组时通知列表更紧凑
 
 ---
 

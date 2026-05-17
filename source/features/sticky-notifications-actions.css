@@ -1,0 +1,11 @@
+@media (height >= 500px) {
+  #notification_div
+    > .ui.container
+    > .tw-flex.tw-items-center.tw-justify-between {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding-bottom: 0.5rem;
+    background: var(--color-body);
+  }
+}
