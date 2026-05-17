@@ -26,6 +26,7 @@ import "./features/suggest-commit-title-limit.js";
 import "./features/new-or-deleted-file.js";
 import "./features/easy-toggle-files.js";
 import "./features/profile-gists-link.js";
+import "./features/user-profile-follower-badge.js";
 import "./features/mark-private-orgs.js";
 import "./features/sticky-conversation-list-toolbar.js";
 import "./features/sticky-file-header.js";

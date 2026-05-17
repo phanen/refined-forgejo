@@ -201,7 +201,7 @@
 
 ### Profiles
 
-- [ ] **user-profile-follower-badge** - 显示用户是否关注你
+- [x] **user-profile-follower-badge** - 显示用户是否关注你
 - [-] **profile-gists-link** - 用户资料页添加公开 gists 链接
 - [+] **mark-private-orgs** - 在你的资料页标记私有组织
 - [x] **profile-hotkey** - 添加快捷键 g m 访问自己资料页 (in **navigation-hotkeys**)
