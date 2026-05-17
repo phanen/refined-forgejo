@@ -83,7 +83,7 @@
 ### Reading comments
 
 - [x] **reactions-avatars** - 🔥 显示评论反应者的头像
-- [ ] **embed-gist-inline** - 链接到单独行的短 gist 时内嵌显示
+- [-] **embed-gist-inline** - 链接到单独行的短 gist 时内嵌显示
 - [ ] **comments-time-machine-links** - 添加浏览仓库和文件的历史版本链接
 - [ ] **show-names** - 用户名旁显示真实姓名
 - [ ] **shorten-links** - 缩短 URL 为可读引用
@@ -159,7 +159,7 @@
 - [ ] **one-click-review-submission** - 一键审核（Approve/Reject）
 - [x] **pull-request-hotkeys** - 添加快捷键循环切换 PR 标签页
 - [ ] **pr-branch-auto-delete** - 合并 PR 后自动删除分支
-- [ ] **one-click-pr-or-gist** - 一键创建 draft PR 或 public gist
+- [-] **one-click-pr-or-gist** - 一键创建 draft PR 或 public gist
 - [ ] **clear-pr-merge-commit-message** - 清理 PR 合并消息中的冗余信息
 - [ ] **quick-review** - PR 侧边栏添加快速审核按钮
 - [ ] **pr-first-commit-title** - 用第一个 commit 作为新 PR 的标题和描述
