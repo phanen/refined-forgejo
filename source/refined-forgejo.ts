@@ -48,6 +48,7 @@ import "./features/repo-age.js";
 import "./features/rerun-workflow.js";
 import "./features/close-out-of-view-modals.js";
 import "./features/esc-to-cancel.js";
+import "./features/unfinished-comments.js";
 import "./features/same-page-links.js";
 import "./features/clean-readme-url.js";
 import "./features/new-milestone-button.js";
