@@ -1,9 +1,21 @@
-.rgf-actions-cancel-btn,
-.rgf-actions-delete-btn {
-  color: var(--color-fg-muted);
+.rgf-actions-run-removal-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
 }
 
-.rgf-actions-cancel-btn:is(:hover, :focus),
-.rgf-actions-delete-btn:is(:hover, :focus) {
+.rgf-actions-run-removal-btn {
+  color: var(--color-text) !important;
+  opacity: 1;
+}
+
+.rgf-actions-run-removal-btn svg,
+.rgf-actions-run-removal-btn .svg {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+.rgf-actions-run-removal-btn:is(:hover, :focus) {
   color: var(--color-red) !important;
 }

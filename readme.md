@@ -33,7 +33,7 @@
 - [+] **action-pr-link** - 显示运行 workflow 的 PR 链接
 - [x] **repo-header-info** - 显示 fork 状态和 star 数量
 - [x] **visit-tag** - 查看特定 tag 的文件时添加跳转到 release/tag 的链接
-- [ ] **actions-run-removal** - 更快地取消/删除 workflow runs
+- [x] **actions-run-removal** - 更快地取消/删除 workflow runs
 - [ ] **rerun-workflow** - 展开单独的重跑按钮，添加键盘快捷键 r f
 
 ---

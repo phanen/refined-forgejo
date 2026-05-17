@@ -5,64 +5,70 @@ import SquareCircleIcon from "octicons-plain-react/SquareCircle";
 import TrashIcon from "octicons-plain-react/Trash";
 
 import features from "../feature-manager.js";
+import { pageDetect } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-function addQuickButtons(kebabButton: Element): void {
-  const row = kebabButton.closest(".job, .run, .box-row, [class*='run'], tr");
-  if (!row) {
+function getRunLink(row: Element): string | null {
+  return row.querySelector<HTMLAnchorElement>(".flex-item-title[href*='/actions/runs/']")?.href ?? null;
+}
+
+function isRunningRun(row: Element): boolean {
+  return !!row.querySelector(".octicon-meter, .octicon-clock, .octicon-blocked");
+}
+
+function addQuickButtons(row: Element): void {
+  if (row.querySelector(".rgf-actions-run-removal-buttons")) {
     return;
   }
 
-  const cancelForm = row.querySelector("form[action*='cancel']") as HTMLFormElement | null;
-  const deleteButton = row.querySelector("button[class*='delete'], button[title*='delete' i]") as
-    | HTMLButtonElement
-    | null;
-
-  if (cancelForm && !row.querySelector(".rgf-actions-cancel-btn")) {
-    const btn = document.createElement("button");
-    btn.className = "rgf-actions-cancel-btn timeline-comment-action btn-link p-1";
-    btn.setAttribute("aria-label", "Cancel workflow run");
-    btn.type = "submit";
-    btn.formAction = cancelForm.action;
-    btn.append(<SquareCircleIcon />);
-    btn.addEventListener("click", () => {
-      setTimeout(() => cancelForm.requestSubmit(), 0);
-    });
-    row.append(btn);
+  const runLink = getRunLink(row);
+  if (!runLink) {
+    return;
   }
 
-  if (deleteButton && !row.querySelector(".rgf-actions-delete-btn")) {
-    const btn = document.createElement("button");
-    btn.className = "rgf-actions-delete-btn timeline-comment-action btn-link p-1";
-    btn.setAttribute("aria-label", "Delete workflow run");
-    btn.append(<TrashIcon />);
-    btn.addEventListener("click", () => {
-      deleteButton.click();
-    });
-    row.append(btn);
+  const trailing = row.querySelector(".flex-item-trailing");
+  if (!trailing) {
+    return;
   }
+
+  const buttons = document.createElement("span");
+  buttons.className = "rgf-actions-run-removal-buttons";
+
+  if (isRunningRun(row)) {
+    buttons.append(
+      <button
+        type="button"
+        className="btn interact-bg tw-p-2 rgf-actions-run-removal-btn link-action"
+        data-url={`${runLink}/cancel`}
+        aria-label="Cancel workflow run"
+      >
+        <SquareCircleIcon />
+      </button>,
+    );
+  } else {
+    buttons.append(
+      <button
+        type="button"
+        className="btn interact-bg tw-p-2 rgf-actions-run-removal-btn link-action"
+        data-url={`${runLink}/delete`}
+        data-modal-confirm="Delete workflow run?"
+        aria-label="Delete workflow run"
+      >
+        <TrashIcon />
+      </button>,
+    );
+  }
+
+  trailing.append(buttons);
 }
 
-async function init(signal: AbortSignal): Promise<void> {
-  observe(
-    [
-      ".octicon-kebab-horizontal",
-      "[class*='kebab']",
-      "[class*='menu']",
-      "[class*='more']",
-    ].join(","),
-    addQuickButtons,
-    { signal },
-  );
+function init(signal: AbortSignal): void {
+  observe(".run-list .flex-item", addQuickButtons, { signal });
 }
 
-features.add(import.meta.url, {
-  include: [() => location.pathname.includes("/actions/")],
+void features.add(import.meta.url, {
+  include: [
+    pageDetect.isAction,
+  ],
   init,
 });
-
-/*
-Test URLs:
-
-- https://codeberg.org/ziglang/zig/actions
-*/
