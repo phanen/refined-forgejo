@@ -1,0 +1,9 @@
+.rgf-show-names {
+  color: inherit;
+  margin-inline-start: 0.25em;
+  white-space: nowrap;
+}
+
+.rgf-show-names .rgf-show-names-full-name {
+  color: var(--color-text, var(--color-fg-muted));
+}
