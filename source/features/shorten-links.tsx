@@ -96,6 +96,26 @@ function formatRepoPath(owner: string, repo: string, rest: string[], url: URL): 
   return `${owner}/${repo}/${rest.join("/")}${url.search}${url.hash}`;
 }
 
+function appendTrailingSuffix(link: HTMLAnchorElement, suffixes: string[]): string | undefined {
+  const nextSibling = link.nextSibling;
+  if (!(nextSibling instanceof Text)) {
+    return undefined;
+  }
+
+  const suffix = suffixes.find(candidate => nextSibling.nodeValue?.startsWith(candidate));
+  if (!suffix) {
+    return undefined;
+  }
+
+  const nextValue = nextSibling.nodeValue ?? "";
+  nextSibling.nodeValue = nextValue.slice(suffix.length);
+  if (nextSibling.nodeValue.length === 0) {
+    nextSibling.remove();
+  }
+
+  return suffix;
+}
+
 function shortenLink(link: HTMLAnchorElement): void {
   if (link.dataset.rgfShortened === "done") {
     return;
@@ -152,16 +172,19 @@ function shortenLink(link: HTMLAnchorElement): void {
     readable = stripProtocol(url);
   }
 
-  if (readable === text) {
+  const suffix = appendTrailingSuffix(link, [".diff", ".patch"]);
+
+  if (readable === text && !suffix) {
     return;
   }
 
-  link.title = text;
+  link.title = text + (suffix ?? "");
   if (isCodeWrappedLink && codeChild) {
-    codeChild.textContent = readable;
+    codeChild.textContent = readable + (suffix ?? "");
   } else {
-    link.textContent = readable;
+    link.textContent = readable + (suffix ?? "");
   }
+
   link.dataset.rgfShortened = "done";
 }
 
