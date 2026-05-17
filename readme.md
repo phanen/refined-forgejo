@@ -26,7 +26,7 @@
 - [-] **link-to-github-io** - 从仓库跳转到用户的 github.io 页面
 - [+] **github-actions-indicators** - 工作流侧边栏显示手动触发和下次执行时间
 - [x] **quick-repo-deletion** - 简化仓库删除，0-star repos 添加删除 fork 按钮
-- [ ] **archive-forks-link** - 在归档仓库中查找 forks
+- [x] **archive-forks-link** - 在归档仓库中查找 forks
 - [-] **clean-repo-tabs** - 将 Security/Insights 移入仓库导航下拉菜单
 - [+] **repo-avatars** - 公共仓库头部显示头像
 - [x] **small-user-avatars** - issue/PR 列表中用户名旁显示小头像
