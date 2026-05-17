@@ -71,7 +71,7 @@
 - [x] **quick-comment-edit** - 一键编辑评论
 - [x] **one-key-formatting** - 按 Markdown 符号时替换选中文本而非包裹
 - [x] **clean-rich-text-editor** - 隐藏不必要的评论编辑器提示和工具栏
-- [ ] **quick-mention** - 在 issue/PR 中添加 @mention 按钮
+- [x] **quick-mention** - 在 issue/PR 中添加 @mention 按钮
 - [+] **table-input** - 文本编辑器添加插入表格按钮
 - [x] **unfinished-comments** - 通知用户未完成的评论（在隐藏标签页中）
 - [ ] **quick-review-comment-deletion** - 一键删除编辑中的 review 评论

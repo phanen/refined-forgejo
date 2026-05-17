@@ -1,0 +1,18 @@
+.comment-header-right.actions > .rgf-quote-reply-button {
+  order: -1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  background: transparent !important;
+  color: inherit !important;
+  opacity: 1;
+}
+
+.comment-header-right.actions > .rgf-quote-reply-button svg {
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  color: inherit !important;
+  fill: currentColor !important;
+}

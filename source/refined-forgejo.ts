@@ -36,6 +36,7 @@ import "./features/repo-header-info.js";
 import "./features/small-user-avatars.js";
 import "./features/quick-file-edit.js";
 import "./features/tab-size.js";
+import "./features/quick-mention.js";
 import "./features/clean-pinned-issues.js";
 import "./features/conversation-authors.js";
 import "./features/clean-conversation-filters.js";
