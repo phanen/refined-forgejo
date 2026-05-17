@@ -3,30 +3,44 @@ import { getToken } from "../options-storage.js";
 
 const apiUrl = () => `${location.origin}/api/v1/`;
 
+function toRequestUrl(path: string): string {
+  if (path.startsWith("http://") || path.startsWith("https://")) {
+    return path;
+  }
+
+  if (path.startsWith("/")) {
+    return new URL(path, location.origin).href;
+  }
+
+  return new URL(path, apiUrl()).href;
+}
+
 export type ApiOptions = {
   ignoreHttpStatus?: boolean;
   method?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
   body?: unknown;
   headers?: HeadersInit;
   signal?: AbortSignal;
+  responseType?: "json" | "text";
 };
 
 async function apiFetch(
   path: string,
   options: ApiOptions = {},
 ): Promise<unknown> {
-  const { ignoreHttpStatus = false, method = "GET", body, headers = {}, signal } = options;
+  const { ignoreHttpStatus = false, method = "GET", body, headers = {}, signal, responseType = "json" } = options;
 
   const token = await getToken();
   const authHeaders: HeadersInit = token ? { Authorization: `token ${token}` } : {};
 
-  const url = new URL(path, apiUrl());
-  const response = await fetch(url.href, {
+  const response = await fetch(toRequestUrl(path), {
     method,
     body: body ? JSON.stringify(body) : undefined,
     headers: {
       "Content-Type": "application/json",
-      accept: "application/json",
+      accept: responseType === "text"
+        ? "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+        : "application/json",
       ...authHeaders,
       ...headers,
     },
@@ -34,7 +48,7 @@ async function apiFetch(
   });
 
   const text = await response.text();
-  const data = text ? JSON.parse(text) : {};
+  const data = responseType === "text" ? text : text ? JSON.parse(text) : {};
 
   if (response.ok || ignoreHttpStatus) {
     return data;
