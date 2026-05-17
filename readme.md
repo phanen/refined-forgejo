@@ -84,7 +84,7 @@
 
 - [x] **reactions-avatars** - 🔥 显示评论反应者的头像
 - [-] **embed-gist-inline** - 链接到单独行的短 gist 时内嵌显示
-- [ ] **comments-time-machine-links** - 添加浏览仓库和文件的历史版本链接
+- [x] **comments-time-machine-links** - 添加浏览仓库和文件的历史版本链接
 - [x] **show-names** - 用户名旁显示真实姓名
 - [x] **shorten-links** - 缩短 URL 为可读引用
 - [ ] **preview-hidden-comments** - 🔥 悬停预览被折叠的评论
