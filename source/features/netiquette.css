@@ -1,0 +1,36 @@
+.rgf-netiquette-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--color-border-muted);
+  border-radius: var(--border-radius);
+  background: var(--color-bg-secondary);
+  color: var(--color-fg);
+  white-space: nowrap;
+}
+
+.rgf-netiquette-banner:hover {
+  border-color: var(--color-border);
+  background: var(--color-bg-tertiary);
+}
+
+.rgf-netiquette-banner-icon {
+  flex: 0 0 auto;
+  color: var(--color-fg) !important;
+  fill: currentColor !important;
+  margin-top: 0.1rem;
+}
+
+.rgf-netiquette-banner-body {
+  min-width: 0;
+}
+
+.rgf-netiquette-banner-text {
+  color: var(--color-fg-muted);
+}
+
+.rgf-netiquette-banner-text a {
+  font-weight: 600;
+}
