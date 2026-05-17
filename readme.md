@@ -207,7 +207,7 @@
 - [x] **profile-hotkey** - 添加快捷键 g m 访问自己资料页 (in **navigation-hotkeys**)
 - [x] **show-user-top-repositories** - 添加用户最多 star 的仓库链接
 - [x] **hide-user-forks** - 默认隐藏 fork 和归档的仓库
-- [ ] **linkify-user-location** - hovercard 和资料页的用户位置可点击
+- [x] **linkify-user-location** - hovercard 和资料页的用户位置可点击
 - [x] **conversation-links-on-repo-lists** - 用户资料仓库标签页和全局搜索添加工具链接
 
 ---

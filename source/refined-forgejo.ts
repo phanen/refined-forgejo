@@ -28,6 +28,7 @@ import "./features/easy-toggle-files.js";
 import "./features/profile-gists-link.js";
 import "./features/user-profile-follower-badge.js";
 import "./features/mark-private-orgs.js";
+import "./features/linkify-user-location.js";
 import "./features/sticky-conversation-list-toolbar.js";
 import "./features/sticky-file-header.js";
 import "./features/sticky-csv-header.js";
