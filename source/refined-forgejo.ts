@@ -84,6 +84,7 @@ import "./features/quick-review-comment-deletion.js";
 import "./features/one-click-diff-options.js";
 import "./features/avoid-accidental-submissions.js";
 import "./features/warn-pr-from-master.js";
+import "./features/warning-for-disallow-edits.js";
 import "./features/no-self-reference.js";
 import "./features/pull-request-hotkeys.js";
 import "./features/keyboard-navigation.js";
