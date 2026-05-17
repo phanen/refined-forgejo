@@ -2,11 +2,17 @@ import features from "../feature-manager.js";
 import { isConversation, isNewIssue, isPRFiles } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
+function normalizePathname(pathname: string): string {
+  return pathname.replace(/\/pulls\/(\d+)(?:\/.*)?$/, "/issues/$1");
+}
+
 function underlineSelfReference(link: HTMLAnchorElement): void {
   const current = new URL(location.href);
   const target = new URL(link.href);
+  const currentPathname = normalizePathname(current.pathname);
+  const targetPathname = normalizePathname(target.pathname);
 
-  if (current.origin !== target.origin || current.pathname !== target.pathname || current.search !== target.search) {
+  if (current.origin !== target.origin || currentPathname !== targetPathname || current.search !== target.search) {
     return;
   }
 
