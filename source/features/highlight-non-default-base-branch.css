@@ -1,0 +1,15 @@
+#issue-list .issue-meta-branch .branch.rgf-non-default-base-branch {
+  background: var(--color-yellow-badge-bg) !important;
+  border: 1px solid var(--color-yellow-badge) !important;
+  border-radius: var(--border-radius);
+  padding-inline: 0.25rem;
+}
+
+#issue-list .issue-meta-branch .branch.rgf-non-default-base-branch a {
+  color: var(--color-yellow-dark-1) !important;
+}
+
+#issue-list .issue-meta-branch .branch.rgf-deleted-pr-branch a {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
