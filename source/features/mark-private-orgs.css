@@ -1,0 +1,16 @@
+.rgf-private-org {
+  position: relative;
+  display: inline-flex;
+}
+
+.rgf-private-org-icon {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  z-index: 1;
+  background: var(--color-body);
+  border-radius: 999px;
+  color: var(--color-orange-dark-1) !important;
+  fill: currentColor !important;
+  pointer-events: none;
+}

@@ -203,7 +203,7 @@
 
 - [ ] **user-profile-follower-badge** - 显示用户是否关注你
 - [-] **profile-gists-link** - 用户资料页添加公开 gists 链接
-- [ ] **mark-private-orgs** - 在你的资料页标记私有组织
+- [+] **mark-private-orgs** - 在你的资料页标记私有组织
 - [x] **profile-hotkey** - 添加快捷键 g m 访问自己资料页 (in **navigation-hotkeys**)
 - [ ] **show-user-top-repositories** - 添加用户最多 star 的仓库链接
 - [x] **hide-user-forks** - 默认隐藏 fork 和归档的仓库
