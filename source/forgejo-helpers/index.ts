@@ -6,9 +6,17 @@ export type RepositoryInfo = {
   pathParts: string[];
 };
 
+const reservedTopLevelPaths = new Set([
+  "explore",
+]);
+
 export function getRepo(): RepositoryInfo | undefined {
   const match = location.pathname.match(/^\/(?:repo\/)?([^/]+)\/([^/]+)/);
   if (!match) {
+    return undefined;
+  }
+
+  if (reservedTopLevelPaths.has(match[1])) {
     return undefined;
   }
 
