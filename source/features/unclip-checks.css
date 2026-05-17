@@ -1,0 +1,4 @@
+.rgf-unclip-checks .commit-status-list {
+  max-height: none !important;
+  overflow: visible !important;
+}
