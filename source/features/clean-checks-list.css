@@ -1,0 +1,17 @@
+.commit-status-list .commit-status-item {
+  align-items: flex-start;
+  height: auto;
+  padding-block: 8px;
+}
+
+.commit-status-list .status-context {
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  flex: 1;
+}
+
+.commit-status-list .status-details {
+  margin-inline-start: auto;
+  white-space: nowrap;
+}

@@ -38,6 +38,7 @@ import "./features/quick-file-edit.js";
 import "./features/tab-size.js";
 import "./features/quick-mention.js";
 import "./features/unclip-checks.js";
+import "./features/clean-checks-list.js";
 import "./features/pr-approvals-count.js";
 import "./features/conflict-marker.js";
 import "./features/highlight-non-default-base-branch.js";

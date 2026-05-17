@@ -147,7 +147,7 @@
 - [ ] **view-last-pr-deployment** - PR 头部添加打开最新部署的链接
 - [ ] **no-unnecessary-split-diff-view** - 文件 split diff 无用时始终使用 unified diffs
 - [+] **emphasize-draft-pr-label** - 更容易区分列表中的 draft PR
-- [ ] **clean-checks-list** - 优先显示失败和待定的检查，展开长的检查名称
+- [x] **clean-checks-list** - 优先显示失败和待定的检查，展开长的检查名称
 - [ ] **mobile-tabs-pr** - PR 标签页适配移动端
 
 ---
