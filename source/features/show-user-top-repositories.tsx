@@ -1,25 +1,39 @@
-import React from "dom-chef";
-
 import features from "../feature-manager.js";
 import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-function addLink(title: Element): void {
-  if (title.querySelector(".rgf-top-repos-link")) {
+function addLink(form: HTMLFormElement): void {
+  if (form.querySelector(".rgf-top-repositories")) {
     return;
   }
 
-  const url = new URL(location.pathname, location.href);
+  if (!form.querySelector("input[name='tab'][value='repositories']")) {
+    return;
+  }
+
+  const filterMenu = form.querySelector(".ui.small.dropdown.type.jump.item");
+  if (!filterMenu) {
+    return;
+  }
+
+  const url = new URL(location.href);
   url.search = new URLSearchParams({
     tab: "repositories",
-    sort: "stars",
+    sort: "moststars",
   }).toString();
 
-  title.firstChild!.after(" / ", <a className="rgf-top-repos-link" href={url.href}>Top repositories</a>);
+  filterMenu.insertAdjacentHTML(
+    "beforebegin",
+    `<a class="ui small basic button rgf-top-repositories" href="${url.href}">Top repositories</a>`,
+  );
 }
 
 function init(signal: AbortSignal): void {
-  observe(".js-pinned-items-reorder-container h2, .profile-repo-button-group, [class*='pinned'] h2", addLink, {
+  observe("#repo-search-form", element => {
+    if (element instanceof HTMLFormElement) {
+      addLink(element);
+    }
+  }, {
     signal,
   });
 }
