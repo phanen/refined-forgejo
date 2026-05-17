@@ -17,13 +17,16 @@ function focusSearch(): void {
   searchInput?.focus();
 }
 
-async function registerSharedHotkeys(signal: AbortSignal): Promise<void> {
-  const username = await getLoggedInUser();
-  const profileUrl = username ? `${location.origin}/${encodeURIComponent(username)}` : undefined;
-  if (profileUrl) {
-    registerHotkey("g m", profileUrl, { signal });
-  }
+function goToProfile(): void {
+  void getLoggedInUser().then(username => {
+    if (username) {
+      location.assign(`${location.origin}/${encodeURIComponent(username)}`);
+    }
+  });
+}
 
+function registerSharedHotkeys(signal: AbortSignal): void {
+  registerHotkey("g m", goToProfile, { signal });
   registerHotkey("s", focusSearch, { signal });
 }
 
@@ -70,6 +73,7 @@ void features.add(import.meta.url, {
   init: initRepoNavigation,
 }, {
   include: [
+    () => location.pathname === "/explore/repos",
     isDashboard,
     isGlobalIssueList,
     isGlobalPRList,
