@@ -7,19 +7,22 @@ function addSourceTypeToLink(link: Element): void {
   const anchor = link as HTMLAnchorElement;
   const url = new URL(anchor.href);
 
-  if (url.searchParams.has("type")) {
+  if (url.searchParams.has("fork") || url.searchParams.has("archived")) {
     return;
   }
 
-  if (url.pathname.includes("/repositories") || url.pathname.match(/^\/[^\/]+\/[^\/]+\/?$/)) {
-    url.searchParams.set("type", "source");
-    anchor.href = url.href;
+  if (url.searchParams.get("tab") !== "repositories") {
+    return;
   }
+
+  url.searchParams.set("fork", "0");
+  url.searchParams.set("archived", "0");
+  anchor.href = url.href;
 }
 
 function initOnce(): void {
   observe(
-    "a[href*='?tab=repositories'], a[href*='/repositories']",
+    "a[href*='tab=repositories']",
     addSourceTypeToLink,
   );
 }
