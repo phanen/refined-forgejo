@@ -1,0 +1,42 @@
+.rgf-preview-hidden-comments {
+  display: block;
+  max-width: 100%;
+  color: var(--color-text-secondary, var(--color-fg-muted));
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rgf-preview-hidden-comments:hover {
+  text-decoration: underline;
+}
+
+.comment.rgf-preview-hidden-comments-active .comment-header {
+  display: flex;
+  align-items: center;
+}
+
+.comment.rgf-preview-hidden-comments-active
+  .comment-header
+  > :not(.rgf-preview-hidden-comments) {
+  display: none !important;
+}
+
+.conversation-holder.rgf-preview-hidden-comments-active
+  .collapsible-comment-box,
+.conversation-holder.rgf-preview-hidden-comments-active .resolved-placeholder {
+  display: flex;
+  align-items: center;
+}
+
+.conversation-holder.rgf-preview-hidden-comments-active
+  .collapsible-comment-box
+  > :not(.rgf-preview-hidden-comments),
+.conversation-holder.rgf-preview-hidden-comments-active
+  .resolved-placeholder
+  > :not(.rgf-preview-hidden-comments) {
+  display: none !important;
+}
