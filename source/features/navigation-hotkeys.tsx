@@ -7,7 +7,9 @@ import {
   isDashboard,
   isGlobalIssueList,
   isGlobalPRList,
+  isNotifications,
   isUserProfile,
+  startsWith,
 } from "../helpers/page-detect.js";
 
 function focusSearch(): void {
@@ -27,6 +29,7 @@ function goToProfile(): void {
 
 function registerSharedHotkeys(signal: AbortSignal): void {
   registerHotkey("g m", goToProfile, { signal });
+  registerHotkey("g n", "/notifications", { signal });
   registerHotkey("s", focusSearch, { signal });
 }
 
@@ -43,13 +46,13 @@ async function initRepoNavigation(signal: AbortSignal): Promise<void> {
   registerHotkey("g w", buildRepoUrl("wiki"), { signal });
   registerHotkey("g s", buildRepoUrl("settings"), { signal });
 
-  await registerSharedHotkeys(signal);
+  registerSharedHotkeys(signal);
 }
 
 async function initGlobalNavigation(signal: AbortSignal): Promise<void> {
-  registerHotkey("g i", `${location.origin}/issues`, { signal });
-  registerHotkey("g p", `${location.origin}/pulls`, { signal });
-  await registerSharedHotkeys(signal);
+  registerHotkey("g i", "/issues", { signal });
+  registerHotkey("g p", "/pulls", { signal });
+  registerSharedHotkeys(signal);
 }
 
 void features.add(import.meta.url, {
@@ -68,21 +71,24 @@ void features.add(import.meta.url, {
     "g w": "Go to Wiki",
     "g s": "Go to Settings",
     "g m": "Go to Profile",
+    "g n": "Go to Notifications",
     "s": "Focus search",
   },
   init: initRepoNavigation,
 }, {
   include: [
-    () => location.pathname === "/explore/repos",
+    () => startsWith("/explore"),
     isDashboard,
     isGlobalIssueList,
     isGlobalPRList,
+    isNotifications,
     isUserProfile,
   ],
   shortcuts: {
     "g i": "Go to Issues",
     "g p": "Go to Pull requests",
     "g m": "Go to Profile",
+    "g n": "Go to Notifications",
     "s": "Focus search",
   },
   init: initGlobalNavigation,

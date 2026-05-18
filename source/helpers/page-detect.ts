@@ -12,7 +12,7 @@ function includes(path: string | RegExp): boolean {
   return path.test(location.pathname);
 }
 
-function startsWith(path: string): boolean {
+export function startsWith(path: string): boolean {
   return location.pathname.startsWith(path);
 }
 
