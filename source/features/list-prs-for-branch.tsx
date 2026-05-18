@@ -22,7 +22,11 @@ async function addPrLinks(container: HTMLElement, signal: AbortSignal): Promise<
   // regardless of their 'base' branch (important for stacked PRs).
   // The 'head' parameter in Forgejo's ListPullRequests expects just the branch name
   // for the current repository.
-  const pulls = await api.v1(`repos/${repo.owner}/${repo.name}/pulls?state=all&head=${branch}`, { signal }) as any[];
+  const allPulls = await api.v1(`repos/${repo.owner}/${repo.name}/pulls?state=all&head=${branch}`, { signal }) as any[];
+
+  // Forgejo API has a bug where ?head=branch returns ALL PRs in the repo.
+  // We must filter manually to ensure head.ref matches the current branch.
+  const pulls = allPulls.filter(pr => pr.head.ref === branch);
 
   if (signal.aborted || pulls.length === 0) {
     return;
