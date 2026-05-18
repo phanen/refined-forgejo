@@ -18,6 +18,7 @@ function getHiddenCommentsNote(hiddenCount: number): string {
 }
 
 function hideComment(comment: HTMLElement): void {
+  comment.classList.add("rgf-low-quality-comment");
   comment.classList.add("rgf-hidden-comment");
   dispatchHiddenCommentsChanged();
 }
@@ -31,6 +32,14 @@ function showComment(comment: HTMLElement): void {
   dispatchHiddenCommentsChanged();
 }
 
+export function toggleComment(comment: HTMLElement): void {
+  if (comment.classList.contains("rgf-hidden-comment")) {
+    showComment(comment);
+  } else {
+    hideComment(comment);
+  }
+}
+
 function unhide(): void {
   for (const comment of document.querySelectorAll<HTMLElement>(".rgf-hidden-comment")) {
     comment.classList.remove("rgf-hidden-comment");
@@ -41,8 +50,16 @@ function unhide(): void {
 
 function shouldExpandComment(target: Element): boolean {
   return !target.closest(
-    ".comment-header-right, button, a, input, textarea, select, .dropdown, .menu, [role='menuitem']",
+    "button, a, input, textarea, select, .dropdown, .menu, [role='menuitem']",
   );
+}
+
+function shouldToggleCollapsedComment(comment: HTMLElement, target: Element): boolean {
+  if (!comment.classList.contains("rgf-hidden-comment")) {
+    return !!target.closest(".comment-header");
+  }
+
+  return true;
 }
 
 function initExpandOnClick(signal: AbortSignal): void {
@@ -51,12 +68,16 @@ function initExpandOnClick(signal: AbortSignal): void {
       return;
     }
 
-    const comment = event.target.closest<HTMLElement>(".rgf-hidden-comment");
-    if (!comment || !shouldExpandComment(event.target)) {
+    const comment = event.target.closest<HTMLElement>(".rgf-low-quality-comment");
+    if (!comment || !shouldExpandComment(event.target) || !shouldToggleCollapsedComment(comment, event.target)) {
       return;
     }
 
-    showComment(comment);
+    if (event.target.closest(".rgf-preview-hidden-comments")) {
+      return;
+    }
+
+    toggleComment(comment);
   }, { signal, capture: true });
 }
 

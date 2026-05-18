@@ -1,5 +1,7 @@
 .rgf-preview-hidden-comments {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   max-width: 100%;
   color: var(--color-text-secondary, var(--color-fg-muted));
   cursor: pointer;
@@ -10,33 +12,56 @@
   white-space: nowrap;
 }
 
-.rgf-preview-hidden-comments:hover {
-  text-decoration: underline;
+.rgf-preview-hidden-comments-actionable {
+  width: 100%;
+  justify-content: space-between;
 }
 
-.comment.rgf-preview-hidden-comments-active .comment-header {
+.rgf-preview-hidden-comments-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rgf-preview-hidden-comments-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  padding: 0;
+  background: none;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text) !important;
+  white-space: nowrap;
+}
+
+.rgf-preview-hidden-comments-action svg {
+  color: inherit !important;
+  fill: currentColor !important;
+  margin-inline-end: 0;
+}
+
+.comment.rgf-preview-hidden-comments-toggleable.rgf-hidden-comment
+  .comment-header {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
-.comment.rgf-preview-hidden-comments-active
+.comment.rgf-preview-hidden-comments-toggleable:not(.rgf-hidden-comment)
+  .comment-header {
+  cursor: pointer;
+}
+
+.comment.rgf-preview-hidden-comments-toggleable.rgf-hidden-comment
   .comment-header
   > :not(.rgf-preview-hidden-comments) {
   display: none !important;
 }
 
-.conversation-holder.rgf-preview-hidden-comments-active
-  .collapsible-comment-box,
-.conversation-holder.rgf-preview-hidden-comments-active .resolved-placeholder {
-  display: flex;
-  align-items: center;
-}
-
-.conversation-holder.rgf-preview-hidden-comments-active
-  .collapsible-comment-box
-  > :not(.rgf-preview-hidden-comments),
-.conversation-holder.rgf-preview-hidden-comments-active
-  .resolved-placeholder
-  > :not(.rgf-preview-hidden-comments) {
+.comment.rgf-preview-hidden-comments-toggleable:not(.rgf-hidden-comment)
+  .rgf-preview-hidden-comments {
   display: none !important;
 }

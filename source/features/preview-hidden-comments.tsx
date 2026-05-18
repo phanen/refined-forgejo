@@ -1,9 +1,11 @@
 import "./preview-hidden-comments.css";
 
 import React from "dom-chef";
+import UnfoldIcon from "octicons-plain-react/Unfold";
 import features from "../feature-manager.js";
 import * as pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
+import { toggleComment } from "./hide-low-quality-comments.js";
 
 function normalizeText(text: string): string {
   return text.replaceAll(/\s+/g, " ").trim();
@@ -34,32 +36,63 @@ function isNativeHidden(holder: HTMLElement): boolean {
   return !!holder.querySelector(".comment-code-cloud.tw-hidden");
 }
 
-function createPreview(text: string): HTMLElement {
+function createPreview(text: string, options: { onClick?: () => void; actionLabel?: string } = {}): HTMLElement {
+  const { onClick, actionLabel } = options;
   return (
     <span
-      className="rgf-preview-hidden-comments"
+      className={`rgf-preview-hidden-comments${actionLabel ? " rgf-preview-hidden-comments-actionable" : ""}`}
       title={text}
       data-tooltip-content={text}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={onClick
+        ? (event: React.KeyboardEvent<HTMLSpanElement>) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onClick();
+          }
+        }
+        : undefined}
     >
-      {text}
+      <span className="rgf-preview-hidden-comments-text">{text}</span>
+      {actionLabel && onClick && (
+        <>
+          {" "}
+          <button
+            type="button"
+            className="btn rgf-preview-hidden-comments-action"
+            onClick={event => {
+              event.preventDefault();
+              event.stopPropagation();
+              onClick();
+            }}
+          >
+            <UnfoldIcon />
+            {actionLabel}
+          </button>
+        </>
+      )}
     </span>
   );
 }
 
 function updateOwnComment(comment: HTMLElement): void {
-  const previewText = comment.classList.contains("rgf-hidden-comment") ? getOwnCommentPreview(comment) : "";
+  const previewText = comment.classList.contains("rgf-low-quality-comment") ? getOwnCommentPreview(comment) : "";
   const existing = comment.querySelector<HTMLElement>(".rgf-preview-hidden-comments");
 
   if (!previewText) {
-    comment.classList.remove("rgf-preview-hidden-comments-active");
     existing?.remove();
     return;
   }
 
-  comment.classList.add("rgf-preview-hidden-comments-active");
+  comment.classList.add("rgf-preview-hidden-comments-toggleable");
 
   if (existing) {
-    existing.textContent = previewText;
+    const text = existing.querySelector<HTMLElement>(".rgf-preview-hidden-comments-text");
+    if (text) {
+      text.textContent = previewText;
+    }
     existing.title = previewText;
     existing.dataset.tooltipContent = previewText;
     return;
@@ -70,7 +103,10 @@ function updateOwnComment(comment: HTMLElement): void {
     return;
   }
 
-  header.append(createPreview(previewText));
+  header.append(createPreview(previewText, {
+    actionLabel: "Show comment",
+    onClick: () => toggleComment(comment),
+  }));
 }
 
 function updateNativeConversation(holder: HTMLElement): void {
@@ -78,26 +114,30 @@ function updateNativeConversation(holder: HTMLElement): void {
   const existing = holder.querySelector<HTMLElement>(".rgf-preview-hidden-comments");
 
   if (!previewText) {
-    holder.classList.remove("rgf-preview-hidden-comments-active");
     existing?.remove();
     return;
   }
 
-  holder.classList.add("rgf-preview-hidden-comments-active");
-
   if (existing) {
-    existing.textContent = previewText;
+    const text = existing.querySelector<HTMLElement>(".rgf-preview-hidden-comments-text");
+    if (text) {
+      text.textContent = previewText;
+    }
     existing.title = previewText;
     existing.dataset.tooltipContent = previewText;
     return;
   }
 
-  const header = holder.querySelector<HTMLElement>(".collapsible-comment-box, .resolved-placeholder");
+  const header = holder.querySelector<HTMLElement>(
+    ".resolved-placeholder .tw-flex.tw-items-center.tw-gap-2, .collapsible-comment-box .tw-flex.tw-items-center.tw-gap-2",
+  );
   if (!header) {
     return;
   }
 
-  header.append(createPreview(previewText));
+  header.append(createPreview(previewText, {
+    onClick: () => toggleNativeConversation(holder),
+  }));
 }
 
 function updatePreviews(): void {
@@ -134,21 +174,6 @@ function init(signal: AbortSignal): void {
       setTimeout(updatePreviews, 0);
     }
   }, { signal });
-
-  document.addEventListener("click", event => {
-    if (!(event.target instanceof Element)) {
-      return;
-    }
-
-    if (event.target.closest("a, button, input, textarea, select, .dropdown, .menu, [role='menuitem']")) {
-      return;
-    }
-
-    const nativeHolder = event.target.closest<HTMLElement>(".conversation-holder");
-    if (nativeHolder && isNativeHidden(nativeHolder)) {
-      toggleNativeConversation(nativeHolder);
-    }
-  }, { signal, capture: true });
 }
 
 void features.add(import.meta.url, {
