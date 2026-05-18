@@ -27,9 +27,9 @@
   display: none !important;
 }
 
-.rgf-hidden-comment .comment-container {
-  border-color: var(--color-red, #d73a49) !important;
-}
+/* .rgf-hidden-comment .comment-container { */
+/*   border-color: var(--color-border-muted) !important; */
+/* } */
 
 .rgf-hidden-comment .comment-header-right,
 .rgf-hidden-comment .comment-header-right * {
