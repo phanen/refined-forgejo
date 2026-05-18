@@ -16,39 +16,39 @@ async function addPrLinks(container: HTMLElement, signal: AbortSignal): Promise<
   }
 
   const branch = branchInfo.replace("branch/", "");
-  const defaultBranch = document.querySelector("meta[name=\"_default_branch\"]")?.getAttribute("content") ?? "main";
 
-  // GET /repos/{owner}/{repo}/pulls/{base}/{head}
-  try {
-    const pr = await api.v1(`repos/${repo.owner}/${repo.name}/pulls/${defaultBranch}/${branch}`, { signal }) as any;
+  // Using ListPullRequests API (GET /repos/{owner}/{repo}/pulls)
+  // This allows filtering by 'head' to find ALL PRs originating from this branch,
+  // regardless of their 'base' branch (important for stacked PRs).
+  // The 'head' parameter in Forgejo's ListPullRequests expects just the branch name
+  // for the current repository.
+  const pulls = await api.v1(`repos/${repo.owner}/${repo.name}/pulls?state=all&head=${branch}`, { signal }) as any[];
 
-    if (signal.aborted || !pr) {
-      return;
-    }
-
-    // Find the first flex group in the row to append the PR links to
-    const group = container.querySelector(".tw-flex.tw-items-center");
-    if (!group) {
-      return;
-    }
-
-    const stateClass = pr.merged ? "merged" : pr.state;
-
-    group.append(
-      <a href={pr.html_url} className="ui label basic tw-flex tw-items-center tw-gap-1 rgf-branch-pr">
-        <GitPullRequestIcon
-          className={`tw-flex tw-items-center rgf-branch-pr-icon-${stateClass}`}
-          width={16}
-          height={16}
-        />
-        <span>#{pr.number}</span>
-      </a>,
-    );
-  } catch (error: any) {
-    if (error.status !== 404) {
-      console.error("Failed to fetch PR for branch:", error);
-    }
+  if (signal.aborted || pulls.length === 0) {
+    return;
   }
+
+  // Find the first flex group in the row to append the PR links to
+  const group = container.querySelector(".tw-flex.tw-items-center");
+  if (!group) {
+    return;
+  }
+
+  group.append(
+    ...pulls.map(pr => {
+      const stateClass = pr.merged ? "merged" : pr.state;
+      return (
+        <a href={pr.html_url} className="ui label basic tw-flex tw-items-center tw-gap-1 rgf-branch-pr">
+          <GitPullRequestIcon
+            className={`tw-flex tw-items-center rgf-branch-pr-icon-${stateClass}`}
+            width={16}
+            height={16}
+          />
+          <span>#{pr.number}</span>
+        </a>
+      );
+    }),
+  );
 }
 
 function init(signal: AbortSignal): void {
