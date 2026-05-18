@@ -57,7 +57,7 @@
 - [x] **linkify-symbolic-links** - 符号链接文件可点击
 - [-] **list-prs-for-file** - 当前文件被 PR 修改时提醒
 - [+] **refined-github.css** - 将 tab 缩减为 4 空格
-- [ ] **esc-to-deselect-line** - 添加 esc 快捷键取消选择行
+- [x] **esc-to-deselect-line** - 添加 esc 快捷键取消选择行
 - [ ] **vertical-front-matter** - 将 Markdown front matter 显示为垂直表格
 - [ ] **list-prs-for-branch** - 分支提交列表显示关联的 PR
 
