@@ -50,6 +50,7 @@ import "./features/mobile-tabs-pr.js";
 import "./features/show-names.js";
 import "./features/shorten-links.js";
 import "./features/comments-time-machine-links.js";
+import "./features/highest-rated-comment.js";
 import "./features/netiquette.js";
 import "./features/clean-pinned-issues.js";
 import "./features/conversation-authors.js";

@@ -88,7 +88,7 @@
 - [x] **show-names** - 用户名旁显示真实姓名
 - [x] **shorten-links** - 缩短 URL 为可读引用
 - [ ] **preview-hidden-comments** - 🔥 悬停预览被折叠的评论
-- [ ] **highest-rated-comment** - 🔥 高亮最有用的评论
+- [x] **highest-rated-comment** - 🔥 高亮最有用的评论
 - [ ] **hide-low-quality-comments** - 隐藏反应评论（「+1」「👍」等），维护者除外
 - [x] **scrollable-areas** - 限制代码块和引用的高度
 - [ ] **quick-comment-hiding** - 简化隐藏评论的 UI

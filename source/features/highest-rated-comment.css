@@ -1,0 +1,17 @@
+.rgf-highest-rated-comment .comment-container {
+  border-color: var(--color-success-border, var(--color-green)) !important;
+  box-shadow: 0 0 0 2px
+    var(
+      --color-success-alpha-20,
+      color-mix(in srgb, var(--color-green) 20%, transparent)
+    ) !important;
+}
+
+.rgf-highest-rated-comment .comment-header {
+  border-bottom-color: var(--color-success-border, var(--color-green))
+    !important;
+}
+
+.rgf-highest-rated-comment .rgf-highest-rated-comment-badge {
+  color: var(--color-success-fg, var(--color-green));
+}
