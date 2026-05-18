@@ -55,6 +55,11 @@
   cursor: pointer;
 }
 
+.resolved-placeholder.rgf-preview-hidden-comments-toggleable,
+.collapsible-comment-box.rgf-preview-hidden-comments-toggleable {
+  cursor: pointer;
+}
+
 .comment.rgf-preview-hidden-comments-toggleable.rgf-hidden-comment
   .comment-header
   > :not(.rgf-preview-hidden-comments) {

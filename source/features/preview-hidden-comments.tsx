@@ -36,6 +36,18 @@ function isNativeHidden(holder: HTMLElement): boolean {
   return !!holder.querySelector(".comment-code-cloud.tw-hidden");
 }
 
+function getNativeToggleContainer(holder: HTMLElement): HTMLElement | undefined {
+  return holder.querySelector<HTMLElement>(
+    ".resolved-placeholder, .collapsible-comment-box",
+  ) ?? undefined;
+}
+
+function getNativePreviewTarget(container: HTMLElement): HTMLElement {
+  return container.matches(".resolved-placeholder")
+    ? container.querySelector<HTMLElement>(".ui.grey.text.tw-flex.tw-items-center.tw-flex-wrap.tw-gap-1") ?? container
+    : container.querySelector<HTMLElement>(":scope > div:first-child") ?? container;
+}
+
 function createPreview(text: string, options: { onClick?: () => void; actionLabel?: string } = {}): HTMLElement {
   const { onClick, actionLabel } = options;
   return (
@@ -128,16 +140,18 @@ function updateNativeConversation(holder: HTMLElement): void {
     return;
   }
 
-  const header = holder.querySelector<HTMLElement>(
-    ".resolved-placeholder .tw-flex.tw-items-center.tw-gap-2, .collapsible-comment-box .tw-flex.tw-items-center.tw-gap-2",
-  );
-  if (!header) {
+  const container = getNativeToggleContainer(holder);
+  if (!container) {
     return;
   }
 
-  header.append(createPreview(previewText, {
-    onClick: () => toggleNativeConversation(holder),
-  }));
+  container.classList.add("rgf-preview-hidden-comments-toggleable");
+
+  if (!container.querySelector(".rgf-preview-hidden-comments")) {
+    getNativePreviewTarget(container).append(createPreview(previewText, {
+      onClick: () => toggleNativeConversation(holder),
+    }));
+  }
 }
 
 function updatePreviews(): void {
@@ -167,6 +181,17 @@ function init(signal: AbortSignal): void {
 
   document.addEventListener("click", event => {
     if (!(event.target instanceof Element)) {
+      return;
+    }
+
+    const container = event.target.closest<HTMLElement>(
+      ".resolved-placeholder.rgf-preview-hidden-comments-toggleable, .collapsible-comment-box.rgf-preview-hidden-comments-toggleable",
+    );
+    if (container && !event.target.closest("button, a, input, textarea, select, .dropdown, .menu, [role='menuitem']")) {
+      const holder = container.closest<HTMLElement>(".conversation-holder");
+      if (holder) {
+        toggleNativeConversation(holder);
+      }
       return;
     }
 
