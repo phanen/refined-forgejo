@@ -1,0 +1,37 @@
+.rgf-low-quality-comments-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 6px;
+  font-size: 12px;
+  color: var(--color-text-secondary, var(--color-fg-muted));
+}
+
+.rgf-low-quality-comments-note button {
+  flex: none;
+}
+
+.rgf-hidden-comment {
+  opacity: 0.75;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.rgf-hidden-comment .comment-body,
+.rgf-hidden-comment .comment-content,
+.rgf-hidden-comment .comment-code-cloud,
+.rgf-hidden-comment .reactions,
+.rgf-hidden-comment .comment-footer,
+.rgf-hidden-comment .comment-divider {
+  display: none !important;
+}
+
+.rgf-hidden-comment .comment-container {
+  border-color: var(--color-red, #d73a49) !important;
+}
+
+.rgf-hidden-comment .comment-header-right,
+.rgf-hidden-comment .comment-header-right * {
+  pointer-events: auto;
+}

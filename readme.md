@@ -87,15 +87,15 @@
 - [x] **comments-time-machine-links** - 添加浏览仓库和文件的历史版本链接
 - [x] **show-names** - 用户名旁显示真实姓名
 - [x] **shorten-links** - 缩短 URL 为可读引用
-- [ ] **preview-hidden-comments** - 🔥 悬停预览被折叠的评论
+- [x] **preview-hidden-comments** - 🔥 悬停预览被折叠的评论
 - [x] **highest-rated-comment** - 🔥 高亮最有用的评论
-- [ ] **hide-low-quality-comments** - 隐藏反应评论（「+1」「👍」等），维护者除外
+- [x] **hide-low-quality-comments** - 隐藏反应评论（「+1」「👍」等），维护者除外
 - [x] **scrollable-areas** - 限制代码块和引用的高度
-- [ ] **quick-comment-hiding** - 简化隐藏评论的 UI
+- [x] **quick-comment-hiding** - 简化隐藏评论的 UI
 - [x] **open-issue-to-latest-comment** - issue 列表的评论图标链接到最后一条评论
 - [-] **expand-all-hidden-comments** - alt 点击「N hidden items」时加载更多评论（200条）
 - [x] **keyboard-navigation** - 添加 j/k 快捷键导航，x 标记已读/未读
-- [ ] **comment-excess** - 长 issue 头部显示隐藏评论数量，Cmd/Ctrl+F 时滚动到隐藏评论
+- [x] **comment-excess** - 长 issue 头部显示隐藏评论数量，Cmd/Ctrl+F 时滚动到隐藏评论 (in **hide-low-quality-comments**)
 
 ---
 
