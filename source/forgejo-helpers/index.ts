@@ -56,7 +56,7 @@ export function getCurrentBranch(): string | undefined {
     ["src", "commits", "blame", "raw"].includes(repo.pathParts[0])
     && ["branch", "tag"].includes(repo.pathParts[1])
   ) {
-    return `${repo.pathParts[1]}/${repo.pathParts[2]}`;
+    return `${repo.pathParts[1]}/${repo.pathParts.slice(2).join("/")}`;
   }
 
   // 2. Try to find branch from the branch selector in the UI

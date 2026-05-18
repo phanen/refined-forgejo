@@ -68,6 +68,7 @@ import "./features/close-out-of-view-modals.js";
 import "./features/esc-to-cancel.js";
 import "./features/esc-to-deselect-line.js";
 import "./features/vertical-front-matter.js";
+import "./features/list-prs-for-branch.js";
 import "./features/unfinished-comments.js";
 import "./features/same-page-links.js";
 import "./features/clean-readme-url.js";

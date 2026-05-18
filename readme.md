@@ -59,7 +59,7 @@
 - [+] **refined-github.css** - 将 tab 缩减为 4 空格
 - [x] **esc-to-deselect-line** - 添加 esc 快捷键取消选择行
 - [x] **vertical-front-matter** - 将 Markdown front matter 显示为垂直表格
-- [ ] **list-prs-for-branch** - 分支提交列表显示关联的 PR
+- [x] **list-prs-for-branch** - 分支提交列表显示关联的 PR
 
 ---
 

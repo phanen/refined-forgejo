@@ -1,0 +1,14 @@
+.rgf-branch-pr-icon-open {
+  color: var(--color-green) !important;
+  fill: currentColor !important;
+}
+
+.rgf-branch-pr-icon-merged {
+  color: var(--color-purple) !important;
+  fill: currentColor !important;
+}
+
+.rgf-branch-pr-icon-closed {
+  color: var(--color-red) !important;
+  fill: currentColor !important;
+}
