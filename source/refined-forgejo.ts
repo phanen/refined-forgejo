@@ -53,7 +53,6 @@ import "./features/comments-time-machine-links.js";
 import "./features/preview-hidden-comments.js";
 import "./features/highest-rated-comment.js";
 import "./features/hide-low-quality-comments.js";
-import "./features/quick-comment-hiding.js";
 import "./features/netiquette.js";
 import "./features/clean-pinned-issues.js";
 import "./features/conversation-authors.js";

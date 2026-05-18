@@ -91,7 +91,7 @@
 - [x] **highest-rated-comment** - 🔥 高亮最有用的评论
 - [x] **hide-low-quality-comments** - 隐藏反应评论（「+1」「👍」等），维护者除外
 - [x] **scrollable-areas** - 限制代码块和引用的高度
-- [x] **quick-comment-hiding** - 简化隐藏评论的 UI
+- [-] **quick-comment-hiding** - 简化隐藏评论的 UI
 - [x] **open-issue-to-latest-comment** - issue 列表的评论图标链接到最后一条评论
 - [-] **expand-all-hidden-comments** - alt 点击「N hidden items」时加载更多评论（200条）
 - [x] **keyboard-navigation** - 添加 j/k 快捷键导航，x 标记已读/未读
