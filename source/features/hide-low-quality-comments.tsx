@@ -5,13 +5,6 @@ import features from "../feature-manager.js";
 import isLowQualityComment from "../helpers/is-low-quality-comment.js";
 import * as pageDetect from "../helpers/page-detect.js";
 
-type HiddenState = {
-  hidden: boolean;
-  items: HTMLElement[];
-};
-
-const preToggleState = new WeakMap<HTMLElement, HiddenState>();
-
 function getCommentBody(comment: HTMLElement): HTMLElement | undefined {
   return comment.querySelector<HTMLElement>(".comment-body .markup, .comment-content .markup") ?? undefined;
 }
@@ -47,36 +40,6 @@ export function toggleComment(comment: HTMLElement): void {
   }
 }
 
-function getToggleableComments(hidden: boolean): HTMLElement[] {
-  return [...document.querySelectorAll<HTMLElement>(
-    hidden
-      ? ".comment.rgf-low-quality-comment.rgf-hidden-comment"
-      : ".comment.rgf-low-quality-comment:not(.rgf-hidden-comment)",
-  )];
-}
-
-function rememberState(event: MouseEvent): void {
-  if (!event.altKey) {
-    return;
-  }
-
-  const target = event.target;
-  if (!(target instanceof Element)) {
-    return;
-  }
-
-  const comment = target.closest<HTMLElement>(".comment.rgf-low-quality-comment");
-  if (!comment) {
-    return;
-  }
-
-  const hidden = comment.classList.contains("rgf-hidden-comment");
-  preToggleState.set(comment, {
-    hidden,
-    items: getToggleableComments(hidden),
-  });
-}
-
 function toggleCommentRoot(comment: HTMLElement, hiddenBefore?: boolean): void {
   if (hiddenBefore ?? comment.classList.contains("rgf-hidden-comment")) {
     comment.click();
@@ -84,43 +47,6 @@ function toggleCommentRoot(comment: HTMLElement, hiddenBefore?: boolean): void {
   }
 
   comment.querySelector<HTMLElement>(".comment-header")?.click();
-}
-
-function toggleAllComments(event: MouseEvent): void {
-  if (!event.altKey) {
-    return;
-  }
-
-  const target = event.target;
-  if (!(target instanceof Element)) {
-    return;
-  }
-
-  const comment = target.closest<HTMLElement>(".comment.rgf-low-quality-comment");
-  if (!comment) {
-    return;
-  }
-
-  if (target.closest("button, a, input, textarea, select, .dropdown, .menu, [role='menuitem']")) {
-    return;
-  }
-
-  const state = preToggleState.get(comment);
-  if (!state) {
-    return;
-  }
-
-  event.preventDefault();
-  event.stopImmediatePropagation();
-
-  toggleCommentRoot(comment, state.hidden);
-  for (const item of state.items) {
-    if (item !== comment) {
-      toggleCommentRoot(item, state.hidden);
-    }
-  }
-
-  preToggleState.delete(comment);
 }
 
 function unhide(): void {
@@ -157,6 +83,22 @@ function initExpandOnClick(signal: AbortSignal): void {
     }
 
     if (event.altKey) {
+      const hidden = comment.classList.contains("rgf-hidden-comment");
+      const comments = [...document.querySelectorAll<HTMLElement>(
+        hidden
+          ? ".comment.rgf-low-quality-comment.rgf-hidden-comment"
+          : ".comment.rgf-low-quality-comment:not(.rgf-hidden-comment)",
+      )];
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      toggleCommentRoot(comment, hidden);
+      for (const item of comments) {
+        if (item !== comment) {
+          toggleCommentRoot(item, hidden);
+        }
+      }
       return;
     }
 
@@ -214,8 +156,6 @@ function init(signal: AbortSignal): void {
 
   updateNote();
   document.addEventListener("rgf-hidden-comments-changed", updateNote, { signal });
-  document.addEventListener("mousedown", rememberState, { signal, capture: true });
-  document.addEventListener("click", toggleAllComments, { signal, capture: true });
   initExpandOnClick(signal);
 }
 

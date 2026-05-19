@@ -21,11 +21,6 @@ function isNativeConversationHidden(holder: HTMLElement): boolean {
   return !!holder.querySelector(".comment-code-cloud.tw-hidden");
 }
 
-function getMatchingConversations(hidden: boolean): HTMLElement[] {
-  return [...document.querySelectorAll<HTMLElement>(".conversation-holder")]
-    .filter(holder => isNativeConversationHidden(holder) === hidden);
-}
-
 function toggleAllCheckboxes(event: DelegateEvent<MouseEvent, HTMLInputElement>): void {
   if (!event.altKey) {
     return;
@@ -103,8 +98,11 @@ function toggleAllHiddenComments(event: DelegateEvent<MouseEvent, HTMLElement>):
     event.stopImmediatePropagation();
 
     const hidden = isNativeConversationHidden(holder);
+    const holders = [...document.querySelectorAll<HTMLElement>(".conversation-holder")]
+      .filter(item => isNativeConversationHidden(item) === hidden);
+
     toggleConversationHolder(holder, hidden);
-    for (const item of getMatchingConversations(hidden)) {
+    for (const item of holders) {
       if (item !== holder) {
         toggleConversationHolder(item, hidden);
       }
