@@ -115,7 +115,7 @@
 - [ ] **bugs-tab** - 如果有「bug」标签的 issue，添加 Bugs 标签页
 - [ ] **pinned-issues-update-time** - 置顶 issue 显示更新时间而非创建时间
 - [x] **clean-pinned-issues** - 置顶 issue 布局从并排改为标准列表
-- [ ] **quick-label-removal** - 一键移除 issue/PR 标签
+- [x] **quick-label-removal** - 一键移除 issue/PR 标签
 - [x] **clean-conversation-headers** - 移除 PR 头部的重复信息
 - [x] **dim-bots** - 淡化 bot 的提交和 PR
 - [x] **esc-to-cancel** - esc 取消编辑 PR 标题

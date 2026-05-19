@@ -32,12 +32,13 @@ async function apiFetch(
 
   const token = await getToken();
   const authHeaders: HeadersInit = token ? { Authorization: `token ${token}` } : {};
+  const isFormBody = body instanceof FormData || body instanceof URLSearchParams;
 
   const response = await fetch(toRequestUrl(path), {
     method,
-    body: body ? JSON.stringify(body) : undefined,
+    body: isFormBody ? body : (body ? JSON.stringify(body) : undefined),
     headers: {
-      "Content-Type": "application/json",
+      ...(isFormBody ? {} : { "Content-Type": "application/json" }),
       accept: responseType === "text"
         ? "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
         : "application/json",

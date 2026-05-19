@@ -39,6 +39,7 @@ import "./features/sticky-comment-header.js";
 import "./features/one-key-formatting.js";
 import "./features/ci-link.js";
 import "./features/repo-header-info.js";
+import "./features/quick-label-removal.js";
 import "./features/small-user-avatars.js";
 import "./features/quick-file-edit.js";
 import "./features/tab-size.js";
