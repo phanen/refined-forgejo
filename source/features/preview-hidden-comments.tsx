@@ -27,10 +27,10 @@ function getNativeToggleContainer(holder: HTMLElement): HTMLElement | undefined 
   ) ?? undefined;
 }
 
-function getNativePreviewTarget(container: HTMLElement): HTMLElement {
+function getNativeTextGroup(container: HTMLElement): HTMLElement | undefined {
   return container.matches(".resolved-placeholder")
-    ? container.querySelector<HTMLElement>(":scope > .tw-flex.tw-items-center.tw-gap-2") ?? container
-    : container.querySelector<HTMLElement>(":scope > div:first-child") ?? container;
+    ? container.querySelector<HTMLElement>(":scope > .ui.grey.text") ?? undefined
+    : container.querySelector<HTMLElement>(":scope > .tw-flex.tw-items-center.tw-gap-2:first-child") ?? undefined;
 }
 
 function labelNativeFilename(container: HTMLElement): void {
@@ -112,14 +112,16 @@ function updateNativeConversation(holder: HTMLElement): void {
   }
 
   container.classList.add("rgf-preview-hidden-comments-toggleable");
-
-  if (!container.querySelector(".rgf-preview-hidden-comments")) {
-    labelNativeFilename(container);
-    getNativePreviewTarget(container).append(createPreview(previewText, {
-      onClick: () => toggleNativeConversation(holder),
-      compact: true,
-    }));
+  const textGroup = getNativeTextGroup(container);
+  if (!textGroup || textGroup.querySelector(".rgf-preview-hidden-comments")) {
+    return;
   }
+
+  labelNativeFilename(container);
+  textGroup.append(createPreview(previewText, {
+    onClick: () => toggleNativeConversation(holder),
+    compact: true,
+  }));
 }
 
 function updatePreviews(): void {
