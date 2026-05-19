@@ -60,6 +60,7 @@ import "./features/locked-issue.js";
 import "./features/batch-mark-files-as-viewed.js";
 import "./features/closing-remarks.js";
 import "./features/pr-jump-to-first-non-viewed-file.js";
+import "./features/jump-to-change-requested-comment.js";
 import "./features/hidden-review-comments-indicator.js";
 import "./features/pr-commit-lines-changed.js";
 import "./features/preview-hidden-comments.js";
