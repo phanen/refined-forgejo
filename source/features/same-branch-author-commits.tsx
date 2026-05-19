@@ -2,7 +2,7 @@ import mem from "memoize";
 import features from "../feature-manager.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getCurrentBranch, getRepo } from "../forgejo-helpers/index.js";
-import pageDetect, { isConversation, isPRFiles } from "../helpers/page-detect.js";
+import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 type CommitResponse = {
@@ -42,13 +42,11 @@ function getCommitSha(container: HTMLElement): string | undefined {
 }
 
 function getAuthorAnchor(container: HTMLElement): HTMLAnchorElement | undefined {
-  return container.querySelector<HTMLAnchorElement>(".author[href], .author-wrapper[href]") ?? undefined;
+  return container.querySelector<HTMLAnchorElement>("a.author[href], a.author-wrapper[href]") ?? undefined;
 }
 
-async function updateLinks(container: HTMLElement): Promise<void> {
+async function updateLink(container: HTMLElement): Promise<void> {
   const authorLink = getAuthorAnchor(container);
-  const avatar = container.querySelector<HTMLElement>("img.avatar");
-
   if (!authorLink) {
     return;
   }
@@ -59,24 +57,13 @@ async function updateLinks(container: HTMLElement): Promise<void> {
   }
 
   const sha = getCommitSha(container);
-  const email = sha ? await getCommitAuthorEmail(sha) : undefined;
-  const searchName = email ?? authorLink.textContent?.trim() ?? "";
-  if (!searchName) {
+  if (!sha) {
     return;
   }
 
-  if (avatar) {
-    const profileHref = authorLink.getAttribute("href");
-    if (profileHref?.startsWith("/")) {
-      if (!avatar.closest("a")) {
-        const profileLink = document.createElement("a");
-        profileLink.href = profileHref;
-        avatar.parentNode?.insertBefore(profileLink, avatar);
-        profileLink.appendChild(avatar);
-      } else {
-        avatar.closest("a")!.href = profileHref;
-      }
-    }
+  const email = await getCommitAuthorEmail(sha);
+  if (!email) {
+    return;
   }
 
   let ref = getCurrentBranch();
@@ -91,26 +78,20 @@ async function updateLinks(container: HTMLElement): Promise<void> {
   ref ??= "branch/master";
 
   const url = new URL(buildRepoUrl("commits", ref, "search"), location.origin);
-  url.searchParams.set("q", `author:${searchName}`);
+  url.searchParams.set("q", `author:${email}`);
   authorLink.href = url.href;
 }
 
 function init(signal: AbortSignal): void {
-  observe([
-    ".comment-header-left",
-    ".timeline-item .flex-text-block",
-    "#commits-table td.author",
-  ], element => {
+  observe("#commits-table td.author", element => {
     if (element instanceof HTMLElement) {
-      void updateLinks(element);
+      void updateLink(element);
     }
   }, { signal });
 }
 
 void features.add(import.meta.url, {
   include: [
-    isConversation,
-    isPRFiles,
     pageDetect.isCommitList,
   ],
   init,

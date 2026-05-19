@@ -59,7 +59,7 @@ async function linkify(label: HTMLElement): Promise<void> {
 }
 
 function init(signal: AbortSignal): void {
-  observe(".comment .role-label, .timeline-item .role-label", element => {
+  observe(".role-label", element => {
     if (element instanceof HTMLElement) {
       void linkify(element);
     }
