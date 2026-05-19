@@ -1,0 +1,40 @@
+/* Hide redundant "New Issue" button on existing issue/PR pages */
+.issue-title-header .button-row a[href$="/issues/new"],
+.issue-title-header .button-row a[href$="/issues/new/choose"] {
+  display: none !important;
+}
+
+/* Make the title header more compact */
+.issue-title-header {
+  margin-bottom: 0.5rem !important;
+}
+
+.issue-title-meta {
+  margin-top: 0.25rem !important;
+}
+
+/* Hide the "Edit" button until hover */
+#issue-title-edit-show {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.issue-title:hover #issue-title-edit-show {
+  opacity: 1;
+}
+
+/* Style for our custom compact PR description */
+.rgf-clean-pull-desc {
+  color: var(--color-text-light);
+}
+
+.rgf-clean-pull-desc .rgf-arrow-left-icon {
+  vertical-align: middle;
+  margin: 0 0.25rem;
+  color: var(--color-text-light) !important;
+  fill: currentColor !important;
+}
+
+.rgf-clean-pull-desc code {
+  margin: 0 2px;
+}

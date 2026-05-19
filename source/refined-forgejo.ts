@@ -16,6 +16,7 @@ import "./features/pr-notification-link.js";
 import "./features/sticky-notifications-actions.js";
 import "./features/copy-on-y.js";
 import "./features/clean-footer.js";
+import "./features/clean-conversation-headers.js";
 import "./features/align-issue-labels.js";
 import "./features/hide-diff-signs.js";
 import "./features/file-age-color.js";

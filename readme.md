@@ -116,7 +116,7 @@
 - [ ] **pinned-issues-update-time** - 置顶 issue 显示更新时间而非创建时间
 - [x] **clean-pinned-issues** - 置顶 issue 布局从并排改为标准列表
 - [ ] **quick-label-removal** - 一键移除 issue/PR 标签
-- [ ] **clean-conversation-headers** - 移除 PR 头部的重复信息
+- [x] **clean-conversation-headers** - 移除 PR 头部的重复信息
 - [x] **dim-bots** - 淡化 bot 的提交和 PR
 - [x] **esc-to-cancel** - esc 取消编辑 PR 标题
 - [x] **no-duplicate-list-update-time** - 隐藏与开/关/合并时间相同的更新时间
