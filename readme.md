@@ -122,7 +122,7 @@
 - [ ] **no-duplicate-list-update-time** - 隐藏与开/关/合并时间相同的更新时间
 - [x] **linkify-user-labels** - 将「Contributor」「Member」等标签链接到作者提交
 - [ ] **jump-to-conversation-close-event** - 跳转到 issue/PR 的最后关闭事件
-- [ ] **close-as-unplanned** - 一键「close as unplanned」
+- [-] **close-as-unplanned** - 一键「close as unplanned」
 - [ ] **locked-issue** - 在 locked issue/PR 上显示标签
 
 ---
