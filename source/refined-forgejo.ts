@@ -45,6 +45,7 @@ import "./features/quick-mention.js";
 import "./features/unclip-checks.js";
 import "./features/clean-checks-list.js";
 import "./features/pr-approvals-count.js";
+import "./features/pr-list-lines-changed.js";
 import "./features/conflict-marker.js";
 import "./features/highlight-non-default-base-branch.js";
 import "./features/cross-deleted-pr-branches.js";
