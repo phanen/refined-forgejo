@@ -110,7 +110,7 @@
 - [-] **global-conversation-list-filters** - 全局 PR 搜索添加「我的仓库」「我评论的」筛选
 - [x] **clean-conversation-sidebar** - 🔥 隐藏 issue/PR 侧边栏空分区
 - [x] **clean-conversation-filters** - 隐藏空的 Projects 筛选
-- [-] **toggle-everything-with-alt** - alt+click 切换所有类似项目
+- [+] **toggle-everything-with-alt** - alt+click 切换所有类似项目
 - [-] **extend-conversation-status-filters** - 切换 is:open/is:closed/is:merged 筛选
 - [ ] **bugs-tab** - 如果有「bug」标签的 issue，添加 Bugs 标签页
 - [ ] **pinned-issues-update-time** - 置顶 issue 显示更新时间而非创建时间
