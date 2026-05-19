@@ -56,15 +56,20 @@
 }
 
 /* Ensure the container doesn't wrap and shrinks to fit available space */
-.resolved-placeholder .ui.grey.text {
+.rgf-preview-hidden-comments-toggleable > :first-child {
   flex: 1 1 0% !important;
   min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
   flex-wrap: nowrap !important;
 }
 
 /* Prevent the button container from shrinking */
-.resolved-placeholder > .tw-flex.tw-items-center.tw-gap-2 {
+.rgf-preview-hidden-comments-toggleable > :last-child {
   flex: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
 }
 
 .comment.rgf-preview-hidden-comments-toggleable.rgf-hidden-comment

@@ -101,8 +101,6 @@ function updateNativeConversation(holder: HTMLElement): void {
     if (b) {
       resolvedText.innerHTML = `${resolvedText.querySelector("svg")?.outerHTML ?? ""} ${b.outerHTML}`;
     }
-    // Ensure the text container doesn't take up more space than needed
-    resolvedText.style.flex = "0 1 auto";
   }
 
   const previewText = isNativeHidden(holder) ? getNativeConversationPreview(holder) : "";
