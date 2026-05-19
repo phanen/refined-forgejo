@@ -4,6 +4,7 @@ import React from "dom-chef";
 
 import features from "../feature-manager.js";
 import { buildRepoUrl, getCurrentBranch, getRepo } from "../forgejo-helpers/index.js";
+import { getFullName } from "../forgejo-helpers/user.js";
 import { wrap } from "../helpers/dom-utils.js";
 import * as pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
@@ -43,12 +44,12 @@ function getPRHeadInfo(): { repoPath: string; ref: string } | undefined {
   return undefined;
 }
 
-function getPRAuthor(): string | undefined {
+function getPRAuthorUsername(): string | undefined {
   const authorEl = document.querySelector(".pull-desc a:first-child");
   return authorEl?.getAttribute("href")?.replace(/^\//, "");
 }
 
-function linkify(label: HTMLElement): void {
+async function linkify(label: HTMLElement): Promise<void> {
   if (label.closest("a.rgf-linkify-user-labels")) {
     return;
   }
@@ -57,6 +58,9 @@ function linkify(label: HTMLElement): void {
   if (!username) {
     return;
   }
+
+  const fullName = await getFullName(username);
+  const searchName = fullName ?? username;
 
   const repo = getRepo();
   if (!repo) {
@@ -68,10 +72,10 @@ function linkify(label: HTMLElement): void {
 
   // If on a PR page, try to be smarter
   if (pageDetect.isPR()) {
-    const prAuthor = getPRAuthor();
+    const prAuthorUsername = getPRAuthorUsername();
     const headInfo = getPRHeadInfo();
 
-    if (username === prAuthor && headInfo) {
+    if (username === prAuthorUsername && headInfo) {
       // Prioritize the user's own branch if they are the PR author
       baseUrl = `${headInfo.repoPath}/commits`;
       ref = headInfo.ref;
@@ -90,7 +94,7 @@ function linkify(label: HTMLElement): void {
   }
 
   const url = new URL(`${baseUrl}/${ref}/search`, location.origin);
-  url.searchParams.set("q", `author:${username}`);
+  url.searchParams.set("q", `author:${searchName}`);
 
   wrap(
     label,
@@ -101,7 +105,7 @@ function linkify(label: HTMLElement): void {
 function init(signal: AbortSignal): void {
   observe(".comment .role-label, .timeline-item .role-label", element => {
     if (element instanceof HTMLElement) {
-      linkify(element);
+      void linkify(element);
     }
   }, { signal });
 }

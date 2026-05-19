@@ -1,22 +1,9 @@
 import "./show-names.css";
 
 import features from "../feature-manager.js";
-import api from "../forgejo-helpers/api.js";
+import { getFullName } from "../forgejo-helpers/user.js";
 import { isConversation, isPRFiles } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
-
-const fullNameCache = new Map<string, Promise<string | undefined>>();
-
-async function getFullName(username: string): Promise<string | undefined> {
-  let promise = fullNameCache.get(username);
-  if (!promise) {
-    promise = api.v1(`users/${username}`)
-      .then(data => (data as { full_name?: string; name?: string }).full_name ?? (data as { name?: string }).name)
-      .catch(() => undefined);
-    fullNameCache.set(username, promise);
-  }
-  return promise;
-}
 
 function appendFullName(link: HTMLAnchorElement, fullName: string): void {
   if (link.dataset.rgfShowNames === "done") {
