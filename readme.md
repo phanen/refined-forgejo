@@ -142,7 +142,7 @@
 - [x] **cross-deleted-pr-branches** - 删除的分支添加删除线
 - [x] **batch-mark-files-as-viewed** - PR Files 标签页批量标记已查看
 - [ ] **closing-remarks** - 🔥 显示 PR 合并到的第一个 tag，建议创建 release
-- [ ] **pr-jump-to-first-non-viewed-file** - 点击进度条跳转到第一个未查看文件
+- [x] **pr-jump-to-first-non-viewed-file** - 点击进度条跳转到第一个未查看文件
 - [ ] **jump-to-change-requested-comment** - 跳转到最新的「更改已请求」评论
 - [ ] **view-last-pr-deployment** - PR 头部添加打开最新部署的链接
 - [ ] **no-unnecessary-split-diff-view** - 文件 split diff 无用时始终使用 unified diffs
