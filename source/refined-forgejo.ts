@@ -57,6 +57,7 @@ import "./features/linkify-user-labels.js";
 import "./features/jump-to-conversation-close-event.js";
 import "./features/locked-issue.js";
 import "./features/hidden-review-comments-indicator.js";
+import "./features/pr-commit-lines-changed.js";
 import "./features/preview-hidden-comments.js";
 import "./features/highest-rated-comment.js";
 import "./features/hide-low-quality-comments.js";

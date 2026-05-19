@@ -138,7 +138,7 @@
 - [+] **previous-next-commit-buttons** - Commits 标签页底部添加导航按钮
 - [x] **hidden-review-comments-indicator** - PR review 中有隐藏评论时显示指示器
 - [x] **conflict-marker** - PR 列表中显示有冲突的 PR
-- [ ] **pr-commit-lines-changed** - PR commits 添加差异统计
+- [x] **pr-commit-lines-changed** - PR commits 添加差异统计
 - [x] **cross-deleted-pr-branches** - 删除的分支添加删除线
 - [ ] **batch-mark-files-as-viewed** - PR Files 标签页批量标记已查看
 - [ ] **closing-remarks** - 🔥 显示 PR 合并到的第一个 tag，建议创建 release
