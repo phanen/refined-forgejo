@@ -53,9 +53,11 @@ const findFirstStableTag = mem(async (_owner: string, _repo: string, sha: string
 });
 
 async function update(element: Element): Promise<void> {
-  const pullDesc = element instanceof HTMLElement && element.matches(".issue-title-meta .pull-desc, .issue-title-meta #pull-desc-display")
+  const pullDesc = element instanceof HTMLElement
+      && element.matches(".issue-title-meta .pull-desc, .issue-title-meta #pull-desc-display")
     ? element
-    : document.querySelector<HTMLElement>(".issue-title-meta .pull-desc, .issue-title-meta #pull-desc-display") ?? undefined;
+    : document.querySelector<HTMLElement>(".issue-title-meta .pull-desc, .issue-title-meta #pull-desc-display")
+      ?? undefined;
   if (!pullDesc || pullDesc.dataset.rgfClosingRemarks === "done" || pullDesc.dataset.rgfClosingRemarks === "pending") {
     return;
   }
@@ -95,7 +97,9 @@ async function update(element: Element): Promise<void> {
 }
 
 function init(signal: AbortSignal): void {
-  observe([".issue-title-meta .pull-desc", ".issue-title-meta #pull-desc-display", ".timeline-item.event"], update, { signal });
+  observe([".issue-title-meta .pull-desc", ".issue-title-meta #pull-desc-display", ".timeline-item.event"], update, {
+    signal,
+  });
 }
 
 void features.add(import.meta.url, {

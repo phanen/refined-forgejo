@@ -1,8 +1,11 @@
 import React from "dom-chef";
+import CommentIcon from "octicons-plain-react/Comment";
 
 import features from "../feature-manager.js";
 import * as pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
+
+import "./hidden-review-comments-indicator.css";
 
 function getHiddenState(holder: HTMLElement): boolean {
   return !!holder.querySelector(":scope > .comment-code-cloud.tw-hidden, :scope > .field.comment-code-cloud.tw-hidden");
@@ -29,11 +32,14 @@ function update(holder: HTMLElement): void {
     return;
   }
 
-  const text = `${count} hidden comment${count === 1 ? "" : "s"}`;
+  const tooltip = `${count} hidden comment${count === 1 ? "" : "s"}`;
 
   if (indicator) {
-    indicator.textContent = text;
-    indicator.dataset.tooltipContent = text;
+    const countNode = indicator.querySelector(".rgf-hidden-review-comments-count");
+    if (countNode) {
+      countNode.textContent = String(count);
+    }
+    indicator.dataset.tooltipContent = tooltip;
     return;
   }
 
@@ -46,9 +52,10 @@ function update(holder: HTMLElement): void {
   const indicatorNode = (
     <span
       className="ui tiny basic label rgf-hidden-review-comments-indicator tw-ml-2"
-      data-tooltip-content={text}
+      data-tooltip-content={tooltip}
     >
-      {text}
+      <CommentIcon className="rgf-hidden-comment-icon" />
+      <span className="rgf-hidden-review-comments-count">{count}</span>
     </span>
   );
 
