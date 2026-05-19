@@ -155,7 +155,7 @@
 ### Editing pull requests
 
 - [+] **sync-pr-commit-title** - 🔥 用 PR 标题作为 squash commit 标题，并同步更新
-- [+] **update-pr-from-base-branch** - 每个 PR 添加「Update branch | Rebase」按钮
+- [x] **update-pr-from-base-branch** - 每个 PR 添加「Update branch | Rebase」按钮
 - [+] **one-click-review-submission** - 一键审核（Approve/Reject）
 - [x] **pull-request-hotkeys** - 添加快捷键循环切换 PR 标签页
 - [+] **pr-branch-auto-delete** - 合并 PR 后自动删除分支

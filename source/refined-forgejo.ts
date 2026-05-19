@@ -87,6 +87,7 @@ import "./features/link-to-changelog-file.js";
 import "./features/create-release-shortcut.js";
 import "./features/visit-tag.js";
 import "./features/archive-forks-link.js";
+import "./features/update-pr-from-base-branch.js";
 import "./features/quick-repo-deletion.js";
 import "./features/repo-wide-file-finder.js";
 import "./features/tag-changes-link.js";
