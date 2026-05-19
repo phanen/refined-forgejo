@@ -23,9 +23,8 @@ function getIssueIndex(): number | undefined {
   return Number.isFinite(parsed) ? parsed : undefined;
 }
 
-async function update(signal: AbortSignal): Promise<void> {
-  const stateLabel = document.querySelector<HTMLElement>(".issue-title-meta .issue-state-label");
-  if (!stateLabel || document.querySelector(".rgf-locked-issue")) {
+async function update(stateLabel: HTMLElement, signal: AbortSignal): Promise<void> {
+  if (document.querySelector(".rgf-locked-issue")) {
     return;
   }
 
@@ -54,8 +53,12 @@ async function update(signal: AbortSignal): Promise<void> {
 }
 
 function init(signal: AbortSignal): void {
-  observe(".issue-title-meta .issue-state-label", () => {
-    void update(signal);
+  observe(".issue-title-meta .issue-state-label", element => {
+    if (!(element instanceof HTMLElement)) {
+      return;
+    }
+
+    void update(element, signal);
   }, { signal });
 }
 
