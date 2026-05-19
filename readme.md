@@ -160,7 +160,7 @@
 - [x] **pull-request-hotkeys** - 添加快捷键循环切换 PR 标签页
 - [+] **pr-branch-auto-delete** - 合并 PR 后自动删除分支
 - [-] **one-click-pr-or-gist** - 一键创建 draft PR 或 public gist
-- [ ] **clear-pr-merge-commit-message** - 清理 PR 合并消息中的冗余信息
+- [+] **clear-pr-merge-commit-message** - 清理 PR 合并消息中的冗余信息
 - [ ] **quick-review** - PR 侧边栏添加快速审核按钮
 - [ ] **pr-first-commit-title** - 用第一个 commit 作为新 PR 的标题和描述
 
