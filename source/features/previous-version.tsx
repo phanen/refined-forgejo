@@ -57,10 +57,10 @@ async function addPreviousVersionButton(historyButton: Element): Promise<void> {
       previousButton.title = `Previous version: ${previousSha.slice(0, 7)}`;
       previousButton.classList.remove("disabled");
     } else {
-      previousButton.remove();
+      previousButton.title = "No previous version found";
     }
   } catch {
-    previousButton.remove();
+    previousButton.title = "Error loading previous version";
   }
 }
 
