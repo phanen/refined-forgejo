@@ -42,9 +42,29 @@
 }
 
 .rgf-preview-hidden-comments-compact {
-  width: auto;
-  flex: 0 1 auto;
-  max-width: min(32ch, 40vw);
+  flex: 1 1 0%;
+  min-width: 0;
+  margin-left: 0.5rem;
+}
+
+.rgf-preview-hidden-comments-text {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Ensure the container doesn't wrap and shrinks to fit available space */
+.resolved-placeholder .ui.grey.text {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+/* Prevent the button container from shrinking */
+.resolved-placeholder > .tw-flex.tw-items-center.tw-gap-2 {
+  flex: none !important;
 }
 
 .comment.rgf-preview-hidden-comments-toggleable.rgf-hidden-comment
