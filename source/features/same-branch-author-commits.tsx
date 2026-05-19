@@ -1,48 +1,85 @@
+import mem from "memoize";
 import features from "../feature-manager.js";
+import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getCurrentBranch, getRepo } from "../forgejo-helpers/index.js";
-import { getFullName } from "../forgejo-helpers/user.js";
 import pageDetect, { isConversation, isPRFiles } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
+type CommitResponse = {
+  commit?: {
+    author?: {
+      email?: string;
+    };
+  };
+};
+
+const getCommitAuthorEmail = mem(async (sha: string): Promise<string | undefined> => {
+  const repo = getRepo();
+  if (!repo) {
+    return undefined;
+  }
+
+  try {
+    const response = await api.v1(`repos/${repo.owner}/${repo.name}/git/commits/${sha}`) as CommitResponse;
+    return response.commit?.author?.email?.trim() || undefined;
+  } catch {
+    return undefined;
+  }
+});
+
+function getCommitSha(container: HTMLElement): string | undefined {
+  const row = container.closest("tr");
+  const shaLink = row?.querySelector<HTMLAnchorElement>("td.sha > a.sha[href]")
+    ?? row?.querySelector<HTMLAnchorElement>("td.sha a.sha[href], td.sha a[href]")
+    ?? container.querySelector<HTMLAnchorElement>("a.sha[href], .sha a[href]");
+  const href = shaLink?.getAttribute("href");
+  if (!href) {
+    return undefined;
+  }
+
+  const match = href.match(/\/commit\/([a-f0-9]{7,40})/i) ?? href.match(/\/commits\/([a-f0-9]{7,40})/i);
+  return match?.[1];
+}
+
+function getAuthorAnchor(container: HTMLElement): HTMLAnchorElement | undefined {
+  return container.querySelector<HTMLAnchorElement>(".author[href], .author-wrapper[href]") ?? undefined;
+}
+
 async function updateLinks(container: HTMLElement): Promise<void> {
-  const authorLink = container.querySelector<HTMLAnchorElement>(".author[href], .author-wrapper[href]");
+  const authorLink = getAuthorAnchor(container);
   const avatar = container.querySelector<HTMLElement>("img.avatar");
 
   if (!authorLink) {
     return;
   }
 
-  const href = authorLink.getAttribute("href");
-  const username = href?.startsWith("/") ? href.split("/")[1] : undefined;
-  if (!username) {
-    return;
-  }
-
-  const fullName = await getFullName(username);
-  console.warn("DEBUGPRINT[2349]: same-branch-author-commits.tsx:21: fullName=", fullName);
-  const searchName = fullName ?? username;
-
-  // 1. Update Avatar Link to point to Profile
-  if (avatar && username) {
-    if (!avatar.closest("a")) {
-      const profileLink = document.createElement("a");
-      profileLink.href = `/${username}`;
-      avatar.parentNode?.insertBefore(profileLink, avatar);
-      profileLink.appendChild(avatar);
-    } else {
-      const avatarAnchor = avatar.closest("a")!;
-      avatarAnchor.href = `/${username}`;
-    }
-  }
-
-  // 2. Update Username Link to filter commits
   const repo = getRepo();
   if (!repo) {
     return;
   }
 
+  const sha = getCommitSha(container);
+  const email = sha ? await getCommitAuthorEmail(sha) : undefined;
+  const searchName = email ?? authorLink.textContent?.trim() ?? "";
+  if (!searchName) {
+    return;
+  }
+
+  if (avatar) {
+    const profileHref = authorLink.getAttribute("href");
+    if (profileHref?.startsWith("/")) {
+      if (!avatar.closest("a")) {
+        const profileLink = document.createElement("a");
+        profileLink.href = profileHref;
+        avatar.parentNode?.insertBefore(profileLink, avatar);
+        profileLink.appendChild(avatar);
+      } else {
+        avatar.closest("a")!.href = profileHref;
+      }
+    }
+  }
+
   let ref = getCurrentBranch();
-  // Handle PR commit list
   if (location.pathname.includes("/pulls/")) {
     const prTarget = document.querySelector("#branch_target a");
     const match = prTarget?.getAttribute("href")?.match(/\/src\/(branch|tag)\/(.+)$/);
@@ -51,9 +88,7 @@ async function updateLinks(container: HTMLElement): Promise<void> {
     }
   }
 
-  if (!ref) {
-    ref = "branch/master";
-  }
+  ref ??= "branch/master";
 
   const url = new URL(buildRepoUrl("commits", ref, "search"), location.origin);
   url.searchParams.set("q", `author:${searchName}`);
@@ -61,15 +96,11 @@ async function updateLinks(container: HTMLElement): Promise<void> {
 }
 
 function init(signal: AbortSignal): void {
-  // Target:
-  // - .comment-header-left: Issue/PR comments
-  // - .timeline-item .flex-text-block: Timeline events
-  // - #commits-table td.author: Commit list
   observe([
     ".comment-header-left",
     ".timeline-item .flex-text-block",
     "#commits-table td.author",
-  ], (element) => {
+  ], element => {
     if (element instanceof HTMLElement) {
       void updateLinks(element);
     }
