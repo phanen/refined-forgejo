@@ -88,26 +88,28 @@ function createPreview(
 }
 
 function updateNativeConversation(holder: HTMLElement): void {
+  const container = getNativeToggleContainer(holder);
+  if (!container) {
+    return;
+  }
+
+  // Shorten "marked this conversation as resolved"
+  const resolvedText = container.querySelector<HTMLElement>(".ui.grey.text");
+  // https://codeberg.org/forgejo/forgejo/src/commit/1000a0da3afc514e9429034cb870d38e7be77022/templates/repo/issue/view_content/conversation.tmpl#L112
+  if (resolvedText?.textContent?.includes("marked this conversation as resolved")) {
+    const b = resolvedText.querySelector("b");
+    if (b) {
+      resolvedText.innerHTML = `${resolvedText.querySelector("svg")?.outerHTML ?? ""} ${b.outerHTML}`;
+    }
+    // Ensure the text container doesn't take up more space than needed
+    resolvedText.style.flex = "0 1 auto";
+  }
+
   const previewText = isNativeHidden(holder) ? getNativeConversationPreview(holder) : "";
   const existing = holder.querySelector<HTMLElement>(".rgf-preview-hidden-comments");
 
   if (!previewText) {
     existing?.remove();
-    return;
-  }
-
-  if (existing) {
-    const text = existing.querySelector<HTMLElement>(".rgf-preview-hidden-comments-text");
-    if (text) {
-      text.textContent = previewText;
-    }
-    existing.title = previewText;
-    existing.dataset.tooltipContent = previewText;
-    return;
-  }
-
-  const container = getNativeToggleContainer(holder);
-  if (!container) {
     return;
   }
 
