@@ -1,0 +1,8 @@
+a.rgf-linkify-user-labels {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.rgf-linkify-user-labels:hover {
+  text-decoration: none;
+}

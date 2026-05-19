@@ -77,6 +77,16 @@ export function getCurrentBranch(): string | undefined {
     return `${isTag ? "tag" : "branch"}/${branchSelector.textContent?.trim()}`;
   }
 
+  // 3. Try to get from PR target branch
+  const prTarget = document.querySelector("#branch_target a");
+  if (prTarget) {
+    const href = prTarget.getAttribute("href");
+    const match = href?.match(/\/src\/(branch|tag)\/([^/]+)/);
+    if (match) {
+      return `${match[1]}/${match[2]}`;
+    }
+  }
+
   return undefined;
 }
 

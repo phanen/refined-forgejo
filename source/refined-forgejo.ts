@@ -50,6 +50,7 @@ import "./features/mobile-tabs-pr.js";
 import "./features/show-names.js";
 import "./features/shorten-links.js";
 import "./features/comments-time-machine-links.js";
+import "./features/linkify-user-labels.js";
 import "./features/preview-hidden-comments.js";
 import "./features/highest-rated-comment.js";
 import "./features/hide-low-quality-comments.js";
