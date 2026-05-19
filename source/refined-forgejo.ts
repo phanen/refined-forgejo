@@ -50,6 +50,7 @@ import "./features/mobile-tabs-pr.js";
 import "./features/show-names.js";
 import "./features/shorten-links.js";
 import "./features/comments-time-machine-links.js";
+import "./features/no-duplicate-list-update-time.js";
 import "./features/linkify-user-labels.js";
 import "./features/jump-to-conversation-close-event.js";
 import "./features/locked-issue.js";

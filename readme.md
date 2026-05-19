@@ -119,7 +119,7 @@
 - [ ] **clean-conversation-headers** - 移除 PR 头部的重复信息
 - [x] **dim-bots** - 淡化 bot 的提交和 PR
 - [x] **esc-to-cancel** - esc 取消编辑 PR 标题
-- [ ] **no-duplicate-list-update-time** - 隐藏与开/关/合并时间相同的更新时间
+- [x] **no-duplicate-list-update-time** - 隐藏与开/关/合并时间相同的更新时间
 - [x] **linkify-user-labels** - 将「Contributor」「Member」等标签链接到作者提交
 - [x] **jump-to-conversation-close-event** - 跳转到 issue/PR 的最后关闭事件
 - [-] **close-as-unplanned** - 一键「close as unplanned」
