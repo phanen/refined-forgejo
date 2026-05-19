@@ -1,3 +1,18 @@
+.rgf-collapsible-content-btn {
+  color: var(--color-text) !important;
+}
+
+.rgf-collapsible-content-btn:hover,
+.rgf-collapsible-content-btn:focus {
+  color: var(--color-primary) !important;
+}
+
 .rgf-collapsible-content-btn svg {
   vertical-align: middle;
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+.rgf-collapsible-content-btn svg path {
+  fill: currentColor !important;
 }
