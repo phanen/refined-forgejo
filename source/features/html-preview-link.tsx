@@ -8,7 +8,14 @@ function getRawUrl(url: string): string {
   return url.replace(/\/(src|blame)\/(branch|commit|tag)\//, "/raw/$2/");
 }
 
+function isPrivateRepo(): boolean {
+  return !!document.querySelector(".repo-header .octicon-lock, .repo-header .octicon-shield-lock");
+}
+
 function addPreviewLinkToFileList(fileLink: Element): void {
+  if (isPrivateRepo()) {
+    return;
+  }
   const link = fileLink as HTMLAnchorElement;
   const fileName = link.textContent?.trim() ?? link.getAttribute("title")?.trim();
   if (!fileName?.endsWith(".html")) {
@@ -49,6 +56,9 @@ function addPreviewLinkToFileList(fileLink: Element): void {
 }
 
 function addPreviewButtonToFileHeader(rawButton: Element): void {
+  if (isPrivateRepo()) {
+    return;
+  }
   const container = rawButton.parentElement;
   if (!container || container.querySelector(".rgf-html-preview-button")) {
     return;
