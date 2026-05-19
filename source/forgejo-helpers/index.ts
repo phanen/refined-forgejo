@@ -51,30 +51,33 @@ export function getCurrentBranch(): string | undefined {
     return undefined;
   }
 
-  // 1. Try to get branch or tag from URL
-  if (
-    ["src", "commits", "blame", "raw"].includes(repo.pathParts[0])
-    && ["branch", "tag"].includes(repo.pathParts[1])
-  ) {
-    // Determine where the branch part ends by looking at the page metadata or UI if possible
-    // For now, assume everything after repo.pathParts[1] is the branch name if we're on a single file page
-    // but this is often wrong if there's a path.
-    const branchSelector = document.querySelector(".branch-dropdown-button strong");
-    if (branchSelector) {
-      const isTag = !!branchSelector.closest(".js-branch-tag-selector")?.querySelector(".octicon-tag");
-      return `${isTag ? "tag" : "branch"}/${branchSelector.textContent?.trim()}`;
+  // 1. Try to get branch or tag from URL - prioritize URL
+  // We look for /TYPE/REF where TYPE is branch or tag
+  const path = location.pathname;
+  const match = path.match(/\/(?:src|commits|blame|raw)\/(branch|tag)\/(.+)$/);
+  if (match) {
+    const type = match[1];
+    let ref = match[2];
+
+    // For commits page, we can accurately determine the ref even with slashes
+    if (path.includes("/commits/")) {
+      ref = ref.replace(/\/search$/, "");
+      return `${type}/${ref}`;
     }
 
-    // If no UI selector, we might be in a state where we can't easily distinguish branch from path
-    // in the URL without more context. Fallback to just the next part.
-    return `${repo.pathParts[1]}/${repo.pathParts[2]}`;
+    // For other pages (src, blame), we take the first segment as a fallback
+    // This is still better than guessing 'tag' vs 'branch' from the UI icons
+    const firstSegment = ref.split("/")[0];
+    return `${type}/${firstSegment}`;
   }
 
-  // 2. Try to find branch from the branch selector in the UI
-  const branchSelector = document.querySelector(".branch-dropdown-button strong");
-  if (branchSelector) {
-    const isTag = !!branchSelector.closest(".js-branch-tag-selector")?.querySelector(".octicon-tag");
-    return `${isTag ? "tag" : "branch"}/${branchSelector.textContent?.trim()}`;
+  // 2. Fallback to UI only if not in URL (e.g. repo home)
+  const branchSelector = document.querySelector(".branch-dropdown-button");
+  const branchName = branchSelector?.querySelector("strong")?.textContent?.trim();
+  if (branchSelector && branchName) {
+    // Only trust the UI if the URL didn't give us a clear branch/tag type
+    const isTag = !!branchSelector.querySelector(".octicon-tag");
+    return `${isTag ? "tag" : "branch"}/${branchName}`;
   }
 
   // 3. Try to get from PR target branch

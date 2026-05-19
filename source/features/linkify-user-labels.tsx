@@ -4,40 +4,24 @@ import React from "dom-chef";
 
 import features from "../feature-manager.js";
 import { buildRepoUrl, getCurrentBranch, getRepo } from "../forgejo-helpers/index.js";
-import { getFullName } from "../forgejo-helpers/user.js";
 import { wrap } from "../helpers/dom-utils.js";
 import * as pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-function getAuthorUsername(label: HTMLElement): string | undefined {
-  const container = label.closest<HTMLElement>(".comment, .timeline-item");
-  const author = container?.querySelector<HTMLAnchorElement>(
-    ".comment-header-left .author[href], .comment-header-left a.author[href], .timeline-item .author[href]",
-  );
-  if (!author) {
-    return undefined;
-  }
-
-  try {
-    const url = new URL(author.href, location.origin);
-    return url.pathname.replace(/^\/+/, "").split("/")[0];
-  } catch {
-    return undefined;
-  }
-}
-
-async function linkify(label: HTMLElement): Promise<void> {
+function linkify(label: HTMLElement): void {
   if (label.closest("a.rgf-linkify-user-labels")) {
     return;
   }
 
-  const username = getAuthorUsername(label);
-  if (!username) {
+  const container = label.closest<HTMLElement>(".comment, .timeline-item");
+  const authorLink = container?.querySelector<HTMLAnchorElement>(
+    ".comment-header-left .author[href], .comment-header-left a.author[href], .timeline-item .author[href]",
+  );
+
+  const authorName = authorLink?.textContent?.trim();
+  if (!authorName) {
     return;
   }
-
-  const fullName = await getFullName(username);
-  const searchName = fullName ?? username;
 
   const repo = getRepo();
   if (!repo) {
@@ -61,7 +45,7 @@ async function linkify(label: HTMLElement): Promise<void> {
   }
 
   const url = new URL(`${baseUrl}/${ref}/search`, location.origin);
-  url.searchParams.set("q", `author:${searchName}`);
+  url.searchParams.set("q", `author:${authorName}`);
 
   wrap(
     label,
@@ -72,7 +56,7 @@ async function linkify(label: HTMLElement): Promise<void> {
 function init(signal: AbortSignal): void {
   observe(".comment .role-label, .timeline-item .role-label", element => {
     if (element instanceof HTMLElement) {
-      void linkify(element);
+      linkify(element);
     }
   }, { signal });
 }
