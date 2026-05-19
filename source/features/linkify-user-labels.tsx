@@ -26,29 +26,6 @@ function getAuthorUsername(label: HTMLElement): string | undefined {
   }
 }
 
-function getPRHeadInfo(): { repoPath: string; ref: string } | undefined {
-  const pullDesc = document.querySelector(".pull-desc");
-  if (!pullDesc) {
-    return undefined;
-  }
-
-  // The first code block in pull-desc usually contains the head branch link
-  const headLink = pullDesc.querySelector("code:first-of-type a");
-  if (headLink) {
-    const href = headLink.getAttribute("href");
-    const match = href?.match(/^(\/.*)\/src\/(branch|tag)\/(.+)$/);
-    if (match) {
-      return { repoPath: match[1], ref: `${match[2]}/${match[3]}` };
-    }
-  }
-  return undefined;
-}
-
-function getPRAuthorUsername(): string | undefined {
-  const authorEl = document.querySelector(".pull-desc a:first-child");
-  return authorEl?.getAttribute("href")?.replace(/^\//, "");
-}
-
 async function linkify(label: HTMLElement): Promise<void> {
   if (label.closest("a.rgf-linkify-user-labels")) {
     return;
@@ -67,25 +44,15 @@ async function linkify(label: HTMLElement): Promise<void> {
     return;
   }
 
-  let baseUrl = buildRepoUrl("commits");
+  const baseUrl = buildRepoUrl("commits");
   let ref = getCurrentBranch();
 
-  // If on a PR page, try to be smarter
+  // If on a PR page, use the target branch (Base Branch) of the PR
   if (pageDetect.isPR()) {
-    const prAuthorUsername = getPRAuthorUsername();
-    const headInfo = getPRHeadInfo();
-
-    if (username === prAuthorUsername && headInfo) {
-      // Prioritize the user's own branch if they are the PR author
-      baseUrl = `${headInfo.repoPath}/commits`;
-      ref = headInfo.ref;
-    } else {
-      // Otherwise use the PR target branch
-      const prTarget = document.querySelector("#branch_target a");
-      const match = prTarget?.getAttribute("href")?.match(/\/src\/(branch|tag)\/(.+)$/);
-      if (match) {
-        ref = `${match[1]}/${match[2]}`;
-      }
+    const prTarget = document.querySelector("#branch_target a");
+    const match = prTarget?.getAttribute("href")?.match(/\/src\/(branch|tag)\/(.+)$/);
+    if (match) {
+      ref = `${match[1]}/${match[2]}`;
     }
   }
 
