@@ -1,6 +1,8 @@
+import "./preview-hidden-comments.css";
 import "./hide-low-quality-comments.css";
 
 import React from "dom-chef";
+import UnfoldIcon from "octicons-plain-react/Unfold";
 import features from "../feature-manager.js";
 import isLowQualityComment from "../helpers/is-low-quality-comment.js";
 import * as pageDetect from "../helpers/page-detect.js";
@@ -9,8 +11,17 @@ function getCommentBody(comment: HTMLElement): HTMLElement | undefined {
   return comment.querySelector<HTMLElement>(".comment-body .markup, .comment-content .markup") ?? undefined;
 }
 
-function dispatchHiddenCommentsChanged(): void {
-  document.dispatchEvent(new Event("rgf-hidden-comments-changed"));
+function normalizeText(text: string): string {
+  return text.replaceAll(/\s+/g, " ").trim();
+}
+
+function truncate(text: string, maxLength = 180): string {
+  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
+}
+
+function getOwnCommentPreview(comment: HTMLElement): string {
+  const body = comment.querySelector<HTMLElement>(".comment-body .markup, .comment-content .markup");
+  return truncate(normalizeText(body?.textContent ?? ""));
 }
 
 function getHiddenCommentsNote(hiddenCount: number): string {
@@ -20,7 +31,8 @@ function getHiddenCommentsNote(hiddenCount: number): string {
 function hideComment(comment: HTMLElement): void {
   comment.classList.add("rgf-low-quality-comment");
   comment.classList.add("rgf-hidden-comment");
-  dispatchHiddenCommentsChanged();
+  updateOwnPreviews();
+  updateNote();
 }
 
 function showComment(comment: HTMLElement): void {
@@ -29,7 +41,8 @@ function showComment(comment: HTMLElement): void {
   }
 
   comment.classList.remove("rgf-hidden-comment");
-  dispatchHiddenCommentsChanged();
+  updateOwnPreviews();
+  updateNote();
 }
 
 export function toggleComment(comment: HTMLElement): void {
@@ -38,6 +51,99 @@ export function toggleComment(comment: HTMLElement): void {
   } else {
     hideComment(comment);
   }
+}
+
+function createPreview(text: string, onClick: () => void): HTMLElement {
+  return (
+    <span
+      className="rgf-preview-hidden-comments"
+      title={text}
+      data-tooltip-content={text}
+      role="button"
+      tabIndex={0}
+      onClick={onClick}
+      onKeyDown={(event: React.KeyboardEvent<HTMLSpanElement>) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onClick();
+        }
+      }}
+    >
+      <span className="rgf-preview-hidden-comments-text">{text}</span>{" "}
+      <button
+        type="button"
+        className="btn rgf-preview-hidden-comments-action"
+        onClick={event => {
+          event.preventDefault();
+          event.stopPropagation();
+          onClick();
+        }}
+      >
+        <UnfoldIcon />
+        Show comment
+      </button>
+    </span>
+  );
+}
+
+function updateOwnComment(comment: HTMLElement): void {
+  const previewText = comment.classList.contains("rgf-low-quality-comment") ? getOwnCommentPreview(comment) : "";
+  const existing = comment.querySelector<HTMLElement>(".rgf-preview-hidden-comments");
+
+  if (!previewText) {
+    existing?.remove();
+    return;
+  }
+
+  comment.classList.add("rgf-preview-hidden-comments-toggleable");
+
+  if (existing) {
+    const text = existing.querySelector<HTMLElement>(".rgf-preview-hidden-comments-text");
+    if (text) {
+      text.textContent = previewText;
+    }
+    existing.title = previewText;
+    existing.dataset.tooltipContent = previewText;
+    return;
+  }
+
+  const header = comment.querySelector<HTMLElement>(".comment-header");
+  header?.append(createPreview(previewText, () => toggleComment(comment)));
+}
+
+function updateOwnPreviews(): void {
+  for (const comment of document.querySelectorAll<HTMLElement>(".comment.rgf-low-quality-comment")) {
+    updateOwnComment(comment);
+  }
+}
+
+function updateNote(): void {
+  const hiddenCount = document.querySelectorAll(".rgf-hidden-comment").length;
+  const noteTarget = document.querySelector<HTMLElement>(".time-desc, .pull-desc");
+  if (!noteTarget) {
+    return;
+  }
+
+  const note = document.querySelector<HTMLElement>(".rgf-low-quality-comments-note");
+  if (!hiddenCount) {
+    note?.remove();
+    return;
+  }
+
+  if (note) {
+    note.querySelector<HTMLElement>(".rgf-low-quality-comments-note-text")!.textContent = getHiddenCommentsNote(
+      hiddenCount,
+    );
+    return;
+  }
+
+  noteTarget.insertAdjacentElement(
+    "afterend",
+    <span className="rgf-low-quality-comments-note">
+      <span className="rgf-low-quality-comments-note-text">{getHiddenCommentsNote(hiddenCount)}</span>{" "}
+      <button className="btn-link text-emphasized" type="button" onClick={unhide}>Show</button>
+    </span>,
+  );
 }
 
 function toggleCommentRoot(comment: HTMLElement, hiddenBefore?: boolean): void {
@@ -54,7 +160,8 @@ function unhide(): void {
     comment.classList.remove("rgf-hidden-comment");
   }
   document.querySelector(".rgf-low-quality-comments-note")?.remove();
-  dispatchHiddenCommentsChanged();
+  updateOwnPreviews();
+  updateNote();
 }
 
 function shouldExpandComment(target: Element): boolean {
@@ -125,37 +232,9 @@ function init(signal: AbortSignal): void {
     hideComment(comment);
   }
 
-  function updateNote(): void {
-    const hiddenCount = document.querySelectorAll(".rgf-hidden-comment").length;
-    const noteTarget = document.querySelector<HTMLElement>(".time-desc, .pull-desc");
-    if (!noteTarget) {
-      return;
-    }
-
-    const note = document.querySelector<HTMLElement>(".rgf-low-quality-comments-note");
-    if (!hiddenCount) {
-      note?.remove();
-      return;
-    }
-
-    if (note) {
-      note.querySelector<HTMLElement>(".rgf-low-quality-comments-note-text")!.textContent = getHiddenCommentsNote(
-        hiddenCount,
-      );
-      return;
-    }
-
-    noteTarget.insertAdjacentElement(
-      "afterend",
-      <span className="rgf-low-quality-comments-note">
-        <span className="rgf-low-quality-comments-note-text">{getHiddenCommentsNote(hiddenCount)}</span>{" "}
-        <button className="btn-link text-emphasized" type="button" onClick={unhide}>Show</button>
-      </span>,
-    );
-  }
+  updateOwnPreviews();
 
   updateNote();
-  document.addEventListener("rgf-hidden-comments-changed", updateNote, { signal });
   initExpandOnClick(signal);
 }
 

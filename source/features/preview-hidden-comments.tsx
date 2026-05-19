@@ -4,32 +4,17 @@ import React from "dom-chef";
 import UnfoldIcon from "octicons-plain-react/Unfold";
 import features from "../feature-manager.js";
 import * as pageDetect from "../helpers/page-detect.js";
-import observe from "../helpers/selector-observer.js";
-import { toggleComment } from "./hide-low-quality-comments.js";
-
-function normalizeText(text: string): string {
-  return text.replaceAll(/\s+/g, " ").trim();
-}
-
-function truncate(text: string, maxLength = 180): string {
-  return text.length > maxLength ? `${text.slice(0, maxLength - 1)}…` : text;
-}
-
-function getOwnCommentPreview(comment: HTMLElement): string {
-  const body = comment.querySelector<HTMLElement>(".comment-body .markup, .comment-content .markup");
-  return truncate(normalizeText(body?.textContent ?? ""));
-}
 
 function getNativeConversationPreview(holder: HTMLElement): string {
   const body = holder.querySelector<HTMLElement>(
     ".comment-code-cloud .comment-content .markup, .comment-code-cloud .render-content.markup",
   );
-  const text = normalizeText(body?.textContent ?? "");
+  const text = body?.textContent?.replaceAll(/\s+/g, " ").trim() ?? "";
   if (!text) {
     return "";
   }
 
-  return truncate(text);
+  return text.length > 180 ? `${text.slice(0, 179)}…` : text;
 }
 
 function isNativeHidden(holder: HTMLElement): boolean {
@@ -89,38 +74,6 @@ function createPreview(text: string, options: { onClick?: () => void; actionLabe
   );
 }
 
-function updateOwnComment(comment: HTMLElement): void {
-  const previewText = comment.classList.contains("rgf-low-quality-comment") ? getOwnCommentPreview(comment) : "";
-  const existing = comment.querySelector<HTMLElement>(".rgf-preview-hidden-comments");
-
-  if (!previewText) {
-    existing?.remove();
-    return;
-  }
-
-  comment.classList.add("rgf-preview-hidden-comments-toggleable");
-
-  if (existing) {
-    const text = existing.querySelector<HTMLElement>(".rgf-preview-hidden-comments-text");
-    if (text) {
-      text.textContent = previewText;
-    }
-    existing.title = previewText;
-    existing.dataset.tooltipContent = previewText;
-    return;
-  }
-
-  const header = comment.querySelector<HTMLElement>(".comment-header");
-  if (!header) {
-    return;
-  }
-
-  header.append(createPreview(previewText, {
-    actionLabel: "Show comment",
-    onClick: () => toggleComment(comment),
-  }));
-}
-
 function updateNativeConversation(holder: HTMLElement): void {
   const previewText = isNativeHidden(holder) ? getNativeConversationPreview(holder) : "";
   const existing = holder.querySelector<HTMLElement>(".rgf-preview-hidden-comments");
@@ -155,10 +108,6 @@ function updateNativeConversation(holder: HTMLElement): void {
 }
 
 function updatePreviews(): void {
-  for (const comment of document.querySelectorAll<HTMLElement>(".comment.rgf-hidden-comment")) {
-    updateOwnComment(comment);
-  }
-
   for (const holder of document.querySelectorAll<HTMLElement>(".conversation-holder")) {
     updateNativeConversation(holder);
   }
@@ -174,10 +123,6 @@ function toggleNativeConversation(holder: HTMLElement): void {
 
 function init(signal: AbortSignal): void {
   updatePreviews();
-
-  observe(".comment.rgf-hidden-comment, .conversation-holder", updatePreviews, { signal });
-
-  document.addEventListener("rgf-hidden-comments-changed", updatePreviews, { signal });
 
   document.addEventListener("click", event => {
     if (!(event.target instanceof Element)) {

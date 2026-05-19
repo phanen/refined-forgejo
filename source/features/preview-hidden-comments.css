@@ -1,28 +1,25 @@
 .rgf-preview-hidden-comments {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 6px;
-  max-width: 100%;
+  width: 100%;
+  min-width: 0;
   color: var(--color-text-secondary, var(--color-fg-muted));
   cursor: pointer;
   font-size: 12px;
   line-height: 1.4;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .rgf-preview-hidden-comments-actionable {
-  width: 100%;
   justify-content: space-between;
 }
 
 .rgf-preview-hidden-comments-text {
   flex: 1 1 auto;
   min-width: 0;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .rgf-preview-hidden-comments-action {
