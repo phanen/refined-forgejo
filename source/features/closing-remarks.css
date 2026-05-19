@@ -1,0 +1,19 @@
+.rgf-closing-remarks {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rgf-closing-remarks-tag {
+  color: var(--color-text) !important;
+}
+
+.rgf-closing-remarks-icon,
+.rgf-closing-remarks-icon.svg {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+.rgf-closing-remarks-icon path {
+  fill: currentColor !important;
+}
