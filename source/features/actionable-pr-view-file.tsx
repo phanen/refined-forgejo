@@ -9,7 +9,7 @@ function addDeleteButton(container: Element): void {
     return;
   }
 
-  const editButton = container.querySelector<HTMLAnchorElement>("a.ui.basic.tiny.button[href*='/_edit/']");
+  const editButton = container.querySelector<HTMLAnchorElement>("a.ui.basic.button[href*='/_edit/']");
   if (!editButton) {
     return;
   }
@@ -20,7 +20,7 @@ function addDeleteButton(container: Element): void {
   }
 
   editButton.after(
-    <a className="rgf-pr-delete-file ui basic tiny button" rel="nofollow" href={deleteHref}>
+    <a className="rgf-pr-delete-file ui basic mini button" rel="nofollow" href={deleteHref}>
       Delete
     </a>,
   );

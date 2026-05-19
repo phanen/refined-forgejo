@@ -26,13 +26,13 @@ function addMoreLinks(container: Element): void {
 
   viewFileButton.after(
     <div className="rgf-more-file-links">
-      <a className="ui basic tiny button" href={getUrl(baseUrl, "raw")} data-turbo="false">
+      <a className="ui basic mini button" href={getUrl(baseUrl, "raw")} data-turbo="false">
         Raw
       </a>
-      <a className="ui basic tiny button" href={getUrl(baseUrl, "blame")}>
+      <a className="ui basic mini button" href={getUrl(baseUrl, "blame")}>
         Blame
       </a>
-      <a className="ui basic tiny button" href={getUrl(baseUrl, "commits")}>
+      <a className="ui basic mini button" href={getUrl(baseUrl, "commits")}>
         History
       </a>
     </div>,

@@ -46,7 +46,7 @@
 - [+] **show-associated-branch-prs-on-fork** - fork 仓库的分支上显示关联的 PR
 - [x] **html-preview-link** - 预览 HTML 文件的链接
 - [x] **file-age-color** - 高亮最近修改的文件
-- [ ] **previous-version** - 一键查看文件的上一版本
+- [x] **previous-version** - 一键查看文件的上一版本
 
 ---
 
