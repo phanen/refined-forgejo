@@ -105,3 +105,4 @@ import "./features/navigation-hotkeys.js";
 import "./features/dim-bots.js";
 import "./features/open-all-conversations.js";
 import "./features/conventional-commits.js";
+import "./features/html-preview-link.js";

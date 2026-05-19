@@ -44,7 +44,7 @@
 - [x] **quick-file-edit** - 仓库文件列表添加编辑按钮
 - [x] **repo-wide-file-finder** - 启用键盘快捷键 t 在整个仓库搜索文件
 - [+] **show-associated-branch-prs-on-fork** - fork 仓库的分支上显示关联的 PR
-- [ ] **html-preview-link** - 预览 HTML 文件的链接
+- [x] **html-preview-link** - 预览 HTML 文件的链接
 - [x] **file-age-color** - 高亮最近修改的文件
 - [ ] **previous-version** - 一键查看文件的上一版本
 
