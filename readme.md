@@ -179,7 +179,7 @@
 - [ ] **deep-reblame** - alt+click「Reblame」时先提取关联 PR 的提交
 - [x] **new-or-deleted-file** - 图标指示 PR/commits 中文件的添加/删除状态
 - [x] **easy-toggle-files** - 点击文件头部切换 diff
-- [-] **same-branch-author-commits** - 查看某作者的所有提交时保留分支和路径
+- [x] **same-branch-author-commits** - 查看某作者的所有提交时保留分支和路径
 - [+] **easy-toggle-commit-messages** - 点击提交框切换提交消息
 - [-] **link-to-compare-diff** - 「X files changed」文本可点击跳转到 diff
 - [x] **conventional-commits** - 在提交消息前显示 conventional commit 类型标签

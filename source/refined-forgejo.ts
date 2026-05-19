@@ -112,3 +112,4 @@ import "./features/conventional-commits.js";
 import "./features/html-preview-link.js";
 import "./features/previous-version.js";
 import "./features/toggle-everything-with-alt.js";
+import "./features/same-branch-author-commits.js";
