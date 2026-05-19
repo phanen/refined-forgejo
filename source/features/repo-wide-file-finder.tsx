@@ -3,6 +3,7 @@ import { buildRepoUrl, getCurrentBranch } from "../forgejo-helpers/index.js";
 import { registerHotkey } from "../github-helpers/hotkey.js";
 import { executeInMainWorld } from "../helpers/main-world.js";
 import pageDetect from "../helpers/page-detect.js";
+import observe from "../helpers/selector-observer.js";
 
 function normalizeRef(ref: string | undefined): string | undefined {
   if (!ref) {
@@ -39,13 +40,24 @@ async function getRef(): Promise<string | undefined> {
   return normalizeRef(fallback?.branchNameSubURL ?? fallback?.refName);
 }
 
-async function init(signal: AbortSignal): Promise<void> {
+async function addHotkey(header: Element): Promise<void> {
   const ref = await getRef();
   if (!ref) {
     return;
   }
 
-  registerHotkey("t", buildRepoUrl("find", ref), { signal });
+  // Use a unique class to prevent double registration if the element is re-observed
+  if (header.classList.contains("rgf-file-finder-hotkey-added")) {
+    return;
+  }
+  header.classList.add("rgf-file-finder-hotkey-added");
+
+  registerHotkey("t", buildRepoUrl("find", ref));
+}
+
+async function init(signal: AbortSignal): Promise<void> {
+  // Observe the branch dropdown button which is essential for determining the context
+  observe(".branch-dropdown-button", addHotkey, { signal });
 }
 
 void features.add(import.meta.url, {
