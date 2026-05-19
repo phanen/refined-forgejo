@@ -146,6 +146,10 @@ function init(signal: AbortSignal): void {
       return;
     }
 
+    if (event.target.closest(".rgf-preview-hidden-comments")) {
+      return;
+    }
+
     const container = event.target.closest<HTMLElement>(
       ".resolved-placeholder.rgf-preview-hidden-comments-toggleable, .collapsible-comment-box.rgf-preview-hidden-comments-toggleable",
     );
