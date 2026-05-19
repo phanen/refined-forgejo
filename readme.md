@@ -134,7 +134,7 @@
 - [x] **unclip-checks** - 展开 checks 面板时自动显示所有检查
 - [x] **pr-approvals-count** - PR 列表显示颜色编码的审核计数
 - [x] **highlight-non-default-base-branch** - 非默认分支作为 base 时高亮显示
-- [ ] **hide-inactive-deployments** - 隐藏 PR 中不活跃的部署
+- [-] **hide-inactive-deployments** - 隐藏 PR 中不活跃的部署
 - [+] **previous-next-commit-buttons** - Commits 标签页底部添加导航按钮
 - [ ] **hidden-review-comments-indicator** - PR review 中有隐藏评论时显示指示器
 - [x] **conflict-marker** - PR 列表中显示有冲突的 PR
