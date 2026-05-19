@@ -33,6 +33,14 @@ function getNativePreviewTarget(container: HTMLElement): HTMLElement {
     : container.querySelector<HTMLElement>(":scope > div:first-child") ?? container;
 }
 
+function labelNativeFilename(container: HTMLElement): void {
+  const filename = container.querySelector<HTMLElement>("a.file-comment");
+  if (filename) {
+    filename.classList.add("label");
+    filename.classList.add("ui");
+  }
+}
+
 function createPreview(
   text: string,
   options: { onClick?: () => void; actionLabel?: string; compact?: boolean } = {},
@@ -106,6 +114,7 @@ function updateNativeConversation(holder: HTMLElement): void {
   container.classList.add("rgf-preview-hidden-comments-toggleable");
 
   if (!container.querySelector(".rgf-preview-hidden-comments")) {
+    labelNativeFilename(container);
     getNativePreviewTarget(container).append(createPreview(previewText, {
       onClick: () => toggleNativeConversation(holder),
       compact: true,
