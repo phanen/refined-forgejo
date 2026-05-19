@@ -162,7 +162,7 @@
 - [-] **one-click-pr-or-gist** - 一键创建 draft PR 或 public gist
 - [+] **clear-pr-merge-commit-message** - 清理 PR 合并消息中的冗余信息
 - [x] **quick-review** - PR 侧边栏添加快速审核按钮
-- [ ] **pr-first-commit-title** - 用第一个 commit 作为新 PR 的标题和描述
+- [x] **pr-first-commit-title** - 用第一个 commit 作为新 PR 的标题和描述
 
 ---
 
