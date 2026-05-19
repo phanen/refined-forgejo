@@ -56,7 +56,8 @@
 }
 
 /* Ensure the container doesn't wrap and shrinks to fit available space */
-.rgf-preview-hidden-comments-toggleable > :first-child {
+:is(.resolved-placeholder, .collapsible-comment-box).rgf-preview-hidden-comments-toggleable
+  > :first-child {
   flex: 1 1 0% !important;
   min-width: 0 !important;
   display: flex !important;
@@ -65,11 +66,44 @@
 }
 
 /* Prevent the button container from shrinking */
-.rgf-preview-hidden-comments-toggleable > :last-child {
+:is(.resolved-placeholder, .collapsible-comment-box).rgf-preview-hidden-comments-toggleable
+  > :last-child {
   flex: none !important;
   display: flex !important;
   align-items: center !important;
   gap: 0.5rem !important;
+}
+
+/* Prevent the button container from shrinking */
+:is(.resolved-placeholder, .collapsible-comment-box).rgf-preview-hidden-comments-toggleable
+  > :last-child {
+  flex: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+/* Low quality comments: when hidden, hide other header parts and let preview expand */
+.comment.rgf-hidden-comment.rgf-preview-hidden-comments-toggleable
+  .comment-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 0.5rem !important;
+  width: 100% !important;
+}
+
+.comment.rgf-hidden-comment.rgf-preview-hidden-comments-toggleable
+  .comment-header
+  > :not(.rgf-preview-hidden-comments) {
+  display: none !important;
+}
+
+.comment.rgf-hidden-comment.rgf-preview-hidden-comments-toggleable
+  .rgf-preview-hidden-comments {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
 }
 
 .comment.rgf-preview-hidden-comments-toggleable.rgf-hidden-comment
