@@ -1,7 +1,6 @@
 import "./preview-hidden-comments.css";
 
 import React from "dom-chef";
-import UnfoldIcon from "octicons-plain-react/Unfold";
 import features from "../feature-manager.js";
 import * as pageDetect from "../helpers/page-detect.js";
 
@@ -43,14 +42,12 @@ function labelNativeFilename(container: HTMLElement): void {
 
 function createPreview(
   text: string,
-  options: { onClick?: () => void; actionLabel?: string; compact?: boolean } = {},
+  options: { onClick?: () => void; compact?: boolean } = {},
 ): HTMLElement {
-  const { onClick, actionLabel, compact } = options;
+  const { onClick, compact } = options;
   return (
     <span
-      className={`rgf-preview-hidden-comments${actionLabel ? " rgf-preview-hidden-comments-actionable" : ""}${
-        compact ? " rgf-preview-hidden-comments-compact" : ""
-      }`}
+      className={`rgf-preview-hidden-comments${compact ? " rgf-preview-hidden-comments-compact" : ""}`}
       title={text}
       data-tooltip-content={text}
       role={onClick ? "button" : undefined}
@@ -66,23 +63,6 @@ function createPreview(
         : undefined}
     >
       <span className="rgf-preview-hidden-comments-text">{text}</span>
-      {actionLabel && onClick && (
-        <>
-          {" "}
-          <button
-            type="button"
-            className="btn rgf-preview-hidden-comments-action"
-            onClick={event => {
-              event.preventDefault();
-              event.stopPropagation();
-              onClick();
-            }}
-          >
-            <UnfoldIcon />
-            {actionLabel}
-          </button>
-        </>
-      )}
     </span>
   );
 }

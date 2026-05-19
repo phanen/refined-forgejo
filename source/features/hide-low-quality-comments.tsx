@@ -41,6 +41,7 @@ function showComment(comment: HTMLElement): void {
   }
 
   comment.classList.remove("rgf-hidden-comment");
+  comment.querySelector<HTMLElement>(".rgf-preview-hidden-comments")?.remove();
   updateOwnPreviews();
   updateNote();
 }
@@ -87,7 +88,7 @@ function createPreview(text: string, onClick: () => void): HTMLElement {
 }
 
 function updateOwnComment(comment: HTMLElement): void {
-  const previewText = comment.classList.contains("rgf-low-quality-comment") ? getOwnCommentPreview(comment) : "";
+  const previewText = comment.classList.contains("rgf-hidden-comment") ? getOwnCommentPreview(comment) : "";
   const existing = comment.querySelector<HTMLElement>(".rgf-preview-hidden-comments");
 
   if (!previewText) {

@@ -35,3 +35,53 @@
 .rgf-hidden-comment .comment-header-right * {
   pointer-events: auto;
 }
+
+.rgf-preview-hidden-comments-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  padding: 0;
+  background: none;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text) !important;
+  white-space: nowrap;
+}
+
+.rgf-preview-hidden-comments-action svg {
+  color: inherit !important;
+  fill: currentColor !important;
+  margin-inline-end: 0;
+}
+
+.comment.rgf-preview-hidden-comments-toggleable.rgf-hidden-comment
+  .comment-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.comment.rgf-preview-hidden-comments-toggleable:not(.rgf-hidden-comment)
+  .comment-header {
+  cursor: pointer;
+}
+
+.comment.rgf-hidden-comment.rgf-preview-hidden-comments-toggleable
+  .comment-header {
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.comment.rgf-hidden-comment.rgf-preview-hidden-comments-toggleable
+  .comment-header
+  > :not(.rgf-preview-hidden-comments) {
+  display: none !important;
+}
+
+.comment.rgf-hidden-comment.rgf-preview-hidden-comments-toggleable
+  .rgf-preview-hidden-comments {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
+}

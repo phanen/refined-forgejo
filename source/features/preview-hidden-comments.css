@@ -10,44 +10,29 @@
   line-height: 1.4;
 }
 
-.rgf-preview-hidden-comments-actionable {
-  justify-content: space-between;
+.resolved-placeholder.rgf-preview-hidden-comments-toggleable > :first-child,
+.collapsible-comment-box.rgf-preview-hidden-comments-toggleable > :first-child {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+}
+
+.resolved-placeholder.rgf-preview-hidden-comments-toggleable > :last-child,
+.collapsible-comment-box.rgf-preview-hidden-comments-toggleable > :last-child {
+  flex: none !important;
+  white-space: nowrap;
+}
+
+.resolved-placeholder .rgf-preview-hidden-comments,
+.collapsible-comment-box .rgf-preview-hidden-comments {
+  display: flex;
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  width: auto !important;
 }
 
 .rgf-preview-hidden-comments-text {
   flex: 1 1 auto;
   min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: fit-content;
-}
-
-.rgf-preview-hidden-comments-action {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  flex: none;
-  padding: 0;
-  background: none;
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text) !important;
-  white-space: nowrap;
-}
-
-.rgf-preview-hidden-comments-action svg {
-  color: inherit !important;
-  fill: currentColor !important;
-  margin-inline-end: 0;
-}
-
-.rgf-preview-hidden-comments-compact {
-  flex: 1 1 0%;
-  min-width: 0;
-  margin-left: 0.5rem;
-}
-
-.rgf-preview-hidden-comments-text {
   display: block;
   white-space: nowrap;
   overflow: hidden;
@@ -55,81 +40,11 @@
   max-width: 100%;
 }
 
-/* Ensure the container doesn't wrap and shrinks to fit available space */
-:is(.resolved-placeholder, .collapsible-comment-box).rgf-preview-hidden-comments-toggleable
-  > :first-child {
-  flex: 1 1 0% !important;
-  min-width: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  flex-wrap: nowrap !important;
-}
-
-/* Prevent the button container from shrinking */
-:is(.resolved-placeholder, .collapsible-comment-box).rgf-preview-hidden-comments-toggleable
-  > :last-child {
-  flex: none !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-}
-
-/* Prevent the button container from shrinking */
-:is(.resolved-placeholder, .collapsible-comment-box).rgf-preview-hidden-comments-toggleable
-  > :last-child {
-  flex: none !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.5rem !important;
-}
-
-/* Low quality comments: when hidden, hide other header parts and let preview expand */
-.comment.rgf-hidden-comment.rgf-preview-hidden-comments-toggleable
-  .comment-header {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  gap: 0.5rem !important;
-  width: 100% !important;
-}
-
-.comment.rgf-hidden-comment.rgf-preview-hidden-comments-toggleable
-  .comment-header
-  > :not(.rgf-preview-hidden-comments) {
-  display: none !important;
-}
-
-.comment.rgf-hidden-comment.rgf-preview-hidden-comments-toggleable
-  .rgf-preview-hidden-comments {
-  flex: 1 1 0% !important;
-  min-width: 0 !important;
-  margin-left: 0 !important;
-}
-
-.comment.rgf-preview-hidden-comments-toggleable.rgf-hidden-comment
-  .comment-header {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.comment.rgf-preview-hidden-comments-toggleable:not(.rgf-hidden-comment)
-  .comment-header {
-  cursor: pointer;
+.rgf-preview-hidden-comments-compact {
+  margin-left: 0.25rem;
 }
 
 .resolved-placeholder.rgf-preview-hidden-comments-toggleable,
 .collapsible-comment-box.rgf-preview-hidden-comments-toggleable {
   cursor: pointer;
-}
-
-.comment.rgf-preview-hidden-comments-toggleable.rgf-hidden-comment
-  .comment-header
-  > :not(.rgf-preview-hidden-comments) {
-  display: none !important;
-}
-
-.comment.rgf-preview-hidden-comments-toggleable:not(.rgf-hidden-comment)
-  .rgf-preview-hidden-comments {
-  display: none !important;
 }
