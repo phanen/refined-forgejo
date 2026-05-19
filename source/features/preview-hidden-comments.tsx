@@ -29,15 +29,20 @@ function getNativeToggleContainer(holder: HTMLElement): HTMLElement | undefined 
 
 function getNativePreviewTarget(container: HTMLElement): HTMLElement {
   return container.matches(".resolved-placeholder")
-    ? container.querySelector<HTMLElement>(".ui.grey.text.tw-flex.tw-items-center.tw-flex-wrap.tw-gap-1") ?? container
+    ? container.querySelector<HTMLElement>(":scope > .tw-flex.tw-items-center.tw-gap-2") ?? container
     : container.querySelector<HTMLElement>(":scope > div:first-child") ?? container;
 }
 
-function createPreview(text: string, options: { onClick?: () => void; actionLabel?: string } = {}): HTMLElement {
-  const { onClick, actionLabel } = options;
+function createPreview(
+  text: string,
+  options: { onClick?: () => void; actionLabel?: string; compact?: boolean } = {},
+): HTMLElement {
+  const { onClick, actionLabel, compact } = options;
   return (
     <span
-      className={`rgf-preview-hidden-comments${actionLabel ? " rgf-preview-hidden-comments-actionable" : ""}`}
+      className={`rgf-preview-hidden-comments${actionLabel ? " rgf-preview-hidden-comments-actionable" : ""}${
+        compact ? " rgf-preview-hidden-comments-compact" : ""
+      }`}
       title={text}
       data-tooltip-content={text}
       role={onClick ? "button" : undefined}
@@ -103,6 +108,7 @@ function updateNativeConversation(holder: HTMLElement): void {
   if (!container.querySelector(".rgf-preview-hidden-comments")) {
     getNativePreviewTarget(container).append(createPreview(previewText, {
       onClick: () => toggleNativeConversation(holder),
+      compact: true,
     }));
   }
 }

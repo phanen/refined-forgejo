@@ -40,6 +40,12 @@
   margin-inline-end: 0;
 }
 
+.rgf-preview-hidden-comments-compact {
+  width: auto;
+  flex: 0 1 auto;
+  max-width: min(32ch, 40vw);
+}
+
 .comment.rgf-preview-hidden-comments-toggleable.rgf-hidden-comment
   .comment-header {
   display: flex;
