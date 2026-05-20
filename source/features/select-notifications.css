@@ -3,22 +3,39 @@
 }
 
 .rgf-notification-select {
-  display: inline-block;
-  position: relative;
   margin-right: 0.5rem;
 }
 
-.rgf-notification-select .menu {
-  position: absolute;
-  right: 0;
-  top: calc(100% + 0.25rem);
-  z-index: 50;
+.rgf-notification-select > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.rgf-notification-select > summary .dropdown.icon {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+.rgf-notification-select > .content {
   min-width: 13rem;
-  padding: 0.5rem;
-  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.12));
-  border-radius: 0.375rem;
-  background: var(--color-body, #fff);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  max-width: min(13rem, calc(100vw - 1rem));
+}
+
+.rgf-notification-select > .content > ul {
+  margin: 0;
+}
+
+.rgf-notification-select > .content > ul > li > .item {
+  color: var(--color-text);
+  white-space: normal;
+}
+
+.rgf-notification-select > .content > ul > li > .item:hover,
+.rgf-notification-select > .content > ul > li > .item:active,
+.rgf-notification-select > .content > ul > li > .item.active {
+  color: var(--color-text);
 }
 
 .notifications-item .rgf-notification-check {

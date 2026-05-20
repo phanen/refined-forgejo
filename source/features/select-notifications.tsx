@@ -1,6 +1,7 @@
 import "./select-notifications.css";
 
 import React from "dom-chef";
+import TriangleDownIcon from "octicons-plain-react/TriangleDown";
 
 import features from "../feature-manager.js";
 import pageDetect from "../helpers/page-detect.js";
@@ -67,6 +68,14 @@ function matchesStatus(item: HTMLElement): boolean {
   }
 }
 
+function isTypeActive(type: TypeFilter): boolean {
+  return currentType === type;
+}
+
+function isStatusActive(status: StatusFilter): boolean {
+  return currentStatus === status;
+}
+
 function updateSelection(): void {
   for (const item of document.querySelectorAll<HTMLElement>(".notifications-item")) {
     const match = matchesType(item) && matchesStatus(item);
@@ -92,20 +101,43 @@ function setStatus(value: StatusFilter): void {
 
 function createMenu(): HTMLElement {
   return (
-    <details className="rgf-notification-select">
-      <summary className="ui secondary button">Select by</summary>
-      <div className="menu">
+    <details className="dropdown dir-rtl rgf-notification-select">
+      <summary className="options" aria-label="Select notifications">
+        <span>Select by</span>
+        <TriangleDownIcon className="dropdown icon" />
+      </summary>
+      <div className="content">
         <div className="header">Type</div>
-        <button type="button" className="item" data-type="all">All</button>
-        <button type="button" className="item" data-type="issues">Issues</button>
-        <button type="button" className="item" data-type="pulls">Pull requests</button>
-        <button type="button" className="item" data-type="repos">Repositories</button>
-        <div className="divider"></div>
+        <ul>
+          <li>
+            <a href="#" className={`item ${isTypeActive("all") ? "active" : ""}`} data-type="all">All</a>
+          </li>
+          <li>
+            <a href="#" className={`item ${isTypeActive("issues") ? "active" : ""}`} data-type="issues">Issues</a>
+          </li>
+          <li>
+            <a href="#" className={`item ${isTypeActive("pulls") ? "active" : ""}`} data-type="pulls">Pull requests</a>
+          </li>
+          <li>
+            <a href="#" className={`item ${isTypeActive("repos") ? "active" : ""}`} data-type="repos">Repositories</a>
+          </li>
+        </ul>
+        <hr />
         <div className="header">Status</div>
-        <button type="button" className="item" data-status="all">All</button>
-        <button type="button" className="item" data-status="unread">Unread</button>
-        <button type="button" className="item" data-status="read">Read</button>
-        <button type="button" className="item" data-status="pinned">Pinned</button>
+        <ul>
+          <li>
+            <a href="#" className={`item ${isStatusActive("all") ? "active" : ""}`} data-status="all">All</a>
+          </li>
+          <li>
+            <a href="#" className={`item ${isStatusActive("unread") ? "active" : ""}`} data-status="unread">Unread</a>
+          </li>
+          <li>
+            <a href="#" className={`item ${isStatusActive("read") ? "active" : ""}`} data-status="read">Read</a>
+          </li>
+          <li>
+            <a href="#" className={`item ${isStatusActive("pinned") ? "active" : ""}`} data-status="pinned">Pinned</a>
+          </li>
+        </ul>
       </div>
     </details>
   ) as HTMLElement;
