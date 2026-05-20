@@ -74,6 +74,7 @@ import "./features/highest-rated-comment.js";
 import "./features/hide-low-quality-comments.js";
 import "./features/netiquette.js";
 import "./features/clean-pinned-issues.js";
+import "./features/pinned-issues-update-time.js";
 import "./features/conversation-authors.js";
 import "./features/clean-conversation-filters.js";
 import "./features/extend-diff-expander.js";
