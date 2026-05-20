@@ -125,7 +125,7 @@
 - [x] **clean-conversation-filters** - 隐藏空的 Projects 筛选
 - [+] **toggle-everything-with-alt** - alt+click 切换所有类似项目
 - [-] **extend-conversation-status-filters** - 切换 is:open/is:closed/is:merged 筛选
-- [ ] **bugs-tab** - 如果有「bug」标签的 issue，添加 Bugs 标签页
+- [-] **bugs-tab** - 如果有「bug」标签的 issue，添加 Bugs 标签页
 - [ ] **pinned-issues-update-time** - 置顶 issue 显示更新时间而非创建时间
 - [x] **clean-pinned-issues** - 置顶 issue 布局从并排改为标准列表
 - [x] **quick-label-removal** - 一键移除 issue/PR 标签
@@ -157,7 +157,7 @@
 - [x] **closing-remarks** - 🔥 显示 PR 合并到的第一个 tag，建议创建 release
 - [x] **pr-jump-to-first-non-viewed-file** - 点击进度条跳转到第一个未查看文件
 - [x] **jump-to-change-requested-comment** - 跳转到最新的「更改已请求」评论
-- [ ] **view-last-pr-deployment** - PR 头部添加打开最新部署的链接
+- [-] **view-last-pr-deployment** - PR 头部添加打开最新部署的链接
 - [ ] **no-unnecessary-split-diff-view** - 文件 split diff 无用时始终使用 unified diffs
 - [+] **emphasize-draft-pr-label** - 更容易区分列表中的 draft PR
 - [x] **clean-checks-list** - 优先显示失败和待定的检查，展开长的检查名称
