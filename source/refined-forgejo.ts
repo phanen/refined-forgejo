@@ -19,6 +19,7 @@ import "./features/clean-footer.js";
 import "./features/clean-conversation-headers.js";
 import "./features/align-issue-labels.js";
 import "./features/hide-diff-signs.js";
+import "./features/file-addition-deletion.js";
 import "./features/file-age-color.js";
 import "./features/patch-diff-links.js";
 import "./features/more-file-links.js";

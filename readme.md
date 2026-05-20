@@ -297,6 +297,7 @@
 - [x] **navigation-hotkeys** - 为 Forgejo 添加常用的 GitHub 导航快捷键 (`g h`, `g i`, `s` 等)
 - [x] **help-modal** - 按 `?` 显示快捷键帮助菜单
 - [x] **pr-list-lines-changed** - PR 列表显示每个 PR 的行变更统计
+- [x] **file-addition-deletion** - PR 文件列表将变更统计拆分显示为 `+新增行` 和 `-删除行`
 
 ---
 
