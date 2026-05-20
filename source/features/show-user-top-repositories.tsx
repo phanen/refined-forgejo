@@ -22,10 +22,11 @@ function addLink(form: HTMLFormElement): void {
     sort: "moststars",
   }).toString();
 
-  filterMenu.insertAdjacentHTML(
-    "beforebegin",
-    `<a class="ui small basic button rgf-top-repositories" href="${url.href}">Top repositories</a>`,
-  );
+  const link = document.createElement("a");
+  link.className = "ui small basic button rgf-top-repositories";
+  link.href = url.href;
+  link.textContent = "Top repositories";
+  filterMenu.before(link);
 }
 
 function init(signal: AbortSignal): void {
