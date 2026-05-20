@@ -79,7 +79,13 @@ function updateNativeConversation(holder: HTMLElement): void {
   if (resolvedText?.textContent?.includes("marked this conversation as resolved")) {
     const b = resolvedText.querySelector("b");
     if (b) {
-      resolvedText.innerHTML = `${resolvedText.querySelector("svg")?.outerHTML ?? ""} ${b.outerHTML}`;
+      const svg = resolvedText.querySelector("svg");
+      resolvedText.replaceChildren();
+      if (svg) {
+        resolvedText.append(svg);
+        resolvedText.append(" ");
+      }
+      resolvedText.append(b);
     }
   }
 

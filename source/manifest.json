@@ -8,8 +8,9 @@
   "minimum_chrome_version": "123",
   "browser_specific_settings": {
     "gecko": {
-      "id": "{b6a4c2e4-5a6f-4d8e-9a7b-2c3d5e7f8a1c}",
-      "strict_min_version": "128.0"
+      "id": "{d328bf9b-a278-49a7-9af7-ef9d989b2ee3}",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": { "required": ["none"] }
     }
   },
   "permissions": [
