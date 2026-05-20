@@ -1,3 +1,5 @@
+import "./unreleased-commits.css";
+
 import React from "dom-chef";
 import TagIcon from "octicons-plain-react/Tag";
 import compareVersions from "tiny-version-compare";
@@ -94,7 +96,7 @@ function createButton(latestTag: string, aheadBy: number, defaultBranch: string)
       data-tooltip-content={`${commitCount} since ${latestTag}`}
       aria-label={`${commitCount} since ${latestTag}`}
     >
-      <TagIcon />
+      <TagIcon className="rgf-unreleased-commits-icon tw-mr-1" />
       <sup className="tw-ml-1">+{aheadBy}</sup>
     </a>
   );
@@ -111,7 +113,17 @@ async function addToHome(button: Element): Promise<void> {
   }
 
   const { defaultBranch } = await repoState.get();
-  button.insertAdjacentElement("afterend", createButton(latestTag, aheadBy, defaultBranch));
+  const sequence = button.closest(".button-sequence");
+  const target = sequence ?? button.parentElement;
+  if (!target) {
+    return;
+  }
+
+  if (target.querySelector(".rgf-unreleased-commits")) {
+    return;
+  }
+
+  target.append(createButton(latestTag, aheadBy, defaultBranch));
 }
 
 async function addToReleases(buttons: Element): Promise<void> {
