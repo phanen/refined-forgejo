@@ -77,15 +77,23 @@ function isStatusActive(status: StatusFilter): boolean {
   return currentStatus === status;
 }
 
-function updateSelection(): void {
+function setItemSelection(item: HTMLElement, selected: boolean): void {
+  item.classList.toggle("rgf-notification-selected", selected);
+  const checkbox = item.querySelector<HTMLInputElement>(".rgf-notification-check");
+  if (checkbox) {
+    checkbox.checked = selected;
+  }
+}
+
+function clearSelection(): void {
   for (const item of document.querySelectorAll<HTMLElement>(".notifications-item")) {
-    const match = matchesType(item) && matchesStatus(item);
-    const selection = selectionOverrides.get(item.id) ?? match;
-    item.classList.toggle("rgf-notification-selected", selection);
-    const checkbox = item.querySelector<HTMLInputElement>(".rgf-notification-check");
-    if (checkbox) {
-      checkbox.checked = selection;
-    }
+    setItemSelection(item, false);
+  }
+}
+
+function applyFilterSelection(): void {
+  for (const item of document.querySelectorAll<HTMLElement>(".notifications-item")) {
+    setItemSelection(item, matchesType(item) && matchesStatus(item));
   }
 }
 
@@ -93,14 +101,14 @@ function setType(value: TypeFilter): void {
   currentType = value;
   storage.type = value;
   selectionOverrides.clear();
-  updateSelection();
+  applyFilterSelection();
 }
 
 function setStatus(value: StatusFilter): void {
   currentStatus = value;
   storage.status = value;
   selectionOverrides.clear();
-  updateSelection();
+  applyFilterSelection();
 }
 
 function createMenu(): HTMLElement {
@@ -179,12 +187,12 @@ function addCheckbox(item: Element): void {
       onChange={event => {
         const checkbox = event.currentTarget;
         selectionOverrides.set(item.id, checkbox.checked);
-        updateSelection();
+        item.classList.toggle("rgf-notification-selected", checkbox.checked);
       }}
     />,
   );
 
-  updateSelection();
+  setItemSelection(item, selectionOverrides.get(item.id) ?? false);
 }
 
 function init(signal: AbortSignal): void {
@@ -208,7 +216,7 @@ function init(signal: AbortSignal): void {
     widget?.removeAttribute("open");
   }, { signal });
 
-  updateSelection();
+  clearSelection();
 }
 
 void features.add(import.meta.url, {
