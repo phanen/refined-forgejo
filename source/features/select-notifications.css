@@ -1,7 +1,3 @@
-.notifications-item.rgf-notification-selected {
-  background: var(--color-hover, rgba(0, 0, 0, 0.04));
-}
-
 .rgf-notification-select {
   margin-right: 0.5rem;
 }
