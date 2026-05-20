@@ -56,15 +56,28 @@ function buildFeatureList(): void {
     const isDisabled = s === "N/A" || s === "native";
     const isChecked = s === "done" || s === "native";
 
-    featureElement.innerHTML = `
-			<input type="checkbox" name="${id}" id="${feature.id}" class="feature-checkbox" ${isDisabled ? "disabled" : ""} ${
-      isChecked ? "checked" : ""
-    }>
-			<div class="info">
-				<label class="feature-name" for="${feature.id}">${feature.id}</label>
-				<span class="feature-status">${statusLabel}</span>
-			</div>
-		`;
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.name = id;
+    checkbox.id = feature.id;
+    checkbox.className = "feature-checkbox";
+    checkbox.disabled = isDisabled;
+    checkbox.checked = isChecked;
+
+    const info = document.createElement("div");
+    info.className = "info";
+
+    const label = document.createElement("label");
+    label.className = "feature-name";
+    label.htmlFor = feature.id;
+    label.textContent = feature.id;
+
+    const status = document.createElement("span");
+    status.className = "feature-status";
+    status.textContent = statusLabel;
+
+    info.append(label, status);
+    featureElement.append(checkbox, info);
 
     container.append(featureElement);
   }

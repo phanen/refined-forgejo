@@ -17,7 +17,11 @@ function appendFullName(link: HTMLAnchorElement, fullName: string): void {
 
   const suffix = document.createElement("span");
   suffix.className = "rgf-show-names";
-  suffix.innerHTML = `(<span class="rgf-show-names-full-name">${fullName}</span>)`;
+  suffix.append("(");
+  const fullNameElement = document.createElement("span");
+  fullNameElement.className = "rgf-show-names-full-name";
+  fullNameElement.textContent = fullName;
+  suffix.append(fullNameElement, ")");
   link.insertAdjacentElement("afterend", suffix);
   link.dataset.rgfShowNames = "done";
 }
