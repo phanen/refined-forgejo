@@ -13,19 +13,13 @@
   margin-top: 0.25rem !important;
 }
 
-/* Hide the "Edit" button until hover */
-#issue-title-edit-show {
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.issue-title:hover #issue-title-edit-show {
-  opacity: 1;
-}
-
 /* Style for our custom compact PR description */
 .rgf-clean-pull-desc {
   color: var(--color-text-light);
+}
+
+.rgf-clean-pull-desc > a {
+  color: var(--color-text) !important;
 }
 
 .rgf-clean-pull-desc .rgf-arrow-left-icon {
@@ -37,4 +31,9 @@
 
 .rgf-clean-pull-desc code {
   margin: 0 2px;
+  color: var(--color-primary);
+}
+
+.rgf-clean-pull-desc code a {
+  color: inherit !important;
 }
