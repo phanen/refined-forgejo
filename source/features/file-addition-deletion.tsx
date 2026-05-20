@@ -1,10 +1,7 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
-import { executeInMainWorld } from "../helpers/main-world.js";
 import pageDetect from "../helpers/page-detect.js";
-import observe from "../helpers/selector-observer.js";
-import waitFor from "../helpers/wait-for.js";
 
 type DiffFile = {
   Name: string;
@@ -13,43 +10,44 @@ type DiffFile = {
   Deletion: number;
 };
 
-let cachedFiles: DiffFile[] | undefined;
-let lastFetch = 0;
+let currentFiles: DiffFile[] | undefined;
 
-async function getFilesFromMainWorld(): Promise<DiffFile[] | undefined> {
-  if (Date.now() - lastFetch < 250 && cachedFiles) {
-    return cachedFiles;
-  }
-
-  cachedFiles = await executeInMainWorld(() =>
-    (window as Window & {
-      config?: {
-        pageData?: {
-          diffFileInfo?: {
-            files?: DiffFile[];
-          };
-        };
-      };
-    }).config?.pageData?.diffFileInfo?.files
-  );
-  lastFetch = Date.now();
-  return cachedFiles;
-}
-
-async function getFileStats(file: HTMLElement): Promise<DiffFile | undefined> {
-  const hash = file.id.replace(/^diff-/, "");
-  let files: DiffFile[] | undefined;
-
-  try {
-    await waitFor(async () => {
-      files = await getFilesFromMainWorld();
-      return files?.some(entry => entry.NameHash.toLowerCase() === hash.toLowerCase());
-    }, { timeout: 5000 });
-  } catch {
+function parseFilesFromScript(script: HTMLScriptElement): DiffFile[] | undefined {
+  const match = script.textContent?.match(/const diffDataFiles = (\[[\s\S]*?\]);/);
+  if (!match) {
     return undefined;
   }
 
-  return files?.find(entry => entry.NameHash.toLowerCase() === hash.toLowerCase());
+  try {
+    const jsonText = match[1]
+      .replace(/([{,]\s*)([A-Za-z_][A-Za-z0-9_]*):/g, "$1\"$2\":")
+      .replace(/,\s*([}\]])/g, "$1");
+    return JSON.parse(jsonText) as DiffFile[];
+  } catch {
+    return undefined;
+  }
+}
+
+function getFilesFromScripts(): DiffFile[] | undefined {
+  const files = new Map<string, DiffFile>();
+
+  for (const script of document.querySelectorAll<HTMLScriptElement>("script#diff-data-script")) {
+    const diffFiles = parseFilesFromScript(script);
+    if (!diffFiles) {
+      continue;
+    }
+
+    for (const file of diffFiles) {
+      files.set(file.NameHash, file);
+    }
+  }
+
+  return [...files.values()];
+}
+
+function getFileStats(file: HTMLElement): DiffFile | undefined {
+  const hash = file.id.replace(/^diff-/, "");
+  return currentFiles?.find(entry => entry.NameHash.toLowerCase() === hash.toLowerCase());
 }
 
 function createSummary(addition: number, deletion: number): HTMLElement {
@@ -60,7 +58,7 @@ function createSummary(addition: number, deletion: number): HTMLElement {
   ) as HTMLElement;
 }
 
-async function addStats(file: Element): Promise<void> {
+function addStats(file: Element): void {
   if (!(file instanceof HTMLElement)) {
     return;
   }
@@ -83,9 +81,8 @@ async function addStats(file: Element): Promise<void> {
     return;
   }
 
-  const stats = await getFileStats(file);
+  const stats = getFileStats(file);
   if (!stats) {
-    delete file.dataset.rgfFileAdditionDeletion;
     return;
   }
 
@@ -103,13 +100,49 @@ async function addStats(file: Element): Promise<void> {
   file.dataset.rgfFileAdditionDeletion = "done";
 }
 
+function refreshAndRender(): void {
+  currentFiles = getFilesFromScripts();
+  if (!currentFiles) {
+    return;
+  }
+
+  for (const file of document.querySelectorAll<HTMLElement>(".diff-file-box[id^='diff-']")) {
+    addStats(file);
+  }
+}
+
 function init(signal: AbortSignal): void {
-  observe(".diff-file-box", addStats, { signal });
+  void refreshAndRender();
+
+  const observer = new MutationObserver(mutations => {
+    for (const mutation of mutations) {
+      for (const node of mutation.addedNodes) {
+        if (!(node instanceof Element)) {
+          continue;
+        }
+
+        if (node.matches("script#diff-data-script") || node.querySelector("script#diff-data-script")) {
+          void refreshAndRender();
+          return;
+        }
+      }
+    }
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+
+  signal.addEventListener("abort", () => {
+    observer.disconnect();
+  });
 }
 
 void features.add(import.meta.url, {
   include: [
     pageDetect.isPRFiles,
   ],
+  awaitDomReady: true,
   init,
 });
