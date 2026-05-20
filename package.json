@@ -15,7 +15,7 @@
     "lint": "run-p lint:* --continue-on-error",
     "lint:eslint": "eslint .",
     "lint:biome": "biome lint",
-    "start": "npm run watch",
+    "start": "node build/readme-parser.ts && npm run watch",
     "watch": "rollup -c --watch"
   },
   "dependencies": {

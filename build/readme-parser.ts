@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 
 const readmeContent = readFileSync("readme.md", "utf8");
 
-const featureRegex = /^-\s+(\[x\]|\[ \]|\[\+\]|\[\-\])\s+\*\*([a-z0-9-]+)\*\*\s+-\s+(.+)$/gm;
+const featureRegex = /^-\s+(\[x\]|\[ \]|\[\+\]|\[\-\])\s+\*\*([a-z0-9-]+)\*\*\s+[-–—]\s+(.+)$/gm;
 
 const statusMap: Record<string, string> = {
   "[x]": "done",
