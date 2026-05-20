@@ -200,7 +200,9 @@ function init(signal: AbortSignal): void {
   observe(".notifications-item", addCheckbox, { signal });
 
   document.addEventListener("click", event => {
-    const target = (event.target as Element | null)?.closest?.("[data-type], [data-status]");
+    const target = (event.target as Element | null)?.closest?.(
+      "details.rgf-notification-select [data-type], details.rgf-notification-select [data-status]",
+    );
     if (!target) {
       return;
     }
