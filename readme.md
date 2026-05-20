@@ -13,6 +13,19 @@
 
 ---
 
+### Highlights
+
+- [x] **show-whitespace** - 使空格字符可见
+- [x] **unreleased-commits** - 告知你当前查看的是否为仓库的最新版本，以及是否存在未发布的提交
+- [x] **pr-base-commit** - 显示 PR 头分支落后多少，并显示其基准提交
+- [x] **conversation-activity-filter** - 允许你在 issue 和 PR 中隐藏除评论或未解决评论之外的所有事件
+- [-] **status-subscription** - 让你一键订阅 issue 的开启/关闭事件
+- [x] **default-branch-button** - 在目录列表和文件中添加指向默认分支的链接
+- [x] **restore-file** - 在 PR 中添加一个按钮以放弃对单个文件的所有更改
+- [x] **select-notifications** - 按类型和状态选择通知
+
+---
+
 ### Repositories
 
 - [x] **ci-link** - 仓库名旁显示 CI/CD 构建状态图标

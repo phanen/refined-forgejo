@@ -48,6 +48,7 @@ export const isSingleCommit = (): boolean => /^commit\/[\da-f]{5,40}$/.test(getR
 export const isPRFiles = (): boolean => /^pulls\/\d+\/files/.test(getRepo()?.path ?? "");
 export const isPRCommitList = (): boolean => /^pulls\/\d+\/commits/.test(getRepo()?.path ?? "");
 export const isRepoCommitList = (): boolean => /^commits\//.test(getRepo()?.path ?? "");
+export const isRepoCommitListRoot = (): boolean => isRepoCommitList() && document.title.startsWith("Commits");
 export const isCommitList = (): boolean => isRepoCommitList() || isPRCommitList();
 export const isPRCommit = (): boolean => /^pulls\/\d+\/commits\/[\da-f]{7,40}$/.test(getRepo()?.path ?? "");
 export const isCommit = (): boolean => isSingleCommit() || isPRCommit();
@@ -85,6 +86,7 @@ export const pageDetect = {
   isCommit,
   isCommitList,
   isRepoCommitList,
+  isRepoCommitListRoot,
   isPRCommitList,
   isCompare,
   isConversation,

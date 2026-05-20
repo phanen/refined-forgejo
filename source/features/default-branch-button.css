@@ -1,0 +1,13 @@
+.rgf-default-branch-button {
+  color: inherit;
+}
+
+.rgf-default-branch-button svg,
+.rgf-default-branch-button .svg {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+.rgf-default-branch-button svg path {
+  fill: currentColor !important;
+}

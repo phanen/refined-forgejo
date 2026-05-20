@@ -1,0 +1,9 @@
+.rgf-unreleased-commits-icon,
+.rgf-unreleased-commits-icon.svg {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+.rgf-unreleased-commits-icon path {
+  fill: currentColor !important;
+}

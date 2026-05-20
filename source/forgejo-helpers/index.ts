@@ -121,3 +121,5 @@ export function getFilePath(): string | undefined {
 
   return undefined;
 }
+
+export const cacheByRepo = (): string => getRepo()?.nameWithOwner ?? location.pathname;

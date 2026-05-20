@@ -86,6 +86,12 @@ describe("page-detect", async () => {
     testFalse(pageDetect.isRepoCommitList, "/ziglang/zig/commit/a1b2c");
   });
 
+  describe("isRepoCommitListRoot", () => {
+    testWithTitle(pageDetect.isRepoCommitListRoot, "/ziglang/zig/commits/branch/main", "Commits - ziglang/zig", true);
+    testWithTitle(pageDetect.isRepoCommitListRoot, "/ziglang/zig/commits/branch/main", "History - ziglang/zig", false);
+    testWithTitle(pageDetect.isRepoCommitListRoot, "/ziglang/zig/issues/1", "Commits - ziglang/zig", false);
+  });
+
   describe("isCommitList", () => {
     testTrue(pageDetect.isCommitList, "/ziglang/zig/commits/branch/main");
     testTrue(pageDetect.isCommitList, "/ziglang/zig/pulls/123/commits");

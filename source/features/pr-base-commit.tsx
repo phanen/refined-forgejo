@@ -1,0 +1,125 @@
+import React from "dom-chef";
+
+import features from "../feature-manager.js";
+import api from "../forgejo-helpers/api.js";
+import { buildRepoUrl, getRepo } from "../forgejo-helpers/index.js";
+import pageDetect from "../helpers/page-detect.js";
+import observe from "../helpers/selector-observer.js";
+
+type BranchInfo = {
+  commit?: {
+    id?: string;
+  };
+};
+
+type CompareInfo = {
+  total_commits?: number;
+};
+
+type ParsedBranch = {
+  owner: string;
+  repo: string;
+  branch: string;
+};
+
+const branchCache = new Map<string, Promise<BranchInfo | undefined>>();
+const compareCache = new Map<string, Promise<CompareInfo | undefined>>();
+
+function encodeRef(ref: string): string {
+  return ref.split("/").map(segment => encodeURIComponent(segment)).join("/");
+}
+
+function parseBranchLink(anchor: HTMLAnchorElement | null): ParsedBranch | undefined {
+  if (!anchor) {
+    return undefined;
+  }
+
+  const match = anchor.pathname.match(/^\/(?:repo\/)?([^/]+)\/([^/]+)\/src\/branch\/(.+)$/);
+  if (!match) {
+    return undefined;
+  }
+
+  return {
+    owner: match[1],
+    repo: match[2],
+    branch: decodeURIComponent(match[3]),
+  };
+}
+
+async function getBranchCommit(owner: string, repo: string, branch: string): Promise<string | undefined> {
+  const key = `${owner}/${repo}/${branch}`;
+  let promise = branchCache.get(key);
+  if (!promise) {
+    promise = api.v1(`repos/${owner}/${repo}/branches/${encodeRef(branch)}`)
+      .then(data => data as BranchInfo)
+      .catch(() => undefined);
+    branchCache.set(key, promise);
+  }
+
+  return (await promise)?.commit?.id;
+}
+
+async function getCompareCount(owner: string, repo: string, head: string, base: string): Promise<number | undefined> {
+  const key = `${owner}/${repo}/${head}...${base}`;
+  let promise = compareCache.get(key);
+  if (!promise) {
+    promise = api.v1(`repos/${owner}/${repo}/compare/${encodeRef(head)}...${encodeRef(base)}`)
+      .then(data => data as CompareInfo)
+      .catch(() => undefined);
+    compareCache.set(key, promise);
+  }
+
+  return (await promise)?.total_commits;
+}
+
+async function addInfo(container: Element): Promise<void> {
+  if (container.querySelector(".rgf-pr-base-commit")) {
+    return;
+  }
+
+  const repo = getRepo();
+  const headLink = document.querySelector<HTMLAnchorElement>("#pull-desc-display a[href*='/src/branch/']");
+  const head = parseBranchLink(headLink);
+  const baseBranch = document.querySelector<HTMLElement>("#pull-target-branch")?.dataset.branch?.trim();
+
+  if (!repo || !head || !baseBranch) {
+    return;
+  }
+
+  const [headCommit, baseCommit] = await Promise.all([
+    getBranchCommit(head.owner, head.repo, head.branch),
+    getBranchCommit(repo.owner, repo.name, baseBranch),
+  ]);
+
+  if (!headCommit || !baseCommit) {
+    return;
+  }
+
+  const behindBy = await getCompareCount(head.owner, head.repo, headCommit, baseCommit);
+  if (!behindBy || behindBy <= 0) {
+    return;
+  }
+
+  const baseCommitLink = buildRepoUrl("commit", baseCommit);
+  container.prepend(
+    <div className="rgf-pr-base-commit item">
+      It's <a href={baseCommitLink}>{behindBy} commit{behindBy === 1 ? "" : "s"}</a> behind (base commit:{" "}
+      <a href={baseCommitLink}>{baseCommit.slice(0, 7)}</a>)
+    </div>,
+  );
+}
+
+function init(signal: AbortSignal): void {
+  observe(".merge-section", element => {
+    if (element instanceof HTMLElement) {
+      void addInfo(element);
+    }
+  }, { signal });
+}
+
+void features.add(import.meta.url, {
+  include: [
+    pageDetect.isPR,
+  ],
+  init,
+});

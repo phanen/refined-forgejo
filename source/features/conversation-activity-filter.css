@@ -1,0 +1,72 @@
+[data-rgf-conversation-activity-filter="hideEvents"] {
+  .rgf-conversation-activity-filtered-event {
+    display: none;
+  }
+}
+
+[data-rgf-conversation-activity-filter="hideAllNoise"] {
+  .rgf-conversation-activity-filtered-event,
+  .rgf-conversation-activity-bot-comment,
+  .rgf-conversation-activity-collapsed-comment,
+  .js-resolvable-timeline-thread-container[data-resolved="true"],
+  .minimized-comment {
+    display: none !important;
+  }
+}
+
+.rgf-conversation-activity-filter {
+  margin-left: 0.5rem;
+  flex-shrink: 0;
+  color: var(--color-text) !important;
+}
+
+.rgf-conversation-activity-filter .icon {
+  color: inherit !important;
+  fill: currentColor !important;
+}
+
+.rgf-conversation-activity-filter > summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0.25rem;
+  border-radius: var(--border-radius);
+  background: transparent;
+  border: 0;
+  white-space: nowrap;
+  list-style: none;
+  cursor: pointer;
+}
+
+.rgf-conversation-activity-filter > summary:hover {
+  background: var(--color-hover);
+}
+
+.rgf-conversation-activity-filter > summary::marker,
+.rgf-conversation-activity-filter > summary::-webkit-details-marker {
+  display: none;
+}
+
+.rgf-conversation-activity-filter > .content {
+  min-width: 14rem;
+  max-width: min(14rem, calc(100vw - 1rem));
+  z-index: 2000;
+}
+
+.rgf-conversation-activity-filter > .content > ul {
+  margin: 0;
+}
+
+.rgf-conversation-activity-filter > .content > ul > li > .item {
+  color: var(--color-text);
+  white-space: normal;
+}
+
+.rgf-conversation-activity-filter > .content > ul > li > .item:hover,
+.rgf-conversation-activity-filter > .content > ul > li > .item:active,
+.rgf-conversation-activity-filter > .content > ul > li > .item.active {
+  color: var(--color-text);
+}
