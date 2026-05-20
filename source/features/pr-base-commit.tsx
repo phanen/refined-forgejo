@@ -4,6 +4,7 @@ import features from "../feature-manager.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getRepo } from "../forgejo-helpers/index.js";
 import pageDetect from "../helpers/page-detect.js";
+import { getHeadBranch } from "../helpers/pr-base-commit.js";
 import observe from "../helpers/selector-observer.js";
 
 type BranchInfo = {
@@ -16,34 +17,11 @@ type CompareInfo = {
   total_commits?: number;
 };
 
-type ParsedBranch = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-
 const branchCache = new Map<string, Promise<BranchInfo | undefined>>();
 const compareCache = new Map<string, Promise<CompareInfo | undefined>>();
 
 function encodeRef(ref: string): string {
   return ref.split("/").map(segment => encodeURIComponent(segment)).join("/");
-}
-
-function parseBranchLink(anchor: HTMLAnchorElement | null): ParsedBranch | undefined {
-  if (!anchor) {
-    return undefined;
-  }
-
-  const match = anchor.pathname.match(/^\/(?:repo\/)?([^/]+)\/([^/]+)\/src\/branch\/(.+)$/);
-  if (!match) {
-    return undefined;
-  }
-
-  return {
-    owner: match[1],
-    repo: match[2],
-    branch: decodeURIComponent(match[3]),
-  };
 }
 
 async function getBranchCommit(owner: string, repo: string, branch: string): Promise<string | undefined> {
@@ -78,8 +56,7 @@ async function addInfo(container: Element): Promise<void> {
   }
 
   const repo = getRepo();
-  const headLink = document.querySelector<HTMLAnchorElement>("#pull-desc-display a[href*='/src/branch/']");
-  const head = parseBranchLink(headLink);
+  const head = getHeadBranch();
   const baseBranch = document.querySelector<HTMLElement>("#pull-target-branch")?.dataset.branch?.trim();
 
   if (!repo || !head || !baseBranch) {
