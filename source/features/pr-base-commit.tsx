@@ -41,7 +41,9 @@ async function getCompareCount(owner: string, repo: string, head: string, base: 
   const key = `${owner}/${repo}/${head}...${base}`;
   let promise = compareCache.get(key);
   if (!promise) {
-    promise = api.v1(`repos/${owner}/${repo}/compare/${encodeRef(head)}...${encodeRef(base)}`)
+    promise = api.v1(
+      `repos/${owner}/${repo}/compare/${encodeRef(head)}...${encodeRef(base)}?files=false&verification=false`,
+    )
       .then(data => data as CompareInfo)
       .catch(() => undefined);
     compareCache.set(key, promise);
