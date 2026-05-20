@@ -1,0 +1,21 @@
+.code-diff-split.rgf-no-unnecessary-split-diff-view {
+  table-layout: auto !important;
+}
+
+.code-diff-split.rgf-no-unnecessary-split-diff-view.rgf-only-additions {
+  --rgf-hide-left-side: none;
+}
+
+.code-diff-split.rgf-no-unnecessary-split-diff-view.rgf-only-deletions {
+  --rgf-hide-right-side: none;
+}
+
+.code-diff-split.rgf-no-unnecessary-split-diff-view.rgf-only-additions
+  tr > :is(.lines-num-old, .lines-escape-old, .lines-type-marker-old, .lines-code-old, .add-comment-left) {
+  display: var(--rgf-hide-left-side, table-cell) !important;
+}
+
+.code-diff-split.rgf-no-unnecessary-split-diff-view.rgf-only-deletions
+  tr > :is(.lines-num-new, .lines-escape-new, .lines-type-marker-new, .lines-code-new, .add-comment-right) {
+  display: var(--rgf-hide-right-side, table-cell) !important;
+}
