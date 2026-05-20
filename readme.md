@@ -307,5 +307,5 @@
 
 ## Links
 
-- [Project page](https://codeberg.org/forgejo-contrib/refined-forgejo)
-- [Report issues](https://codeberg.org/forgejo-contrib/refined-forgejo/issues)
+- [Project page](https://codeberg.org/phanium/refined-forgejo)
+- [Report issues](https://codeberg.org/phanium/refined-forgejo/issues)
