@@ -27,6 +27,7 @@ const storage = {
 
 let currentType = storage.type;
 let currentStatus = storage.status;
+const selectionOverrides = new Map<string, boolean>();
 
 function isIssue(item: HTMLElement): boolean {
   return !!item.querySelector(".octicon-issue-opened, .octicon-issue-closed");
@@ -79,10 +80,11 @@ function isStatusActive(status: StatusFilter): boolean {
 function updateSelection(): void {
   for (const item of document.querySelectorAll<HTMLElement>(".notifications-item")) {
     const match = matchesType(item) && matchesStatus(item);
-    item.classList.toggle("rgf-notification-selected", match);
+    const selection = selectionOverrides.get(item.id) ?? match;
+    item.classList.toggle("rgf-notification-selected", selection);
     const checkbox = item.querySelector<HTMLInputElement>(".rgf-notification-check");
     if (checkbox) {
-      checkbox.checked = match;
+      checkbox.checked = selection;
     }
   }
 }
@@ -90,12 +92,14 @@ function updateSelection(): void {
 function setType(value: TypeFilter): void {
   currentType = value;
   storage.type = value;
+  selectionOverrides.clear();
   updateSelection();
 }
 
 function setStatus(value: StatusFilter): void {
   currentStatus = value;
   storage.status = value;
+  selectionOverrides.clear();
   updateSelection();
 }
 
@@ -172,7 +176,11 @@ function addCheckbox(item: Element): void {
       className="rgf-notification-check"
       aria-label="Select notification"
       onClick={event => event.stopPropagation()}
-      onChange={updateSelection}
+      onChange={event => {
+        const checkbox = event.currentTarget;
+        selectionOverrides.set(item.id, checkbox.checked);
+        updateSelection();
+      }}
     />,
   );
 
