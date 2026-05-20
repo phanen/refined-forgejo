@@ -2,308 +2,308 @@
 
 > Browser extension that simplifies the Forgejo interface and adds useful features
 
-基于 [Refined GitHub](https://github.com/refined-github/refined-github) 移植，适配 Codeberg/Forgejo。
+Ported from [Refined GitHub](https://github.com/refined-github/refined-github), adapted for Codeberg/Forgejo.
 
-## Legend / 图例
+## Legend
 
-- [x] 已移植
-- [ ] 待移植
-- [+] Forgejo 已有原生功能，无需插件
-- [-] Forgejo 无此概念
+- [x] Ported
+- [ ] To be ported
+- [+] Already natively supported by Forgejo, no extension needed
+- [-] Not applicable in Forgejo
 
 ---
 
 ### Highlights
 
-- [x] **show-whitespace** - 使空格字符可见
-- [x] **unreleased-commits** - 告知你当前查看的是否为仓库的最新版本，以及是否存在未发布的提交
-- [x] **pr-base-commit** - 显示 PR 头分支落后多少，并显示其基准提交
-- [x] **conversation-activity-filter** - 允许你在 issue 和 PR 中隐藏除评论或未解决评论之外的所有事件
-- [-] **status-subscription** - 让你一键订阅 issue 的开启/关闭事件
-- [x] **default-branch-button** - 在目录列表和文件中添加指向默认分支的链接
-- [x] **restore-file** - 在 PR 中添加一个按钮以放弃对单个文件的所有更改
-- [x] **select-notifications** - 按类型和状态选择通知
+- [x] **show-whitespace** – Makes whitespace characters visible
+- [x] **unreleased-commits** – Tells you whether you are viewing the latest version of the repository and if there are unreleased commits
+- [x] **pr-base-commit** – Shows how many commits the head branch is behind and displays its base commit
+- [x] **conversation-activity-filter** – Lets you hide all events except comments or unresolved comments in issues and PRs
+- [-] **status-subscription** – Allows you to subscribe to issue open/close events with one click
+- [x] **default-branch-button** – Adds a link to the default branch in file lists and files
+- [x] **restore-file** – Adds a button in PRs to discard all changes to a single file
+- [x] **select-notifications** – Select notifications by type and status
 
 ---
 
 ### Repositories
 
-- [x] **ci-link** - 仓库名旁显示 CI/CD 构建状态图标
-- [x] **more-dropdown-links** - 仓库导航下拉菜单添加工具链接
-- [+] **swap-branches-on-compare** - 分支对比页添加交换分支链接
-- [x] **repo-age** - 侧边栏显示仓库年龄
-- [-] **show-open-prs-of-forks** - 在 fork 的仓库显示向原仓库的 PR 数量
-- [-] **clean-repo-filelist-actions** - 压缩仓库文件列表按钮
-- [+] **new-repo-disable-projects-and-wikis** - 创建仓库时自动禁用 projects 和 wikis
-- [x] **sticky-sidebar** - 侧边栏滚动时固定
-- [-] **link-to-github-io** - 从仓库跳转到用户的 github.io 页面
-- [+] **github-actions-indicators** - 工作流侧边栏显示手动触发和下次执行时间
-- [x] **quick-repo-deletion** - 简化仓库删除，0-star repos 添加删除 fork 按钮
-- [x] **archive-forks-link** - 在归档仓库中查找 forks
-- [-] **clean-repo-tabs** - 将 Security/Insights 移入仓库导航下拉菜单
-- [+] **repo-avatars** - 公共仓库头部显示头像
-- [x] **small-user-avatars** - issue/PR 列表中用户名旁显示小头像
-- [+] **action-pr-link** - 显示运行 workflow 的 PR 链接
-- [x] **repo-header-info** - 显示 fork 状态和 star 数量
-- [x] **visit-tag** - 查看特定 tag 的文件时添加跳转到 release/tag 的链接
-- [x] **actions-run-removal** - 更快地取消/删除 workflow runs
-- [x] **rerun-workflow** - 展开单独的重跑按钮，添加键盘快捷键 r f
+- [x] **ci-link** – Shows CI/CD build status icon next to the repository name
+- [x] **more-dropdown-links** – Adds tool links to the repository navigation dropdown
+- [+] **swap-branches-on-compare** – Adds a link to swap branches on the branch comparison page
+- [x] **repo-age** – Shows repository age in the sidebar
+- [-] **show-open-prs-of-forks** – Shows the number of PRs to the upstream repository from a forked repository
+- [-] **clean-repo-filelist-actions** – Compresses buttons in the repository file list
+- [+] **new-repo-disable-projects-and-wikis** – Automatically disables projects and wikis when creating a repository
+- [x] **sticky-sidebar** – Sticks the sidebar when scrolling
+- [-] **link-to-github-io** – Jumps from a repository to the user's github.io page
+- [+] **github-actions-indicators** – Shows manual triggers and next run times in the workflow sidebar
+- [x] **quick-repo-deletion** – Simplifies repository deletion; adds a "delete fork" button for 0-star repos
+- [x] **archive-forks-link** – Finds forks of an archived repository
+- [-] **clean-repo-tabs** – Moves Security/Insights into the repository navigation dropdown
+- [+] **repo-avatars** – Shows avatars in the header of public repositories
+- [x] **small-user-avatars** – Shows small avatars next to usernames in issue/PR lists
+- [+] **action-pr-link** – Shows a link to the PR that triggered a workflow run
+- [x] **repo-header-info** – Shows fork status and star count
+- [x] **visit-tag** – Adds a link to jump to the release/tag when viewing files at a specific tag
+- [x] **actions-run-removal** – Faster cancellation/deletion of workflow runs
+- [x] **rerun-workflow** – Expands the rerun button and adds keyboard shortcut `r f`
 
 ---
 
 ### File management
 
-- [+] **download-folder-button** - 添加下载整个文件夹的按钮
-- [x] **quick-file-edit** - 仓库文件列表添加编辑按钮
-- [x] **repo-wide-file-finder** - 启用键盘快捷键 t 在整个仓库搜索文件
-- [+] **show-associated-branch-prs-on-fork** - fork 仓库的分支上显示关联的 PR
-- [x] **html-preview-link** - 预览 HTML 文件的链接
-- [x] **file-age-color** - 高亮最近修改的文件
-- [x] **previous-version** - 一键查看文件的上一版本
+- [+] **download-folder-button** – Adds a button to download an entire folder
+- [x] **quick-file-edit** – Adds an edit button to files in the repository file list
+- [x] **repo-wide-file-finder** – Enables keyboard shortcut `t` to search files across the entire repository
+- [+] **show-associated-branch-prs-on-fork** – Shows associated PRs on a branch of a forked repository
+- [x] **html-preview-link** – Adds a link to preview HTML files
+- [x] **file-age-color** – Highlights recently modified files
+- [x] **previous-version** – Adds a button to view the previous version of a file
 
 ---
 
 ### Code
 
-- [x] **linkify-code** - 代码中的 issue/PR 引用和 URL 可点击
-- [x] **copy-on-y** - 增强 y 快捷键复制永久链接
-- [x] **linkify-symbolic-links** - 符号链接文件可点击
-- [-] **list-prs-for-file** - 当前文件被 PR 修改时提醒
-- [+] **refined-github.css** - 将 tab 缩减为 4 空格
-- [x] **esc-to-deselect-line** - 添加 esc 快捷键取消选择行
-- [x] **vertical-front-matter** - 将 Markdown front matter 显示为垂直表格
-- [x] **list-prs-for-branch** - 分支提交列表显示关联的 PR
+- [x] **linkify-code** – Makes issue/PR references and URLs in code clickable
+- [x] **copy-on-y** – Enhances the `y` shortcut to copy a permanent link
+- [x] **linkify-symbolic-links** – Makes symbolic link files clickable
+- [-] **list-prs-for-file** – Warns when the current file is modified by a PR
+- [+] **refined-github.css** – Reduces tab width to 4 spaces
+- [x] **esc-to-deselect-line** – Adds `Esc` shortcut to deselect a line
+- [x] **vertical-front-matter** – Displays Markdown front matter as a vertical table
+- [x] **list-prs-for-branch** – Shows associated PRs in the branch commit list
 
 ---
 
 ### Writing comments
 
-- [+] **tab-to-indent** - 🔥 评论框启用 Tab/Shift+Tab 缩进
-- [x] **collapsible-content-button** - 文本编辑器添加可折叠内容按钮
-- [x] **fit-textareas** - 🔥 评论框自动调整高度
-- [x] **quick-comment-edit** - 一键编辑评论
-- [x] **one-key-formatting** - 按 Markdown 符号时替换选中文本而非包裹
-- [x] **clean-rich-text-editor** - 隐藏不必要的评论编辑器提示和工具栏
-- [x] **quick-mention** - 在 issue/PR 中添加 @mention 按钮
-- [+] **table-input** - 文本编辑器添加插入表格按钮
-- [x] **unfinished-comments** - 通知用户未完成的评论（在隐藏标签页中）
-- [x] **quick-review-comment-deletion** - 一键删除编辑中的 review 评论
-- [x] **avoid-accidental-submissions** - 禁用 enter 提交（commit/PR/issue 标题），改用 ctrl+enter
-- [x] **no-self-reference** - 警告自我引用链接
+- [+] **tab-to-indent** – 🔥 Enables Tab/Shift+Tab indentation in comment boxes
+- [x] **collapsible-content-button** – Adds a collapsible content button in the text editor
+- [x] **fit-textareas** – 🔥 Automatically adjusts comment box height
+- [x] **quick-comment-edit** – Adds a button to edit a comment in one click
+- [x] **one-key-formatting** – When typing Markdown symbols, replaces selected text instead of wrapping
+- [x] **clean-rich-text-editor** – Hides unnecessary comment editor hints and toolbars
+- [x] **quick-mention** – Adds an @mention button in issues/PRs
+- [+] **table-input** – Adds a "insert table" button in the text editor
+- [x] **unfinished-comments** – Notifies users about unfinished comments (in hidden tabs)
+- [x] **quick-review-comment-deletion** – Adds a button to delete an in-progress review comment
+- [x] **avoid-accidental-submissions** – Disables submitting with Enter (commit/PR/issue title); use Ctrl+Enter instead
+- [x] **no-self-reference** – Warns about self-referential links
 
 ---
 
 ### Reading comments
 
-- [x] **reactions-avatars** - 🔥 显示评论反应者的头像
-- [-] **embed-gist-inline** - 链接到单独行的短 gist 时内嵌显示
-- [x] **comments-time-machine-links** - 添加浏览仓库和文件的历史版本链接
-- [x] **show-names** - 用户名旁显示真实姓名
-- [x] **shorten-links** - 缩短 URL 为可读引用
-- [x] **preview-hidden-comments** - 🔥 悬停预览被折叠的评论
-- [x] **highest-rated-comment** - 🔥 高亮最有用的评论
-- [x] **hide-low-quality-comments** - 隐藏反应评论（「+1」「👍」等），维护者除外
-- [x] **scrollable-areas** - 限制代码块和引用的高度
-- [-] **quick-comment-hiding** - 简化隐藏评论的 UI
-- [x] **open-issue-to-latest-comment** - issue 列表的评论图标链接到最后一条评论
-- [-] **expand-all-hidden-comments** - alt 点击「N hidden items」时加载更多评论（200条）
-- [x] **keyboard-navigation** - 添加 j/k 快捷键导航，x 标记已读/未读
-- [x] **comment-excess** - 长 issue 头部显示隐藏评论数量，Cmd/Ctrl+F 时滚动到隐藏评论 (in **hide-low-quality-comments**)
+- [x] **reactions-avatars** – 🔥 Shows avatars of users who reacted to a comment
+- [-] **embed-gist-inline** – Inline display of short gists linked to a single line
+- [x] **comments-time-machine-links** – Adds links to browse historical versions of repositories and files
+- [x] **show-names** – Shows real names next to usernames
+- [x] **shorten-links** – Shortens URLs into readable references
+- [x] **preview-hidden-comments** – 🔥 Previews collapsed comments on hover
+- [x] **highest-rated-comment** – 🔥 Highlights the most useful comment
+- [x] **hide-low-quality-comments** – Hides reaction comments (e.g., "+1", "👍") except for maintainers
+- [x] **scrollable-areas** – Limits height of code blocks and quotes
+- [-] **quick-comment-hiding** – Simplifies the UI for hiding comments
+- [x] **open-issue-to-latest-comment** – The comment icon in issue lists links to the last comment
+- [-] **expand-all-hidden-comments** – Loads more comments (200) when Alt-clicking "N hidden items"
+- [x] **keyboard-navigation** – Adds `j`/`k` shortcuts for navigation, `x` to mark read/unread
+- [x] **comment-excess** – Shows the number of hidden comments at the top of long issues; scrolls to hidden comments on Cmd/Ctrl+F (in **hide-low-quality-comments**)
 
 ---
 
 ### Conversations
 
-- [x] **open-all-conversations** - 一键打开所有可见的 issue/PR
-- [x] **sticky-conversation-list-toolbar** - issue/PR 列表筛选工具栏固定
-- [x] **sticky-comment-header** - 滚动时评论头部固定
-- [x] **conversation-authors** - 高亮你或协作者开的 issue/PR
-- [x] **align-issue-labels** - issue/PR 列表中标签左对齐
-- [x] **sort-conversations-by-update-time** - 🔥 默认排序改为「最近更新」
-- [-] **global-conversation-list-filters** - 全局 PR 搜索添加「我的仓库」「我评论的」筛选
-- [x] **clean-conversation-sidebar** - 🔥 隐藏 issue/PR 侧边栏空分区
-- [x] **clean-conversation-filters** - 隐藏空的 Projects 筛选
-- [+] **toggle-everything-with-alt** - alt+click 切换所有类似项目
-- [-] **extend-conversation-status-filters** - 切换 is:open/is:closed/is:merged 筛选
-- [-] **bugs-tab** - 如果有「bug」标签的 issue，添加 Bugs 标签页
-- [x] **pinned-issues-update-time** - 置顶 issue 显示更新时间而非创建时间
-- [x] **clean-pinned-issues** - 置顶 issue 布局从并排改为标准列表
-- [x] **quick-label-removal** - 一键移除 issue/PR 标签
-- [x] **clean-conversation-headers** - 移除 PR 头部的重复信息
-- [x] **dim-bots** - 淡化 bot 的提交和 PR
-- [x] **esc-to-cancel** - esc 取消编辑 PR 标题
-- [x] **no-duplicate-list-update-time** - 隐藏与开/关/合并时间相同的更新时间
-- [x] **linkify-user-labels** - 将「Contributor」「Member」等标签链接到作者提交
-- [x] **jump-to-conversation-close-event** - 跳转到 issue/PR 的最后关闭事件
-- [-] **close-as-unplanned** - 一键「close as unplanned」
-- [x] **locked-issue** - 在 locked issue/PR 上显示标签
+- [x] **open-all-conversations** – Opens all visible issues/PRs with one click
+- [x] **sticky-conversation-list-toolbar** – Sticks the filter toolbar in issue/PR lists
+- [x] **sticky-comment-header** – Sticks the comment header when scrolling
+- [x] **conversation-authors** – Highlights issues/PRs opened by you or collaborators
+- [x] **align-issue-labels** – Left-aligns labels in issue/PR lists
+- [x] **sort-conversations-by-update-time** – 🔥 Changes default sort to "recently updated"
+- [-] **global-conversation-list-filters** – Adds "my repositories" and "commented by me" filters to global PR search
+- [x] **clean-conversation-sidebar** – 🔥 Hides empty sections in the issue/PR sidebar
+- [x] **clean-conversation-filters** – Hides empty Projects filters
+- [+] **toggle-everything-with-alt** – Alt+click toggles all similar items
+- [-] **extend-conversation-status-filters** – Toggles `is:open`/`is:closed`/`is:merged` filters
+- [-] **bugs-tab** – Adds a "Bugs" tab if there are issues labeled "bug"
+- [x] **pinned-issues-update-time** – Shows update time instead of creation time for pinned issues
+- [x] **clean-pinned-issues** – Changes pinned issue layout from side‑by‑side to standard list
+- [x] **quick-label-removal** – Removes labels from issues/PRs with one click
+- [x] **clean-conversation-headers** – Removes duplicate information from PR headers
+- [x] **dim-bots** – Dims bot commits and PRs
+- [x] **esc-to-cancel** – Esc cancels editing PR titles
+- [x] **no-duplicate-list-update-time** – Hides update times that are identical to open/close/merge times
+- [x] **linkify-user-labels** – Links labels like "Contributor" or "Member" to the author's commits
+- [x] **jump-to-conversation-close-event** – Jumps to the last closing event of an issue/PR
+- [-] **close-as-unplanned** – Adds a "close as unplanned" button
+- [x] **locked-issue** – Shows a label on locked issues/PRs
 
 ---
 
 ### Viewing pull requests
 
-- [+] **linkify-commit-sha** - PR commit 页面添加非 PR commit 链接
-- [x] **pr-filters** - PR 列表添加 Checks 和 Draft PR 下拉筛选
-- [x] **unclip-checks** - 展开 checks 面板时自动显示所有检查
-- [x] **pr-approvals-count** - PR 列表显示颜色编码的审核计数
-- [x] **highlight-non-default-base-branch** - 非默认分支作为 base 时高亮显示
-- [-] **hide-inactive-deployments** - 隐藏 PR 中不活跃的部署
-- [+] **previous-next-commit-buttons** - Commits 标签页底部添加导航按钮
-- [x] **hidden-review-comments-indicator** - PR review 中有隐藏评论时显示指示器
-- [x] **conflict-marker** - PR 列表中显示有冲突的 PR
-- [x] **pr-commit-lines-changed** - PR commits 添加差异统计
-- [x] **cross-deleted-pr-branches** - 删除的分支添加删除线
-- [x] **batch-mark-files-as-viewed** - PR Files 标签页批量标记已查看
-- [x] **closing-remarks** - 🔥 显示 PR 合并到的第一个 tag，建议创建 release
-- [x] **pr-jump-to-first-non-viewed-file** - 点击进度条跳转到第一个未查看文件
-- [x] **jump-to-change-requested-comment** - 跳转到最新的「更改已请求」评论
-- [-] **view-last-pr-deployment** - PR 头部添加打开最新部署的链接
-- [x] **no-unnecessary-split-diff-view** - 文件 split diff 无用时始终使用 unified diffs
-- [+] **emphasize-draft-pr-label** - 更容易区分列表中的 draft PR
-- [x] **clean-checks-list** - 优先显示失败和待定的检查，展开长的检查名称
-- [x] **mobile-tabs-pr** - PR 标签页适配移动端
+- [+] **linkify-commit-sha** – Adds links to non-PR commits on the PR commits page
+- [x] **pr-filters** – Adds dropdown filters for Checks and Draft PRs in PR lists
+- [x] **unclip-checks** – Automatically shows all checks when expanding the checks panel
+- [x] **pr-approvals-count** – Shows color-coded review counts in PR lists
+- [x] **highlight-non-default-base-branch** – Highlights when a non-default branch is used as the base
+- [-] **hide-inactive-deployments** – Hides inactive deployments in PRs
+- [+] **previous-next-commit-buttons** – Adds navigation buttons at the bottom of the Commits tab
+- [x] **hidden-review-comments-indicator** – Shows an indicator when there are hidden comments in a PR review
+- [x] **conflict-marker** – Shows PRs with conflicts in the PR list
+- [x] **pr-commit-lines-changed** – Adds diff statistics to PR commits
+- [x] **cross-deleted-pr-branches** – Strikes through deleted branches
+- [x] **batch-mark-files-as-viewed** – Batch marks files as viewed in the PR Files tab
+- [x] **closing-remarks** – 🔥 Shows the first tag a PR was merged into, suggesting a release
+- [x] **pr-jump-to-first-non-viewed-file** – Jumps to the first not‑viewed file by clicking the progress bar
+- [x] **jump-to-change-requested-comment** – Jumps to the most recent "changes requested" comment
+- [-] **view-last-pr-deployment** – Adds a link to open the latest deployment in the PR header
+- [x] **no-unnecessary-split-diff-view** – Always uses unified diffs when split diff is not useful
+- [+] **emphasize-draft-pr-label** – Makes draft PRs easier to distinguish in lists
+- [x] **clean-checks-list** – Shows failing and pending checks first, expands long check names
+- [x] **mobile-tabs-pr** – Adapts PR tabs for mobile devices
 
 ---
 
 ### Editing pull requests
 
-- [+] **sync-pr-commit-title** - 🔥 用 PR 标题作为 squash commit 标题，并同步更新
-- [x] **update-pr-from-base-branch** - 每个 PR 添加「Update branch | Rebase」按钮
-- [+] **one-click-review-submission** - 一键审核（Approve/Reject）
-- [x] **pull-request-hotkeys** - 添加快捷键循环切换 PR 标签页
-- [+] **pr-branch-auto-delete** - 合并 PR 后自动删除分支
-- [-] **one-click-pr-or-gist** - 一键创建 draft PR 或 public gist
-- [+] **clear-pr-merge-commit-message** - 清理 PR 合并消息中的冗余信息
-- [x] **quick-review** - PR 侧边栏添加快速审核按钮
-- [x] **pr-first-commit-title** - 用第一个 commit 作为新 PR 的标题和描述
+- [+] **sync-pr-commit-title** – 🔥 Uses the PR title as the squash commit title and keeps it in sync
+- [x] **update-pr-from-base-branch** – Adds an "Update branch | Rebase" button to each PR
+- [+] **one-click-review-submission** – One‑click review (Approve/Reject)
+- [x] **pull-request-hotkeys** – Adds shortcuts to cycle through PR tabs
+- [+] **pr-branch-auto-delete** – Automatically deletes the branch after merging a PR
+- [-] **one-click-pr-or-gist** – Creates a draft PR or public gist with one click
+- [+] **clear-pr-merge-commit-message** – Cleans up redundant information in PR merge commit messages
+- [x] **quick-review** – Adds a quick review button to the PR sidebar
+- [x] **pr-first-commit-title** – Uses the first commit as the title and description of a new PR
 
 ---
 
 ### Commits
 
-- [x] **patch-diff-links** - commit 页面添加 .patch 和 .diff 文件链接
-- [x] **more-file-links** - PR/commits 中添加查看 raw、blame、history 链接
-- [x] **one-click-diff-options** - Compare 页面添加「Hide whitespace」按钮和快捷键 d w
-- [x] **extend-diff-expander** - 加宽「Expand diff」按钮可点击区域
-- [x] **hide-diff-signs** - 隐藏 diff 符号（已有颜色编码）
-- [x] **suggest-commit-title-limit** - 建议 commit/PR 标题限制在 72 字符
-- [+] **tags-on-commits-list** - 提交旁显示对应标签
-- [+] **mark-merge-commits-in-list** - 标记提交列表中的合并提交
-- [x] **deep-reblame** - alt+click「Reblame」时先提取关联 PR 的提交
-- [x] **new-or-deleted-file** - 图标指示 PR/commits 中文件的添加/删除状态
-- [x] **easy-toggle-files** - 点击文件头部切换 diff
-- [x] **same-branch-author-commits** - 查看某作者的所有提交时保留分支和路径
-- [+] **easy-toggle-commit-messages** - 点击提交框切换提交消息
-- [-] **link-to-compare-diff** - 「X files changed」文本可点击跳转到 diff
-- [x] **conventional-commits** - 在提交消息前显示 conventional commit 类型标签
+- [x] **patch-diff-links** – Adds .patch and .diff file links on commit pages
+- [x] **more-file-links** – Adds links to view raw, blame, and history in PRs/commits
+- [x] **one-click-diff-options** – Adds a "Hide whitespace" button and shortcut `d w` on the Compare page
+- [x] **extend-diff-expander** – Widens the clickable area of the "Expand diff" button
+- [x] **hide-diff-signs** – Hides diff signs (color coding already present)
+- [x] **suggest-commit-title-limit** – Suggests limiting commit/PR titles to 72 characters
+- [+] **tags-on-commits-list** – Shows tags next to commits
+- [+] **mark-merge-commits-in-list** – Marks merge commits in commit lists
+- [x] **deep-reblame** – When Alt+clicking "Reblame", first extracts commits from the associated PR
+- [x] **new-or-deleted-file** – Shows icons indicating file add/delete status in PRs/commits
+- [x] **easy-toggle-files** – Toggles diff by clicking the file header
+- [x] **same-branch-author-commits** – Preserves branch and path when viewing all commits by an author
+- [+] **easy-toggle-commit-messages** – Toggles commit messages by clicking the commit box
+- [-] **link-to-compare-diff** – Makes the "X files changed" text clickable to jump to the diff
+- [x] **conventional-commits** – Shows conventional commit type labels before commit messages
 
 ---
 
 ### Tags and releases
 
-- [+] **release-download-count** - release 资源旁显示下载计数
-- [x] **releases-tab** - 添加 Releases 标签页和快捷键 g r (in **navigation-hotkeys**)
-- [+] **releases-dropdown** - release 页面添加标签下拉搜索
-- [x] **create-release-shortcut** - Releases 页面添加快捷键 c 创建新 release
-- [x] **tag-changes-link** - 🔥 每个 tag/release 添加「自上次 tag 以来的变更」链接
-- [x] **convert-release-to-draft** - 添加将 release 转为 draft 的按钮
-- [x] **confirm-release** - 发布 release 时添加确认对话框
-- [x] **link-to-changelog-file** - Releases 页面添加查看 changelog 文件按钮
+- [+] **release-download-count** – Shows download counts next to release assets
+- [x] **releases-tab** – Adds a Releases tab and shortcut `g r` (in **navigation-hotkeys**)
+- [+] **releases-dropdown** – Adds a tag search dropdown on the releases page
+- [x] **create-release-shortcut** – Adds shortcut `c` to create a new release on the Releases page
+- [x] **tag-changes-link** – 🔥 Adds a "Changes since last tag" link for each tag/release
+- [x] **convert-release-to-draft** – Adds a button to convert a release to draft
+- [x] **confirm-release** – Adds a confirmation dialog when publishing a release
+- [x] **link-to-changelog-file** – Adds a button to view the changelog file on the Releases page
 
 ---
 
 ### Profiles
 
-- [x] **user-profile-follower-badge** - 显示用户是否关注你
-- [-] **profile-gists-link** - 用户资料页添加公开 gists 链接
-- [+] **mark-private-orgs** - 在你的资料页标记私有组织
-- [x] **profile-hotkey** - 添加快捷键 g m 访问自己资料页 (in **navigation-hotkeys**)
-- [x] **show-user-top-repositories** - 添加用户最多 star 的仓库链接
-- [x] **hide-user-forks** - 默认隐藏 fork 和归档的仓库
-- [x] **linkify-user-location** - hovercard 和资料页的用户位置可点击
-- [x] **conversation-links-on-repo-lists** - 用户资料仓库标签页和全局搜索添加工具链接
+- [x] **user-profile-follower-badge** – Shows whether a user follows you
+- [-] **profile-gists-link** – Adds a link to public gists on user profiles
+- [+] **mark-private-orgs** – Marks private organizations on your profile page
+- [x] **profile-hotkey** – Adds shortcut `g m` to go to your own profile (in **navigation-hotkeys**)
+- [x] **show-user-top-repositories** – Adds a link to the user's most-starred repositories
+- [x] **hide-user-forks** – Hides forked and archived repositories by default
+- [x] **linkify-user-location** – Makes user location clickable in hovercards and profiles
+- [x] **conversation-links-on-repo-lists** – Adds tool links to the user's repository tabs and global search
 
 ---
 
 ### Notifications
 
-- [x] **open-all-notifications** - 通知页面添加一键打开所有未读通知
-- [x] **unread-anywhere** - 🔥 全局 header 添加按钮在任何页面打开未读通知
-- [x] **select-all-notifications-shortcut** - 快捷键 a 全选通知
-- [-] **stop-redirecting-in-notification-bar** - 按住 alt 时阻止从通知栏重定向
-- [-] **last-notification-page-button** - 添加到通知最后一页的链接
-- [x] **pr-notification-link** - PR 通知指向 Conversation 标签而非 commits 页面
-- [x] **sticky-notifications-actions** - 通知操作栏固定
-- [x] **clean-notifications** - 按仓库分组时通知列表更紧凑
+- [x] **open-all-notifications** – Adds a button to open all unread notifications on the notifications page
+- [x] **unread-anywhere** – 🔥 Adds a button in the global header to open unread notifications from any page
+- [x] **select-all-notifications-shortcut** – Shortcut `a` to select all notifications
+- [-] **stop-redirecting-in-notification-bar** – Prevents redirects from the notification bar when holding Alt
+- [-] **last-notification-page-button** – Adds a link to the last page of notifications
+- [x] **pr-notification-link** – PR notifications point to the Conversation tab instead of the commits page
+- [x] **sticky-notifications-actions** – Sticks the notification action bar
+- [x] **clean-notifications** – Makes notification lists more compact when grouped by repository
 
 ---
 
 ### Global
 
-- [x] **useful-not-found-page** - 🔥 404 页面添加可能的相关页面和替代选项
-- [x] **selection-in-new-tab** - j/k 导航时 shift+o 在新标签页打开选中文本
-- [-] **close-out-of-view-modals** - 下拉菜单不可见时自动关闭
-- [+] **parse-backticks** - GitHub 忘记添加可点击的 backtick 文本
-- [-] **action-used-by-link** - 查看当前 Action 的使用者
-- [x] **improve-shortcut-help** - 在帮助弹窗（?）中显示所有 Refined GitHub 快捷键 (in **help-modal**)
-- [x] **clean-footer** - 淡化页脚
-- [+] **night-not-found** - 404 页面添加深色模式
-- [x] **monospace-textareas** - 提交消息等字段使用等宽字体
+- [x] **useful-not-found-page** – 🔥 Adds possible related pages and alternatives on the 404 page
+- [x] **selection-in-new-tab** – When navigating with `j`/`k`, `Shift+O` opens the selected text in a new tab
+- [-] **close-out-of-view-modals** – Automatically closes dropdown menus when they go out of view
+- [+] **parse-backticks** – Makes backtick‑delimited text clickable where GitHub forgot to do so
+- [-] **action-used-by-link** – Shows who uses a given Action
+- [x] **improve-shortcut-help** – Shows all Refined GitHub shortcuts in the help modal (`?`) (in **help-modal**)
+- [x] **clean-footer** – Dims the footer
+- [+] **night-not-found** – Adds dark mode to the 404 page
+- [x] **monospace-textareas** – Uses monospace font for fields like commit messages
 
 ---
 
 ### Netiquette
 
-- [x] **netiquette** - 添加不显眼的网络礼仪提醒
-- [x] **warn-pr-from-master** - 从默认分支创建 PR 时警告
-- [x] **warning-for-disallow-edits** - 取消「Allow edits from maintainers」时警告
+- [x] **netiquette** – Adds unobtrusive netiquette reminders
+- [x] **warn-pr-from-master** – Warns when creating a PR from the default branch
+- [x] **warning-for-disallow-edits** – Warns when unchecking "Allow edits from maintainers"
 
 ---
 
 ### Fixes for GitHub shortcomings
 
-- [-] **github-bugs** - 应用各种 CSS 修复
-- [x] **hide-navigation-hover-highlight** - 移除仓库文件浏览器的悬停效果
-- [-] **clean-repo-sidebar** - 移除仓库侧边栏不必要的冗余信息 (TODO(revisit?): https://codeberg.org/forgejo/forgejo/issues/11914)
-- [-] **linkify-branch-references** - 「Quick PR」页面中的分支引用可点击
-- [x] **actionable-pr-view-file** - PR 的「View file」指向分支而非 commit
-- [x] **reload-failed-proxied-images** - 重试失败的图片下载
-- [-] **unwrap-unnecessary-dropdowns** - 将 2 步下拉菜单改为 1 步
-- [-] **prevent-link-loss** - 建议修复被 GitHub 错误缩短的链接
-- [-] **prevent-duplicate-pr-submission** - 防止重复创建 PR
-- [-] **command-palette-navigation-shortcuts** - ctrl+n/p 选择命令面板项目
-- [x] **prevent-comment-loss** - 编辑评论时 preview 链接在新标签页打开
-- [-] **fix-no-pr-search** - 搜索不包含 is:pr 时重定向到仓库 issue 列表
-- [-] **clean-readme-url** - 移除 repo URL 中冗余的 readme-ov-file 参数
-- [-] **click-outside-modal** - 点击模态框外部关闭
-- [-] **linkify-line-numbers** - GitHub 忘记添加行号链接的地方
-- [-] **sidebar-focus-file** - 滚动文件树到当前文件
-- [-] **no-modals** - 禁用降低用户体验的模态框
-- [x] **same-page-links** - 不应该在 新标签页打开的链接
-- [+] **linkify-text** - 使某些文本可点击，如 issue 标题中的引用
-- [+] **new-milestone-button** - 里程碑页面添加「New Milestone」按钮
-- [-] **mark-private-repos** - 私有仓库用不同颜色高亮
-- [+] **tab-size** - 代码视图默认 tab 宽度从 8 减为 4
-- [x] **sticky-file-header** - 滚动时文件头部固定
-- [x] **sticky-csv-header** - CSV/TSV 预览第一列横向滚动时固定
-- [x] **reactions-popup** - 改进评论反应弹窗为更小尺寸
-- [x] **readable-title-change-events** - 将标题变更事件的新旧标题堆叠显示
-- [-] **cmd-enter** - 修复关闭 PR 上提交评论的 cmd+enter
+- [-] **github-bugs** – Applies various CSS fixes
+- [x] **hide-navigation-hover-highlight** – Removes hover effect from the repository file browser
+- [-] **clean-repo-sidebar** – Removes unnecessary clutter from the repository sidebar (TODO(revisit?): https://codeberg.org/forgejo/forgejo/issues/11914)
+- [-] **linkify-branch-references** – Makes branch references clickable on the "Quick PR" page
+- [x] **actionable-pr-view-file** – The "View file" link in PRs points to the branch instead of the commit
+- [x] **reload-failed-proxied-images** – Retries failed image downloads
+- [-] **unwrap-unnecessary-dropdowns** – Turns 2‑step dropdowns into 1‑step
+- [-] **prevent-link-loss** – Suggests fixes for links incorrectly shortened by GitHub
+- [-] **prevent-duplicate-pr-submission** – Prevents duplicate PR creation
+- [-] **command-palette-navigation-shortcuts** – Uses `Ctrl+N`/`Ctrl+P` to select items in the command palette
+- [x] **prevent-comment-loss** – The preview link when editing a comment opens in a new tab
+- [-] **fix-no-pr-search** – Redirects to the repository issue list when a search does not include `is:pr`
+- [-] **clean-readme-url** – Removes redundant `readme-ov-file` parameters from repo URLs
+- [-] **click-outside-modal** – Closes a modal by clicking outside it
+- [-] **linkify-line-numbers** – Adds line number links where GitHub forgot them
+- [-] **sidebar-focus-file** – Scrolls the file tree to the current file
+- [-] **no-modals** – Disables modals that degrade user experience
+- [x] **same-page-links** – Prevents links that should not open in a new tab
+- [+] **linkify-text** – Makes certain text clickable, e.g., references in issue titles
+- [+] **new-milestone-button** – Adds a "New Milestone" button on the milestone page
+- [-] **mark-private-repos** – Highlights private repositories with a different color
+- [+] **tab-size** – Reduces the default tab width in code views from 8 to 4
+- [x] **sticky-file-header** – Sticks the file header when scrolling
+- [x] **sticky-csv-header** – Sticks the first column of CSV/TSV preview when scrolling horizontally
+- [x] **reactions-popup** – Improves the reaction popup to be smaller
+- [x] **readable-title-change-events** – Stacks old and new titles in title change events for readability
+- [-] **cmd-enter** – Fixes `Cmd+Enter` for submitting comments on closed PRs
 
 ---
 
 ### Extra
 
-- [x] **navigation-hotkeys** - 为 Forgejo 添加常用的 GitHub 导航快捷键 (`g h`, `g i`, `s` 等)
-- [x] **help-modal** - 按 `?` 显示快捷键帮助菜单
-- [x] **pr-list-lines-changed** - PR 列表显示每个 PR 的行变更统计
-- [x] **file-addition-deletion** - PR 文件列表将变更统计拆分显示为 `+新增行` 和 `-删除行`
+- [x] **navigation-hotkeys** – Adds common GitHub navigation shortcuts to Forgejo (`g h`, `g i`, `s`, etc.)
+- [x] **help-modal** – Shows a keyboard shortcut help menu when pressing `?`
+- [x] **pr-list-lines-changed** – Shows line change statistics for each PR in the PR list
+- [x] **file-addition-deletion** – Splits change statistics into `+ added` and `- deleted` in the PR file list
 
 ---
 
 ## Customization
 
-大部分功能可以禁用，CSS-only 功能可以通过扩展选项页覆盖。
+Most features can be disabled. CSS‑only features can be overridden via the extension's options page.
 
 ## Links
 
