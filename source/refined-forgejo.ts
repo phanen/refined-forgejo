@@ -85,6 +85,7 @@ import "./features/actions-run-removal.js";
 import "./features/repo-age.js";
 import "./features/rerun-workflow.js";
 import "./features/close-out-of-view-modals.js";
+import "./features/deep-reblame.js";
 import "./features/esc-to-cancel.js";
 import "./features/esc-to-deselect-line.js";
 import "./features/vertical-front-matter.js";

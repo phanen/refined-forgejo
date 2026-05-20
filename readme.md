@@ -189,7 +189,7 @@
 - [x] **suggest-commit-title-limit** - 建议 commit/PR 标题限制在 72 字符
 - [+] **tags-on-commits-list** - 提交旁显示对应标签
 - [+] **mark-merge-commits-in-list** - 标记提交列表中的合并提交
-- [ ] **deep-reblame** - alt+click「Reblame」时先提取关联 PR 的提交
+- [x] **deep-reblame** - alt+click「Reblame」时先提取关联 PR 的提交
 - [x] **new-or-deleted-file** - 图标指示 PR/commits 中文件的添加/删除状态
 - [x] **easy-toggle-files** - 点击文件头部切换 diff
 - [x] **same-branch-author-commits** - 查看某作者的所有提交时保留分支和路径
