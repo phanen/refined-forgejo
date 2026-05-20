@@ -304,8 +304,3 @@
 ## Customization
 
 大部分功能可以禁用，CSS-only 功能可以通过扩展选项页覆盖。
-
-## Links
-
-- [Project page](https://codeberg.org/forgejo-contrib/refined-forgejo)
-- [Report issues](https://codeberg.org/forgejo-contrib/refined-forgejo/issues)
