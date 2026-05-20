@@ -1,4 +1,4 @@
-.code-diff-split.rgf-no-unnecessary-split-diff-view {
+.code-diff-split.rgf-no-unnecessary-split-diff-view table {
   table-layout: auto !important;
 }
 
@@ -12,12 +12,12 @@
 
 .code-diff-split.rgf-no-unnecessary-split-diff-view.rgf-only-additions
   colgroup col:nth-child(-n+4) {
-  width: 0 !important;
+  display: none !important;
 }
 
 .code-diff-split.rgf-no-unnecessary-split-diff-view.rgf-only-deletions
   colgroup col:nth-child(n+5) {
-  width: 0 !important;
+  display: none !important;
 }
 
 .code-diff-split.rgf-no-unnecessary-split-diff-view.rgf-only-additions
