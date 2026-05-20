@@ -1,0 +1,59 @@
+#notification_table {
+  overflow: hidden;
+}
+
+.rgf-notification-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.rgf-notification-group-header {
+  padding: 0.5rem 0.75rem;
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-light-2);
+  background: var(--color-body);
+  border-top: 1px solid var(--color-secondary);
+}
+
+.rgf-notification-group:first-child .rgf-notification-group-header {
+  border-top: 0;
+}
+
+.notifications-item {
+  gap: 0.5rem;
+  padding-block: 0.5rem !important;
+  padding-inline: 0.75rem !important;
+}
+
+.notifications-item .notifications-icon {
+  margin-inline: 0.25rem 0;
+}
+
+.notifications-item .notifications-link {
+  min-width: 0;
+}
+
+.notifications-item .rgf-notification-repo-name {
+  display: none;
+}
+
+.notifications-item .notifications-top-row {
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.notifications-item .notifications-bottom-row {
+  font-size: 14px;
+  line-height: 1.25;
+  padding-top: 0 !important;
+}
+
+.notifications-item .notifications-updated {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.notifications-item .notifications-buttons {
+  min-width: 64px;
+}

@@ -85,6 +85,13 @@ function setItemSelection(item: HTMLElement, selected: boolean): void {
   }
 }
 
+export function selectAllNotifications(): void {
+  for (const item of document.querySelectorAll<HTMLElement>(".notifications-item")) {
+    selectionOverrides.set(item.id, true);
+    setItemSelection(item, true);
+  }
+}
+
 function clearSelection(): void {
   for (const item of document.querySelectorAll<HTMLElement>(".notifications-item")) {
     setItemSelection(item, false);
