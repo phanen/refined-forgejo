@@ -1,20 +1,13 @@
-.rgf-quick-label-removal-wrap {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  vertical-align: middle;
-}
-
-.ui.labels.list .item .ui.label {
+.rgf-quick-label-removal-host {
   display: inline-flex !important;
   align-items: center;
-  padding-right: 1.55em !important;
+  padding-inline-end: 1.35em !important;
   position: relative;
 }
 
 .rgf-quick-label-removal {
   position: absolute;
-  inset-inline-end: 0.12em;
+  inset-inline-end: 0.15em;
   top: 50%;
   transform: translateY(-50%);
   z-index: 3;
@@ -23,24 +16,28 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.2em;
-  height: 1.2em;
+  width: 1.1em;
+  height: 1.1em;
   border-radius: 999px;
   transition:
-    background-color 0.1s ease,
     opacity 0.1s ease,
-    transform 0.1s ease;
+    transform 0.1s ease,
+    background-color 0.1s ease;
   padding: 0;
   border: 0;
-  background-color: inherit;
+  background: transparent;
   color: inherit;
   font: inherit;
 }
 
 .rgf-quick-label-removal:hover {
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: currentColor;
   transform: translateY(-50%) scale(1.04);
+}
+
+.rgf-quick-label-removal:hover svg {
+  fill: var(--color-body);
 }
 
 .rgf-quick-label-removal svg {
