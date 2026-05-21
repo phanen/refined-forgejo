@@ -11,6 +11,11 @@ function getLabelDropdown(label: HTMLElement): HTMLElement | null {
   return document.querySelector<HTMLElement>(`.select-label.dropdown .filter.menu .item[data-id="${labelId}"]`);
 }
 
+function getLabelHost(label: HTMLElement): HTMLElement | null {
+  return label.querySelector<HTMLElement>(".scope-right")
+    ?? label.querySelector<HTMLElement>(".ui.label");
+}
+
 async function removeLabel(label: HTMLElement): Promise<void> {
   const dropdown = document.querySelector<HTMLElement>(".select-label.dropdown .filter.menu[data-action='update']");
   const menuItem = getLabelDropdown(label);
@@ -21,7 +26,6 @@ async function removeLabel(label: HTMLElement): Promise<void> {
     return;
   }
 
-  const wrapper = label.closest<HTMLElement>(".rgf-quick-label-removal-wrap");
   const labelList = label.closest(".ui.labels.list");
   const noSelect = labelList?.querySelector<HTMLElement>(".no-select");
   const menuCheck = menuItem.querySelector<HTMLElement>(".octicon-check");
@@ -40,7 +44,7 @@ async function removeLabel(label: HTMLElement): Promise<void> {
       }),
     });
 
-    wrapper?.remove();
+    label.remove();
     if (labelList && !labelList.querySelector(".item:not(.rgf-quick-label-removal-pending)")) {
       noSelect?.classList.remove("tw-hidden");
     }
@@ -56,7 +60,7 @@ async function removeLabel(label: HTMLElement): Promise<void> {
 }
 
 function addQuickRemoval(label: HTMLElement): void {
-  if (label.closest(".rgf-quick-label-removal-wrap") || label.closest(".disabled")) {
+  if (label.querySelector(".rgf-quick-label-removal") || label.closest(".disabled")) {
     return;
   }
 
@@ -65,10 +69,10 @@ function addQuickRemoval(label: HTMLElement): void {
     return;
   }
 
-  const wrapper = document.createElement("span");
-  wrapper.className = "rgf-quick-label-removal-wrap";
-  label.insertAdjacentElement("beforebegin", wrapper);
-  wrapper.append(label);
+  const labelHost = getLabelHost(label);
+  if (!labelHost) {
+    return;
+  }
 
   const removeButton = (
     <button
@@ -90,7 +94,8 @@ function addQuickRemoval(label: HTMLElement): void {
     </button>
   );
 
-  wrapper.append(removeButton);
+  labelHost.classList.add("rgf-quick-label-removal-host");
+  labelHost.append(removeButton);
 }
 
 function init(signal: AbortSignal): void {
