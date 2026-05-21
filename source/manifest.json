@@ -19,10 +19,6 @@
     "activeTab",
     "alarms"
   ],
-  "host_permissions": [
-    "*://codeberg.org/*",
-    "*://*.codeberg.org/*"
-  ],
   "optional_host_permissions": [
     "*://*/*"
   ],
@@ -40,25 +36,10 @@
       "assets/background.js"
     ]
   },
-  "content_scripts": [
-    {
-      "run_at": "document_start",
-      "matches": [
-        "*://codeberg.org/*",
-        "*://*.codeberg.org/*"
-      ],
-      "css": [
-        "assets/refined-forgejo.css"
-      ],
-      "js": [
-        "assets/content-script.js"
-      ]
-    }
-  ],
   "web_accessible_resources": [
     {
       "resources": ["assets/*"],
-      "matches": ["https://codeberg.org/*", "https://*.codeberg.org/*"]
+      "matches": ["*://*/*"]
     }
   ]
 }

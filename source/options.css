@@ -35,6 +35,15 @@ p {
   margin: 0.5em 0;
 }
 
+.sites-help {
+  line-height: 1.45;
+  color: light-dark(#57606a, #8b949e);
+}
+
+.sites-help code {
+  color: inherit;
+}
+
 form {
   max-width: var(--content-width);
   margin: auto;
@@ -92,7 +101,7 @@ textarea:focus {
   outline: none;
 }
 
-input[name="personalToken"]:not(:focus) {
+input.token-field:not(:focus) {
   -webkit-text-security: circle;
 }
 
@@ -142,4 +151,57 @@ button + button {
 
 #validation {
   margin-left: 8px;
+}
+
+.field-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+#sites-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.site-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.site-input > span {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.site-input > input {
+  width: 100%;
+}
+
+.site-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.site-actions button + button {
+  margin-left: 0;
+}
+
+.site-remove {
+  align-self: center;
+}
+
+@media (max-width: 640px) {
+  .site-row {
+    grid-template-columns: 1fr;
+  }
+
+  .site-remove {
+    justify-self: start;
+  }
 }

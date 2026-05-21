@@ -13,6 +13,7 @@ import { clearShortcuts, getFeatureId, listenToAjaxedLoad, log, shortcutMap } fr
 import { isFeaturePrivate, type RunConditions, shouldFeatureRun } from "./helpers/feature-utils.js";
 import { getLocalHotfixesAsOptions } from "./helpers/hotfix.js";
 import ArrayMap from "./helpers/map-of-arrays.js";
+import { matchesSite, parseSites } from "./helpers/site-domains.js";
 import waitFor from "./helpers/wait-for.js";
 import optionsStorage, { isFeatureDisabled, type RGFOptions } from "./options-storage.js";
 
@@ -29,6 +30,7 @@ type FeatureLoader = RunConditions & {
 };
 
 const currentFeatureControllers = new ArrayMap<string, AbortController>();
+let siteAllowed = false;
 
 const globalReady = new Promise<RGFOptions>(async resolve => {
   if (!isWebPage()) {
@@ -43,12 +45,14 @@ const globalReady = new Promise<RGFOptions>(async resolve => {
   ]);
 
   log.setup(options);
+  const sites = parseSites(options.sites);
+  siteAllowed = sites.some(site => matchesSite(new URL(location.href), site));
 
   await waitFor(() => document.body);
 
   document.documentElement.setAttribute("refined-forgejo", "");
 
-  if (options.customCss.trim().length > 0) {
+  if (siteAllowed && options.customCss.trim().length > 0) {
     document.head.append(<style>{options.customCss}</style>);
   }
 
@@ -121,6 +125,10 @@ async function runLoader(id: string, loader: FeatureLoader): Promise<void> {
 async function add(url: string, ...loaders: FeatureLoader[]): Promise<void> {
   const id = getFeatureId(url);
   const options = await globalReady;
+
+  if (!siteAllowed) {
+    return;
+  }
 
   if (isFeatureDisabled(options, id) && !isFeaturePrivate(id)) {
     if (loaders.length === 0) {
