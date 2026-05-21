@@ -16,8 +16,7 @@
       <h1>Refined Forgejo</h1>
       <p>
         Browser extension that simplifies the Forgejo interface.
-        <a href="https://codeberg.org/forgejo-contrib/refined-forgejo"
-        >Project page</a>
+        <a href="https://github.com/phanen/refined-forgejo">Project page</a>
       </p>
     </header>
 
@@ -26,28 +25,18 @@
     <form id="options-form" class="detail-view-container">
       <button hidden>Capture Submit</button>
 
-      <details id="token">
-        <summary><strong>Personal Token</strong></summary>
+      <details id="sites">
+        <summary><strong>Sites and tokens</strong></summary>
         <div>
-          <p>
-            You should <a
-              id="token-link"
-              href="https://codeberg.org/user/settings/applications"
-              target="_blank"
-            >generate a token</a> with <code>repo</code> scope for full
-            functionality.
+          <p class="sites-help">
+            Add one site per row, leave the list empty to disable the extension,
+            and use comma-separated token values when you need fallbacks. Bare
+            hosts include subdomains; full URLs are matched exactly.
           </p>
-          <p>
-            <input
-              type="text"
-              name="personalToken"
-              spellcheck="false"
-              autocomplete="off"
-              autocapitalize="off"
-              size="20"
-              class="monospace-field"
-            >
-            <span id="validation"></span>
+          <div id="sites-list"></div>
+          <p class="site-actions">
+            <button type="button" id="add-site">Add site</button>
+            <button type="button" id="enable-sites">Enable listed sites</button>
           </p>
         </div>
       </details>

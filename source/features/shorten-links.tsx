@@ -1,5 +1,7 @@
 import features from "../feature-manager.js";
 import observe from "../helpers/selector-observer.js";
+import { matchesSite, parseSites } from "../helpers/site-domains.js";
+import optionsStorage from "../options-storage.js";
 
 const repoSelectors = [
   ".comment-body .markup a[href]",
@@ -27,11 +29,6 @@ const topLevelRoutes = new Set([
   "search",
   "settings",
   "user",
-]);
-
-const codebergHosts = new Set([
-  "codeberg.org",
-  "www.codeberg.org",
 ]);
 
 function decodePathname(pathname: string): string[] {
@@ -116,7 +113,7 @@ function appendTrailingSuffix(link: HTMLAnchorElement, suffixes: string[]): stri
   return suffix;
 }
 
-function shortenLink(link: HTMLAnchorElement): void {
+function shortenLink(link: HTMLAnchorElement, sites: ReturnType<typeof parseSites>): void {
   if (link.dataset.rgfShortened === "done") {
     return;
   }
@@ -140,7 +137,7 @@ function shortenLink(link: HTMLAnchorElement): void {
     return;
   }
 
-  if (!codebergHosts.has(url.hostname)) {
+  if (!sites.some(site => matchesSite(url, site))) {
     return;
   }
 
@@ -188,10 +185,12 @@ function shortenLink(link: HTMLAnchorElement): void {
   link.dataset.rgfShortened = "done";
 }
 
-function init(signal: AbortSignal): void {
+async function init(signal: AbortSignal): Promise<void> {
+  const sites = parseSites((await optionsStorage.getAll()).sites);
+
   observe(repoSelectors, element => {
     if (element instanceof HTMLAnchorElement) {
-      shortenLink(element);
+      shortenLink(element, sites);
     }
   }, { signal });
 }

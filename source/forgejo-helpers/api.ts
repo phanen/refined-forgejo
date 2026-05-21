@@ -1,4 +1,5 @@
 import mem from "memoize";
+import { splitCommaSeparated } from "../helpers/site-domains.js";
 import { getToken } from "../options-storage.js";
 
 const apiUrl = () => `${location.origin}/api/v1/`;
@@ -31,31 +32,52 @@ async function apiFetch(
   const { ignoreHttpStatus = false, method = "GET", body, headers = {}, signal, responseType = "json" } = options;
 
   const token = await getToken();
-  const authHeaders: HeadersInit = token ? { Authorization: `token ${token}` } : {};
+  const tokens = splitCommaSeparated(token);
+  const authTokens = tokens.length > 0 ? tokens : [""];
   const isFormBody = body instanceof FormData || body instanceof URLSearchParams;
 
-  const response = await fetch(toRequestUrl(path), {
-    method,
-    body: isFormBody ? body : (body ? JSON.stringify(body) : undefined),
-    headers: {
-      ...(isFormBody ? {} : { "Content-Type": "application/json" }),
-      accept: responseType === "text"
-        ? "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-        : "application/json",
-      ...authHeaders,
-      ...headers,
-    },
-    signal,
-  });
+  let lastData: unknown = {};
+  let lastStatus = 0;
 
-  const text = await response.text();
-  const data = responseType === "text" ? text : text ? JSON.parse(text) : {};
+  for (const candidate of authTokens) {
+    const response = await fetch(toRequestUrl(path), {
+      method,
+      body: isFormBody ? body : (body ? JSON.stringify(body) : undefined),
+      headers: {
+        ...(isFormBody ? {} : { "Content-Type": "application/json" }),
+        accept: responseType === "text"
+          ? "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+          : "application/json",
+        ...(candidate ? { Authorization: `token ${candidate}` } : {}),
+        ...headers,
+      },
+      signal,
+    });
 
-  if (response.ok || ignoreHttpStatus) {
-    return data;
+    const text = await response.text();
+    const data = responseType === "text" ? text : text ? JSON.parse(text) : {};
+    lastData = data;
+    lastStatus = response.status;
+
+    if (response.ok) {
+      return data;
+    }
+
+    const isAuthError = response.status === 401 || response.status === 403;
+    if (!isAuthError) {
+      if (ignoreHttpStatus) {
+        return data;
+      }
+      break;
+    }
+
+    if (ignoreHttpStatus && candidate === authTokens.at(-1)) {
+      return data;
+    }
   }
 
-  throw new Error(data.message || `API error: ${response.status}`);
+  const errorMessage = (lastData as { message?: string })?.message || `API error: ${lastStatus}`;
+  throw new Error(errorMessage);
 }
 
 const v1 = mem(apiFetch);
