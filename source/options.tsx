@@ -10,6 +10,7 @@ import {
 import optionsStorage from "./options-storage.js";
 
 const siteValidationControllers = new WeakMap<HTMLDivElement, AbortController>();
+const installOptionsShownKey = "refined-forgejo:install-options-opened";
 
 type SiteValidationState = "pending" | "valid" | "invalid" | "";
 
@@ -348,7 +349,14 @@ function addSiteRow(): void {
 }
 
 async function clearCache(): Promise<void> {
+  const { [installOptionsShownKey]: installOptionsShown } = await chrome.storage.local.get(installOptionsShownKey);
+
   await chrome.storage.local.clear();
+
+  if (installOptionsShown === true) {
+    await chrome.storage.local.set({ [installOptionsShownKey]: true });
+  }
+
   alert("Cache cleared");
 }
 

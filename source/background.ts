@@ -2,6 +2,8 @@ import { getPermissionOrigins, parseSites } from "./helpers/site-domains.js";
 import optionsStorage from "./options-storage.js";
 
 const contentScriptId = "refined-forgejo-content-script";
+const installOptionsShownKey = "refined-forgejo:install-options-opened";
+let installOptionsPromise: Promise<void> | undefined;
 
 async function updateActionState(siteCount: number, enabledSiteCount: number): Promise<void> {
   const enabled = enabledSiteCount > 0;
@@ -59,15 +61,37 @@ async function syncContentScripts(): Promise<void> {
   await updateActionState(parsedSites.length, enabledSiteCount);
 }
 
-chrome.runtime.onInstalled.addListener(async details => {
-  if (details.reason === "install") {
-    await chrome.runtime.openOptionsPage();
+async function openOptionsPageOnFirstRun(): Promise<void> {
+  if (installOptionsPromise) {
+    await installOptionsPromise;
+    return;
   }
 
-  await syncContentScripts();
+  installOptionsPromise = (async () => {
+    const { [installOptionsShownKey]: installOptionsShown } = await chrome.storage.local.get(installOptionsShownKey);
+
+    if (installOptionsShown === true) {
+      return;
+    }
+
+    await chrome.runtime.openOptionsPage();
+    await chrome.storage.local.set({ [installOptionsShownKey]: true });
+  })();
+
+  try {
+    await installOptionsPromise;
+  } finally {
+    installOptionsPromise = undefined;
+  }
+}
+
+chrome.runtime.onInstalled.addListener(() => {
+  void openOptionsPageOnFirstRun();
+  void syncContentScripts();
 });
 
 chrome.runtime.onStartup.addListener(() => {
+  void openOptionsPageOnFirstRun();
   void syncContentScripts();
 });
 
@@ -84,6 +108,8 @@ chrome.storage.onChanged.addListener((_, areaName) => {
     void syncContentScripts();
   }
 });
+
+void openOptionsPageOnFirstRun();
 
 chrome.action.onClicked.addListener(async () => {
   await chrome.runtime.openOptionsPage();
