@@ -176,6 +176,7 @@ Ported from [Refined GitHub](https://github.com/refined-github/refined-github), 
 - [+] **clear-pr-merge-commit-message** – Cleans up redundant information in PR merge commit messages
 - [x] **quick-review** – Adds a quick review button to the PR sidebar
 - [x] **pr-first-commit-title** – Uses the first commit as the title and description of a new PR
+- [-] **quick-resolve-conflicts** – Turns the "Resolve conflicts" dropdown into two plain buttons.
 
 ---
 
@@ -235,6 +236,7 @@ Ported from [Refined GitHub](https://github.com/refined-github/refined-github), 
 - [x] **pr-notification-link** – PR notifications point to the Conversation tab instead of the commits page
 - [x] **sticky-notifications-actions** – Sticks the notification action bar
 - [x] **clean-notifications** – Makes notification lists more compact when grouped by repository
+- [-] **notifications-ui** - Lets you change notifications sorting and grouping in one click.
 
 ---
 
@@ -268,7 +270,6 @@ Ported from [Refined GitHub](https://github.com/refined-github/refined-github), 
 - [-] **linkify-branch-references** – Makes branch references clickable on the "Quick PR" page
 - [x] **actionable-pr-view-file** – The "View file" link in PRs points to the branch instead of the commit
 - [x] **reload-failed-proxied-images** – Retries failed image downloads
-- [-] **unwrap-unnecessary-dropdowns** – Turns 2‑step dropdowns into 1‑step
 - [-] **prevent-link-loss** – Suggests fixes for links incorrectly shortened by GitHub
 - [-] **prevent-duplicate-pr-submission** – Prevents duplicate PR creation
 - [-] **command-palette-navigation-shortcuts** – Uses `Ctrl+N`/`Ctrl+P` to select items in the command palette
