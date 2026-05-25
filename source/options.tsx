@@ -115,6 +115,7 @@ async function syncSitePermissionCheckbox(row: HTMLDivElement): Promise<boolean>
   const granted = await chrome.permissions.contains({ origins });
   if (checkbox.checked !== granted) {
     checkbox.checked = granted;
+    updateOnboardingState(row);
     return true;
   }
 
@@ -223,6 +224,15 @@ function updateSiteLinks(): void {
   updateAllSiteTokenLinks();
 }
 
+function updateOnboardingState(row: HTMLDivElement): void {
+  const urlInput = row.querySelector<HTMLInputElement>(".site-url");
+  const enabledInput = row.querySelector<HTMLInputElement>(".site-enabled");
+  const tokenInput = row.querySelector<HTMLInputElement>(".site-token");
+  row.dataset.onboardingUrlEmpty = urlInput?.value.trim() ? "false" : "true";
+  row.dataset.onboardingEnabled = enabledInput?.checked ? "true" : "false";
+  row.dataset.onboardingTokenEmpty = tokenInput?.value.trim() ? "false" : "true";
+}
+
 function createSiteRow(site: SiteEntry = { url: "", token: "", enabled: true }): HTMLDivElement {
   const row = document.createElement("div");
   row.className = "site-row";
@@ -241,7 +251,7 @@ function createSiteRow(site: SiteEntry = { url: "", token: "", enabled: true }):
   enabledLabel.append(enabledTitle, enabledInput);
 
   const urlLabel = document.createElement("label");
-  urlLabel.className = "site-input";
+  urlLabel.className = "site-input site-url-label";
 
   const urlTitle = document.createElement("span");
   urlTitle.textContent = "Site";
@@ -258,7 +268,7 @@ function createSiteRow(site: SiteEntry = { url: "", token: "", enabled: true }):
   urlLabel.append(urlTitle, urlInput);
 
   const tokenLabel = document.createElement("label");
-  tokenLabel.className = "site-input";
+  tokenLabel.className = "site-input site-token-label";
 
   const tokenTitle = document.createElement("a");
   tokenTitle.className = "site-token-title";
@@ -289,10 +299,12 @@ function createSiteRow(site: SiteEntry = { url: "", token: "", enabled: true }):
   removeButton.type = "button";
   removeButton.className = "site-remove";
   removeButton.setAttribute("aria-label", "Remove site");
-  removeButton.textContent = "Remove";
+  removeButton.title = "Remove site";
+  removeButton.textContent = "🗑";
 
   const persistSiteState = () => {
     updateSiteLinks();
+    updateOnboardingState(row);
     void saveOptions();
   };
 
@@ -311,7 +323,10 @@ function createSiteRow(site: SiteEntry = { url: "", token: "", enabled: true }):
     persistSiteState();
     void syncSitePermissionCheckbox(row);
   });
-  urlInput.addEventListener("input", updateSiteLinks);
+  urlInput.addEventListener("input", () => {
+    updateSiteLinks();
+    updateOnboardingState(row);
+  });
   urlInput.addEventListener("change", () => {
     persistSiteState();
     void validateSiteToken(row);
@@ -320,6 +335,9 @@ function createSiteRow(site: SiteEntry = { url: "", token: "", enabled: true }):
   tokenInput.addEventListener("change", () => {
     persistSiteState();
     void validateSiteToken(row);
+  });
+  tokenInput.addEventListener("input", () => {
+    updateOnboardingState(row);
   });
   tokenInput.addEventListener("blur", () => {
     void validateSiteToken(row);
@@ -336,6 +354,7 @@ function createSiteRow(site: SiteEntry = { url: "", token: "", enabled: true }):
     persistSiteState();
   });
 
+  updateOnboardingState(row);
   row.append(enabledLabel, urlLabel, tokenLabel, removeButton);
   return row;
 }
@@ -350,6 +369,9 @@ function renderSites(sites: SiteEntry[]): void {
   updateAllSiteTokenLinks();
   void validateAllSites();
   void syncAllSitePermissionCheckboxes();
+  for (const row of list.querySelectorAll<HTMLDivElement>(".site-row")) {
+    updateOnboardingState(row);
+  }
 }
 
 function getSiteRows(): SiteEntry[] {
@@ -357,6 +379,7 @@ function getSiteRows(): SiteEntry[] {
 }
 
 function openSitesChecklist(): void {
+  document.querySelector<HTMLDetailsElement>("#sites")?.classList.add("install-onboarding");
   document.querySelector<HTMLDetailsElement>("#sites")?.setAttribute("open", "");
 }
 
