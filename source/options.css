@@ -167,7 +167,7 @@ button + button {
 
 .site-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1.5fr) minmax(0, 1fr) auto;
   gap: 10px;
   align-items: end;
 }
@@ -180,6 +180,22 @@ button + button {
 
 .site-input > input {
   width: 100%;
+}
+
+.site-enabled-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  padding-bottom: 7px;
+}
+
+.site-enabled-label > span {
+  margin-bottom: 0;
+}
+
+.site-enabled {
+  width: auto;
 }
 
 .site-token-header {
@@ -237,6 +253,10 @@ button + button {
 @media (max-width: 640px) {
   .site-row {
     grid-template-columns: 1fr;
+  }
+
+  .site-enabled-label {
+    padding-bottom: 0;
   }
 
   .site-remove {

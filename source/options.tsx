@@ -94,6 +94,43 @@ async function validateAllSites(): Promise<void> {
   await Promise.all([...document.querySelectorAll<HTMLDivElement>(".site-row")].map(row => validateSiteToken(row)));
 }
 
+async function syncSitePermissionCheckbox(row: HTMLDivElement): Promise<boolean> {
+  const url = row.querySelector<HTMLInputElement>(".site-url")?.value.trim() ?? "";
+  const checkbox = row.querySelector<HTMLInputElement>(".site-enabled");
+  if (!checkbox) {
+    return false;
+  }
+
+  const origins = getPermissionOrigins([{ url, token: "", enabled: true }]);
+
+  if (origins.length === 0) {
+    if (checkbox.checked) {
+      checkbox.checked = false;
+      return true;
+    }
+    return false;
+  }
+
+  const granted = await chrome.permissions.contains({ origins });
+  if (checkbox.checked !== granted) {
+    checkbox.checked = granted;
+    return true;
+  }
+
+  return false;
+}
+
+async function syncAllSitePermissionCheckboxes(): Promise<void> {
+  let changed = false;
+  for (const row of document.querySelectorAll<HTMLDivElement>(".site-row")) {
+    changed ||= await syncSitePermissionCheckbox(row);
+  }
+
+  if (changed) {
+    await saveOptions();
+  }
+}
+
 function updateSiteTokenLink(row: HTMLDivElement): void {
   const link = row.querySelector<HTMLAnchorElement>(".site-token-title");
   if (!link) {
@@ -176,7 +213,8 @@ function collectSites(): SiteEntry[] {
   return [...document.querySelectorAll<HTMLElement>(".site-row")].map(row => {
     const url = row.querySelector<HTMLInputElement>(".site-url")?.value.trim() ?? "";
     const token = row.querySelector<HTMLInputElement>(".site-token")?.value.trim() ?? "";
-    return { url, token };
+    const enabled = row.querySelector<HTMLInputElement>(".site-enabled")?.checked ?? true;
+    return { url, token, enabled };
   });
 }
 
@@ -184,9 +222,22 @@ function updateSiteLinks(): void {
   updateAllSiteTokenLinks();
 }
 
-function createSiteRow(site: SiteEntry = { url: "", token: "" }): HTMLDivElement {
+function createSiteRow(site: SiteEntry = { url: "", token: "", enabled: true }): HTMLDivElement {
   const row = document.createElement("div");
   row.className = "site-row";
+
+  const enabledLabel = document.createElement("label");
+  enabledLabel.className = "site-input site-enabled-label";
+
+  const enabledTitle = document.createElement("span");
+  enabledTitle.textContent = "Granted";
+
+  const enabledInput = document.createElement("input");
+  enabledInput.type = "checkbox";
+  enabledInput.className = "site-enabled";
+  enabledInput.checked = site.enabled !== false;
+
+  enabledLabel.append(enabledTitle, enabledInput);
 
   const urlLabel = document.createElement("label");
   urlLabel.className = "site-input";
@@ -244,10 +295,26 @@ function createSiteRow(site: SiteEntry = { url: "", token: "" }): HTMLDivElement
     void saveOptions();
   };
 
+  enabledInput.addEventListener("change", async () => {
+    const site = {
+      url: urlInput.value.trim(),
+      token: tokenInput.value.trim(),
+    };
+    const enabled = enabledInput.checked;
+    const granted = await setSitePermissionsEnabled(site, enabled);
+
+    if (enabled && !granted) {
+      enabledInput.checked = !enabled;
+    }
+
+    persistSiteState();
+    void syncSitePermissionCheckbox(row);
+  });
   urlInput.addEventListener("input", updateSiteLinks);
   urlInput.addEventListener("change", () => {
     persistSiteState();
     void validateSiteToken(row);
+    void syncSitePermissionCheckbox(row);
   });
   tokenInput.addEventListener("change", () => {
     persistSiteState();
@@ -261,13 +328,14 @@ function createSiteRow(site: SiteEntry = { url: "", token: "" }): HTMLDivElement
     const site = {
       url: row.querySelector<HTMLInputElement>(".site-url")?.value.trim() ?? "",
       token: row.querySelector<HTMLInputElement>(".site-token")?.value.trim() ?? "",
+      enabled: row.querySelector<HTMLInputElement>(".site-enabled")?.checked ?? true,
     };
     row.remove();
-    void removeSitePermissions(site);
+    void removeSitePermissions(site, getSiteRows());
     persistSiteState();
   });
 
-  row.append(urlLabel, tokenLabel, removeButton);
+  row.append(enabledLabel, urlLabel, tokenLabel, removeButton);
   return row;
 }
 
@@ -280,14 +348,15 @@ function renderSites(sites: SiteEntry[]): void {
   list.replaceChildren(...sites.map(site => createSiteRow(site)));
   updateAllSiteTokenLinks();
   void validateAllSites();
+  void syncAllSitePermissionCheckboxes();
 }
 
 function getSiteRows(): SiteEntry[] {
   return collectSites();
 }
 
-function focusEnableSitesButton(): void {
-  document.querySelector<HTMLButtonElement>("#enable-sites")?.focus();
+function focusAddSiteButton(): void {
+  document.querySelector<HTMLButtonElement>("#add-site")?.focus();
 }
 
 async function loadOptions(): Promise<void> {
@@ -308,16 +377,35 @@ async function loadOptions(): Promise<void> {
 
   renderSites(options.sites);
   updateSiteLinks();
-  focusEnableSitesButton();
+  focusAddSiteButton();
 }
 
-async function removeSitePermissions(site: SiteEntry): Promise<void> {
+async function removeSitePermissions(site: SiteEntry, remainingSites: SiteEntry[]): Promise<void> {
   const origins = getPermissionOrigins([site]);
   if (origins.length === 0) {
     return;
   }
 
-  await chrome.permissions.remove({ origins });
+  const remainingOrigins = new Set(getPermissionOrigins(remainingSites));
+  const removableOrigins = origins.filter(origin => !remainingOrigins.has(origin));
+  if (removableOrigins.length === 0) {
+    return;
+  }
+
+  await chrome.permissions.remove({ origins: removableOrigins });
+}
+
+async function setSitePermissionsEnabled(site: SiteEntry, enabled: boolean): Promise<boolean> {
+  const origins = getPermissionOrigins([site]);
+  if (origins.length === 0) {
+    return false;
+  }
+
+  if (enabled) {
+    return chrome.permissions.request({ origins });
+  }
+
+  return chrome.permissions.remove({ origins });
 }
 
 async function saveOptions(): Promise<void> {
@@ -336,23 +424,6 @@ async function saveOptions(): Promise<void> {
   delete options.domains;
 
   await chrome.storage.sync.set(options);
-}
-
-async function enableListedSites(): Promise<void> {
-  const origins = getPermissionOrigins(getSiteRows());
-  if (origins.length === 0) {
-    alert("No valid site domains were found.");
-    return;
-  }
-
-  const granted = await chrome.permissions.request({ origins });
-  if (granted) {
-    void validateAllSites();
-    alert("Site access granted. Reload the enabled tabs to load the extension there.");
-    return;
-  }
-
-  alert("Site access was not granted.");
 }
 
 function addSiteRow(): void {
@@ -416,6 +487,18 @@ function handleImport(): void {
 function init(): void {
   buildFeatureList();
   void loadOptions();
+  chrome.permissions.onAdded.addListener(() => {
+    void syncAllSitePermissionCheckboxes();
+  });
+  chrome.permissions.onRemoved.addListener(() => {
+    void syncAllSitePermissionCheckboxes();
+  });
+  window.addEventListener("focus", () => {
+    void syncAllSitePermissionCheckboxes();
+  });
+  window.addEventListener("pageshow", () => {
+    void syncAllSitePermissionCheckboxes();
+  });
 
   document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("[name]").forEach(input => {
     if (input instanceof HTMLInputElement && input.type === "checkbox") {
@@ -434,7 +517,6 @@ function init(): void {
   });
 
   document.querySelector("input#filter-features")?.addEventListener("input", featuresFilterHandler);
-  document.querySelector("#enable-sites")?.addEventListener("click", enableListedSites);
   document.querySelector("#add-site")?.addEventListener("click", addSiteRow);
   document.querySelector("#clear-cache")?.addEventListener("click", clearCache);
   document.querySelector(".js-export")?.addEventListener("click", handleExport);

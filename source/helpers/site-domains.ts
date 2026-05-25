@@ -1,12 +1,12 @@
 export type SiteEntry = {
   url: string;
   token: string;
+  enabled?: boolean;
 };
 
 export type ForgejoSite = SiteEntry & {
   origin: string;
   hostname: string;
-  allowSubdomains: boolean;
 };
 
 export function splitCommaSeparated(value: string): string[] {
@@ -16,25 +16,43 @@ export function splitCommaSeparated(value: string): string[] {
     .filter(Boolean);
 }
 
-function normalizeSite(rawSite: string): ForgejoSite | undefined {
-  const trimmed = rawSite.trim().toLowerCase();
+function parseSiteUrl(rawSite: string): URL | undefined {
+  const trimmed = rawSite.trim();
   if (!trimmed) {
     return undefined;
   }
 
+  const lowerCased = trimmed.toLowerCase();
+
   try {
-    const hadScheme = trimmed.includes("://");
-    const url = new URL(hadScheme ? trimmed : `https://${trimmed}`);
-    return {
-      url: rawSite.trim(),
-      origin: url.origin,
-      hostname: url.hostname,
-      allowSubdomains: !hadScheme && !url.port,
-      token: "",
-    };
+    return new URL(lowerCased.includes("://") ? trimmed : `https://${trimmed}`);
   } catch {
     return undefined;
   }
+}
+
+function isBareHost(site: Pick<SiteEntry, "url">): boolean {
+  const trimmed = site.url.trim();
+  if (!trimmed) {
+    return false;
+  }
+
+  const url = parseSiteUrl(trimmed);
+  return url !== undefined && !trimmed.toLowerCase().includes("://") && !url.port;
+}
+
+function normalizeSite(rawSite: string): ForgejoSite | undefined {
+  const url = parseSiteUrl(rawSite);
+  if (!url) {
+    return undefined;
+  }
+
+  return {
+    url: rawSite.trim(),
+    origin: url.origin,
+    hostname: url.hostname,
+    token: "",
+  };
 }
 
 function normalizeSiteEntry(site: Partial<SiteEntry> | null | undefined): ForgejoSite | undefined {
@@ -46,6 +64,7 @@ function normalizeSiteEntry(site: Partial<SiteEntry> | null | undefined): Forgej
   return {
     ...normalized,
     token: String(site?.token ?? ""),
+    enabled: site?.enabled !== false,
   };
 }
 
@@ -61,6 +80,7 @@ function parseSitesRaw(value: string | SiteEntry[] | undefined | null): ForgejoS
     .map(site => ({
       ...site,
       token: "",
+      enabled: true,
     }));
 }
 
@@ -77,11 +97,15 @@ export function getPrimarySiteOrigin(value: string | SiteEntry[] | undefined | n
 }
 
 export function matchesSite(url: URL, site: ForgejoSite): boolean {
-  if (site.allowSubdomains) {
+  if (isBareHost(site)) {
     return url.hostname === site.hostname || url.hostname.endsWith(`.${site.hostname}`);
   }
 
   return url.origin === site.origin;
+}
+
+export function findSiteForUrl(value: string | SiteEntry[] | undefined | null, url: URL): ForgejoSite | undefined {
+  return parseSites(value).find(site => matchesSite(url, site));
 }
 
 export function getPermissionOrigins(value: string | SiteEntry[] | undefined | null): string[] {
@@ -90,9 +114,8 @@ export function getPermissionOrigins(value: string | SiteEntry[] | undefined | n
   const origins = new Set<string>();
 
   for (const site of sites) {
-    if (site.allowSubdomains) {
+    if (isBareHost(site)) {
       origins.add(`*://${site.hostname}/*`);
-      origins.add(`*://*.${site.hostname}/*`);
       continue;
     }
 
@@ -103,6 +126,8 @@ export function getPermissionOrigins(value: string | SiteEntry[] | undefined | n
 }
 
 export function getTokenForUrl(value: string | SiteEntry[] | undefined | null, url: URL): string | undefined {
-  const site = parseSites(value).find(entry => matchesSite(url, entry) && entry.token.trim().length > 0);
+  const site = parseSites(value).find(entry => {
+    return entry.enabled !== false && matchesSite(url, entry) && entry.token.trim().length > 0;
+  });
   return site?.token.trim() || undefined;
 }

@@ -13,9 +13,9 @@ export type RGFOptions = {
 };
 
 const defaultSites: SiteEntry[] = [
-  { url: "codeberg.org", token: "" },
-  { url: "git.disroot.org", token: "" },
-  { url: "forge.fedoraproject.org", token: "" },
+  { url: "codeberg.org", token: "", enabled: false },
+  { url: "git.disroot.org", token: "", enabled: false },
+  { url: "forge.fedoraproject.org", token: "", enabled: false },
 ];
 
 const defaults: RGFOptions = {
@@ -31,13 +31,14 @@ function normalizeSites(value: unknown): SiteEntry[] {
     return value.map(site => ({
       url: String((site as Partial<SiteEntry>)?.url ?? "").trim(),
       token: String((site as Partial<SiteEntry>)?.token ?? ""),
+      enabled: (site as Partial<SiteEntry>)?.enabled === true,
     }));
   }
 
   if (typeof value === "string") {
     return value
       .split(/[\n,]+/)
-      .map(url => ({ url: url.trim(), token: "" }))
+      .map(url => ({ url: url.trim(), token: "", enabled: false }))
       .filter(site => site.url.length > 0);
   }
 

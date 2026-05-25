@@ -23,8 +23,8 @@ describe("site-domains", () => {
         url: "forgejo.example.com",
         origin: "https://forgejo.example.com",
         hostname: "forgejo.example.com",
-        allowSubdomains: true,
         token: "",
+        enabled: true,
       },
     ]);
     expect(matchesSite(new URL("https://sub.forgejo.example.com/path"), sites[0])).toBe(true);
@@ -37,8 +37,8 @@ describe("site-domains", () => {
         url: "https://forgejo.example.com:3000",
         origin: "https://forgejo.example.com:3000",
         hostname: "forgejo.example.com",
-        allowSubdomains: false,
         token: "",
+        enabled: true,
       },
     ]);
     expect(matchesSite(new URL("https://forgejo.example.com:3000/path"), sites[0])).toBe(true);
@@ -48,7 +48,6 @@ describe("site-domains", () => {
   it("builds permission origins for custom hosts", () => {
     expect(getPermissionOrigins("forgejo.example.com")).toEqual([
       "*://forgejo.example.com/*",
-      "*://*.forgejo.example.com/*",
     ]);
   });
 
@@ -57,6 +56,16 @@ describe("site-domains", () => {
       { url: "forgejo.example.com", token: "" },
       { url: "forgejo.example.com", token: "site-token" },
     ], new URL("https://sub.forgejo.example.com/path"))).toBe("site-token");
+  });
+
+  it("keeps disabled sites disabled and skips them for tokens", () => {
+    const sites = parseSites([
+      { url: "forgejo.example.com", token: "disabled-token", enabled: false },
+      { url: "forgejo.example.com", token: "enabled-token", enabled: true },
+    ]);
+
+    expect(sites[0].enabled).toBe(false);
+    expect(getTokenForUrl(sites, new URL("https://sub.forgejo.example.com/path"))).toBe("enabled-token");
   });
 
   it("splits comma-separated tokens", () => {
