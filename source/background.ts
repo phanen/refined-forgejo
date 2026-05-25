@@ -25,38 +25,30 @@ async function updateActionState(siteCount: number, enabledSiteCount: number): P
 async function syncContentScripts(): Promise<void> {
   const { sites } = await optionsStorage.getAll();
   const parsedSites = parseSites(sites);
-
-  await chrome.scripting.unregisterContentScripts({ ids: [contentScriptId] }).catch(() => {});
-
-  const grantedSites = new Set<string>();
   let enabledSiteCount = 0;
 
   for (const site of parsedSites) {
-    const origins = getPermissionOrigins([site]);
-    if (origins.length === 0) {
+    const siteOrigins = getPermissionOrigins([site]);
+    if (siteOrigins.length === 0) {
       continue;
     }
 
-    const hasPermission = await chrome.permissions.contains({ origins });
+    const hasPermission = await chrome.permissions.contains({ origins: siteOrigins });
     if (hasPermission) {
       enabledSiteCount++;
-      for (const origin of origins) {
-        grantedSites.add(origin);
-      }
     }
   }
 
-  if (grantedSites.size > 0) {
-    await chrome.scripting.registerContentScripts([{
-      id: contentScriptId,
-      matches: [...grantedSites],
-      css: ["assets/refined-forgejo.css"],
-      js: ["assets/content-script.js"],
-      runAt: "document_start",
-      allFrames: true,
-      persistAcrossSessions: true,
-    }]);
-  }
+  await chrome.scripting.unregisterContentScripts({ ids: [contentScriptId] }).catch(() => {});
+  await chrome.scripting.registerContentScripts([{
+    id: contentScriptId,
+    matches: getPermissionOrigins(parsedSites),
+    css: ["assets/refined-forgejo.css"],
+    js: ["assets/content-script.js"],
+    runAt: "document_start",
+    allFrames: true,
+    persistAcrossSessions: true,
+  }]);
 
   await updateActionState(parsedSites.length, enabledSiteCount);
 }
