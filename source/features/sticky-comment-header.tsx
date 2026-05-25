@@ -7,7 +7,16 @@ import getAvatarUrl from "../forgejo-helpers/get-avatar-url.js";
 import { isIssueOrPR } from "../helpers/page-detect";
 import observe from "../helpers/selector-observer.js";
 
+function removeStickyAvatar(authorLink: HTMLAnchorElement | null): void {
+  authorLink?.querySelector(".rgf-sticky-avatar")?.remove();
+}
+
 async function addAvatar(header: Element, { signal }: { signal?: AbortSignal }): Promise<void> {
+  if (header.querySelector(".inline-timeline-avatar")) {
+    removeStickyAvatar(header.querySelector<HTMLAnchorElement>("a.author"));
+    return;
+  }
+
   const authorLink = header.querySelector<HTMLAnchorElement>("a.author");
   if (!authorLink || authorLink.querySelector(".rgf-sticky-avatar")) {
     return;
