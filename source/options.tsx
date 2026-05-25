@@ -11,6 +11,7 @@ import optionsStorage from "./options-storage.js";
 
 const siteValidationControllers = new WeakMap<HTMLDivElement, AbortController>();
 const installOptionsShownKey = "refined-forgejo:install-options-opened";
+const installSitesChecklistOpenedKey = "refined-forgejo:install-sites-checklist-opened";
 
 type SiteValidationState = "pending" | "valid" | "invalid" | "";
 
@@ -355,8 +356,21 @@ function getSiteRows(): SiteEntry[] {
   return collectSites();
 }
 
-function focusAddSiteButton(): void {
-  document.querySelector<HTMLButtonElement>("#add-site")?.focus();
+function openSitesChecklist(): void {
+  document.querySelector<HTMLDetailsElement>("#sites")?.setAttribute("open", "");
+}
+
+async function openSitesChecklistOnFirstLoad(): Promise<void> {
+  const { [installSitesChecklistOpenedKey]: installSitesChecklistOpened } = await chrome.storage.local.get(
+    installSitesChecklistOpenedKey,
+  );
+
+  if (installSitesChecklistOpened === true) {
+    return;
+  }
+
+  openSitesChecklist();
+  await chrome.storage.local.set({ [installSitesChecklistOpenedKey]: true });
 }
 
 async function loadOptions(): Promise<void> {
@@ -377,7 +391,7 @@ async function loadOptions(): Promise<void> {
 
   renderSites(options.sites);
   updateSiteLinks();
-  focusAddSiteButton();
+  void openSitesChecklistOnFirstLoad();
 }
 
 async function removeSitePermissions(site: SiteEntry, remainingSites: SiteEntry[]): Promise<void> {
