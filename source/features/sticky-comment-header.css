@@ -19,3 +19,9 @@
 .rgf-sticky-avatar.rgf-sticky-avatar-visible {
   display: inline-block;
 }
+
+@media (max-width: 767.98px) {
+  .timeline-item.comment .comment-header .rgf-sticky-avatar {
+    display: none !important;
+  }
+}
