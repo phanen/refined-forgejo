@@ -1,4 +1,6 @@
 import features from "../feature-manager.js";
+import { getRepo } from "../forgejo-helpers/index.js";
+import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 import { matchesSite, parseSites } from "../helpers/site-domains.js";
 import optionsStorage from "../options-storage.js";
@@ -43,7 +45,14 @@ function stripProtocol(url: URL): string {
   return `${url.host}${url.pathname.replace(/\/$/, "")}${url.search}${url.hash}`;
 }
 
-function formatRepoPath(owner: string, repo: string, rest: string[], url: URL): string {
+function formatRepoPath(
+  owner: string,
+  repo: string,
+  rest: string[],
+  url: URL,
+  currentRepo: ReturnType<typeof getRepo>,
+  isConversationPage: boolean,
+): string {
   if (rest.length === 0) {
     return `${owner}/${repo}${url.search}${url.hash}`;
   }
@@ -69,7 +78,12 @@ function formatRepoPath(owner: string, repo: string, rest: string[], url: URL): 
       const match = commit.match(/^([\da-f]{7,40})(?:\.(diff|patch))?$/i);
       if (match) {
         const [, sha, extension] = match;
-        return `${owner}/${repo}/commit/${sha.slice(0, 7)}${extension ? `.${extension}` : ""}${url.search}${url.hash}`;
+        const shortSha = sha.slice(0, 7);
+        if (isConversationPage && currentRepo?.owner === owner && currentRepo?.name === repo) {
+          return `${shortSha}${extension ? `.${extension}` : ""}${url.search}${url.hash}`;
+        }
+
+        return `${owner}/${repo}/commit/${shortSha}${extension ? `.${extension}` : ""}${url.search}${url.hash}`;
       }
     }
   }
@@ -113,7 +127,12 @@ function appendTrailingSuffix(link: HTMLAnchorElement, suffixes: string[]): stri
   return suffix;
 }
 
-function shortenLink(link: HTMLAnchorElement, sites: ReturnType<typeof parseSites>): void {
+function shortenLink(
+  link: HTMLAnchorElement,
+  sites: ReturnType<typeof parseSites>,
+  currentRepo: ReturnType<typeof getRepo>,
+  isConversationPage: boolean,
+): void {
   if (link.dataset.rgfShortened === "done") {
     return;
   }
@@ -164,7 +183,7 @@ function shortenLink(link: HTMLAnchorElement, sites: ReturnType<typeof parseSite
     readable = `@${pathParts[0]}${url.search}${url.hash}`;
   } else if (pathParts.length >= 2 && !topLevelRoutes.has(pathParts[0])) {
     const [owner, repo, ...rest] = pathParts;
-    readable = formatRepoPath(owner, repo, rest, url);
+    readable = formatRepoPath(owner, repo, rest, url, currentRepo, isConversationPage);
   } else {
     readable = stripProtocol(url);
   }
@@ -187,10 +206,12 @@ function shortenLink(link: HTMLAnchorElement, sites: ReturnType<typeof parseSite
 
 async function init(signal: AbortSignal): Promise<void> {
   const sites = parseSites((await optionsStorage.getAll()).sites);
+  const currentRepo = getRepo();
+  const isConversationPage = pageDetect.isConversation();
 
   observe(repoSelectors, element => {
     if (element instanceof HTMLAnchorElement) {
-      shortenLink(element, sites);
+      shortenLink(element, sites, currentRepo, isConversationPage);
     }
   }, { signal });
 }
