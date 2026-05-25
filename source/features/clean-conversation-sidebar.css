@@ -12,15 +12,14 @@
 .issue-content-right
   .ui.timetrack:not(:has(.issue-start-time, .issue-add-time)),
 .issue-content-right #deadline-loader:not(:has(.due-date)),
-.issue-content-right .ui.depending:not(:has(.dependency)),
-.issue-content-right .ui.reference {
+.issue-content-right .ui.depending:not(:has(.dependency)) {
   display: none !important;
 }
 
 /* ── Hide dividers before hidden sections ── */
 
 .issue-content-right
-  .divider:has(+ :is(.ui.labels.list:has(.no-select:not(.tw-hidden)), .ui.select-milestone.list:has(.no-select:not(.tw-hidden)), .ui.select-project.list:has(.no-select:not(.tw-hidden)), .ui.assignees.list:has(.no-select:not(.tw-hidden)), .ui.watching:has(button.disabled), .ui.timetrack:not(:has(.issue-start-time)), #deadline-loader:not(:has(.due-date)), .ui.depending:not(:has(.dependency)), .ui.reference)),
+  .divider:has(+ :is(.ui.labels.list:has(.no-select:not(.tw-hidden)), .ui.select-milestone.list:has(.no-select:not(.tw-hidden)), .ui.select-project.list:has(.no-select:not(.tw-hidden)), .ui.assignees.list:has(.no-select:not(.tw-hidden)), .ui.watching:has(button.disabled), .ui.timetrack:not(:has(.issue-start-time)), #deadline-loader:not(:has(.due-date)), .ui.depending:not(:has(.dependency)), .ui.depending:not(:has(.dependency)))),
 .issue-content-right .divider:last-child {
   display: none !important;
 }
