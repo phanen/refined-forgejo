@@ -44,7 +44,7 @@ async function addAvatar(authorLink: Element): Promise<void> {
   link.classList.add("rgf-has-small-avatar");
   link.prepend(
     <img
-      className="avatar avatar-user rgf-small-user-avatar"
+      className="ui avatar rgf-small-user-avatar"
       src={avatarUrl}
       width={avatarSize}
       height={avatarSize}

@@ -49,12 +49,13 @@ async function showAvatarsOn(reactionContainer: Element): Promise<void> {
     const avatar = (
       <span className="rgf-reactions-avatar" style={{ marginLeft: "0px" }}>
         <img
+          className="ui avatar"
           src={imageUrl}
           width={avatarSize}
           height={avatarSize}
           alt={username}
           title={username}
-          style={{ display: "block", borderRadius: "50%", border: "2px solid var(--color-bg-primary)" }}
+          style={{ display: "block", border: "2px solid var(--color-bg-primary)" }}
         />
       </span>
     );

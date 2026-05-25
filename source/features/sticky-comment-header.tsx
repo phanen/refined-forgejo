@@ -25,7 +25,7 @@ async function addAvatar(header: Element, { signal }: { signal?: AbortSignal }):
 
   const avatar = (
     <img
-      className="avatar avatar-user rgf-sticky-avatar"
+      className="ui avatar rgf-sticky-avatar"
       src={avatarUrl}
       width={14}
       height={14}
