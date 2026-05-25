@@ -192,6 +192,12 @@ describe("page-detect", async () => {
     testFalse(pageDetect.isDashboard, "/ziglang/zig");
   });
 
+  describe("isExplore", () => {
+    testTrue(pageDetect.isExplore, "/explore");
+    testTrue(pageDetect.isExplore, "/explore/repos");
+    testFalse(pageDetect.isExplore, "/ziglang/zig");
+  });
+
   describe("isSingleFile", () => {
     testTrue(pageDetect.isSingleFile, "/ziglang/zig/blob/main/README.md");
     testTrue(pageDetect.isSingleFile, "/ziglang/zig/blob/main/src/main.zig");

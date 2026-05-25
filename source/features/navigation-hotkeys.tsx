@@ -5,11 +5,11 @@ import getLoggedInUser from "../helpers/get-logged-in-user.js";
 import {
   hasRepoHeader,
   isDashboard,
+  isExplore,
   isGlobalIssueList,
   isGlobalPRList,
   isNotifications,
   isUserProfile,
-  startsWith,
 } from "../helpers/page-detect.js";
 
 function focusSearch(): void {
@@ -77,7 +77,7 @@ void features.add(import.meta.url, {
   init: initRepoNavigation,
 }, {
   include: [
-    () => startsWith("/explore"),
+    isExplore,
     isDashboard,
     isGlobalIssueList,
     isGlobalPRList,

@@ -65,6 +65,7 @@ void features.add(import.meta.url, {
   include: [
     pageDetect.hasRepoHeader,
     pageDetect.isDashboard,
+    pageDetect.isExplore,
     pageDetect.isUserProfile,
     pageDetect.isGlobalIssueList,
     pageDetect.isGlobalPRList,

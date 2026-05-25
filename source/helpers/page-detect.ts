@@ -19,6 +19,7 @@ export function startsWith(path: string): boolean {
 import { getRepo } from "../forgejo-helpers/index.js";
 
 export const isDashboard = (): boolean => location.pathname === "/" || location.pathname === "/dashboard";
+export const isExplore = (): boolean => startsWith("/explore");
 export const isRepoHome = (): boolean => /^\/[^/]+\/[^/]+\/?$/.test(location.pathname);
 export const isRepoTree = (): boolean =>
   isRepoHome()
@@ -91,6 +92,7 @@ export const pageDetect = {
   isCompare,
   isConversation,
   isDashboard,
+  isExplore,
   isDeletingFile,
   isEditingFile,
   hasFileEditor,
