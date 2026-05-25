@@ -37,7 +37,6 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           path: ${{ env.DIRECTORY }}
-          include-hidden-files: true
       - name: Create release
         if: env.DAILY_VERSION_CREATED
         env:

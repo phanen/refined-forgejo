@@ -42,6 +42,7 @@ const rollup = {
         const cleanName = chunkInfo.name
           .split("/")
           .filter(part => !noise.has(part))
+          .map(part => part.replace(/^\./, ""))
           .join("-");
         return `npm/${cleanName}.js`;
       }
