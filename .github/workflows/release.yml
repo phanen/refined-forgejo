@@ -37,15 +37,15 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           path: ${{ env.DIRECTORY }}
-      - name: Create release
-        if: env.DAILY_VERSION_CREATED
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        working-directory: ${{ env.DIRECTORY }}
-        run: |
-          FILENAME="$PROJECT_NAME-$DAILY_VERSION-for-local-testing-only.zip"
-          zip -r "$FILENAME" ./*
-          gh release create "$DAILY_VERSION" "$FILENAME" --draft --generate-notes
+      # - name: Create release
+      #   if: env.DAILY_VERSION_CREATED
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   working-directory: ${{ env.DIRECTORY }}
+      #   run: |
+      #     FILENAME="$PROJECT_NAME-$DAILY_VERSION-for-local-testing-only.zip"
+      #     zip -r "$FILENAME" ./*
+      #     gh release create "$DAILY_VERSION" "$FILENAME" --draft --generate-notes
 
   # Chrome:
   #   if: needs.Version.outputs.created
@@ -73,7 +73,8 @@ jobs:
       - name: Create release notes
         run: echo "{\"version\":{\"release_notes\":{\"en-US\":\"https://github.com/${{ github.repository }}/releases/tag/${{ needs.Version.outputs.version }}\"}}}" > /tmp/amo-metadata.json
       - name: Upload build and source code
-        run: npx web-ext@9 sign --channel listed --amo-metadata /tmp/amo-metadata.json
-        env:
-          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
-          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+        run: ls -lha
+        # run: npx web-ext@9 sign --source-dir "$DIRECTORY" --channel listed --amo-metadata /tmp/amo-metadata.json
+        # env:
+        #   WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+        #   WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
