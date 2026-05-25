@@ -9,8 +9,8 @@
   width: 12px;
   height: 12px;
   border-radius: 999px;
-  background: var(--color-nav-bg);
-  box-shadow: 0 0 0 1px var(--color-nav-bg);
+  background: transparent;
+  box-shadow: none;
   color: var(--color-nav-foreground);
   align-self: center;
   z-index: 2;
@@ -19,8 +19,8 @@
 
 #navbar .rgf-unread-anywhere:hover,
 #navbar .rgf-unread-anywhere:focus {
-  background: var(--color-nav-hover-bg);
-  box-shadow: 0 0 0 2px var(--color-nav-hover-bg);
+  background: transparent;
+  box-shadow: none;
 }
 
 #navbar .rgf-unread-anywhere .svg {
