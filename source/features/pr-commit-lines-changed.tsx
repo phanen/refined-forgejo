@@ -1,4 +1,5 @@
 import React from "dom-chef";
+import mem from "memoize";
 
 import features from "../feature-manager.js";
 import api from "../forgejo-helpers/api.js";
@@ -13,24 +14,17 @@ type Commit = {
   };
 };
 
-const commitCache = new Map<string, Promise<Commit | undefined>>();
-
-async function getCommit(sha: string): Promise<Commit | undefined> {
-  let promise = commitCache.get(sha);
-  if (!promise) {
-    const repo = getRepo();
-    if (!repo) {
-      return undefined;
-    }
-
-    promise = api.v1(`repos/${repo.owner}/${repo.name}/git/commits/${sha}`)
-      .then(data => data as Commit)
-      .catch(() => undefined);
-    commitCache.set(sha, promise);
+const getCommit = mem(async (owner: string, repo: string, sha: string): Promise<Commit | undefined> => {
+  try {
+    return await api.v1(
+      `repos/${owner}/${repo}/git/commits/${encodeURIComponent(sha)}?files=false&verification=false`,
+    ) as Commit;
+  } catch {
+    return undefined;
   }
-
-  return promise;
-}
+}, {
+  cacheKey: arguments_ => arguments_.join("/"),
+});
 
 function getSha(row: HTMLElement): string | undefined {
   const link = row.querySelector<HTMLAnchorElement>(".sha a[href], td.sha a[href]");
@@ -53,7 +47,13 @@ async function addLinesChanged(row: HTMLElement): Promise<void> {
     return;
   }
 
-  const commit = await getCommit(sha);
+  const repo = getRepo();
+  if (!repo) {
+    row.dataset.rgfCommitLinesChanged = "done";
+    return;
+  }
+
+  const commit = await getCommit(repo.owner, repo.name, sha);
   const additions = commit?.stats?.additions ?? 0;
   const deletions = commit?.stats?.deletions ?? 0;
   const total = additions + deletions;
