@@ -16,9 +16,7 @@
   "permissions": [
     "storage",
     "scripting",
-    "contextMenus",
-    "activeTab",
-    "alarms"
+    "activeTab"
   ],
   "optional_host_permissions": [
     "*://*/*"
