@@ -258,7 +258,12 @@ function createSiteRow(site: SiteEntry = { url: "", token: "" }): HTMLDivElement
   });
   removeButton.addEventListener("click", () => {
     siteValidationControllers.get(row)?.abort();
+    const site = {
+      url: row.querySelector<HTMLInputElement>(".site-url")?.value.trim() ?? "",
+      token: row.querySelector<HTMLInputElement>(".site-token")?.value.trim() ?? "",
+    };
     row.remove();
+    void removeSitePermissions(site);
     persistSiteState();
   });
 
@@ -281,6 +286,10 @@ function getSiteRows(): SiteEntry[] {
   return collectSites();
 }
 
+function focusEnableSitesButton(): void {
+  document.querySelector<HTMLButtonElement>("#enable-sites")?.focus();
+}
+
 async function loadOptions(): Promise<void> {
   const options = await optionsStorage.getAll();
 
@@ -299,6 +308,16 @@ async function loadOptions(): Promise<void> {
 
   renderSites(options.sites);
   updateSiteLinks();
+  focusEnableSitesButton();
+}
+
+async function removeSitePermissions(site: SiteEntry): Promise<void> {
+  const origins = getPermissionOrigins([site]);
+  if (origins.length === 0) {
+    return;
+  }
+
+  await chrome.permissions.remove({ origins });
 }
 
 async function saveOptions(): Promise<void> {
