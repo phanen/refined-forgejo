@@ -1,3 +1,5 @@
+import "./more-dropdown-links.css";
+
 import React from "dom-chef";
 import GitBranchIcon from "octicons-plain-react/GitBranch";
 import GitCommitIcon from "octicons-plain-react/GitCommit";
@@ -16,13 +18,8 @@ function wrapLabel(text: string): JSX.Element {
   return <span className="resize-for-semibold" data-text={text}>{text}</span>;
 }
 
-function addLinks(overflowMenu: OverflowMenuElement): void {
-  if (overflowMenu.querySelector(".rgf-more-link")) {
-    return;
-  }
-
-  const menuItemsEl = overflowMenu.querySelector(".overflow-menu-items");
-  if (!menuItemsEl) {
+function addLinks(overflowMenu: OverflowMenuElement, menuItemsEl: Element): void {
+  if (menuItemsEl.querySelector(".rgf-more-link")) {
     return;
   }
 
@@ -38,6 +35,7 @@ function addLinks(overflowMenu: OverflowMenuElement): void {
     { label: "Tags", href: buildRepoUrl("tags"), icon: GitCommitIcon },
   ];
 
+  let isFirst = true;
   for (const { label, href, icon: Icon } of items) {
     // Don't add if a matching link already exists in the nav
     if (menuItemsEl.querySelector(`a[href$="${href}"]`)) {
@@ -45,7 +43,7 @@ function addLinks(overflowMenu: OverflowMenuElement): void {
     }
 
     const newLink = (
-      <a className="item rgf-more-link" href={href}>
+      <a className={`item rgf-more-link ${isFirst ? "rgf-more-link-first" : ""}`} href={href}>
         <Icon className="svg" /> {wrapLabel(label)}
       </a>
     );
@@ -55,17 +53,27 @@ function addLinks(overflowMenu: OverflowMenuElement): void {
     } else {
       menuItemsEl.append(newLink);
     }
+
+    isFirst = false;
   }
 
   overflowMenu.updateItems?.();
 }
 
 function init(signal: AbortSignal): void {
-  observe("overflow-menu", addLinks, { signal });
+  observe(".secondary-nav > overflow-menu > .overflow-menu-items", menuItemsEl => {
+    const repoOverflowMenu = menuItemsEl.parentElement as OverflowMenuElement | null;
+    if (!repoOverflowMenu) {
+      return;
+    }
+
+    addLinks(repoOverflowMenu, menuItemsEl);
+  }, { signal });
 }
 
 features.add(import.meta.url, {
   include: [hasRepoHeader],
+  awaitDomReady: true,
   init,
 });
 
