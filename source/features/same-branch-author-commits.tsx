@@ -1,17 +1,10 @@
 import mem from "memoize";
 import features from "../feature-manager.js";
+import type { GitCommit } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getCurrentBranch, getRepo } from "../forgejo-helpers/index.js";
 import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
-
-type CommitResponse = {
-  commit?: {
-    author?: {
-      email?: string;
-    };
-  };
-};
 
 const getCommitAuthorEmail = mem(async (sha: string): Promise<string | undefined> => {
   const repo = getRepo();
@@ -20,7 +13,7 @@ const getCommitAuthorEmail = mem(async (sha: string): Promise<string | undefined
   }
 
   try {
-    const response = await api.v1(`repos/${repo.owner}/${repo.name}/git/commits/${sha}`) as CommitResponse;
+    const response = await api.v1(`repos/${repo.owner}/${repo.name}/git/commits/${sha}`) as GitCommit;
     return response.commit?.author?.email?.trim() || undefined;
   } catch {
     return undefined;

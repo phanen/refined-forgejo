@@ -17,7 +17,7 @@ describe("pr-base-commit", () => {
     expect(getHeadBranch(document)).toEqual({
       owner: "ziglang",
       repo: "zig",
-      branch: "topic",
+      ref: "topic",
     });
   });
 });

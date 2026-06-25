@@ -8,6 +8,7 @@ import InfoIcon from "octicons-plain-react/Info";
 import { countElements } from "select-dom";
 
 import features from "../feature-manager.js";
+import type { Issue } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getRepo } from "../forgejo-helpers/index.js";
 import { isConversation } from "../helpers/page-detect.js";
@@ -20,10 +21,6 @@ function formatClosedDate(date: Date): string {
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}.${month}.${day}`;
 }
-
-type IssueResponse = {
-  closed_at: string | null;
-};
 
 type BannerKind = "draft" | "popular" | "closed";
 
@@ -46,7 +43,7 @@ async function getCloseDate(): Promise<Date | undefined> {
   }
 
   try {
-    const issue = await api.v1(`repos/${repo.owner}/${repo.name}/issues/${index}`) as IssueResponse;
+    const issue = await api.v1(`repos/${repo.owner}/${repo.name}/issues/${index}`) as Issue;
     if (!issue.closed_at) {
       return undefined;
     }

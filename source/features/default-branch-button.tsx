@@ -2,24 +2,21 @@ import React from "dom-chef";
 import ChevronLeftIcon from "octicons-plain-react/ChevronLeft";
 
 import features from "../feature-manager.js";
+import type { Repository } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getCurrentBranch, getRepo } from "../forgejo-helpers/index.js";
 import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 import "./default-branch-button.css";
 
-type RepoInfo = {
-  default_branch: string;
-};
-
-const repoInfoCache = new Map<string, Promise<RepoInfo | undefined>>();
+const repoInfoCache = new Map<string, Promise<Repository | undefined>>();
 
 async function getDefaultBranch(owner: string, repo: string): Promise<string | undefined> {
   const key = `${owner}/${repo}`;
   let promise = repoInfoCache.get(key);
   if (!promise) {
     promise = api.v1(`repos/${owner}/${repo}`)
-      .then(data => data as RepoInfo)
+      .then(data => data as Repository)
       .catch(() => undefined);
     repoInfoCache.set(key, promise);
   }

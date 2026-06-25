@@ -1,16 +1,13 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { Issue } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-type IssueInfo = {
-  updated_at?: string;
-};
-
-const issueCache = new Map<number, Promise<IssueInfo | undefined>>();
+const issueCache = new Map<number, Promise<Issue | undefined>>();
 
 function getPinnedIssueNumber(card: HTMLElement): number | undefined {
   const issueLink = card.querySelector<HTMLAnchorElement>(".issue-card-title[href]");
@@ -22,7 +19,7 @@ function getPinnedIssueNumber(card: HTMLElement): number | undefined {
   return Number.parseInt(match[1], 10);
 }
 
-async function getIssueInfo(issueNumber: number): Promise<IssueInfo | undefined> {
+async function getIssueInfo(issueNumber: number): Promise<Issue | undefined> {
   const repo = getRepo();
   if (!repo) {
     return undefined;
@@ -31,7 +28,7 @@ async function getIssueInfo(issueNumber: number): Promise<IssueInfo | undefined>
   let promise = issueCache.get(issueNumber);
   if (!promise) {
     promise = api.v1(`repos/${repo.owner}/${repo.name}/issues/${issueNumber}`)
-      .then(data => data as IssueInfo)
+      .then(data => data as Issue)
       .catch(() => undefined);
     issueCache.set(issueNumber, promise);
   }

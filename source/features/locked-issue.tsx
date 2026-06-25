@@ -3,14 +3,11 @@ import "./locked-issue.css";
 import React from "dom-chef";
 import LockIcon from "octicons-plain-react/Lock";
 import features from "../feature-manager.js";
+import type { Issue } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import * as pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
-
-type IssueResponse = {
-  is_locked: boolean;
-};
 
 function getIssueIndex(): number | undefined {
   const repo = getRepo();
@@ -35,7 +32,7 @@ async function update(stateLabel: HTMLElement, signal: AbortSignal): Promise<voi
   }
 
   try {
-    const issue = await api.v1(`repos/${repo.owner}/${repo.name}/issues/${index}`, { signal }) as IssueResponse;
+    const issue = await api.v1(`repos/${repo.owner}/${repo.name}/issues/${index}`, { signal }) as Issue;
     if (!issue.is_locked) {
       return;
     }

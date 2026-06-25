@@ -1,22 +1,13 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { ContentsResponse } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
+import type { RepoRef } from "../helpers/types.js";
 
-type ContentsResponse = {
-  html_url?: string;
-  target?: string;
-  type: "file" | "dir" | "symlink" | "submodule";
-};
-
-type RepoSrcUrl = {
-  owner: string;
-  repo: string;
-  ref: string;
-  path: string;
-};
+type RepoSrcUrl = RepoRef & { path: string };
 
 function parseSrcUrl(url: string): RepoSrcUrl | undefined {
   const pathname = new URL(url, location.origin).pathname;

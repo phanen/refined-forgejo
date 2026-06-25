@@ -1,6 +1,7 @@
 import "./conversation-authors.css";
 
 import features from "../feature-manager.js";
+import type { User } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import { isIssueOrPRList } from "../helpers/page-detect.js";
@@ -34,8 +35,8 @@ async function init(signal: AbortSignal): Promise<void> {
     api.v1(`orgs/${repo.owner}/members`).catch(() => []),
   ]);
 
-  const collaborators = (collaboratorsData as Array<{ login: string }>).map(u => u.login);
-  const orgMembers = (orgMembersData as Array<{ login: string }>).map(u => u.login);
+  const collaborators = (collaboratorsData as User[]).map(u => u.login);
+  const orgMembers = (orgMembersData as User[]).map(u => u.login);
 
   const collaboratorSet = new Set(collaborators);
   const orgMemberSet = new Set(orgMembers);

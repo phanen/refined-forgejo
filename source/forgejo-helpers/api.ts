@@ -1,6 +1,7 @@
 import mem from "memoize";
 import { splitCommaSeparated } from "../helpers/site-domains.js";
 import { getToken } from "../options-storage.js";
+import type { ApiError } from "./api-types.js";
 
 const apiUrl = () => `${location.origin}/api/v1/`;
 
@@ -76,7 +77,7 @@ async function apiFetch(
     }
   }
 
-  const errorMessage = (lastData as { message?: string })?.message || `API error: ${lastStatus}`;
+  const errorMessage = (lastData as ApiError)?.message || `API error: ${lastStatus}`;
   throw new Error(errorMessage);
 }
 

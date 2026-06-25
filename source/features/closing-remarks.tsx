@@ -4,19 +4,11 @@ import TagIcon from "octicons-plain-react/Tag";
 
 import "./closing-remarks.css";
 import features from "../feature-manager.js";
+import type { LoadBranchesAndTags, RepositoryTag } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getRepo } from "../forgejo-helpers/index.js";
 import * as pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
-
-type Tag = {
-  name: string;
-  web_link: string;
-};
-
-type ContainedLinks = {
-  tags: Tag[];
-};
 
 function isStableTag(tagName: string): boolean {
   return !tagName.includes("nightly") && /\d[.]\d/.test(tagName);
@@ -36,21 +28,24 @@ function getMergedCommitShaFrom(element: Element): string | undefined {
   return commitLink?.pathname.split("/").pop() ?? undefined;
 }
 
-const findFirstStableTag = mem(async (_owner: string, _repo: string, sha: string): Promise<Tag | undefined> => {
-  const { tags } = await api.fetch(
-    buildRepoUrl("commit", sha, "load-branches-and-tags"),
-  ) as ContainedLinks;
-  for (let index = tags.length - 1; index >= 0; index -= 1) {
-    const tag = tags[index];
-    if (isStableTag(tag.name)) {
-      return tag;
+const findFirstStableTag = mem(
+  async (_owner: string, _repo: string, sha: string): Promise<RepositoryTag | undefined> => {
+    const { tags } = await api.fetch(
+      buildRepoUrl("commit", sha, "load-branches-and-tags"),
+    ) as LoadBranchesAndTags;
+    for (let index = tags.length - 1; index >= 0; index -= 1) {
+      const tag = tags[index];
+      if (isStableTag(tag.name)) {
+        return tag;
+      }
     }
-  }
 
-  return undefined;
-}, {
-  cacheKey: arguments_ => arguments_.join("/"),
-});
+    return undefined;
+  },
+  {
+    cacheKey: arguments_ => arguments_.join("/"),
+  },
+);
 
 async function update(element: Element): Promise<void> {
   const pullDesc = element instanceof HTMLElement

@@ -2,6 +2,7 @@ import React from "dom-chef";
 import EyeClosedIcon from "octicons-plain-react/EyeClosed";
 
 import features from "../feature-manager.js";
+import type { Organization } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getUser } from "../forgejo-helpers/index.js";
 import getLoggedInUser from "../helpers/get-logged-in-user.js";
@@ -17,7 +18,7 @@ async function getPublicOrganizations(username: string): Promise<Set<string>> {
 
   if (!promise) {
     promise = api.v1(`users/${username}/orgs`)
-      .then(response => new Set((response as Array<{ login: string }>).map(organization => organization.login)))
+      .then(response => new Set((response as Organization[]).map(organization => organization.login)))
       .catch(() => new Set<string>());
     publicOrganizationsNames.set(username, promise);
   }

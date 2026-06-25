@@ -1,12 +1,12 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { Repository } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getRepo } from "../forgejo-helpers/index.js";
 import { pageDetect } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-type RepoInfo = { fork: boolean; stars_count: number };
 const deleteRepoSelector = "#delete-repo-modal";
 
 async function shouldShowDeleteFork(): Promise<boolean> {
@@ -15,7 +15,7 @@ async function shouldShowDeleteFork(): Promise<boolean> {
     return false;
   }
 
-  const data = await api.v1(`repos/${repo.owner}/${repo.name}`) as RepoInfo;
+  const data = await api.v1(`repos/${repo.owner}/${repo.name}`) as Repository;
   return data.fork && data.stars_count === 0;
 }
 

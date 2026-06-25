@@ -2,18 +2,13 @@ import React from "dom-chef";
 import mem from "memoize";
 
 import features from "../feature-manager.js";
+import type { PullRequest } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { isPRList } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
+import type { PullRequestLocator } from "../helpers/types.js";
 
-type PullRequest = {
-  additions?: number;
-  deletions?: number;
-  changed_files?: number;
-  changedFiles?: number;
-};
-
-function getPullInfo(row: HTMLElement): { owner: string; repo: string; index: string } | undefined {
+function getPullInfo(row: HTMLElement): PullRequestLocator | undefined {
   const link = row.querySelector<HTMLAnchorElement>(".issue-title[href*='/pulls/']");
   if (!link) {
     return undefined;

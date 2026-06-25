@@ -2,6 +2,7 @@ import delegate, { type DelegateEvent } from "delegate-it";
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { ApiError } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { isPR, isPRFiles } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
@@ -63,7 +64,7 @@ async function handleClick(event: DelegateEvent<MouseEvent, HTMLButtonElement>):
   button.disabled = true;
 
   try {
-    const data = await api.fetch(url, { method: "POST" }) as { redirect?: string };
+    const data = await api.fetch(url, { method: "POST" }) as ApiError;
     if (data?.redirect) {
       location.assign(data.redirect);
       return;

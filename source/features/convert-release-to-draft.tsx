@@ -1,6 +1,7 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { Release } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import { pageDetect } from "../helpers/page-detect.js";
@@ -20,7 +21,7 @@ async function convertToDraft(event: React.MouseEvent): Promise<void> {
     const tag = location.pathname.split("/").pop()!;
 
     // 1. Get the release ID from the tag
-    const release = await api.v1(`repos/${repo.owner}/${repo.name}/releases/tags/${tag}`) as { id: number };
+    const release = await api.v1(`repos/${repo.owner}/${repo.name}/releases/tags/${tag}`) as Release;
 
     // 2. Patch the release to be a draft
     await api.v1(`repos/${repo.owner}/${repo.name}/releases/${release.id}`, {

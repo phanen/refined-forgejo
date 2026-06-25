@@ -1,16 +1,13 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { GitCommit, Repository } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getCurrentBranch, getRepo } from "../forgejo-helpers/index.js";
 import { is404, isConversation, isPRFiles, isRepoTree, isSingleCommit, isSingleFile } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-type RepoDetails = {
-  default_branch?: string;
-};
-
-const repoCache = new Map<string, Promise<RepoDetails | undefined>>();
+const repoCache = new Map<string, Promise<Repository | undefined>>();
 
 function getCurrentFilePath(): string | undefined {
   const repo = getRepo();
@@ -30,7 +27,7 @@ async function getDefaultBranch(owner: string, repo: string): Promise<string | u
   let promise = repoCache.get(key);
   if (!promise) {
     promise = api.v1(`repos/${owner}/${repo}`)
-      .then(data => data as RepoDetails)
+      .then(data => data as Repository)
       .catch(() => undefined);
     repoCache.set(key, promise);
   }
@@ -69,9 +66,7 @@ async function findCommitAtDate(date: string): Promise<string | undefined> {
       query.set("path", path);
     }
 
-    const commits = await api.v1(`repos/${repo.owner}/${repo.name}/commits?${query.toString()}`) as Array<
-      { sha: string; commit: { author: { date: string } } }
-    >;
+    const commits = await api.v1(`repos/${repo.owner}/${repo.name}/commits?${query.toString()}`) as GitCommit[];
     if (!commits.length) {
       return undefined;
     }

@@ -1,24 +1,15 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { Compare, RepositoryBranch } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getRepo } from "../forgejo-helpers/index.js";
 import pageDetect from "../helpers/page-detect.js";
 import { getHeadBranch } from "../helpers/pr-base-commit.js";
 import observe from "../helpers/selector-observer.js";
 
-type BranchInfo = {
-  commit?: {
-    id?: string;
-  };
-};
-
-type CompareInfo = {
-  total_commits?: number;
-};
-
-const branchCache = new Map<string, Promise<BranchInfo | undefined>>();
-const compareCache = new Map<string, Promise<CompareInfo | undefined>>();
+const branchCache = new Map<string, Promise<RepositoryBranch | undefined>>();
+const compareCache = new Map<string, Promise<Compare | undefined>>();
 
 function encodeRef(ref: string): string {
   return ref.split("/").map(segment => encodeURIComponent(segment)).join("/");
@@ -29,7 +20,7 @@ async function getBranchCommit(owner: string, repo: string, branch: string): Pro
   let promise = branchCache.get(key);
   if (!promise) {
     promise = api.v1(`repos/${owner}/${repo}/branches/${encodeRef(branch)}`)
-      .then(data => data as BranchInfo)
+      .then(data => data as RepositoryBranch)
       .catch(() => undefined);
     branchCache.set(key, promise);
   }
@@ -44,7 +35,7 @@ async function getCompareCount(owner: string, repo: string, head: string, base: 
     promise = api.v1(
       `repos/${owner}/${repo}/compare/${encodeRef(head)}...${encodeRef(base)}?files=false&verification=false`,
     )
-      .then(data => data as CompareInfo)
+      .then(data => data as Compare)
       .catch(() => undefined);
     compareCache.set(key, promise);
   }
@@ -66,7 +57,7 @@ async function addInfo(container: Element): Promise<void> {
   }
 
   const [headCommit, baseCommit] = await Promise.all([
-    getBranchCommit(head.owner, head.repo, head.branch),
+    getBranchCommit(head.owner, head.repo, head.ref),
     getBranchCommit(repo.owner, repo.name, baseBranch),
   ]);
 

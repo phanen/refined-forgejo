@@ -1,5 +1,6 @@
 import React from "dom-chef";
 import features from "../feature-manager.js";
+import type { GitCommit } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, getCurrentBranch, getFilePath, getRepo } from "../forgejo-helpers/index.js";
 import pageDetect from "../helpers/page-detect.js";
@@ -45,9 +46,7 @@ async function addPreviousVersionButton(historyButton: Element): Promise<void> {
   const query = new URLSearchParams({ sha: ref, path, limit: "2" });
 
   try {
-    const commits = await api.v1(`repos/${repo.owner}/${repo.name}/commits?${query.toString()}`) as Array<
-      { sha: string }
-    >;
+    const commits = await api.v1(`repos/${repo.owner}/${repo.name}/commits?${query.toString()}`) as GitCommit[];
 
     if (commits && commits.length >= 2) {
       const previousSha = commits[1].sha;

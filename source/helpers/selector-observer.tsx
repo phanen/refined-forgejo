@@ -4,17 +4,12 @@ import domLoaded from "dom-loaded";
 
 import delay from "./delay.js";
 import onetime from "./onetime.js";
+import type { ListenerOptions, ObserverOptions } from "./types.js";
 
 type ObserverListener<ExpectedElement extends Element> = (
   element: ExpectedElement,
-  options: { signal?: AbortSignal },
+  options: ListenerOptions,
 ) => void;
-
-type Options = {
-  once?: boolean;
-  signal?: AbortSignal;
-  ancestor?: number;
-};
 
 const animation = "rgf-selector-observer";
 let observerId = 0;
@@ -31,7 +26,7 @@ function getSeenMark(selector: string): string {
 export default function observe<Selector extends string>(
   selectors: Selector | readonly Selector[],
   listener: ObserverListener<Element>,
-  { signal }: Options = {},
+  { signal }: ObserverOptions = {},
 ): void {
   if (signal?.aborted) {
     return;
@@ -85,7 +80,7 @@ export default function observe<Selector extends string>(
 
 export async function waitForElement<Selector extends string>(
   selectors: Selector,
-  { signal }: Options = {},
+  { signal }: ObserverOptions = {},
 ): Promise<Element | void> {
   return new Promise(resolve => {
     observe(selectors, element => {

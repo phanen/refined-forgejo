@@ -2,23 +2,17 @@ import React from "dom-chef";
 import mem from "memoize";
 
 import features from "../feature-manager.js";
+import type { GitCommit } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import * as pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-type Commit = {
-  stats?: {
-    additions?: number;
-    deletions?: number;
-  };
-};
-
-const getCommit = mem(async (owner: string, repo: string, sha: string): Promise<Commit | undefined> => {
+const getCommit = mem(async (owner: string, repo: string, sha: string): Promise<GitCommit | undefined> => {
   try {
     return await api.v1(
       `repos/${owner}/${repo}/git/commits/${encodeURIComponent(sha)}?files=false&verification=false`,
-    ) as Commit;
+    ) as GitCommit;
   } catch {
     return undefined;
   }

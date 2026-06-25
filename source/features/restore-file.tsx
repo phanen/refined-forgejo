@@ -1,28 +1,14 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { ContentsResponse, PullRequest } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import pageDetect from "../helpers/page-detect.js";
 import { getHeadBranch } from "../helpers/pr-base-commit.js";
 import observe from "../helpers/selector-observer.js";
+import type { RepoRef } from "../helpers/types.js";
 
-type ContentsResponse = {
-  sha: string;
-  content?: string;
-  encoding?: string | null;
-};
-
-type BranchTarget = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-
-type PullRequestInfo = {
-  merge_base?: string;
-};
-
-function getTargetBranch(): BranchTarget | undefined {
+function getTargetBranch(): RepoRef | undefined {
   return getHeadBranch(document);
 }
 
@@ -41,14 +27,14 @@ function getPullIndex(): string | undefined {
   return location.pathname.match(/\/pulls\/(\d+)\/files(?:\/|$)/)?.[1];
 }
 
-const pullCache = new Map<string, Promise<PullRequestInfo | undefined>>();
+const pullCache = new Map<string, Promise<PullRequest | undefined>>();
 
 async function getBeforeCommitId(owner: string, repo: string, index: string): Promise<string | undefined> {
   const key = `${owner}/${repo}/${index}`;
   let promise = pullCache.get(key);
   if (!promise) {
     promise = api.v1(`repos/${owner}/${repo}/pulls/${index}`)
-      .then(data => data as PullRequestInfo)
+      .then(data => data as PullRequest)
       .catch(() => undefined);
     pullCache.set(key, promise);
   }
@@ -90,7 +76,7 @@ async function restoreFile(file: HTMLElement): Promise<void> {
     return;
   }
 
-  const currentFile = await getContents(target.owner, target.repo, info.newPath, target.branch);
+  const currentFile = await getContents(target.owner, target.repo, info.newPath, target.ref);
   if (!currentFile?.sha) {
     return;
   }
@@ -114,7 +100,7 @@ async function restoreFile(file: HTMLElement): Promise<void> {
         method: "DELETE",
         body: {
           ...message,
-          branch: target.branch,
+          branch: target.ref,
           sha: currentFile.sha,
         },
       },
@@ -128,7 +114,7 @@ async function restoreFile(file: HTMLElement): Promise<void> {
         method: "PUT",
         body: {
           ...message,
-          branch: target.branch,
+          branch: target.ref,
           sha: currentFile.sha,
           content: oldFile.content,
           from_path: isRenamed ? info.oldPath : undefined,

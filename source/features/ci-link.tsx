@@ -3,12 +3,14 @@ import "./ci-link.css";
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { ActionRunsResponse } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import { svg } from "../forgejo-helpers/svg.js";
 import { pRace } from "../helpers/p-utils.js";
 import { hasRepoHeader } from "../helpers/page-detect.js";
 import observe, { waitForElement } from "../helpers/selector-observer.js";
+import type { ListenerOptions } from "../helpers/types.js";
 
 type RunStatus = "success" | "failure" | "cancelled" | "running" | "waiting";
 
@@ -27,6 +29,12 @@ const statusConfig: Record<string, { icon: string; color: string }> = {
   "rgf-ci-pending": { icon: "octicon-dot-fill", color: "yellow" },
 };
 
+type CiStatus = {
+  statusClass: string;
+  href: string;
+  icon?: HTMLElement;
+};
+
 function forgejoIcon(statusClass: string): HTMLElement {
   const cfg = statusConfig[statusClass] ?? statusConfig["rgf-ci-pending"];
   const html = svg(cfg.icon, 14);
@@ -37,13 +45,10 @@ function forgejoIcon(statusClass: string): HTMLElement {
   return el;
 }
 
-async function statusFromDOM(repo: { owner: string; name: string }, signal?: AbortSignal): Promise<
-  {
-    statusClass: string;
-    href: string;
-    icon: HTMLElement;
-  } | undefined
-> {
+async function statusFromDOM(
+  repo: { owner: string; name: string },
+  signal?: AbortSignal,
+): Promise<CiStatus | undefined> {
   const el = await waitForElement("#repo-files-table .commit-status.icon", { signal });
 
   if (!el) {
@@ -70,17 +75,15 @@ async function statusFromDOM(repo: { owner: string; name: string }, signal?: Abo
   return { statusClass, href, icon: cloned };
 }
 
-async function statusFromAPI(repo: { owner: string; name: string }, signal?: AbortSignal): Promise<
-  {
-    statusClass: string;
-    href: string;
-  } | undefined
-> {
+async function statusFromAPI(
+  repo: { owner: string; name: string },
+  signal?: AbortSignal,
+): Promise<CiStatus | undefined> {
   try {
     const data = await api.v1(
       `repos/${repo.owner}/${repo.name}/actions/runs?limit=1`,
       { signal },
-    ) as { workflow_runs?: Array<{ status: string; html_url: string }> };
+    ) as ActionRunsResponse;
 
     const run = data?.workflow_runs?.[0];
     const s = run?.status as RunStatus;
@@ -94,7 +97,7 @@ async function statusFromAPI(repo: { owner: string; name: string }, signal?: Abo
   }
 }
 
-async function addLink(titleArea: Element, { signal }: { signal?: AbortSignal }): Promise<void> {
+async function addLink(titleArea: Element, { signal }: ListenerOptions): Promise<void> {
   if (titleArea.querySelector(".rgf-ci-link")) {
     return;
   }
@@ -104,7 +107,7 @@ async function addLink(titleArea: Element, { signal }: { signal?: AbortSignal })
     return;
   }
 
-  let result: { statusClass: string; href: string; icon?: HTMLElement };
+  let result: CiStatus;
   try {
     result = await pRace(
       [

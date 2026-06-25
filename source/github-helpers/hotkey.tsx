@@ -1,13 +1,12 @@
 import React from "dom-chef";
 
+import type { ListenerOptions } from "../helpers/types.js";
 import { isMac } from "./index.js";
-
-type Options = { signal?: AbortSignal };
 
 export function registerHotkey(
   hotkey: string,
   functionOrUrl: VoidFunction | string,
-  { signal }: Options = {},
+  { signal }: ListenerOptions = {},
 ): void {
   const element = typeof functionOrUrl === "string"
     ? <a hidden href={functionOrUrl} data-hotkey={hotkey} />

@@ -5,17 +5,10 @@ import LockIcon from "octicons-plain-react/Lock";
 import StarIcon from "octicons-plain-react/Star";
 
 import features from "../feature-manager.js";
+import type { Repository } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import observe from "../helpers/selector-observer.js";
-
-type RepoInfo = {
-  private: boolean;
-  stars_count: number;
-  forks_count: number;
-  parent?: { full_name: string; html_url: string };
-  owner: { login: string; avatar_url: string };
-};
 
 async function addInfo(leading: Element): Promise<void> {
   const repo = getRepo();
@@ -24,7 +17,7 @@ async function addInfo(leading: Element): Promise<void> {
   }
 
   leading.classList.add("rgf-processed");
-  const data = await api.v1(`repos/${repo.owner}/${repo.name}`) as RepoInfo;
+  const data = await api.v1(`repos/${repo.owner}/${repo.name}`) as Repository;
 
   const svg = leading.querySelector("svg");
   if (svg) {

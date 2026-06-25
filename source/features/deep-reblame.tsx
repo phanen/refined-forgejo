@@ -2,26 +2,10 @@ import delegate, { type DelegateEvent } from "delegate-it";
 import mem from "memoize";
 
 import features from "../feature-manager.js";
+import type { CommitPullRequest, GitCommit, LoadBranchesAndTags } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import pageDetect from "../helpers/page-detect.js";
-
-type PullRequestInfo = {
-  number?: number;
-};
-
-type CommitInfo = {
-  sha?: string;
-};
-
-type BranchInfo = {
-  name?: string;
-};
-
-type BranchesAndTagsInfo = {
-  default_branch?: string;
-  branches?: BranchInfo[];
-};
 
 function extractCommitSha(commitLink: HTMLAnchorElement | null | undefined): string | undefined {
   const pathname = commitLink?.pathname;
@@ -53,12 +37,12 @@ const getDeepReblameTarget = mem(
       const pullRequest = await api.v1(
         `repos/${owner}/${name}/commits/${encodeURIComponent(commitSha)}/pull`,
         { ignoreHttpStatus: true },
-      ) as PullRequestInfo;
+      ) as CommitPullRequest;
 
       if (pullRequest.number) {
         const commits = await api.v1(
           `repos/${owner}/${name}/pulls/${pullRequest.number}/commits?files=false&verification=false`,
-        ) as CommitInfo[];
+        ) as GitCommit[];
 
         return commits[0]?.sha;
       }
@@ -69,7 +53,7 @@ const getDeepReblameTarget = mem(
     try {
       const branchesAndTags = await api.v1(
         `/${owner}/${name}/commit/${encodeURIComponent(commitSha)}/load-branches-and-tags`,
-      ) as BranchesAndTagsInfo;
+      ) as LoadBranchesAndTags;
 
       const branchNames = [
         ...new Set(
@@ -101,7 +85,7 @@ const getDeepReblameTarget = mem(
 
         const commits = await api.v1(
           `repos/${owner}/${name}/pulls/${pullNumber}/commits?files=false&verification=false`,
-        ) as CommitInfo[];
+        ) as GitCommit[];
 
         if (commits.some(commit => commit.sha === commitSha)) {
           return commits[0]?.sha;

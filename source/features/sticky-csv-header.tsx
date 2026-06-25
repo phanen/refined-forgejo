@@ -3,8 +3,9 @@ import "./sticky-csv-header.css";
 import features from "../feature-manager.js";
 import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
+import type { ListenerOptions } from "../helpers/types.js";
 
-function addStickyHeader(scrollContainer: Element, { signal }: { signal?: AbortSignal }): void {
+function addStickyHeader(scrollContainer: Element, { signal }: ListenerOptions): void {
   if (
     !(scrollContainer instanceof HTMLElement)
     || scrollContainer.previousElementSibling?.classList.contains("rgf-sticky-csv-header")

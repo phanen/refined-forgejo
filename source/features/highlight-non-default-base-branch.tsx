@@ -1,13 +1,12 @@
 import "./highlight-non-default-base-branch.css";
 
 import features from "../feature-manager.js";
+import type { Repository, RepositoryBranch } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { isIssueOrPRList } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
-type RepoInfo = { default_branch: string };
-
-const repoCache = new Map<string, Promise<RepoInfo | undefined>>();
+const repoCache = new Map<string, Promise<Repository | undefined>>();
 const branchExistsCache = new Map<string, Promise<boolean>>();
 
 function parseBranchLink(link: HTMLAnchorElement): { owner: string; repo: string; branch: string } | undefined {
@@ -28,7 +27,7 @@ async function getDefaultBranch(owner: string, repo: string): Promise<string | u
   let promise = repoCache.get(key);
   if (!promise) {
     promise = api.v1(`repos/${owner}/${repo}`)
-      .then(data => data as RepoInfo)
+      .then(data => data as Repository)
       .catch(() => undefined);
     repoCache.set(key, promise);
   }
@@ -40,7 +39,7 @@ async function branchExists(owner: string, repo: string, branch: string): Promis
   let promise = branchExistsCache.get(key);
   if (!promise) {
     promise = api.v1(`repos/${owner}/${repo}/branches/${encodeURIComponent(branch)}`, { ignoreHttpStatus: true })
-      .then(data => !!(data as { name?: string }).name)
+      .then(data => !!(data as RepositoryBranch).name)
       .catch(() => false);
     branchExistsCache.set(key, promise);
   }

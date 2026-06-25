@@ -6,8 +6,9 @@ import features from "../feature-manager.js";
 import getAvatarUrl from "../forgejo-helpers/get-avatar-url.js";
 import { isIssueOrPR } from "../helpers/page-detect";
 import observe from "../helpers/selector-observer.js";
+import type { ListenerOptions } from "../helpers/types.js";
 
-async function addAvatar(header: Element, { signal }: { signal?: AbortSignal }): Promise<void> {
+async function addAvatar(header: Element, { signal }: ListenerOptions): Promise<void> {
   const authorLink = header.querySelector<HTMLAnchorElement>("a.author");
   if (!authorLink || authorLink.querySelector(".rgf-sticky-avatar")) {
     return;

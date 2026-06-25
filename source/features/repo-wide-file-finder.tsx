@@ -5,6 +5,11 @@ import { executeInMainWorld } from "../helpers/main-world.js";
 import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
+type BranchDropdownEntry = {
+  branchNameSubURL?: string;
+  refName?: string;
+};
+
 function normalizeRef(ref: string | undefined): string | undefined {
   if (!ref) {
     return undefined;
@@ -27,10 +32,7 @@ async function getRef(): Promise<string | undefined> {
     (window as Window & {
       config?: {
         pageData?: {
-          branchDropdownDataList?: Array<{
-            branchNameSubURL?: string;
-            refName?: string;
-          }>;
+          branchDropdownDataList?: BranchDropdownEntry[];
         };
       };
     }).config?.pageData?.branchDropdownDataList

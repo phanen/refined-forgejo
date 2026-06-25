@@ -1,14 +1,12 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { Repository } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import { svg } from "../forgejo-helpers/svg.js";
 import observe from "../helpers/selector-observer.js";
-
-type RepoInfo = {
-  created_at: string;
-};
+import type { ListenerOptions } from "../helpers/types.js";
 
 const clockSvg = (() => {
   const html = svg("octicon-clock", 16);
@@ -50,7 +48,7 @@ gridStyle.textContent = `
 }
 `;
 
-async function addAge(menu: Element, { signal }: { signal?: AbortSignal }): Promise<void> {
+async function addAge(menu: Element, { signal }: ListenerOptions): Promise<void> {
   if (menu.querySelector(".rgf-repo-age-item")) {
     return;
   }
@@ -60,9 +58,9 @@ async function addAge(menu: Element, { signal }: { signal?: AbortSignal }): Prom
     return;
   }
 
-  let data: RepoInfo;
+  let data: Repository;
   try {
-    data = await api.v1(`repos/${repo.owner}/${repo.name}`) as RepoInfo;
+    data = await api.v1(`repos/${repo.owner}/${repo.name}`) as Repository;
   } catch {
     return;
   }

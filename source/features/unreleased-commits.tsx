@@ -6,17 +6,11 @@ import compareVersions from "tiny-version-compare";
 import { CachedFunction } from "webext-storage-cache";
 
 import features from "../feature-manager.js";
+import type { Compare, Repository, RepositoryTag } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { buildRepoUrl, cacheByRepo, getRepo } from "../forgejo-helpers/index.js";
 import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
-
-type RepoTag = {
-  name: string;
-  commit: {
-    id: string;
-  };
-};
 
 type RepoState = {
   latestTag: string | false;
@@ -58,9 +52,9 @@ const repoState = new CachedFunction("tag-ahead-by", {
       return { latestTag: false, aheadBy: 0, defaultBranch: "main" };
     }
 
-    const repoInfo = await api.v1(`repos/${repo.owner}/${repo.name}`) as { default_branch?: string };
+    const repoInfo = await api.v1(`repos/${repo.owner}/${repo.name}`) as Repository;
     const defaultBranch = repoInfo.default_branch || "main";
-    const tags = (await api.v1(`repos/${repo.owner}/${repo.name}/tags?limit=20`) as RepoTag[]) ?? [];
+    const tags = (await api.v1(`repos/${repo.owner}/${repo.name}/tags?limit=20`) as RepositoryTag[]) ?? [];
     if (tags.length === 0) {
       return { latestTag: false, aheadBy: 0, defaultBranch };
     }
@@ -74,7 +68,7 @@ const repoState = new CachedFunction("tag-ahead-by", {
 
     const compare = await api.v1(
       `repos/${repo.owner}/${repo.name}/compare/${encodeRef(latestTag)}...${encodeRef(defaultBranch)}`,
-    ) as { total_commits?: number };
+    ) as Compare;
 
     return {
       latestTag,

@@ -1,10 +1,6 @@
-type ParsedBranch = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
+import type { RepoRef } from "./types.js";
 
-function parseBranchPath(pathname: string | undefined): ParsedBranch | undefined {
+function parseBranchPath(pathname: string | undefined): RepoRef | undefined {
   if (!pathname) {
     return undefined;
   }
@@ -17,11 +13,11 @@ function parseBranchPath(pathname: string | undefined): ParsedBranch | undefined
   return {
     owner: match[1],
     repo: match[2],
-    branch: decodeURIComponent(match[3]),
+    ref: decodeURIComponent(match[3]),
   };
 }
 
-function parseBranchHref(href: string | null | undefined): ParsedBranch | undefined {
+function parseBranchHref(href: string | null | undefined): RepoRef | undefined {
   if (!href) {
     return undefined;
   }
@@ -29,12 +25,12 @@ function parseBranchHref(href: string | null | undefined): ParsedBranch | undefi
   return parseBranchPath(href.startsWith("/") ? href : new URL(href, location.origin).pathname);
 }
 
-function parseBranchFromCode(code: HTMLElement): ParsedBranch | undefined {
+function parseBranchFromCode(code: HTMLElement): RepoRef | undefined {
   const link = code.querySelector<HTMLAnchorElement>("a[href*='/src/branch/'], a[href*='/src/tag/'], a[href]");
   return parseBranchHref(link?.getAttribute("href"));
 }
 
-export function getHeadBranch(container: ParentNode = document): ParsedBranch | undefined {
+export function getHeadBranch(container: ParentNode = document): RepoRef | undefined {
   const codes = container.querySelectorAll<HTMLElement>("#pull-desc-display code, .issue-title-meta .pull-desc code");
   const headCode = [...codes].find(code => code.id !== "branch_target") ?? codes[0];
 

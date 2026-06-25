@@ -1,22 +1,14 @@
 import React from "dom-chef";
 
 import features from "../feature-manager.js";
+import type { Repository } from "../forgejo-helpers/api-types.js";
 import api from "../forgejo-helpers/api.js";
 import { getRepo } from "../forgejo-helpers/index.js";
 import { isCompare } from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
+import type { RepoRef } from "../helpers/types.js";
 
-type RepoDetails = {
-  default_branch?: string;
-};
-
-type CompareRef = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-
-function parseCompareUrl(): CompareRef | undefined {
+function parseCompareUrl(): RepoRef | undefined {
   const repo = getRepo();
   if (!repo || !repo.path.startsWith("compare/")) {
     return undefined;
@@ -34,12 +26,12 @@ function parseCompareUrl(): CompareRef | undefined {
     return {
       owner: repo.owner,
       repo: repo.name,
-      branch: decodeURIComponent(right),
+      ref: decodeURIComponent(right),
     };
   }
 
   const headRepo = right.slice(0, colonIndex);
-  const branch = decodeURIComponent(right.slice(colonIndex + 1));
+  const ref = decodeURIComponent(right.slice(colonIndex + 1));
   const [owner, repoName] = headRepo.split("/", 2);
   if (!owner || !repoName) {
     return undefined;
@@ -48,7 +40,7 @@ function parseCompareUrl(): CompareRef | undefined {
   return {
     owner: decodeURIComponent(owner),
     repo: decodeURIComponent(repoName),
-    branch,
+    ref,
   };
 }
 
@@ -59,8 +51,8 @@ async function shouldWarn(): Promise<boolean> {
   }
 
   try {
-    const repoDetails = await api.v1(`repos/${compare.owner}/${compare.repo}`) as RepoDetails;
-    return repoDetails.default_branch === compare.branch;
+    const repoDetails = await api.v1(`repos/${compare.owner}/${compare.repo}`) as Repository;
+    return repoDetails.default_branch === compare.ref;
   } catch {
     return false;
   }

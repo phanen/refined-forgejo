@@ -1,5 +1,8 @@
 import { executeInMainWorld } from "../helpers/main-world.js";
+import type { User } from "./api-types.js";
 import api from "./api.js";
+
+type MentionValue = { name: string; avatar: string };
 
 const avatarCache = new Map<string, string>();
 let fetched = false;
@@ -13,7 +16,7 @@ async function fetchMentionValues(): Promise<void> {
   fetchPromise = (async () => {
     try {
       const mentions = await executeInMainWorld(() => (window as any).config?.mentionValues) as
-        | Array<{ name: string; avatar: string }>
+        | MentionValue[]
         | undefined;
       if (mentions) {
         for (const mention of mentions) {
@@ -66,7 +69,7 @@ export default async function getAvatarUrl(username: string): Promise<string | u
 
   // 4. Fallback to API
   try {
-    const data = (await api.v1(`users/${username}`)) as { avatar_url: string };
+    const data = (await api.v1(`users/${username}`)) as User;
     const url = data.avatar_url;
 
     if (url) {
