@@ -10,8 +10,10 @@ function manageSplitDiffState(tableBody: HTMLTableSectionElement): void {
     return;
   }
 
-  const hasDeletions = !!tableBody.querySelector("tr.del-code");
-  const hasAdditions = !!tableBody.querySelector("tr.add-code");
+  // A matched del/add pair shares one <tr class="del-code">; the right-side <td>s carry .add-code.
+  // Probe columns directly so +1/-1 on the same line isn't misread as "only deletions".
+  const hasDeletions = !!tableBody.querySelector("td.lines-code-old.del-code");
+  const hasAdditions = !!tableBody.querySelector("td.lines-code-new.add-code");
 
   container.classList.toggle("rgf-no-unnecessary-split-diff-view", hasDeletions !== hasAdditions);
   container.classList.toggle("rgf-only-additions", hasAdditions && !hasDeletions);
