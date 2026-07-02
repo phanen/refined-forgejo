@@ -29,11 +29,16 @@ jobs:
         run: pnpm build
       - name: Create tag if necessary
         uses: fregante/daily-version-action@v2
-      - name: Update manifest.json with version ${{ env.DAILY_VERSION }}
-        if: env.DAILY_VERSION_CREATED
-        run: npx dot-json@1 "$DIRECTORY/manifest.json" version "$DAILY_VERSION"
+      - name: Update manifest.json with version
+        run: |
+          if [ -n "$DAILY_VERSION" ]; then
+            VERSION="$DAILY_VERSION"
+          else
+            git fetch --depth=1 origin 'refs/tags/*:refs/tags/*' || true
+            VERSION=$(git describe --tags --abbrev=0)
+          fi
+          npx dot-json@1 "$DIRECTORY/manifest.json" version "$VERSION"
       - name: Ready for "submit" jobs
-        if: env.DAILY_VERSION_CREATED
         uses: actions/upload-artifact@v7
         with:
           path: ${{ env.DIRECTORY }}
@@ -63,7 +68,6 @@ jobs:
   #         REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
 
   Firefox:
-    if: needs.Version.outputs.created
     needs: Version
     name: Submit (Firefox)
     environment: Firefox
