@@ -5,16 +5,6 @@ import pageDetect from "../helpers/page-detect.js";
 import observe from "../helpers/selector-observer.js";
 
 const month = 30 * 24 * 60 * 60 * 1000;
-const heatColor = [194, 78, 0]; // #c24e00 orange
-
-function lerpColor(ratio: number): string {
-  // Mix heatColor (ratio) toward gray (1 - ratio)
-  const gray = 120; // approximate mid-gray
-  const r = Math.round(heatColor[0] * ratio + gray * (1 - ratio));
-  const g = Math.round(heatColor[1] * ratio + gray * (1 - ratio));
-  const b = Math.round(heatColor[2] * ratio + gray * (1 - ratio));
-  return `rgb(${r}, ${g}, ${b})`;
-}
 
 function addHeatIndex(ageCell: Element): void {
   const cell = ageCell as HTMLElement;
@@ -42,8 +32,7 @@ function addHeatIndex(ageCell: Element): void {
   const steps = 10;
   const interp = Math.max(0, Math.min(1, value / -2_000_000_000));
   const heatIndex = Math.max(1, steps - Math.floor(interp * steps));
-  const ratio = heatIndex / steps; // 1.0 (hottest) to 0.1 (coolest)
-  cell.style.color = lerpColor(ratio);
+  cell.setAttribute("data-rgf-heat", String(heatIndex));
 }
 
 function init(signal: AbortSignal): void {
