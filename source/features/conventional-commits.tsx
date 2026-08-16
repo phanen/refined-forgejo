@@ -28,7 +28,7 @@ function renderLabelInCommitTitle(commitTitleElement: Element): void {
 
   link.textContent = text.replace(conventionalCommitRegex, "");
   link.prepend(
-    <span className="ui label rgf-conventional-commit" rgf-conventional-commits={commit.rawType}>
+    <span className="ui label rgf-conventional-commit" rgf-conventional-commits={commit.rawType.toLowerCase()}>
       {commit.type}
     </span>,
     commit.scope ? <span className="text grey">{commit.scope}</span> : "",
