@@ -1,2 +1,4 @@
 node_modules/
 distribution/
+distribution-chromium/
+source/feature-data.ts

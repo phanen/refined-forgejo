@@ -6,9 +6,11 @@
   "description": "Simplifies the Forgejo interface and adds useful features",
   "scripts": {
     "vitest": "NODE_NO_WARNINGS=1 vitest --run",
+    "test:chromium": "node scripts/test-chromium.mjs",
     "build": "node build/readme-parser.ts && run-p build:* --continue-on-error",
     "build:typescript": "tsc --noEmit",
     "build:bundle": "rollup -c",
+    "build:chromium": "rollup -c --configBrowser chromium",
     "fix": "run-p format \"lint:biome -- --write\" \"lint:eslint -- --fix\" --continue-on-error",
     "format": "dprint fmt",
     "format:check": "dprint check",

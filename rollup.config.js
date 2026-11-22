@@ -11,6 +11,7 @@ import del from "rollup-plugin-delete";
 import { string } from "rollup-plugin-string";
 import styles from "rollup-plugin-styles";
 import lightning from "unplugin-lightningcss/rollup";
+import { createManifest } from "./build/manifest.ts";
 
 const noise = new Set([
   "index",
@@ -25,77 +26,85 @@ const noise = new Set([
   "build",
 ]);
 
-const rollup = {
-  input: {
-    options: "./source/options.tsx",
-    background: "./source/background.ts",
-    "refined-forgejo": "./source/refined-forgejo.ts",
-    "content-script": "./source/content-script.ts",
-  },
-  output: {
-    dir: "distribution/assets",
-    preserveModules: true,
-    preserveModulesRoot: "source",
-    assetFileNames: "[name][extname]",
-    entryFileNames(chunkInfo) {
-      if (chunkInfo.name.includes("node_modules")) {
-        const cleanName = chunkInfo.name
-          .split("/")
-          .filter(part => !noise.has(part))
-          .map(part => part.replace(/^\./, ""))
-          .join("-");
-        return `npm/${cleanName}.js`;
-      }
-      return chunkInfo.name + ".js";
-    },
-  },
-  watch: {
-    clearScreen: false,
-  },
-  context: "globalThis",
-  plugins: [
-    del({
-      targets: ["distribution/assets"],
-      runOnce: true,
-    }),
-    lightning({
-      options: {
-        include: Features.Nesting,
-        targets: browserslistToTargets(browserslist("chrome 123, firefox 126, iOS 17.5")),
-      },
-    }),
-    json(),
-    styles({
-      mode: "extract",
-      url: false,
-    }),
-    alias({
-      entries: [
-        { find: "react", replacement: "dom-chef" },
-      ],
-    }),
-    sucrase({
-      transforms: ["typescript", "jsx"],
-      // jsxPragma: "h",
-      // jsxFragmentPragma: "Fragment",
-      disableESTransforms: true,
-      production: true,
-    }),
-    resolve({ browser: true }),
-    commonjs(),
-    copy({
-      targets: [
-        { src: "./source/manifest.json", dest: "distribution" },
-        { src: "./source/*.html", dest: "distribution" },
-        { src: "./source/*.png", dest: "distribution/assets" },
-        { src: "./source/options.css", dest: "distribution/assets" },
-      ],
-    }),
-    cleanup(),
-    string({
-      include: "**/*.svg",
-    }),
-  ],
-};
+export default function config(commandLineArgs) {
+  const browser = commandLineArgs.configBrowser ?? "firefox";
+  const directory = browser === "chromium" ? "distribution-chromium" : "distribution";
+  const manifest = createManifest(browser);
 
-export default rollup;
+  return {
+    input: {
+      options: "./source/options.tsx",
+      background: "./source/background.ts",
+      "refined-forgejo": "./source/refined-forgejo.ts",
+      "content-script": "./source/content-script.ts",
+    },
+    output: {
+      dir: `${directory}/assets`,
+      preserveModules: true,
+      preserveModulesRoot: "source",
+      assetFileNames: "[name][extname]",
+      entryFileNames(chunkInfo) {
+        if (chunkInfo.name.includes("node_modules")) {
+          const cleanName = chunkInfo.name
+            .split("/")
+            .filter(part => !noise.has(part))
+            .map(part => part.replace(/^\./, ""))
+            .join("-");
+          return `npm/${cleanName}.js`;
+        }
+        return `${chunkInfo.name}.js`;
+      },
+    },
+    watch: {
+      clearScreen: false,
+    },
+    context: "globalThis",
+    plugins: [
+      del({
+        targets: [directory],
+        runOnce: true,
+      }),
+      lightning({
+        options: {
+          include: Features.Nesting,
+          targets: browserslistToTargets(browserslist("chrome 123, firefox 126, iOS 17.5")),
+        },
+      }),
+      json(),
+      styles({
+        mode: "extract",
+        url: false,
+      }),
+      alias({
+        entries: [
+          { find: "react", replacement: "dom-chef" },
+        ],
+      }),
+      sucrase({
+        transforms: ["typescript", "jsx"],
+        // jsxPragma: "h",
+        // jsxFragmentPragma: "Fragment",
+        disableESTransforms: true,
+        production: true,
+      }),
+      resolve({ browser: true }),
+      commonjs(),
+      copy({
+        targets: [
+          {
+            src: "./source/manifest.json",
+            dest: directory,
+            transform: () => `${JSON.stringify(manifest, null, 2)}\n`,
+          },
+          { src: "./source/*.html", dest: directory },
+          { src: "./source/*.png", dest: `${directory}/assets` },
+          { src: "./source/options.css", dest: `${directory}/assets` },
+        ],
+      }),
+      cleanup(),
+      string({
+        include: "**/*.svg",
+      }),
+    ],
+  };
+}
