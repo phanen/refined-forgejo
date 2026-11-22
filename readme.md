@@ -4,6 +4,37 @@
 
 Ported from [Refined GitHub](https://github.com/refined-github/refined-github), adapted for Codeberg/Forgejo.
 
+## Installation
+
+Use Node.js 22 and pnpm 10. Run `pnpm install --frozen-lockfile` and `pnpm build`
+to generate both browser packages.
+Local builds use the latest reachable Git tag as their version, falling back to
+the source manifest version when Git metadata is unavailable.
+
+### Chromium (Chrome, Edge, Brave, and compatible browsers)
+
+Open `chrome://extensions` (or your browser's extensions page), enable **Developer
+mode**, choose **Load unpacked**, and select the `distribution-chromium` directory.
+The package uses Manifest V3 with a module service worker and requires Chromium 123
+or later. Chrome Web Store publication is not configured.
+
+### Firefox
+
+Open `about:debugging#/runtime/this-firefox`, choose **Load Temporary Add-on**, and
+select `distribution/manifest.json`. Temporary add-ons are removed when Firefox
+restarts; permanent installation requires a signed package. Firefox 142 or later
+is required.
+
+After installation, open the extension options, add your Forgejo instance, and
+grant access to that site. Reload already open Forgejo tabs after granting access.
+
+For development, `pnpm watch` builds Firefox; `pnpm watch --configBrowser chromium`
+builds Chromium. Release workflow artifacts contain separate browser packages.
+
+To smoke-test the Chromium package after building, run
+`pnpm exec playwright install chromium` and `pnpm test:chromium`. This checks the
+module service worker, options page, and first-run storage in a real browser.
+
 ## Legend
 
 - [x] Ported

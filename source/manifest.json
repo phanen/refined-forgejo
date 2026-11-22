@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/chrome-manifest",
   "name": "Refined Forgejo",
-  "version": "0.0.0",
+  "version": "26.8.16",
   "description": "Simplifies the Forgejo interface and adds useful features",
   "homepage_url": "https://github.com/phanen/refined-forgejo",
   "manifest_version": 3,

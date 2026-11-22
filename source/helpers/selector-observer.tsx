@@ -1,8 +1,5 @@
 import { css } from "code-tag";
 import React from "dom-chef";
-import domLoaded from "dom-loaded";
-
-import delay from "./delay.js";
 import onetime from "./onetime.js";
 import type { ListenerOptions, ObserverOptions } from "./types.js";
 
@@ -49,18 +46,6 @@ export default function observe<Selector extends string>(
     rule.remove();
   });
 
-  let called = false;
-
-  async function checkLogging(): Promise<void> {
-    await domLoaded;
-    await delay(1000);
-    if (!called && !signal?.aborted) {
-      console.warn("Selector not found on page:", selector);
-    }
-  }
-
-  void checkLogging();
-
   globalThis.addEventListener("animationstart", (event: AnimationEvent) => {
     if (event.animationName !== animation) {
       return;
@@ -71,7 +56,6 @@ export default function observe<Selector extends string>(
       return;
     }
 
-    called = true;
     target.classList.add(seenMark);
 
     listener(target, { signal });
